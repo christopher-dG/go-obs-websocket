@@ -1,5 +1,6 @@
-
 # go-obs-websocket
+
+[![Build Status](https://travis-ci.com/christopher-dG/go-obs-websocket.svg?branch=master)](https://travis-ci.com/christopher-dG/go-obs-websocket)
 
 `go-obs-websocket` is a package for interacting with [`obs-websocket`](https://github.com/Palakis/obs-websocket).
 
@@ -12,9 +13,19 @@ go get github.com/christopher-dG/go-obs-websocket
 ## Usage
 
 ```go
-import obs "github.com/christopher-dG/go-obs-websocket"
+package main
 
-client := obs.NewClientClient("localhost", 4444, "")
+import (
+    "log"
+
+    obs "github.com/christopher-dG/go-obs-websocket"
+)
+
+client := obs.NewClient("localhost", 4444, "")
+if err := client.Connect(); err != nil {
+    log.Fatal(err)
+}
+defer client.Close()
 
 // TODO
 ```

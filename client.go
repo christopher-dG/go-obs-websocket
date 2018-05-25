@@ -1,31 +1,19 @@
 package obsws
 
-// Client is the interface to OBS's websockets.
-type Client struct {
-	host     string
-	port     int
-	password string
+import "github.com/gorilla/websocket"
+
+// client is the interface to obs-websocket.
+type client struct {
+	Host     string // Host (probably "localhost").
+	Port     int    // Port (OBS default is 4444).
+	Password string // Password (OBS default is "").
+	conn     *websocket.Conn
+	id       int
 }
 
-// NewClient creates a new Client. If you haven't configured obs-websocket at
+// NewClient creates a new client. If you haven't configured obs-websocket at
 // all, then host should be "localhost", port should be 4444, and password
 // should be "".
-func NewClient(host string, port int, password string) *Client {
-	return &Client{host: host, port: port, password: password}
-}
-
-// Host returns the Client's host.
-func (c *Client) Host() string {
-	return c.host
-}
-
-// Port returns the Client's port.
-func (c *Client) Port() int {
-	return c.port
-
-}
-
-// Password returns the Client's password.
-func (c *Client) Password() string {
-	return c.password
+func NewClient(host string, port int, password string) *client {
+	return &client{Host: host, Port: port, Password: password}
 }
