@@ -13,36 +13,18 @@ import (
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
 
-type getAuthRequiredRequest struct {
-	MessageID   string `json:"message-id"`
-	RequestType string `json:"request-type"`
-}
-
-func (r *getAuthRequiredRequest) ID() string {
-	return r.MessageID
-}
+type getAuthRequiredRequest request
 
 type getAuthRequiredResponse struct {
-	MessageID    string `json:"message-id"`
-	Status       string `json:"status"`
-	Error        string `json:"error"`
 	AuthRequired bool   `json:"authRequired"`
 	Challenge    string `json:"challenge"`
 	Salt         string `json:"salt"`
-}
-
-func (r *getAuthRequiredResponse) ID() string {
-	return r.MessageID
+	response
 }
 
 type authenticateRequest struct {
-	MessageID   string `json:"message-id"`
-	RequestType string `json:"request-type"`
-	Auth        string `json:"auth"`
-}
-
-func (r *authenticateRequest) ID() string {
-	return r.MessageID
+	Auth string `json:"auth"`
+	request
 }
 
 // Connect makes a WebSocket connection and authenticates if necessary.
@@ -76,9 +58,11 @@ func (c *client) Connect() error {
 	logger.Debugf("auth: %s", auth)
 
 	reqA := authenticateRequest{
-		MessageID:   c.getMessageID(),
-		RequestType: "Authenticate",
-		Auth:        auth,
+		Auth: auth,
+		request: request{
+			MessageID:   c.getMessageID(),
+			RequestType: "Authenticate",
+		},
 	}
 	if err = c.conn.WriteJSON(reqA); err != nil {
 		return errors.Wrap(err, "write Authenticate")
