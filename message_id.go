@@ -7,6 +7,6 @@ func (c *client) getMessageID() string {
 	return strconv.Itoa(c.id)
 }
 
-func (c *client) validateMessageID(req, resp reqOrResp) bool {
-	return req.ID() == resp.ID()
+func (c *client) validateMessageID(x, y message) bool {
+	return x.ID() == y.ID()
 }
