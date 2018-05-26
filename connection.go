@@ -13,20 +13,6 @@ import (
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
 
-type getAuthRequiredRequest request
-
-type getAuthRequiredResponse struct {
-	AuthRequired bool   `json:"authRequired"`
-	Challenge    string `json:"challenge"`
-	Salt         string `json:"salt"`
-	response
-}
-
-type authenticateRequest struct {
-	Auth string `json:"auth"`
-	request
-}
-
 // Connect makes a WebSocket connection and authenticates if necessary.
 func (c *client) Connect() error {
 	conn, err := connect(c.Host, c.Port)
