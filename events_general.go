@@ -6,17 +6,39 @@ package obsws
 // HeartbeatEvent : Emitted every 2 seconds after enabling it by calling SetHeartbeat.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#heartbeat
 type HeartbeatEvent struct {
-	Pulse             bool   `json:"pulse"`               // Toggles between every JSON meassage as an "I am alive" indicator.
-	CurrentProfile    string `json:"current-profile"`     // Current active profile. Optional.
-	CurrentScene      string `json:"current-scene"`       // Current active scene. Optional.
-	Streaming         bool   `json:"streaming"`           // Current streaming state. Optional.
-	TotalStreamTime   int    `json:"total-stream-time"`   // Total time (in seconds) since the stream started. Optional.
-	TotalStreamBytes  int    `json:"total-stream-bytes"`  // Total bytes sent since the stream started. Optional.
-	TotalStreamFrames int    `json:"total-stream-frames"` // Total frames streamed since the stream started. Optional.
-	Recording         bool   `json:"recording"`           // Current recording state. Optional.
-	TotalRecordTime   int    `json:"total-record-time"`   // Total time (in seconds) since recording started. Optional.
-	TotalRecordBytes  int    `json:"total-record-bytes"`  // Total bytes recorded since the recording started. Optional.
-	TotalRecordFrames int    `json:"total-record-frames"` // Total frames recorded since the recording started. Optional.
+	// Toggles between every JSON meassage as an "I am alive" indicator.
+	// Required: Yes.
+	Pulse bool `json:"pulse"`
+	// Current active profile.
+	// Required: No.
+	CurrentProfile string `json:"current-profile"`
+	// Current active scene.
+	// Required: No.
+	CurrentScene string `json:"current-scene"`
+	// Current streaming state.
+	// Required: No.
+	Streaming bool `json:"streaming"`
+	// Total time (in seconds) since the stream started.
+	// Required: No.
+	TotalStreamTime int `json:"total-stream-time"`
+	// Total bytes sent since the stream started.
+	// Required: No.
+	TotalStreamBytes int `json:"total-stream-bytes"`
+	// Total frames streamed since the stream started.
+	// Required: No.
+	TotalStreamFrames int `json:"total-stream-frames"`
+	// Current recording state.
+	// Required: No.
+	Recording bool `json:"recording"`
+	// Total time (in seconds) since recording started.
+	// Required: No.
+	TotalRecordTime int `json:"total-record-time"`
+	// Total bytes recorded since the recording started.
+	// Required: No.
+	TotalRecordBytes int `json:"total-record-bytes"`
+	// Total frames recorded since the recording started.
+	// Required: No.
+	TotalRecordFrames int `json:"total-record-frames"`
 	_event
 }
 
