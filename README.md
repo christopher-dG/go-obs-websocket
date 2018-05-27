@@ -21,11 +21,11 @@ import (
     obs "github.com/christopher-dG/go-obs-websocket"
 )
 
-client := obs.NewClient("localhost", 4444, "")
+client := obs.Client{Host: "localhost", Port: 4444}
 if err := client.Connect(); err != nil {
     log.Fatal(err)
 }
-defer client.Close()
+defer client.Disconnect()
 
 // TODO
 ```

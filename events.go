@@ -12,3 +12,9 @@ type _event struct {
 	StreamTimecode string `json:"stream-timecode"`
 	RecTimecode    string `json:"rec-timecode"`
 }
+
+func (e _event) Type() string { return e.UpdateType }
+
+func (e _event) StreamTC() string { return e.StreamTimecode }
+
+func (e _event) RecTC() string { return e.RecTimecode }
