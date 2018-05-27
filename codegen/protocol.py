@@ -248,7 +248,7 @@ def go_var(s: str) -> str:
             i = s.find(sep)
             s = f"{s[:i]}{s[i+_len].upper()}{s[i+_len+1:]}"
 
-    return s.replace("Id", "ID")  # Yuck.
+    return s.replace("Id", "ID").replace("Obs", "OBS")  # Yuck.
 
 
 def go_filename(category, section):

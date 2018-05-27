@@ -17,8 +17,8 @@ func (r GetVersionRequest) Type() string { return r.RequestType }
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
 type GetVersionResponse struct {
 	Version             float64 `json:"version"`               // OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
-	ObsWebsocketVersion string  `json:"obs-websocket-version"` // obs-websocket plugin version.
-	ObsStudioVersion    string  `json:"obs-studio-version"`    // OBS Studio program version.
+	OBSWebsocketVersion string  `json:"obs-websocket-version"` // obs-websocket plugin version.
+	OBSStudioVersion    string  `json:"obs-studio-version"`    // OBS Studio program version.
 	AvailableRequests   string  `json:"available-requests"`    // List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	_response
 }
