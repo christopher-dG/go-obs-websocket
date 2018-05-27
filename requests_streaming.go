@@ -116,7 +116,7 @@ func (r StopStreamingResponse) Err() string { return r.Error }
 // SetStreamSettingsRequest : Sets one or more attributes of the current streaming server settings. Any options not passed will remain unchanged. Returns the updated settings in response. If 'type' is different than the current streaming service type, all settings are required. Returns the full settings of the stream (the same as GetStreamSettings). Since: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setstreamsettings
 type SetStreamSettingsRequest struct {
-	Type             string                 `json:"type"`              // The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`. TODO: Reserved name.
+	SettingsType     string                 `json:"type"`              // The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	Settings         map[string]interface{} `json:"settings"`          // The actual settings of the stream.
 	SettingsServer   string                 `json:"settings.server"`   // The publish URL. Optional.
 	SettingsKey      string                 `json:"settings.key"`      // The publish key. Optional.

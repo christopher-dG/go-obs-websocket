@@ -68,8 +68,8 @@ func (r ListSceneCollectionsRequest) Type() string { return r.RequestType }
 // ListSceneCollectionsResponse : Response for ListSceneCollectionsRequest. Since: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listscenecollections
 type ListSceneCollectionsResponse struct {
-	SceneCollections interface{} `json:"scene-collections"`    // Scene collections list. TODO: Unknown type (Object|Array).
-	SceneCollections string      `json:"scene-collections.*."` //  TODO: Duplicate name.
+	SceneCollections     interface{} `json:"scene-collections"` // Scene collections list. TODO: Unknown type (Object|Array).
+	SceneCollectionsStar string      `json:"scene-collections.*."`
 	_response
 }
 
