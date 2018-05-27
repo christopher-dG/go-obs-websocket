@@ -36,7 +36,7 @@ type GetSourcesListResponse struct {
 	// Value is one of the following: "input", "filter", "transition", "scene" or "unknown".
 	// Required: Yes.
 	SourcesType string `json:"sources.*.type"`
-	_response
+	_response   `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -108,7 +108,7 @@ type GetSourcesTypesListResponse struct {
 	// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be.
 	// Required: Yes.
 	IDsCapsDoNotSelfMonitor bool `json:"ids.*.caps.doNotSelfMonitor"`
-	_response
+	_response               `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -161,8 +161,8 @@ type GetVolumeResponse struct {
 	Volume float64 `json:"volume"`
 	// Indicates whether the source is muted.
 	// Required: Yes.
-	Mute bool `json:"mute"`
-	_response
+	Mute      bool `json:"mute"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -261,8 +261,8 @@ type GetMuteResponse struct {
 	Name string `json:"name"`
 	// Mute status of the source.
 	// Required: Yes.
-	Muted bool `json:"muted"`
-	_response
+	Muted     bool `json:"muted"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -451,8 +451,8 @@ type GetSyncOffsetResponse struct {
 	Name string `json:"name"`
 	// The audio sync offset (in nanoseconds).
 	// Required: Yes.
-	Offset int `json:"offset"`
-	_response
+	Offset    int `json:"offset"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -514,7 +514,7 @@ type GetSourceSettingsResponse struct {
 	// Varying between source types.
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
-	_response
+	_response      `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -582,7 +582,7 @@ type SetSourceSettingsResponse struct {
 	// Varying between source types.
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
-	_response
+	_response      `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -719,8 +719,8 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Vertical bool `json:"vertical"`
 	// Visibility of the scene item.
 	// Required: Yes.
-	Render bool `json:"render"`
-	_response
+	Render    bool `json:"render"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -1013,8 +1013,8 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 	// Visibility of the scene item.
 	// Required: Yes.
-	Render bool `json:"render"`
-	_response
+	Render    bool `json:"render"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -1224,8 +1224,8 @@ type GetBrowserSourcePropertiesResponse struct {
 	Shutdown bool `json:"shutdown"`
 	// Visibility of the scene item.
 	// Required: No.
-	Render bool `json:"render"`
-	_response
+	Render    bool `json:"render"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -1492,8 +1492,8 @@ type GetSpecialSourcesResponse struct {
 	Mic2 string `json:"mic-2"`
 	// Name of the third Mic/Aux input source.
 	// Required: No.
-	Mic3 string `json:"mic-3"`
-	_response
+	Mic3      string `json:"mic-3"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

@@ -39,7 +39,7 @@ type GetStreamingStatusResponse struct {
 	// Retrocompatibility with OBSRemote.
 	// Required: Yes.
 	PreviewOnly bool `json:"preview-only"`
-	_response
+	_response   `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -213,8 +213,7 @@ func (r StopStreamingResponse) Err() string { return r.Error }
 type SetStreamSettingsRequest struct {
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	// Required: Yes.
-	// TODO: Reserved name.
-	Type string `json:"type"`
+	StreamType string `json:"type"`
 	// The actual settings of the stream.
 	// Required: Yes.
 	Settings map[string]interface{} `json:"settings"`
@@ -331,7 +330,7 @@ type GetStreamSettingsResponse struct {
 	// Only present if `use-auth` is `true`.
 	// Required: Yes.
 	SettingsPassword string `json:"settings.password"`
-	_response
+	_response        `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

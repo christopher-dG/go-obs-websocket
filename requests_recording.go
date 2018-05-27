@@ -160,7 +160,7 @@ type GetRecordingFolderResponse struct {
 	// Path of the recording folder.
 	// Required: Yes.
 	RecFolder string `json:"rec-folder"`
-	_response
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

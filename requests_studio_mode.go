@@ -26,7 +26,7 @@ type GetStudioModeStatusResponse struct {
 	// Indicates if Studio Mode is enabled.
 	// Required: Yes.
 	StudioMode bool `json:"studio-mode"`
-	_response
+	_response  `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -64,8 +64,8 @@ type GetPreviewSceneResponse struct {
 	Name string `json:"name"`
 	// Required: Yes.
 	// TODO: Unknown type (Source|Array).
-	Sources interface{} `json:"sources"`
-	_response
+	Sources   interface{} `json:"sources"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

@@ -36,7 +36,7 @@ type GetVersionResponse struct {
 	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	// Required: Yes.
 	AvailableRequests string `json:"available-requests"`
-	_response
+	_response         `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -76,8 +76,8 @@ type GetAuthRequiredResponse struct {
 	// Required: No.
 	Challenge string `json:"challenge"`
 	// Required: No.
-	Salt string `json:"salt"`
-	_response
+	Salt      string `json:"salt"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -238,7 +238,7 @@ type GetFilenameFormattingResponse struct {
 	// Current filename formatting string.
 	// Required: Yes.
 	FilenameFormatting string `json:"filename-formatting"`
-	_response
+	_response          `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

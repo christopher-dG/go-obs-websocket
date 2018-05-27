@@ -67,8 +67,8 @@ func (r GetCurrentSceneCollectionRequest) Type() string { return r.RequestType }
 type GetCurrentSceneCollectionResponse struct {
 	// Name of the currently active scene collection.
 	// Required: Yes.
-	ScName string `json:"sc-name"`
-	_response
+	ScName    string `json:"sc-name"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -105,9 +105,8 @@ type ListSceneCollectionsResponse struct {
 	// TODO: Unknown type (Object|Array).
 	SceneCollections interface{} `json:"scene-collections"`
 	// Required: Yes.
-	// TODO: Duplicate name.
-	SceneCollections string `json:"scene-collections.*."`
-	_response
+	SceneCollectionsStar string `json:"scene-collections.*."`
+	_response            `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

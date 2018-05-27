@@ -33,7 +33,7 @@ type GetTransitionListResponse struct {
 	// Name of the transition.
 	// Required: Yes.
 	TransitionsName string `json:"transitions[].name"`
-	_response
+	_response       `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -70,8 +70,8 @@ type GetCurrentTransitionResponse struct {
 	Name string `json:"name"`
 	// Transition duration (in milliseconds) if supported by the transition.
 	// Required: No.
-	Duration int `json:"duration"`
-	_response
+	Duration  int `json:"duration"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -190,7 +190,7 @@ type GetTransitionDurationResponse struct {
 	// Duration of the current transition (in milliseconds).
 	// Required: Yes.
 	TransitionDuration int `json:"transition-duration"`
-	_response
+	_response          `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

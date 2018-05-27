@@ -105,7 +105,7 @@ type GetSceneItemPropertiesResponse struct {
 	// Height of the bounding box.
 	// Required: Yes.
 	ItemBoundsY float64 `json:"item.bounds.y"`
-	_response
+	_response   `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.

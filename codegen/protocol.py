@@ -151,7 +151,7 @@ def gen_request(data: Dict) -> str:
         struct = f"""\
         type {data["name"]}Response struct {{
             {go_struct_variables(go_variables(data["returns"], reserved))}
-            _response
+            _response `mapstructure:",squash"`
         }}
         """
     else:

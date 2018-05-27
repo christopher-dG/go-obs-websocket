@@ -68,7 +68,7 @@ type GetCurrentProfileResponse struct {
 	// Name of the currently active profile.
 	// Required: Yes.
 	ProfileName string `json:"profile-name"`
-	_response
+	_response   `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -103,8 +103,8 @@ type ListProfilesResponse struct {
 	// List of available profiles.
 	// Required: Yes.
 	// TODO: Unknown type (Object|Array).
-	Profiles interface{} `json:"profiles"`
-	_response
+	Profiles  interface{} `json:"profiles"`
+	_response `mapstructure:",squash"`
 }
 
 // ID returns the response's message ID.
