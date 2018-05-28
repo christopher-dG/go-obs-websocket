@@ -3,7 +3,6 @@ package obsws
 import (
 	"crypto/sha256"
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"time"
@@ -77,7 +76,6 @@ func (c *Client) Disconnect() error {
 }
 
 // SetTimeout sets a timeout in seconds for receiving responses.
-// A value of 0 indicates that responses must be received instantly.
 func (c *Client) SetTimeout(seconds int) {
 	c.timeoutSet = true
 	c.timeout = seconds
@@ -99,10 +97,25 @@ func (c *Client) SendRequest(req request) (chan response, error) {
 }
 
 func (c *Client) waitResponse(req request) response {
-	start := time.Now()
+	if c.timeoutSet {
+		deadline := time.Now().Add(time.Duration(c.timeout) * time.Second)
+		if err := c.conn.UnderlyingConn().SetReadDeadline(deadline); err != nil {
+			logger.Warningf("couldn't reset timeout: %v", err)
+		} else {
+			logger.Debugf("set read deadline to %v", deadline)
+		}
+	} else {
+		if err := c.conn.UnderlyingConn().SetDeadline(time.Time{}); err != nil {
+			logger.Warningf("couldn't reset timeout: %v", err)
+		} else {
+			logger.Debug("removed read deadline")
+		}
+	}
+
 	for {
 		for i, resp := range c.respQ {
 			if resp.(message).ID() == req.(message).ID() {
+				logger.Debugf("found message %s in queue", resp.(message).ID())
 				c.respQ = append(c.respQ[:i], c.respQ[i+1:]...)
 				return resp
 			}
@@ -114,28 +127,20 @@ func (c *Client) waitResponse(req request) response {
 		}
 
 		if resp.(message).ID() == req.(message).ID() {
+			logger.Debugf("received message %s from WebSocket", resp.(message).ID())
 			return resp
 		}
-		c.respQ = append(c.respQ, resp)
 
-		if c.timeoutSet && time.Since(start).Seconds() > float64(c.timeout) {
-			logger.Infof("request %s (%s) timed out", req.(message).ID(), req.Type())
-			return nil
-		}
+		c.respQ = append(c.respQ, resp)
+		logger.Debugf("added message %s to queue", resp.(message).ID())
 	}
 }
 
 func (c *Client) receiveResponse(req request) (response, error) {
 	m := make(map[string]interface{})
 
-	_, bytes, err := c.conn.ReadMessage()
-	if err != nil {
+	if err := c.conn.ReadJSON(&m); err != nil {
 		return nil, errors.Wrap(err, "read from WS")
-	}
-
-	if err = json.Unmarshal(bytes, &m); err != nil {
-		logger.Warningf("unmarshalling JSON -> map failed: %v", err)
-		return nil, errors.Wrap(err, "unmarshalling JSON -> map")
 	}
 
 	resp, ok := respMap[req.Type()]
@@ -143,7 +148,15 @@ func (c *Client) receiveResponse(req request) (response, error) {
 		return nil, errors.Errorf("unknown request type '%s'", req.Type())
 	}
 
-	if err = mapstructure.Decode(m, &resp); err != nil {
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		ZeroFields: true, // TODO: I don't think this is working.
+		Result:     resp,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "initializing decoder")
+	}
+
+	if err := decoder.Decode(m); err != nil {
 		return nil, errors.Wrapf(err, "unmarshalling map -> %T", resp)
 	}
 

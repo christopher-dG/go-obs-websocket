@@ -119,7 +119,7 @@ def gen_request(data: Dict) -> str:
     if data.get("params"):
         struct = f"""\
         type {data["name"]}Request struct {{
-            {go_struct_variables(go_variables(data["params"], reserved))}
+            {go_struct_variables(go_variables(data["params"], reserved, tag="json"))}
             _request
         }}
         """
@@ -224,7 +224,7 @@ def gen_response_map(requests: Dict):
     resp_map = {}
     for data in requests.values():
         for r in data:
-            resp_map[r["name"]] = f"{r['name']}Response{{}}"
+            resp_map[r["name"]] = f"&{r['name']}Response{{}}"
     entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
     with open("response_map.go", "w") as f:
         f.write(f"""\
@@ -238,7 +238,12 @@ def gen_response_map(requests: Dict):
         """)
 
 
-def go_variables(variables: List[Dict], reserved: List[str], export: bool = True) -> str:
+def go_variables(
+        variables: List[Dict],
+        reserved: List[str],
+        tag: str = "mapstructure",
+        export: bool = True,
+) -> str:
     """
     Convert a list of variable names into Go code to be put
     inside a struct definition.
@@ -250,7 +255,7 @@ def go_variables(variables: List[Dict], reserved: List[str], export: bool = True
         vardicts.append({
             "name": varname,
             "type": type_map[typename.lower()],
-            "tag": '`json:"%s"`' % v['name'],
+            "tag": f'`{tag}:"{v["name"]}"`',
             "description": v["description"].replace("\n", " "),
             "optional": optional,
             "unknown": typename.lower() in unknown_types,
