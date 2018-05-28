@@ -9,12 +9,12 @@ package obsws
 type PreviewSceneChangedEvent struct {
 	// Name of the scene being previewed.
 	// Required: Yes.
-	SceneName string `json:"scene-name"`
+	SceneName string `mapstructure:"scene-name"`
 	// List of sources composing the scene.
 	// Same specification as [`GetCurrentScene`](#getcurrentscene).
 	// Required: Yes.
 	// TODO: Unknown type (Source|Array).
-	Sources interface{} `json:"sources"`
+	Sources interface{} `mapstructure:"sources"`
 	_event
 }
 
@@ -33,7 +33,7 @@ func (e PreviewSceneChangedEvent) RecTC() string { return e.RecTimecode }
 type StudioModeSwitchedEvent struct {
 	// The new enabled state of Studio Mode.
 	// Required: Yes.
-	NewState bool `json:"new-state"`
+	NewState bool `mapstructure:"new-state"`
 	_event
 }
 

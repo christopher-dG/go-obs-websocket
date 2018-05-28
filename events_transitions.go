@@ -9,7 +9,7 @@ package obsws
 type SwitchTransitionEvent struct {
 	// The name of the new active transition.
 	// Required: Yes.
-	TransitionName string `json:"transition-name"`
+	TransitionName string `mapstructure:"transition-name"`
 	_event
 }
 
@@ -43,7 +43,7 @@ func (e TransitionListChangedEvent) RecTC() string { return e.RecTimecode }
 type TransitionDurationChangedEvent struct {
 	// New transition duration.
 	// Required: Yes.
-	NewDuration int `json:"new-duration"`
+	NewDuration int `mapstructure:"new-duration"`
 	_event
 }
 
@@ -62,10 +62,10 @@ func (e TransitionDurationChangedEvent) RecTC() string { return e.RecTimecode }
 type TransitionBeginEvent struct {
 	// Transition name.
 	// Required: Yes.
-	Name string `json:"name"`
+	Name string `mapstructure:"name"`
 	// Transition duration (in milliseconds).
 	// Required: Yes.
-	Duration int `json:"duration"`
+	Duration int `mapstructure:"duration"`
 	_event
 }
 

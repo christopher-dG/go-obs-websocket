@@ -25,9 +25,9 @@ func (r _request) Type() string { return r.RequestType }
 
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#requests
 type _response struct {
-	MessageID string `json:"message-id"`
-	Status    string `json:"status"`
-	Error     string `json:"error"`
+	MessageID string `mapstructure:"message-id"`
+	Status    string `mapstructure:"status"`
+	Error     string `mapstructure:"error"`
 }
 
 func (r _response) ID() string { return r.MessageID }

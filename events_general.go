@@ -8,37 +8,37 @@ package obsws
 type HeartbeatEvent struct {
 	// Toggles between every JSON meassage as an "I am alive" indicator.
 	// Required: Yes.
-	Pulse bool `json:"pulse"`
+	Pulse bool `mapstructure:"pulse"`
 	// Current active profile.
 	// Required: No.
-	CurrentProfile string `json:"current-profile"`
+	CurrentProfile string `mapstructure:"current-profile"`
 	// Current active scene.
 	// Required: No.
-	CurrentScene string `json:"current-scene"`
+	CurrentScene string `mapstructure:"current-scene"`
 	// Current streaming state.
 	// Required: No.
-	Streaming bool `json:"streaming"`
+	Streaming bool `mapstructure:"streaming"`
 	// Total time (in seconds) since the stream started.
 	// Required: No.
-	TotalStreamTime int `json:"total-stream-time"`
+	TotalStreamTime int `mapstructure:"total-stream-time"`
 	// Total bytes sent since the stream started.
 	// Required: No.
-	TotalStreamBytes int `json:"total-stream-bytes"`
+	TotalStreamBytes int `mapstructure:"total-stream-bytes"`
 	// Total frames streamed since the stream started.
 	// Required: No.
-	TotalStreamFrames int `json:"total-stream-frames"`
+	TotalStreamFrames int `mapstructure:"total-stream-frames"`
 	// Current recording state.
 	// Required: No.
-	Recording bool `json:"recording"`
+	Recording bool `mapstructure:"recording"`
 	// Total time (in seconds) since recording started.
 	// Required: No.
-	TotalRecordTime int `json:"total-record-time"`
+	TotalRecordTime int `mapstructure:"total-record-time"`
 	// Total bytes recorded since the recording started.
 	// Required: No.
-	TotalRecordBytes int `json:"total-record-bytes"`
+	TotalRecordBytes int `mapstructure:"total-record-bytes"`
 	// Total frames recorded since the recording started.
 	// Required: No.
-	TotalRecordFrames int `json:"total-record-frames"`
+	TotalRecordFrames int `mapstructure:"total-record-frames"`
 	_event
 }
 

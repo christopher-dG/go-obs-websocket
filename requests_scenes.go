@@ -67,11 +67,11 @@ func (r GetCurrentSceneRequest) Type() string { return r.RequestType }
 type GetCurrentSceneResponse struct {
 	// Name of the currently active scene.
 	// Required: Yes.
-	Name string `json:"name"`
+	Name string `mapstructure:"name"`
 	// Ordered list of the current scene's source items.
 	// Required: Yes.
 	// TODO: Unknown type (Source|Array).
-	Sources   interface{} `json:"sources"`
+	Sources   interface{} `mapstructure:"sources"`
 	_response `mapstructure:",squash"`
 }
 
@@ -106,11 +106,11 @@ func (r GetSceneListRequest) Type() string { return r.RequestType }
 type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	// Required: Yes.
-	CurrentScene string `json:"current-scene"`
+	CurrentScene string `mapstructure:"current-scene"`
 	// Ordered list of the current profile's scenes (See `[GetCurrentScene](#getcurrentscene)` for more information).
 	// Required: Yes.
 	// TODO: Unknown type (Scene|Array).
-	Scenes    interface{} `json:"scenes"`
+	Scenes    interface{} `mapstructure:"scenes"`
 	_response `mapstructure:",squash"`
 }
 

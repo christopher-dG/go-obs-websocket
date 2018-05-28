@@ -9,7 +9,7 @@ package obsws
 type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
+	PreviewOnly bool `mapstructure:"preview-only"`
 	_event
 }
 
@@ -42,7 +42,7 @@ func (e StreamStartedEvent) RecTC() string { return e.RecTimecode }
 type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
+	PreviewOnly bool `mapstructure:"preview-only"`
 	_event
 }
 
@@ -75,34 +75,34 @@ func (e StreamStoppedEvent) RecTC() string { return e.RecTimecode }
 type StreamStatusEvent struct {
 	// Current streaming state.
 	// Required: Yes.
-	Streaming bool `json:"streaming"`
+	Streaming bool `mapstructure:"streaming"`
 	// Current recording state.
 	// Required: Yes.
-	Recording bool `json:"recording"`
+	Recording bool `mapstructure:"recording"`
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
+	PreviewOnly bool `mapstructure:"preview-only"`
 	// Amount of data per second (in bytes) transmitted by the stream encoder.
 	// Required: Yes.
-	BytesPerSec int `json:"bytes-per-sec"`
+	BytesPerSec int `mapstructure:"bytes-per-sec"`
 	// Amount of data per second (in kilobits) transmitted by the stream encoder.
 	// Required: Yes.
-	KbitsPerSec int `json:"kbits-per-sec"`
+	KbitsPerSec int `mapstructure:"kbits-per-sec"`
 	// Percentage of dropped frames.
 	// Required: Yes.
-	Strain float64 `json:"strain"`
+	Strain float64 `mapstructure:"strain"`
 	// Total time (in seconds) since the stream started.
 	// Required: Yes.
-	TotalStreamTime int `json:"total-stream-time"`
+	TotalStreamTime int `mapstructure:"total-stream-time"`
 	// Total number of frames transmitted since the stream started.
 	// Required: Yes.
-	NumTotalFrames int `json:"num-total-frames"`
+	NumTotalFrames int `mapstructure:"num-total-frames"`
 	// Number of frames dropped by the encoder since the stream started.
 	// Required: Yes.
-	NumDroppedFrames int `json:"num-dropped-frames"`
+	NumDroppedFrames int `mapstructure:"num-dropped-frames"`
 	// Current framerate.
 	// Required: Yes.
-	Fps float64 `json:"fps"`
+	Fps float64 `mapstructure:"fps"`
 	_event
 }
 

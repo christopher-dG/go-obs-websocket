@@ -25,20 +25,20 @@ func (r GetStreamingStatusRequest) Type() string { return r.RequestType }
 type GetStreamingStatusResponse struct {
 	// Current streaming status.
 	// Required: Yes.
-	Streaming bool `json:"streaming"`
+	Streaming bool `mapstructure:"streaming"`
 	// Current recording status.
 	// Required: Yes.
-	Recording bool `json:"recording"`
+	Recording bool `mapstructure:"recording"`
 	// Time elapsed since streaming started (only present if currently streaming).
 	// Required: No.
-	StreamTimecode string `json:"stream-timecode"`
+	StreamTimecode string `mapstructure:"stream-timecode"`
 	// Time elapsed since recording started (only present if currently recording).
 	// Required: No.
-	RecTimecode string `json:"rec-timecode"`
+	RecTimecode string `mapstructure:"rec-timecode"`
 	// Always false.
 	// Retrocompatibility with OBSRemote.
 	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
+	PreviewOnly bool `mapstructure:"preview-only"`
 	_response   `mapstructure:",squash"`
 }
 
@@ -309,27 +309,27 @@ type GetStreamSettingsResponse struct {
 	// The type of streaming service configuration.
 	// Possible values: 'rtmp_custom' or 'rtmp_common'.
 	// Required: Yes.
-	Type string `json:"type"`
+	Type string `mapstructure:"type"`
 	// Stream settings object.
 	// Required: Yes.
-	Settings map[string]interface{} `json:"settings"`
+	Settings map[string]interface{} `mapstructure:"settings"`
 	// The publish URL.
 	// Required: Yes.
-	SettingsServer string `json:"settings.server"`
+	SettingsServer string `mapstructure:"settings.server"`
 	// The publish key of the stream.
 	// Required: Yes.
-	SettingsKey string `json:"settings.key"`
+	SettingsKey string `mapstructure:"settings.key"`
 	// Indicates whether audentication should be used when connecting to the streaming server.
 	// Required: Yes.
-	SettingsUseAuth bool `json:"settings.use-auth"`
+	SettingsUseAuth bool `mapstructure:"settings.use-auth"`
 	// The username to use when accessing the streaming server.
 	// Only present if `use-auth` is `true`.
 	// Required: Yes.
-	SettingsUsername string `json:"settings.username"`
+	SettingsUsername string `mapstructure:"settings.username"`
 	// The password to use when accessing the streaming server.
 	// Only present if `use-auth` is `true`.
 	// Required: Yes.
-	SettingsPassword string `json:"settings.password"`
+	SettingsPassword string `mapstructure:"settings.password"`
 	_response        `mapstructure:",squash"`
 }
 

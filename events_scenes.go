@@ -9,10 +9,10 @@ package obsws
 type SwitchScenesEvent struct {
 	// The new scene.
 	// Required: Yes.
-	SceneName string `json:"scene-name"`
+	SceneName string `mapstructure:"scene-name"`
 	// List of sources in the new scene.
 	// Required: Yes.
-	Sources []string `json:"sources"`
+	Sources []string `mapstructure:"sources"`
 	_event
 }
 

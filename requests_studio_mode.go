@@ -25,7 +25,7 @@ func (r GetStudioModeStatusRequest) Type() string { return r.RequestType }
 type GetStudioModeStatusResponse struct {
 	// Indicates if Studio Mode is enabled.
 	// Required: Yes.
-	StudioMode bool `json:"studio-mode"`
+	StudioMode bool `mapstructure:"studio-mode"`
 	_response  `mapstructure:",squash"`
 }
 
@@ -61,10 +61,10 @@ func (r GetPreviewSceneRequest) Type() string { return r.RequestType }
 type GetPreviewSceneResponse struct {
 	// The name of the active preview scene.
 	// Required: Yes.
-	Name string `json:"name"`
+	Name string `mapstructure:"name"`
 	// Required: Yes.
 	// TODO: Unknown type (Source|Array).
-	Sources   interface{} `json:"sources"`
+	Sources   interface{} `mapstructure:"sources"`
 	_response `mapstructure:",squash"`
 }
 

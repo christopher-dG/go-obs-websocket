@@ -25,14 +25,14 @@ func (r GetTransitionListRequest) Type() string { return r.RequestType }
 type GetTransitionListResponse struct {
 	// Name of the currently active transition.
 	// Required: Yes.
-	CurrentTransition string `json:"current-transition"`
+	CurrentTransition string `mapstructure:"current-transition"`
 	// List of transitions.
 	// Required: Yes.
 	// TODO: Unknown type (Object|Array).
-	Transitions interface{} `json:"transitions"`
+	Transitions interface{} `mapstructure:"transitions"`
 	// Name of the transition.
 	// Required: Yes.
-	TransitionsName string `json:"transitions[].name"`
+	TransitionsName string `mapstructure:"transitions[].name"`
 	_response       `mapstructure:",squash"`
 }
 
@@ -67,10 +67,10 @@ func (r GetCurrentTransitionRequest) Type() string { return r.RequestType }
 type GetCurrentTransitionResponse struct {
 	// Name of the selected transition.
 	// Required: Yes.
-	Name string `json:"name"`
+	Name string `mapstructure:"name"`
 	// Transition duration (in milliseconds) if supported by the transition.
 	// Required: No.
-	Duration  int `json:"duration"`
+	Duration  int `mapstructure:"duration"`
 	_response `mapstructure:",squash"`
 }
 
@@ -189,7 +189,7 @@ func (r GetTransitionDurationRequest) Type() string { return r.RequestType }
 type GetTransitionDurationResponse struct {
 	// Duration of the current transition (in milliseconds).
 	// Required: Yes.
-	TransitionDuration int `json:"transition-duration"`
+	TransitionDuration int `mapstructure:"transition-duration"`
 	_response          `mapstructure:",squash"`
 }
 
