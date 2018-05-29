@@ -39,7 +39,7 @@ type HeartbeatEvent struct {
 	// Total frames recorded since the recording started.
 	// Required: No.
 	TotalRecordFrames int `mapstructure:"total-record-frames"`
-	_event
+	_event            `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.

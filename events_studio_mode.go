@@ -15,7 +15,7 @@ type PreviewSceneChangedEvent struct {
 	// Required: Yes.
 	// TODO: Unknown type (Source|Array).
 	Sources interface{} `mapstructure:"sources"`
-	_event
+	_event  `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -34,7 +34,7 @@ type StudioModeSwitchedEvent struct {
 	// The new enabled state of Studio Mode.
 	// Required: Yes.
 	NewState bool `mapstructure:"new-state"`
-	_event
+	_event   `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.

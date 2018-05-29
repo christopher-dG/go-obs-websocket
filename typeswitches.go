@@ -111,7 +111,7 @@ var eventMap = map[string]Event{
 	"StudioModeSwitched":         &StudioModeSwitchedEvent{},
 }
 
-func deref(r response) response {
+func derefResponse(r response) response {
 	switch r := r.(type) {
 	case *GetVersionResponse:
 		return *r
@@ -255,6 +255,75 @@ func deref(r response) response {
 		return *r
 	case *GetTransitionDurationResponse:
 		return *r
+	default:
+		return nil
+	}
+}
+
+func derefEvent(e Event) Event {
+	switch e := e.(type) {
+	case *SwitchScenesEvent:
+		return *e
+	case *ScenesChangedEvent:
+		return *e
+	case *SceneCollectionChangedEvent:
+		return *e
+	case *SceneCollectionListChangedEvent:
+		return *e
+	case *SwitchTransitionEvent:
+		return *e
+	case *TransitionListChangedEvent:
+		return *e
+	case *TransitionDurationChangedEvent:
+		return *e
+	case *TransitionBeginEvent:
+		return *e
+	case *ProfileChangedEvent:
+		return *e
+	case *ProfileListChangedEvent:
+		return *e
+	case *StreamStartingEvent:
+		return *e
+	case *StreamStartedEvent:
+		return *e
+	case *StreamStoppingEvent:
+		return *e
+	case *StreamStoppedEvent:
+		return *e
+	case *StreamStatusEvent:
+		return *e
+	case *RecordingStartingEvent:
+		return *e
+	case *RecordingStartedEvent:
+		return *e
+	case *RecordingStoppingEvent:
+		return *e
+	case *RecordingStoppedEvent:
+		return *e
+	case *ReplayStartingEvent:
+		return *e
+	case *ReplayStartedEvent:
+		return *e
+	case *ReplayStoppingEvent:
+		return *e
+	case *ReplayStoppedEvent:
+		return *e
+	case *ExitingEvent:
+		return *e
+	case *HeartbeatEvent:
+		return *e
+	case *SourceOrderChangedEvent:
+		return *e
+	case *SceneItemAddedEvent:
+		return *e
+	case *SceneItemRemovedEvent:
+		return *e
+	case *SceneItemVisibilityChangedEvent:
+		return *e
+	case *PreviewSceneChangedEvent:
+		return *e
+	case *StudioModeSwitchedEvent:
+		return *e
 	default:
 		return nil
 	}

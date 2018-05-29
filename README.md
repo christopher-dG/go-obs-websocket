@@ -17,27 +17,29 @@ package main
 
 import (
 	"log"
+	"time"
 
 	obs "github.com/christopher-dG/go-obs-websocket"
 )
 
 func main() {
-
-	client := obs.Client{Host: "localhost", Port: 4444}
-	if err := client.Connect(); err != nil {
+	c := obs.Client{Host: "localhost", Port: 4444}
+	if err := c.Connect(); err != nil {
 		log.Fatal(err)
 	}
-	defer client.Disconnect()
+	defer c.Disconnect()
 
-	future, err := client.SendRequest(client.NewGetStreamingStatusRequest())
+	future, err := c.SendRequest(c.NewGetStreamingStatusRequest())
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	resp := <-future
-	if resp == nil {
-		log.Fatal(err)
-	}
-	log.Printf("%#v\n", resp)
+	status := (<-future).(obs.GetStreamingStatusResponse)
+	log.Println("streaming:", status.Streaming)
+
+	c.AddEventHandler("Heartbeat", func(e obs.Event) {
+		log.Println("profile:", e.(obs.HeartbeatEvent).CurrentProfile)
+	})
+	time.Sleep(time.Second * 10)
 }
 ```

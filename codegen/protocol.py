@@ -79,7 +79,7 @@ def gen_event(data: Dict) -> str:
         struct = f"""\
         type {data["name"]}Event struct {{
             {go_struct_variables(go_variables(data["returns"], reserved))}
-            _event
+            _event `mapstructure:",squash"`
         }}\
         """
     else:
@@ -233,13 +233,21 @@ def gen_typeswitches(data: Dict):
             event_map[e["name"]] = f"&{e['name']}Event{{}}"
     event_entries = "\n".join(f'"{k}": {v},' for k, v in event_map.items())
 
-    switch_list = []
+    resp_switch_list = []
     for resp in resp_map:
-        switch_list.append(f"""\
+        resp_switch_list.append(f"""\
         case *{resp}Response:
             return *r\
         """)
-    switch_entries = "\n".join(switch_list)
+    resp_switch_entries = "\n".join(resp_switch_list)
+
+    event_switch_list = []
+    for event in event_map:
+        event_switch_list.append(f"""\
+        case *{event}Event:
+            return *e\
+        """)
+    event_switch_entries = "\n".join(event_switch_list)
 
     with open("typeswitches.go", "w") as f:
         f.write(f"""\
@@ -255,9 +263,17 @@ def gen_typeswitches(data: Dict):
             {event_entries}
         }}
 
-        func deref(r response) response {{
+        func derefResponse(r response) response {{
             switch r := r.(type) {{
-            {switch_entries}
+            {resp_switch_entries}
+            default:
+                return nil
+            }}
+        }}
+
+        func derefEvent(e Event) Event {{
+            switch e := e.(type) {{
+            {event_switch_entries}
             default:
                 return nil
             }}

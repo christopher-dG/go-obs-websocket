@@ -10,7 +10,7 @@ type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
 	PreviewOnly bool `mapstructure:"preview-only"`
-	_event
+	_event      `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -43,7 +43,7 @@ type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
 	PreviewOnly bool `mapstructure:"preview-only"`
-	_event
+	_event      `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -102,8 +102,8 @@ type StreamStatusEvent struct {
 	NumDroppedFrames int `mapstructure:"num-dropped-frames"`
 	// Current framerate.
 	// Required: Yes.
-	Fps float64 `mapstructure:"fps"`
-	_event
+	Fps    float64 `mapstructure:"fps"`
+	_event `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.

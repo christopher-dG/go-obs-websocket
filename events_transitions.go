@@ -10,7 +10,7 @@ type SwitchTransitionEvent struct {
 	// The name of the new active transition.
 	// Required: Yes.
 	TransitionName string `mapstructure:"transition-name"`
-	_event
+	_event         `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -44,7 +44,7 @@ type TransitionDurationChangedEvent struct {
 	// New transition duration.
 	// Required: Yes.
 	NewDuration int `mapstructure:"new-duration"`
-	_event
+	_event      `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -66,7 +66,7 @@ type TransitionBeginEvent struct {
 	// Transition duration (in milliseconds).
 	// Required: Yes.
 	Duration int `mapstructure:"duration"`
-	_event
+	_event   `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.

@@ -13,7 +13,7 @@ type SourceOrderChangedEvent struct {
 	// Array of sources.
 	// Required: Yes.
 	Sources []string `mapstructure:"sources"`
-	_event
+	_event  `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -35,7 +35,7 @@ type SceneItemAddedEvent struct {
 	// Name of the item added to the scene.
 	// Required: Yes.
 	ItemName string `mapstructure:"item-name"`
-	_event
+	_event   `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -57,7 +57,7 @@ type SceneItemRemovedEvent struct {
 	// Name of the item removed from the scene.
 	// Required: Yes.
 	ItemName string `mapstructure:"item-name"`
-	_event
+	_event   `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
@@ -82,7 +82,7 @@ type SceneItemVisibilityChangedEvent struct {
 	// New visibility state of the item.
 	// Required: Yes.
 	ItemVisible bool `mapstructure:"item-visible"`
-	_event
+	_event      `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.

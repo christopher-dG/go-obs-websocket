@@ -13,7 +13,7 @@ type SwitchScenesEvent struct {
 	// List of sources in the new scene.
 	// Required: Yes.
 	Sources []string `mapstructure:"sources"`
-	_event
+	_event  `mapstructure:",squash"`
 }
 
 // Type returns the event's update type.
