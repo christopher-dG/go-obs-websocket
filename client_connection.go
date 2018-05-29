@@ -67,7 +67,10 @@ func (c *Client) Connect() error {
 
 // Disconnect closes the WebSocket connection.
 func (c *Client) Disconnect() error {
-	return c.conn.Close()
+	if err := c.conn.Close(); err != nil {
+		return errors.Wrap(err, "logout failed")
+	}
+	return nil
 }
 
 // connectWS opens the WebSocket connection.
