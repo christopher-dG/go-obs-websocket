@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"strconv"
-	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/mitchellh/mapstructure"
@@ -15,14 +14,12 @@ import (
 // Client is the interface to obs-websocket.
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
-	Host       string // Host (probably "localhost").
-	Port       int    // Port (OBS default is 4444).
-	Password   string // Password (OBS default is "").
-	conn       *websocket.Conn
-	id         int
-	respQ      []response
-	timeout    int
-	timeoutSet bool
+	Host     string // Host (probably "localhost").
+	Port     int    // Port (OBS default is 4444).
+	Password string // Password (OBS default is "").
+	conn     *websocket.Conn
+	id       int
+	respQ    []response
 }
 
 // Connect opens a WebSocket connection and authenticates if necessary.
@@ -75,17 +72,6 @@ func (c *Client) Disconnect() error {
 	return c.conn.Close()
 }
 
-// SetTimeout sets a timeout in seconds for receiving responses.
-func (c *Client) SetTimeout(seconds int) {
-	c.timeoutSet = true
-	c.timeout = seconds
-}
-
-// DisableTimeout disables the response timeout.
-func (c *Client) DisableTimeout() {
-	c.timeoutSet = false
-}
-
 // SendRequest sends a request to the WebSocket server.
 func (c *Client) SendRequest(req request) (chan response, error) {
 	future := make(chan response)
@@ -97,21 +83,6 @@ func (c *Client) SendRequest(req request) (chan response, error) {
 }
 
 func (c *Client) waitResponse(req request) response {
-	if c.timeoutSet {
-		deadline := time.Now().Add(time.Duration(c.timeout) * time.Second)
-		if err := c.conn.UnderlyingConn().SetReadDeadline(deadline); err != nil {
-			logger.Warningf("couldn't reset timeout: %v", err)
-		} else {
-			logger.Debugf("set read deadline to %v", deadline)
-		}
-	} else {
-		if err := c.conn.UnderlyingConn().SetDeadline(time.Time{}); err != nil {
-			logger.Warningf("couldn't reset timeout: %v", err)
-		} else {
-			logger.Debug("removed read deadline")
-		}
-	}
-
 	for {
 		for i, resp := range c.respQ {
 			if resp.(message).ID() == req.(message).ID() {
