@@ -46,9 +46,9 @@ def optional_type(s: str) -> Tuple[str, bool]:
 
 def process_json(d: Dict):
     """Generate Go code for the entire protocol file."""
-    gen_events(d["events"])
-    gen_requests(d["requests"])
-    gen_response_map(d["requests"])
+    # gen_events(d["events"])
+    # gen_requests(d["requests"])
+    gen_responses(d["requests"])
 
 
 def gen_category(prefix: str, category: str, data: Dict):
@@ -219,21 +219,36 @@ def gen_request_new(request: Dict):
     """
 
 
-def gen_response_map(requests: Dict):
+def gen_responses(requests: Dict):
     """Generate a Go file with a map from request type to response struct."""
     resp_map = {}
     for data in requests.values():
         for r in data:
             resp_map[r["name"]] = f"&{r['name']}Response{{}}"
-    entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
-    with open("response_map.go", "w") as f:
+    map_entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
+    switch_list = []
+    for resp in resp_map:
+        switch_list.append(f"""\
+        case *{resp}Response:
+            return *r\
+        """)
+    switch_entries = "\n".join(switch_list)
+    with open("responses.go", "w") as f:
         f.write(f"""\
         package {package}
 
         {disclaimer}
 
         var respMap = map[string]response{{
-        {entries}
+        {map_entries}
+        }}
+
+        func deref(r response) response {{
+            switch r := r.(type) {{
+            {switch_entries}
+            default:
+                return nil
+            }}
         }}
         """)
 
@@ -332,4 +347,4 @@ if __name__ == "__main__":
         d = json.load(f)
 
     process_json(d)
-    os.system("gofmt -w {events,requests,response}_*.go")
+    os.system("gofmt -w {events,requests}_*.go responses.go")

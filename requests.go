@@ -1,14 +1,12 @@
 package obsws
 
-type message interface {
-	ID() string
-}
-
 type request interface {
+	ID() string
 	Type() string
 }
 
 type response interface {
+	ID() string
 	Stat() string
 	Err() string
 }

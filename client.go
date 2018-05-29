@@ -1,9 +1,6 @@
 package obsws
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
-	"fmt"
 	"strconv"
 
 	"github.com/gorilla/websocket"
@@ -14,27 +11,30 @@ import (
 // Client is the interface to obs-websocket.
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
-	Host     string // Host (probably "localhost").
-	Port     int    // Port (OBS default is 4444).
-	Password string // Password (OBS default is "").
-	conn     *websocket.Conn
-	id       int
-	respQ    []response
+	Host         string // Host (probably "localhost").
+	Port         int    // Port (OBS default is 4444).
+	Password     string // Password (OBS default is "").
+	conn         *websocket.Conn
+	id           int
+	respQ        []response
+	requestTypes map[string]string
 }
 
 // Connect opens a WebSocket connection and authenticates if necessary.
 func (c *Client) Connect() error {
+	c.requestTypes = make(map[string]string)
 	conn, err := connectWS(c.Host, c.Port)
 	if err != nil {
 		return err
 	}
 	c.conn = conn
 
+	// We can't use SendRequest yet because we aren't polling.
+
 	reqGAR := GetAuthRequiredRequest{
 		MessageID:   c.getMessageID(),
 		RequestType: "GetAuthRequired",
 	}
-
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
 		return errors.Wrap(err, "write Authenticate")
 	}
@@ -45,7 +45,7 @@ func (c *Client) Connect() error {
 	}
 
 	if !respGAR.AuthRequired {
-		logger.Info("no authentication required")
+		logger.Info("logged in (no authentication required)")
 		return nil
 	}
 
@@ -63,7 +63,16 @@ func (c *Client) Connect() error {
 		return errors.Wrap(err, "write Authenticate")
 	}
 
-	logger.Info("logged in")
+	respA := &AuthenticateResponse{}
+	if err = c.conn.ReadJSON(respA); err != nil {
+		return errors.Wrap(err, "read Authenticate")
+	}
+	if respA.Stat() != "ok" {
+		return errors.Errorf("login failed: %s", respA.Err())
+	}
+
+	logger.Info("logged in (authentication successful)")
+	go c.poll()
 	return nil
 }
 
@@ -78,6 +87,7 @@ func (c *Client) SendRequest(req request) (chan response, error) {
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, errors.Wrapf(err, "write %s", req.Type())
 	}
+	c.requestTypes[req.ID()] = req.Type()
 	go func() { future <- c.waitResponse(req) }()
 	return future, nil
 }
@@ -85,25 +95,12 @@ func (c *Client) SendRequest(req request) (chan response, error) {
 func (c *Client) waitResponse(req request) response {
 	for {
 		for i, resp := range c.respQ {
-			if resp.(message).ID() == req.(message).ID() {
-				logger.Debugf("found message %s in queue", resp.(message).ID())
-				c.respQ = append(c.respQ[:i], c.respQ[i+1:]...)
+			if resp.ID() == req.ID() {
+				logger.Debug("found message", resp.ID())
+				c.respQ = removeResponses(c.respQ, i)
 				return resp
 			}
 		}
-
-		resp, err := c.receiveResponse(req)
-		if err != nil {
-			logger.Warning(err)
-		}
-
-		if resp.(message).ID() == req.(message).ID() {
-			logger.Debugf("received message %s from WebSocket", resp.(message).ID())
-			return resp
-		}
-
-		c.respQ = append(c.respQ, resp)
-		logger.Debugf("added message %s to queue", resp.(message).ID())
 	}
 }
 
@@ -134,24 +131,50 @@ func (c *Client) receiveResponse(req request) (response, error) {
 	return resp, nil
 }
 
-func connectWS(host string, port int) (*websocket.Conn, error) {
-	url := fmt.Sprintf("ws://%s:%d", host, port)
-	logger.Infof("connecting to %s", url)
-	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
-	if err != nil {
-		return nil, err
+// Listen for responses/events and send them into queues.
+// This function blocks forever.
+func (c *Client) poll() {
+	logger.Debug("started polling")
+	for {
+		m := make(map[string]interface{})
+
+		if err := c.conn.ReadJSON(&m); err != nil {
+			logger.Warning("read from WS:", err)
+		}
+
+		if mID, ok := m["message-id"]; ok { // Response.
+			respType := c.requestTypes[mID.(string)]
+			if respType == "" {
+				logger.Warning("no requestTypes entry for message", mID)
+				continue
+			}
+			delete(c.requestTypes, mID.(string))
+
+			resp := respMap[respType]
+			if resp == nil {
+				logger.Warning("unknown response type", respType)
+				continue
+			}
+
+			decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+				ZeroFields: true, // TODO: I don't think this is working.
+				Result:     resp,
+			})
+			if err != nil {
+				logger.Warning("initializing decoder:", err)
+				continue
+			}
+
+			if err = decoder.Decode(m); err != nil {
+				logger.Warningf("unmarshalling map -> %T: %v", resp, err)
+				continue
+			}
+
+			c.respQ = append(c.respQ, deref(resp))
+		} else { // Event.
+			logger.Debug("event")
+		}
 	}
-	return conn, nil
-}
-
-func getAuth(password, salt, challenge string) string {
-	sha := sha256.Sum256([]byte(password + salt))
-	b64 := base64.StdEncoding.EncodeToString([]byte(sha[:]))
-
-	sha = sha256.Sum256([]byte(b64 + challenge))
-	b64 = base64.StdEncoding.EncodeToString([]byte(sha[:]))
-
-	return b64
 }
 
 func (c *Client) getMessageID() string {
