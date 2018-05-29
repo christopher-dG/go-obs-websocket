@@ -1,6 +1,7 @@
 package obsws
 
-type event interface {
+// Event is broadcast by the server to each connected client when a recognized action occurs within OBS.
+type Event interface {
 	Type() string
 	StreamTC() string
 	RecTC() string

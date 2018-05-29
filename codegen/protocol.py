@@ -46,9 +46,9 @@ def optional_type(s: str) -> Tuple[str, bool]:
 
 def process_json(d: Dict):
     """Generate Go code for the entire protocol file."""
-    # gen_events(d["events"])
-    # gen_requests(d["requests"])
-    gen_responses(d["requests"])
+    ("--events" in sys.argv or "--all" in sys.argv) and gen_events(d["events"])
+    ("--requests" in sys.argv or "--all" in sys.argv) and gen_requests(d["requests"])
+    ("--typeswitches" in sys.argv or "--all" in sys.argv) and gen_typeswitches(d)
 
 
 def gen_category(prefix: str, category: str, data: Dict):
@@ -219,13 +219,20 @@ def gen_request_new(request: Dict):
     """
 
 
-def gen_responses(requests: Dict):
-    """Generate a Go file with a map from request type to response struct."""
+def gen_typeswitches(data: Dict):
+    """Generate a Go file with a mappings from type names to structs."""
     resp_map = {}
-    for data in requests.values():
-        for r in data:
+    for category in data["requests"].values():
+        for r in category:
             resp_map[r["name"]] = f"&{r['name']}Response{{}}"
     map_entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
+
+    event_map = {}
+    for category in data["events"].values():
+        for e in category:
+            event_map[e["name"]] = f"&{e['name']}Event{{}}"
+    event_entries = "\n".join(f'"{k}": {v},' for k, v in event_map.items())
+
     switch_list = []
     for resp in resp_map:
         switch_list.append(f"""\
@@ -233,14 +240,19 @@ def gen_responses(requests: Dict):
             return *r\
         """)
     switch_entries = "\n".join(switch_list)
-    with open("responses.go", "w") as f:
+
+    with open("typeswitches.go", "w") as f:
         f.write(f"""\
         package {package}
 
         {disclaimer}
 
         var respMap = map[string]response{{
-        {map_entries}
+            {map_entries}
+        }}
+
+        var eventMap = map[string]Event{{
+            {event_entries}
         }}
 
         func deref(r response) response {{
@@ -335,7 +347,7 @@ def newlinify(s: str, comment: bool = True) -> str:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print("Missing filename argument")
         exit(1)
 
@@ -347,4 +359,4 @@ if __name__ == "__main__":
         d = json.load(f)
 
     process_json(d)
-    os.system("gofmt -w {events,requests}_*.go responses.go")
+    os.system("gofmt -w *.go")

@@ -77,6 +77,40 @@ var respMap = map[string]response{
 	"GetTransitionDuration":      &GetTransitionDurationResponse{},
 }
 
+var eventMap = map[string]Event{
+	"SwitchScenes":               &SwitchScenesEvent{},
+	"ScenesChanged":              &ScenesChangedEvent{},
+	"SceneCollectionChanged":     &SceneCollectionChangedEvent{},
+	"SceneCollectionListChanged": &SceneCollectionListChangedEvent{},
+	"SwitchTransition":           &SwitchTransitionEvent{},
+	"TransitionListChanged":      &TransitionListChangedEvent{},
+	"TransitionDurationChanged":  &TransitionDurationChangedEvent{},
+	"TransitionBegin":            &TransitionBeginEvent{},
+	"ProfileChanged":             &ProfileChangedEvent{},
+	"ProfileListChanged":         &ProfileListChangedEvent{},
+	"StreamStarting":             &StreamStartingEvent{},
+	"StreamStarted":              &StreamStartedEvent{},
+	"StreamStopping":             &StreamStoppingEvent{},
+	"StreamStopped":              &StreamStoppedEvent{},
+	"StreamStatus":               &StreamStatusEvent{},
+	"RecordingStarting":          &RecordingStartingEvent{},
+	"RecordingStarted":           &RecordingStartedEvent{},
+	"RecordingStopping":          &RecordingStoppingEvent{},
+	"RecordingStopped":           &RecordingStoppedEvent{},
+	"ReplayStarting":             &ReplayStartingEvent{},
+	"ReplayStarted":              &ReplayStartedEvent{},
+	"ReplayStopping":             &ReplayStoppingEvent{},
+	"ReplayStopped":              &ReplayStoppedEvent{},
+	"Exiting":                    &ExitingEvent{},
+	"Heartbeat":                  &HeartbeatEvent{},
+	"SourceOrderChanged":         &SourceOrderChangedEvent{},
+	"SceneItemAdded":             &SceneItemAddedEvent{},
+	"SceneItemRemoved":           &SceneItemRemovedEvent{},
+	"SceneItemVisibilityChanged": &SceneItemVisibilityChangedEvent{},
+	"PreviewSceneChanged":        &PreviewSceneChangedEvent{},
+	"StudioModeSwitched":         &StudioModeSwitchedEvent{},
+}
+
 func deref(r response) response {
 	switch r := r.(type) {
 	case *GetVersionResponse:
