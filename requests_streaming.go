@@ -9,8 +9,8 @@ package obsws
 type GetStreamingStatusRequest _request
 
 // NewGetStreamingStatusRequest returns a new GetStreamingStatusRequest.
-func (c *Client) NewGetStreamingStatusRequest() GetStreamingStatusRequest {
-	return GetStreamingStatusRequest{MessageID: c.getMessageID(), RequestType: "GetStreamingStatus"}
+func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
+	return GetStreamingStatusRequest{MessageID: getMessageID(), RequestType: "GetStreamingStatus"}
 }
 
 // ID returns the request's message ID.
@@ -57,8 +57,8 @@ func (r GetStreamingStatusResponse) Err() string { return r.Error }
 type StartStopStreamingRequest _request
 
 // NewStartStopStreamingRequest returns a new StartStopStreamingRequest.
-func (c *Client) NewStartStopStreamingRequest() StartStopStreamingRequest {
-	return StartStopStreamingRequest{MessageID: c.getMessageID(), RequestType: "StartStopStreaming"}
+func NewStartStopStreamingRequest() StartStopStreamingRequest {
+	return StartStopStreamingRequest{MessageID: getMessageID(), RequestType: "StartStopStreaming"}
 }
 
 // ID returns the request's message ID.
@@ -123,7 +123,7 @@ type StartStreamingRequest struct {
 }
 
 // NewStartStreamingRequest returns a new StartStreamingRequest.
-func (c *Client) NewStartStreamingRequest(
+func NewStartStreamingRequest(
 	stream map[string]interface{},
 	streamType string,
 	streamMetadata map[string]interface{},
@@ -145,7 +145,7 @@ func (c *Client) NewStartStreamingRequest(
 		streamSettingsUsername,
 		streamSettingsPassword,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "StartStreaming",
 		},
 	}
@@ -179,8 +179,8 @@ func (r StartStreamingResponse) Err() string { return r.Error }
 type StopStreamingRequest _request
 
 // NewStopStreamingRequest returns a new StopStreamingRequest.
-func (c *Client) NewStopStreamingRequest() StopStreamingRequest {
-	return StopStreamingRequest{MessageID: c.getMessageID(), RequestType: "StopStreaming"}
+func NewStopStreamingRequest() StopStreamingRequest {
+	return StopStreamingRequest{MessageID: getMessageID(), RequestType: "StopStreaming"}
 }
 
 // ID returns the request's message ID.
@@ -239,7 +239,7 @@ type SetStreamSettingsRequest struct {
 }
 
 // NewSetStreamSettingsRequest returns a new SetStreamSettingsRequest.
-func (c *Client) NewSetStreamSettingsRequest(
+func NewSetStreamSettingsRequest(
 	_type string,
 	settings map[string]interface{},
 	settingsServer string,
@@ -259,7 +259,7 @@ func (c *Client) NewSetStreamSettingsRequest(
 		settingsPassword,
 		save,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetStreamSettings",
 		},
 	}
@@ -292,8 +292,8 @@ func (r SetStreamSettingsResponse) Err() string { return r.Error }
 type GetStreamSettingsRequest _request
 
 // NewGetStreamSettingsRequest returns a new GetStreamSettingsRequest.
-func (c *Client) NewGetStreamSettingsRequest() GetStreamSettingsRequest {
-	return GetStreamSettingsRequest{MessageID: c.getMessageID(), RequestType: "GetStreamSettings"}
+func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
+	return GetStreamSettingsRequest{MessageID: getMessageID(), RequestType: "GetStreamSettings"}
 }
 
 // ID returns the request's message ID.
@@ -348,8 +348,8 @@ func (r GetStreamSettingsResponse) Err() string { return r.Error }
 type SaveStreamSettingsRequest _request
 
 // NewSaveStreamSettingsRequest returns a new SaveStreamSettingsRequest.
-func (c *Client) NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
-	return SaveStreamSettingsRequest{MessageID: c.getMessageID(), RequestType: "SaveStreamSettings"}
+func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
+	return SaveStreamSettingsRequest{MessageID: getMessageID(), RequestType: "SaveStreamSettings"}
 }
 
 // ID returns the request's message ID.

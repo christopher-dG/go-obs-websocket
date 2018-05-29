@@ -9,8 +9,8 @@ package obsws
 type StartStopRecordingRequest _request
 
 // NewStartStopRecordingRequest returns a new StartStopRecordingRequest.
-func (c *Client) NewStartStopRecordingRequest() StartStopRecordingRequest {
-	return StartStopRecordingRequest{MessageID: c.getMessageID(), RequestType: "StartStopRecording"}
+func NewStartStopRecordingRequest() StartStopRecordingRequest {
+	return StartStopRecordingRequest{MessageID: getMessageID(), RequestType: "StartStopRecording"}
 }
 
 // ID returns the request's message ID.
@@ -40,8 +40,8 @@ func (r StartStopRecordingResponse) Err() string { return r.Error }
 type StartRecordingRequest _request
 
 // NewStartRecordingRequest returns a new StartRecordingRequest.
-func (c *Client) NewStartRecordingRequest() StartRecordingRequest {
-	return StartRecordingRequest{MessageID: c.getMessageID(), RequestType: "StartRecording"}
+func NewStartRecordingRequest() StartRecordingRequest {
+	return StartRecordingRequest{MessageID: getMessageID(), RequestType: "StartRecording"}
 }
 
 // ID returns the request's message ID.
@@ -71,8 +71,8 @@ func (r StartRecordingResponse) Err() string { return r.Error }
 type StopRecordingRequest _request
 
 // NewStopRecordingRequest returns a new StopRecordingRequest.
-func (c *Client) NewStopRecordingRequest() StopRecordingRequest {
-	return StopRecordingRequest{MessageID: c.getMessageID(), RequestType: "StopRecording"}
+func NewStopRecordingRequest() StopRecordingRequest {
+	return StopRecordingRequest{MessageID: getMessageID(), RequestType: "StopRecording"}
 }
 
 // ID returns the request's message ID.
@@ -106,11 +106,11 @@ type SetRecordingFolderRequest struct {
 }
 
 // NewSetRecordingFolderRequest returns a new SetRecordingFolderRequest.
-func (c *Client) NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
+func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 	return SetRecordingFolderRequest{
 		recFolder,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetRecordingFolder",
 		},
 	}
@@ -143,8 +143,8 @@ func (r SetRecordingFolderResponse) Err() string { return r.Error }
 type GetRecordingFolderRequest _request
 
 // NewGetRecordingFolderRequest returns a new GetRecordingFolderRequest.
-func (c *Client) NewGetRecordingFolderRequest() GetRecordingFolderRequest {
-	return GetRecordingFolderRequest{MessageID: c.getMessageID(), RequestType: "GetRecordingFolder"}
+func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
+	return GetRecordingFolderRequest{MessageID: getMessageID(), RequestType: "GetRecordingFolder"}
 }
 
 // ID returns the request's message ID.

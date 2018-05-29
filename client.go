@@ -7,6 +7,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var messageID = 0
+
 // Client is the interface to obs-websocket.
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
@@ -56,7 +58,7 @@ func (c *Client) poll() {
 }
 
 // getMessageID generates a string that the client has not yet used.
-func (c *Client) getMessageID() string {
-	c.id++
-	return strconv.Itoa(c.id)
+func getMessageID() string {
+	messageID++
+	return strconv.Itoa(messageID)
 }

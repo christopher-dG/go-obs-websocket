@@ -14,11 +14,11 @@ type SetCurrentProfileRequest struct {
 }
 
 // NewSetCurrentProfileRequest returns a new SetCurrentProfileRequest.
-func (c *Client) NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
+func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 	return SetCurrentProfileRequest{
 		profileName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetCurrentProfile",
 		},
 	}
@@ -51,8 +51,8 @@ func (r SetCurrentProfileResponse) Err() string { return r.Error }
 type GetCurrentProfileRequest _request
 
 // NewGetCurrentProfileRequest returns a new GetCurrentProfileRequest.
-func (c *Client) NewGetCurrentProfileRequest() GetCurrentProfileRequest {
-	return GetCurrentProfileRequest{MessageID: c.getMessageID(), RequestType: "GetCurrentProfile"}
+func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
+	return GetCurrentProfileRequest{MessageID: getMessageID(), RequestType: "GetCurrentProfile"}
 }
 
 // ID returns the request's message ID.
@@ -86,8 +86,8 @@ func (r GetCurrentProfileResponse) Err() string { return r.Error }
 type ListProfilesRequest _request
 
 // NewListProfilesRequest returns a new ListProfilesRequest.
-func (c *Client) NewListProfilesRequest() ListProfilesRequest {
-	return ListProfilesRequest{MessageID: c.getMessageID(), RequestType: "ListProfiles"}
+func NewListProfilesRequest() ListProfilesRequest {
+	return ListProfilesRequest{MessageID: getMessageID(), RequestType: "ListProfiles"}
 }
 
 // ID returns the request's message ID.

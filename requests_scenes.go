@@ -14,11 +14,11 @@ type SetCurrentSceneRequest struct {
 }
 
 // NewSetCurrentSceneRequest returns a new SetCurrentSceneRequest.
-func (c *Client) NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
+func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 	return SetCurrentSceneRequest{
 		sceneName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetCurrentScene",
 		},
 	}
@@ -51,8 +51,8 @@ func (r SetCurrentSceneResponse) Err() string { return r.Error }
 type GetCurrentSceneRequest _request
 
 // NewGetCurrentSceneRequest returns a new GetCurrentSceneRequest.
-func (c *Client) NewGetCurrentSceneRequest() GetCurrentSceneRequest {
-	return GetCurrentSceneRequest{MessageID: c.getMessageID(), RequestType: "GetCurrentScene"}
+func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
+	return GetCurrentSceneRequest{MessageID: getMessageID(), RequestType: "GetCurrentScene"}
 }
 
 // ID returns the request's message ID.
@@ -90,8 +90,8 @@ func (r GetCurrentSceneResponse) Err() string { return r.Error }
 type GetSceneListRequest _request
 
 // NewGetSceneListRequest returns a new GetSceneListRequest.
-func (c *Client) NewGetSceneListRequest() GetSceneListRequest {
-	return GetSceneListRequest{MessageID: c.getMessageID(), RequestType: "GetSceneList"}
+func NewGetSceneListRequest() GetSceneListRequest {
+	return GetSceneListRequest{MessageID: getMessageID(), RequestType: "GetSceneList"}
 }
 
 // ID returns the request's message ID.
@@ -147,7 +147,7 @@ type SetSceneItemOrderRequest struct {
 }
 
 // NewSetSceneItemOrderRequest returns a new SetSceneItemOrderRequest.
-func (c *Client) NewSetSceneItemOrderRequest(
+func NewSetSceneItemOrderRequest(
 	scene string,
 	items interface{},
 	itemsID int,
@@ -159,7 +159,7 @@ func (c *Client) NewSetSceneItemOrderRequest(
 		itemsID,
 		itemsName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemOrder",
 		},
 	}

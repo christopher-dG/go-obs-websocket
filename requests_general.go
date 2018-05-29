@@ -9,8 +9,8 @@ package obsws
 type GetVersionRequest _request
 
 // NewGetVersionRequest returns a new GetVersionRequest.
-func (c *Client) NewGetVersionRequest() GetVersionRequest {
-	return GetVersionRequest{MessageID: c.getMessageID(), RequestType: "GetVersion"}
+func NewGetVersionRequest() GetVersionRequest {
+	return GetVersionRequest{MessageID: getMessageID(), RequestType: "GetVersion"}
 }
 
 // ID returns the request's message ID.
@@ -56,8 +56,8 @@ func (r GetVersionResponse) Err() string { return r.Error }
 type GetAuthRequiredRequest _request
 
 // NewGetAuthRequiredRequest returns a new GetAuthRequiredRequest.
-func (c *Client) NewGetAuthRequiredRequest() GetAuthRequiredRequest {
-	return GetAuthRequiredRequest{MessageID: c.getMessageID(), RequestType: "GetAuthRequired"}
+func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
+	return GetAuthRequiredRequest{MessageID: getMessageID(), RequestType: "GetAuthRequired"}
 }
 
 // ID returns the request's message ID.
@@ -100,11 +100,11 @@ type AuthenticateRequest struct {
 }
 
 // NewAuthenticateRequest returns a new AuthenticateRequest.
-func (c *Client) NewAuthenticateRequest(auth string) AuthenticateRequest {
+func NewAuthenticateRequest(auth string) AuthenticateRequest {
 	return AuthenticateRequest{
 		auth,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "Authenticate",
 		},
 	}
@@ -142,11 +142,11 @@ type SetHeartbeatRequest struct {
 }
 
 // NewSetHeartbeatRequest returns a new SetHeartbeatRequest.
-func (c *Client) NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
+func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 	return SetHeartbeatRequest{
 		enable,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetHeartbeat",
 		},
 	}
@@ -184,11 +184,11 @@ type SetFilenameFormattingRequest struct {
 }
 
 // NewSetFilenameFormattingRequest returns a new SetFilenameFormattingRequest.
-func (c *Client) NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameFormattingRequest {
+func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameFormattingRequest {
 	return SetFilenameFormattingRequest{
 		filenameFormatting,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetFilenameFormatting",
 		},
 	}
@@ -221,8 +221,8 @@ func (r SetFilenameFormattingResponse) Err() string { return r.Error }
 type GetFilenameFormattingRequest _request
 
 // NewGetFilenameFormattingRequest returns a new GetFilenameFormattingRequest.
-func (c *Client) NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
-	return GetFilenameFormattingRequest{MessageID: c.getMessageID(), RequestType: "GetFilenameFormatting"}
+func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
+	return GetFilenameFormattingRequest{MessageID: getMessageID(), RequestType: "GetFilenameFormatting"}
 }
 
 // ID returns the request's message ID.

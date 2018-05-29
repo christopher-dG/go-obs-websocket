@@ -21,7 +21,7 @@ type GetSceneItemPropertiesRequest struct {
 }
 
 // NewGetSceneItemPropertiesRequest returns a new GetSceneItemPropertiesRequest.
-func (c *Client) NewGetSceneItemPropertiesRequest(
+func NewGetSceneItemPropertiesRequest(
 	scene string,
 	itemID string,
 	itemName string,
@@ -31,7 +31,7 @@ func (c *Client) NewGetSceneItemPropertiesRequest(
 		itemID,
 		itemName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetSceneItemProperties",
 		},
 	}
@@ -187,7 +187,7 @@ type SetSceneItemPropertiesRequest struct {
 }
 
 // NewSetSceneItemPropertiesRequest returns a new SetSceneItemPropertiesRequest.
-func (c *Client) NewSetSceneItemPropertiesRequest(
+func NewSetSceneItemPropertiesRequest(
 	scene string,
 	itemName string,
 	itemID int,
@@ -229,7 +229,7 @@ func (c *Client) NewSetSceneItemPropertiesRequest(
 		itemBoundsX,
 		itemBoundsY,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemProperties",
 		},
 	}
@@ -271,7 +271,7 @@ type ResetSceneItemRequest struct {
 }
 
 // NewResetSceneItemRequest returns a new ResetSceneItemRequest.
-func (c *Client) NewResetSceneItemRequest(
+func NewResetSceneItemRequest(
 	sceneName string,
 	item string,
 ) ResetSceneItemRequest {
@@ -279,7 +279,7 @@ func (c *Client) NewResetSceneItemRequest(
 		sceneName,
 		item,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "ResetSceneItem",
 		},
 	}
@@ -324,7 +324,7 @@ type SetSceneItemRenderRequest struct {
 }
 
 // NewSetSceneItemRenderRequest returns a new SetSceneItemRenderRequest.
-func (c *Client) NewSetSceneItemRenderRequest(
+func NewSetSceneItemRenderRequest(
 	source string,
 	render bool,
 	sceneName string,
@@ -334,7 +334,7 @@ func (c *Client) NewSetSceneItemRenderRequest(
 		render,
 		sceneName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemRender",
 		},
 	}
@@ -382,7 +382,7 @@ type SetSceneItemPositionRequest struct {
 }
 
 // NewSetSceneItemPositionRequest returns a new SetSceneItemPositionRequest.
-func (c *Client) NewSetSceneItemPositionRequest(
+func NewSetSceneItemPositionRequest(
 	sceneName string,
 	item string,
 	x float64,
@@ -394,7 +394,7 @@ func (c *Client) NewSetSceneItemPositionRequest(
 		x,
 		y,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemPosition",
 		},
 	}
@@ -445,7 +445,7 @@ type SetSceneItemTransformRequest struct {
 }
 
 // NewSetSceneItemTransformRequest returns a new SetSceneItemTransformRequest.
-func (c *Client) NewSetSceneItemTransformRequest(
+func NewSetSceneItemTransformRequest(
 	sceneName string,
 	item string,
 	xScale float64,
@@ -459,7 +459,7 @@ func (c *Client) NewSetSceneItemTransformRequest(
 		yScale,
 		rotation,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemTransform",
 		},
 	}
@@ -513,7 +513,7 @@ type SetSceneItemCropRequest struct {
 }
 
 // NewSetSceneItemCropRequest returns a new SetSceneItemCropRequest.
-func (c *Client) NewSetSceneItemCropRequest(
+func NewSetSceneItemCropRequest(
 	sceneName string,
 	item string,
 	top int,
@@ -529,7 +529,7 @@ func (c *Client) NewSetSceneItemCropRequest(
 		left,
 		right,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemCrop",
 		},
 	}

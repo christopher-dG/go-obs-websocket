@@ -9,8 +9,8 @@ package obsws
 type GetStudioModeStatusRequest _request
 
 // NewGetStudioModeStatusRequest returns a new GetStudioModeStatusRequest.
-func (c *Client) NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
-	return GetStudioModeStatusRequest{MessageID: c.getMessageID(), RequestType: "GetStudioModeStatus"}
+func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
+	return GetStudioModeStatusRequest{MessageID: getMessageID(), RequestType: "GetStudioModeStatus"}
 }
 
 // ID returns the request's message ID.
@@ -45,8 +45,8 @@ func (r GetStudioModeStatusResponse) Err() string { return r.Error }
 type GetPreviewSceneRequest _request
 
 // NewGetPreviewSceneRequest returns a new GetPreviewSceneRequest.
-func (c *Client) NewGetPreviewSceneRequest() GetPreviewSceneRequest {
-	return GetPreviewSceneRequest{MessageID: c.getMessageID(), RequestType: "GetPreviewScene"}
+func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
+	return GetPreviewSceneRequest{MessageID: getMessageID(), RequestType: "GetPreviewScene"}
 }
 
 // ID returns the request's message ID.
@@ -89,11 +89,11 @@ type SetPreviewSceneRequest struct {
 }
 
 // NewSetPreviewSceneRequest returns a new SetPreviewSceneRequest.
-func (c *Client) NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
+func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 	return SetPreviewSceneRequest{
 		sceneName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetPreviewScene",
 		},
 	}
@@ -139,7 +139,7 @@ type TransitionToProgramRequest struct {
 }
 
 // NewTransitionToProgramRequest returns a new TransitionToProgramRequest.
-func (c *Client) NewTransitionToProgramRequest(
+func NewTransitionToProgramRequest(
 	withTransition map[string]interface{},
 	withTransitionName string,
 	withTransitionDuration int,
@@ -149,7 +149,7 @@ func (c *Client) NewTransitionToProgramRequest(
 		withTransitionName,
 		withTransitionDuration,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "TransitionToProgram",
 		},
 	}
@@ -182,8 +182,8 @@ func (r TransitionToProgramResponse) Err() string { return r.Error }
 type EnableStudioModeRequest _request
 
 // NewEnableStudioModeRequest returns a new EnableStudioModeRequest.
-func (c *Client) NewEnableStudioModeRequest() EnableStudioModeRequest {
-	return EnableStudioModeRequest{MessageID: c.getMessageID(), RequestType: "EnableStudioMode"}
+func NewEnableStudioModeRequest() EnableStudioModeRequest {
+	return EnableStudioModeRequest{MessageID: getMessageID(), RequestType: "EnableStudioMode"}
 }
 
 // ID returns the request's message ID.
@@ -212,8 +212,8 @@ func (r EnableStudioModeResponse) Err() string { return r.Error }
 type DisableStudioModeRequest _request
 
 // NewDisableStudioModeRequest returns a new DisableStudioModeRequest.
-func (c *Client) NewDisableStudioModeRequest() DisableStudioModeRequest {
-	return DisableStudioModeRequest{MessageID: c.getMessageID(), RequestType: "DisableStudioMode"}
+func NewDisableStudioModeRequest() DisableStudioModeRequest {
+	return DisableStudioModeRequest{MessageID: getMessageID(), RequestType: "DisableStudioMode"}
 }
 
 // ID returns the request's message ID.
@@ -242,8 +242,8 @@ func (r DisableStudioModeResponse) Err() string { return r.Error }
 type ToggleStudioModeRequest _request
 
 // NewToggleStudioModeRequest returns a new ToggleStudioModeRequest.
-func (c *Client) NewToggleStudioModeRequest() ToggleStudioModeRequest {
-	return ToggleStudioModeRequest{MessageID: c.getMessageID(), RequestType: "ToggleStudioMode"}
+func NewToggleStudioModeRequest() ToggleStudioModeRequest {
+	return ToggleStudioModeRequest{MessageID: getMessageID(), RequestType: "ToggleStudioMode"}
 }
 
 // ID returns the request's message ID.

@@ -21,7 +21,7 @@ func (c *Client) Connect() error {
 	// We can't use SendRequest yet because we haven't started polling.
 
 	reqGAR := GetAuthRequiredRequest{
-		MessageID:   c.getMessageID(),
+		MessageID:   getMessageID(),
 		RequestType: "GetAuthRequired",
 	}
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
@@ -44,7 +44,7 @@ func (c *Client) Connect() error {
 	reqA := AuthenticateRequest{
 		Auth: auth,
 		_request: _request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "Authenticate",
 		},
 	}

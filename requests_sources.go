@@ -9,8 +9,8 @@ package obsws
 type GetSourcesListRequest _request
 
 // NewGetSourcesListRequest returns a new GetSourcesListRequest.
-func (c *Client) NewGetSourcesListRequest() GetSourcesListRequest {
-	return GetSourcesListRequest{MessageID: c.getMessageID(), RequestType: "GetSourcesList"}
+func NewGetSourcesListRequest() GetSourcesListRequest {
+	return GetSourcesListRequest{MessageID: getMessageID(), RequestType: "GetSourcesList"}
 }
 
 // ID returns the request's message ID.
@@ -54,8 +54,8 @@ func (r GetSourcesListResponse) Err() string { return r.Error }
 type GetSourcesTypesListRequest _request
 
 // NewGetSourcesTypesListRequest returns a new GetSourcesTypesListRequest.
-func (c *Client) NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
-	return GetSourcesTypesListRequest{MessageID: c.getMessageID(), RequestType: "GetSourcesTypesList"}
+func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
+	return GetSourcesTypesListRequest{MessageID: getMessageID(), RequestType: "GetSourcesTypesList"}
 }
 
 // ID returns the request's message ID.
@@ -131,11 +131,11 @@ type GetVolumeRequest struct {
 }
 
 // NewGetVolumeRequest returns a new GetVolumeRequest.
-func (c *Client) NewGetVolumeRequest(source string) GetVolumeRequest {
+func NewGetVolumeRequest(source string) GetVolumeRequest {
 	return GetVolumeRequest{
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetVolume",
 		},
 	}
@@ -189,7 +189,7 @@ type SetVolumeRequest struct {
 }
 
 // NewSetVolumeRequest returns a new SetVolumeRequest.
-func (c *Client) NewSetVolumeRequest(
+func NewSetVolumeRequest(
 	source string,
 	volume float64,
 ) SetVolumeRequest {
@@ -197,7 +197,7 @@ func (c *Client) NewSetVolumeRequest(
 		source,
 		volume,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetVolume",
 		},
 	}
@@ -235,11 +235,11 @@ type GetMuteRequest struct {
 }
 
 // NewGetMuteRequest returns a new GetMuteRequest.
-func (c *Client) NewGetMuteRequest(source string) GetMuteRequest {
+func NewGetMuteRequest(source string) GetMuteRequest {
 	return GetMuteRequest{
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetMute",
 		},
 	}
@@ -288,7 +288,7 @@ type SetMuteRequest struct {
 }
 
 // NewSetMuteRequest returns a new SetMuteRequest.
-func (c *Client) NewSetMuteRequest(
+func NewSetMuteRequest(
 	source string,
 	mute bool,
 ) SetMuteRequest {
@@ -296,7 +296,7 @@ func (c *Client) NewSetMuteRequest(
 		source,
 		mute,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetMute",
 		},
 	}
@@ -334,11 +334,11 @@ type ToggleMuteRequest struct {
 }
 
 // NewToggleMuteRequest returns a new ToggleMuteRequest.
-func (c *Client) NewToggleMuteRequest(source string) ToggleMuteRequest {
+func NewToggleMuteRequest(source string) ToggleMuteRequest {
 	return ToggleMuteRequest{
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "ToggleMute",
 		},
 	}
@@ -379,7 +379,7 @@ type SetSyncOffsetRequest struct {
 }
 
 // NewSetSyncOffsetRequest returns a new SetSyncOffsetRequest.
-func (c *Client) NewSetSyncOffsetRequest(
+func NewSetSyncOffsetRequest(
 	source string,
 	offset int,
 ) SetSyncOffsetRequest {
@@ -387,7 +387,7 @@ func (c *Client) NewSetSyncOffsetRequest(
 		source,
 		offset,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSyncOffset",
 		},
 	}
@@ -425,11 +425,11 @@ type GetSyncOffsetRequest struct {
 }
 
 // NewGetSyncOffsetRequest returns a new GetSyncOffsetRequest.
-func (c *Client) NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
+func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 	return GetSyncOffsetRequest{
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetSyncOffset",
 		},
 	}
@@ -479,7 +479,7 @@ type GetSourceSettingsRequest struct {
 }
 
 // NewGetSourceSettingsRequest returns a new GetSourceSettingsRequest.
-func (c *Client) NewGetSourceSettingsRequest(
+func NewGetSourceSettingsRequest(
 	sourceName string,
 	sourceType string,
 ) GetSourceSettingsRequest {
@@ -487,7 +487,7 @@ func (c *Client) NewGetSourceSettingsRequest(
 		sourceName,
 		sourceType,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetSourceSettings",
 		},
 	}
@@ -545,7 +545,7 @@ type SetSourceSettingsRequest struct {
 }
 
 // NewSetSourceSettingsRequest returns a new SetSourceSettingsRequest.
-func (c *Client) NewSetSourceSettingsRequest(
+func NewSetSourceSettingsRequest(
 	sourceName string,
 	sourceType string,
 	sourceSettings map[string]interface{},
@@ -555,7 +555,7 @@ func (c *Client) NewSetSourceSettingsRequest(
 		sourceType,
 		sourceSettings,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetSourceSettings",
 		},
 	}
@@ -609,7 +609,7 @@ type GetTextGDIPlusPropertiesRequest struct {
 }
 
 // NewGetTextGDIPlusPropertiesRequest returns a new GetTextGDIPlusPropertiesRequest.
-func (c *Client) NewGetTextGDIPlusPropertiesRequest(
+func NewGetTextGDIPlusPropertiesRequest(
 	sceneName string,
 	source string,
 ) GetTextGDIPlusPropertiesRequest {
@@ -617,7 +617,7 @@ func (c *Client) NewGetTextGDIPlusPropertiesRequest(
 		sceneName,
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetTextGDIPlusProperties",
 		},
 	}
@@ -833,7 +833,7 @@ type SetTextGDIPlusPropertiesRequest struct {
 }
 
 // NewSetTextGDIPlusPropertiesRequest returns a new SetTextGDIPlusPropertiesRequest.
-func (c *Client) NewSetTextGDIPlusPropertiesRequest(
+func NewSetTextGDIPlusPropertiesRequest(
 	sceneName string,
 	source string,
 	align string,
@@ -897,7 +897,7 @@ func (c *Client) NewSetTextGDIPlusPropertiesRequest(
 		vertical,
 		render,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetTextGDIPlusProperties",
 		},
 	}
@@ -939,7 +939,7 @@ type GetTextFreetype2PropertiesRequest struct {
 }
 
 // NewGetTextFreetype2PropertiesRequest returns a new GetTextFreetype2PropertiesRequest.
-func (c *Client) NewGetTextFreetype2PropertiesRequest(
+func NewGetTextFreetype2PropertiesRequest(
 	sceneName string,
 	source string,
 ) GetTextFreetype2PropertiesRequest {
@@ -947,7 +947,7 @@ func (c *Client) NewGetTextFreetype2PropertiesRequest(
 		sceneName,
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetTextFreetype2Properties",
 		},
 	}
@@ -1091,7 +1091,7 @@ type SetTextFreetype2PropertiesRequest struct {
 }
 
 // NewSetTextFreetype2PropertiesRequest returns a new SetTextFreetype2PropertiesRequest.
-func (c *Client) NewSetTextFreetype2PropertiesRequest(
+func NewSetTextFreetype2PropertiesRequest(
 	sceneName string,
 	source string,
 	color1 int,
@@ -1131,7 +1131,7 @@ func (c *Client) NewSetTextFreetype2PropertiesRequest(
 		wordWrap,
 		render,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetTextFreetype2Properties",
 		},
 	}
@@ -1173,7 +1173,7 @@ type GetBrowserSourcePropertiesRequest struct {
 }
 
 // NewGetBrowserSourcePropertiesRequest returns a new GetBrowserSourcePropertiesRequest.
-func (c *Client) NewGetBrowserSourcePropertiesRequest(
+func NewGetBrowserSourcePropertiesRequest(
 	sceneName string,
 	source string,
 ) GetBrowserSourcePropertiesRequest {
@@ -1181,7 +1181,7 @@ func (c *Client) NewGetBrowserSourcePropertiesRequest(
 		sceneName,
 		source,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "GetBrowserSourceProperties",
 		},
 	}
@@ -1279,7 +1279,7 @@ type SetBrowserSourcePropertiesRequest struct {
 }
 
 // NewSetBrowserSourcePropertiesRequest returns a new SetBrowserSourcePropertiesRequest.
-func (c *Client) NewSetBrowserSourcePropertiesRequest(
+func NewSetBrowserSourcePropertiesRequest(
 	sceneName string,
 	source string,
 	isLocalFile bool,
@@ -1305,7 +1305,7 @@ func (c *Client) NewSetBrowserSourcePropertiesRequest(
 		shutdown,
 		render,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetBrowserSourceProperties",
 		},
 	}
@@ -1353,7 +1353,7 @@ type DeleteSceneItemRequest struct {
 }
 
 // NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
-func (c *Client) NewDeleteSceneItemRequest(
+func NewDeleteSceneItemRequest(
 	scene string,
 	item map[string]interface{},
 	itemName string,
@@ -1365,7 +1365,7 @@ func (c *Client) NewDeleteSceneItemRequest(
 		itemName,
 		itemID,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "DeleteSceneItem",
 		},
 	}
@@ -1417,7 +1417,7 @@ type DuplicateSceneItemRequest struct {
 }
 
 // NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.
-func (c *Client) NewDuplicateSceneItemRequest(
+func NewDuplicateSceneItemRequest(
 	fromScene string,
 	toScene string,
 	item map[string]interface{},
@@ -1431,7 +1431,7 @@ func (c *Client) NewDuplicateSceneItemRequest(
 		itemName,
 		itemID,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "DuplicateSceneItem",
 		},
 	}
@@ -1464,8 +1464,8 @@ func (r DuplicateSceneItemResponse) Err() string { return r.Error }
 type GetSpecialSourcesRequest _request
 
 // NewGetSpecialSourcesRequest returns a new GetSpecialSourcesRequest.
-func (c *Client) NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
-	return GetSpecialSourcesRequest{MessageID: c.getMessageID(), RequestType: "GetSpecialSources"}
+func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
+	return GetSpecialSourcesRequest{MessageID: getMessageID(), RequestType: "GetSpecialSources"}
 }
 
 // ID returns the request's message ID.

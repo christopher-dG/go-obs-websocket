@@ -9,8 +9,8 @@ package obsws
 type GetTransitionListRequest _request
 
 // NewGetTransitionListRequest returns a new GetTransitionListRequest.
-func (c *Client) NewGetTransitionListRequest() GetTransitionListRequest {
-	return GetTransitionListRequest{MessageID: c.getMessageID(), RequestType: "GetTransitionList"}
+func NewGetTransitionListRequest() GetTransitionListRequest {
+	return GetTransitionListRequest{MessageID: getMessageID(), RequestType: "GetTransitionList"}
 }
 
 // ID returns the request's message ID.
@@ -51,8 +51,8 @@ func (r GetTransitionListResponse) Err() string { return r.Error }
 type GetCurrentTransitionRequest _request
 
 // NewGetCurrentTransitionRequest returns a new GetCurrentTransitionRequest.
-func (c *Client) NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
-	return GetCurrentTransitionRequest{MessageID: c.getMessageID(), RequestType: "GetCurrentTransition"}
+func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
+	return GetCurrentTransitionRequest{MessageID: getMessageID(), RequestType: "GetCurrentTransition"}
 }
 
 // ID returns the request's message ID.
@@ -94,11 +94,11 @@ type SetCurrentTransitionRequest struct {
 }
 
 // NewSetCurrentTransitionRequest returns a new SetCurrentTransitionRequest.
-func (c *Client) NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionRequest {
+func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionRequest {
 	return SetCurrentTransitionRequest{
 		transitionName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetCurrentTransition",
 		},
 	}
@@ -136,11 +136,11 @@ type SetTransitionDurationRequest struct {
 }
 
 // NewSetTransitionDurationRequest returns a new SetTransitionDurationRequest.
-func (c *Client) NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest {
+func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest {
 	return SetTransitionDurationRequest{
 		duration,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetTransitionDuration",
 		},
 	}
@@ -173,8 +173,8 @@ func (r SetTransitionDurationResponse) Err() string { return r.Error }
 type GetTransitionDurationRequest _request
 
 // NewGetTransitionDurationRequest returns a new GetTransitionDurationRequest.
-func (c *Client) NewGetTransitionDurationRequest() GetTransitionDurationRequest {
-	return GetTransitionDurationRequest{MessageID: c.getMessageID(), RequestType: "GetTransitionDuration"}
+func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
+	return GetTransitionDurationRequest{MessageID: getMessageID(), RequestType: "GetTransitionDuration"}
 }
 
 // ID returns the request's message ID.

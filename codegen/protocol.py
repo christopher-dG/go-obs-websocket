@@ -183,7 +183,7 @@ def gen_request_new(request: Dict):
     """Generate Go code with a New___Request function for a request type."""
     base = f"""\
     // New{request["name"]}Request returns a new {request["name"]}Request.
-    func (c *Client) New{request["name"]}Request(\
+    func New{request["name"]}Request(\
     """
     variables = go_variables(request.get("params", []), [], export=False)
     if not variables:
@@ -199,7 +199,7 @@ def gen_request_new(request: Dict):
             for var in variables
         ) + f"""
         _request{{
-            MessageID: c.getMessageID(),
+            MessageID: getMessageID(),
             RequestType: "{request["name"]}",
         }},
         }}

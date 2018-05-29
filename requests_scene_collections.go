@@ -14,11 +14,11 @@ type SetCurrentSceneCollectionRequest struct {
 }
 
 // NewSetCurrentSceneCollectionRequest returns a new SetCurrentSceneCollectionRequest.
-func (c *Client) NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectionRequest {
+func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectionRequest {
 	return SetCurrentSceneCollectionRequest{
 		scName,
 		_request{
-			MessageID:   c.getMessageID(),
+			MessageID:   getMessageID(),
 			RequestType: "SetCurrentSceneCollection",
 		},
 	}
@@ -51,8 +51,8 @@ func (r SetCurrentSceneCollectionResponse) Err() string { return r.Error }
 type GetCurrentSceneCollectionRequest _request
 
 // NewGetCurrentSceneCollectionRequest returns a new GetCurrentSceneCollectionRequest.
-func (c *Client) NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
-	return GetCurrentSceneCollectionRequest{MessageID: c.getMessageID(), RequestType: "GetCurrentSceneCollection"}
+func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
+	return GetCurrentSceneCollectionRequest{MessageID: getMessageID(), RequestType: "GetCurrentSceneCollection"}
 }
 
 // ID returns the request's message ID.
@@ -86,8 +86,8 @@ func (r GetCurrentSceneCollectionResponse) Err() string { return r.Error }
 type ListSceneCollectionsRequest _request
 
 // NewListSceneCollectionsRequest returns a new ListSceneCollectionsRequest.
-func (c *Client) NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
-	return ListSceneCollectionsRequest{MessageID: c.getMessageID(), RequestType: "ListSceneCollections"}
+func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
+	return ListSceneCollectionsRequest{MessageID: getMessageID(), RequestType: "ListSceneCollections"}
 }
 
 // ID returns the request's message ID.

@@ -9,8 +9,8 @@ package obsws
 type StartStopReplayBufferRequest _request
 
 // NewStartStopReplayBufferRequest returns a new StartStopReplayBufferRequest.
-func (c *Client) NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
-	return StartStopReplayBufferRequest{MessageID: c.getMessageID(), RequestType: "StartStopReplayBuffer"}
+func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
+	return StartStopReplayBufferRequest{MessageID: getMessageID(), RequestType: "StartStopReplayBuffer"}
 }
 
 // ID returns the request's message ID.
@@ -43,8 +43,8 @@ func (r StartStopReplayBufferResponse) Err() string { return r.Error }
 type StartReplayBufferRequest _request
 
 // NewStartReplayBufferRequest returns a new StartReplayBufferRequest.
-func (c *Client) NewStartReplayBufferRequest() StartReplayBufferRequest {
-	return StartReplayBufferRequest{MessageID: c.getMessageID(), RequestType: "StartReplayBuffer"}
+func NewStartReplayBufferRequest() StartReplayBufferRequest {
+	return StartReplayBufferRequest{MessageID: getMessageID(), RequestType: "StartReplayBuffer"}
 }
 
 // ID returns the request's message ID.
@@ -74,8 +74,8 @@ func (r StartReplayBufferResponse) Err() string { return r.Error }
 type StopReplayBufferRequest _request
 
 // NewStopReplayBufferRequest returns a new StopReplayBufferRequest.
-func (c *Client) NewStopReplayBufferRequest() StopReplayBufferRequest {
-	return StopReplayBufferRequest{MessageID: c.getMessageID(), RequestType: "StopReplayBuffer"}
+func NewStopReplayBufferRequest() StopReplayBufferRequest {
+	return StopReplayBufferRequest{MessageID: getMessageID(), RequestType: "StopReplayBuffer"}
 }
 
 // ID returns the request's message ID.
@@ -107,8 +107,8 @@ func (r StopReplayBufferResponse) Err() string { return r.Error }
 type SaveReplayBufferRequest _request
 
 // NewSaveReplayBufferRequest returns a new SaveReplayBufferRequest.
-func (c *Client) NewSaveReplayBufferRequest() SaveReplayBufferRequest {
-	return SaveReplayBufferRequest{MessageID: c.getMessageID(), RequestType: "SaveReplayBuffer"}
+func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
+	return SaveReplayBufferRequest{MessageID: getMessageID(), RequestType: "SaveReplayBuffer"}
 }
 
 // ID returns the request's message ID.
