@@ -255,7 +255,7 @@ def gen_typeswitches(data: Dict):
 
         {disclaimer}
 
-        var respMap = map[string]response{{
+        var respMap = map[string]Response{{
             {map_entries}
         }}
 
@@ -263,7 +263,7 @@ def gen_typeswitches(data: Dict):
             {event_entries}
         }}
 
-        func derefResponse(r response) response {{
+        func derefResponse(r Response) Response {{
             switch r := r.(type) {{
             {resp_switch_entries}
             default:

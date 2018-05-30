@@ -1,11 +1,13 @@
 package obsws
 
-type request interface {
+// Request is a request to obs-websocket.
+type Request interface {
 	ID() string
 	Type() string
 }
 
-type response interface {
+// Response is a response from obs-websocket.
+type Response interface {
 	ID() string
 	Stat() string
 	Err() string

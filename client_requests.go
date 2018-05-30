@@ -16,8 +16,8 @@ import (
 //     future, err := client.SendRequest(NewGetStreamingStatusRequest())
 //     if err != nil { /* ... */  }
 //     status := (<-future).(GetStreamingStatusResponse)
-func (c *Client) SendRequest(req request) (chan response, error) {
-	future := make(chan response)
+func (c *Client) SendRequest(req Request) (chan Response, error) {
+	future := make(chan Response)
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, errors.Wrapf(err, "write %s", req.Type())
 	}
@@ -27,7 +27,7 @@ func (c *Client) SendRequest(req request) (chan response, error) {
 }
 
 // waitResponse waits until a response matching the request is found.
-func (c *Client) waitResponse(req request) response {
+func (c *Client) waitResponse(req Request) Response {
 	for {
 		resp := <-c.respQ
 		if resp.ID() == req.ID() {

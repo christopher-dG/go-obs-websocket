@@ -21,7 +21,7 @@ type Client struct {
 	arrivalTimes    map[string]time.Time     // Arrival time of each response.
 	requestTypes    map[string]string        // Mapping of sent requests to their types.
 	handlers        map[string]func(e Event) // Event handlers.
-	respQ           chan response            // Queue of received responses.
+	respQ           chan Response            // Queue of received responses.
 }
 
 // SetResponseTimeout sets the number of seconds before a response is discarded.
@@ -32,7 +32,7 @@ func (c *Client) SetResponseTimeout(seconds int) {
 
 // init prepares the client's internal fields.
 func (c *Client) init() {
-	c.respQ = make(chan response)
+	c.respQ = make(chan Response)
 	c.requestTypes = make(map[string]string)
 	c.handlers = make(map[string]func(Event))
 	c.arrivalTimes = make(map[string]time.Time)
