@@ -102,7 +102,7 @@ type StreamStatusEvent struct {
 	NumDroppedFrames int `json:"num-dropped-frames"`
 	// Current framerate.
 	// Required: Yes.
-	Fps    float64 `json:"fps"`
+	FPS    float64 `json:"fps"`
 	_event `json:",squash"`
 }
 

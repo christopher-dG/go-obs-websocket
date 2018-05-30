@@ -327,7 +327,7 @@ def go_var(s: str, export: bool = True) -> str:
             i = s.find(sep)
             s = f"{s[:i]}{s[i+_len].upper()}{s[i+_len+1:]}"
 
-    return s.replace("Id", "ID").replace("Obs", "OBS")
+    return s.replace("Id", "ID").replace("Obs", "OBS").replace("Fps", "FPS")
 
 
 def go_struct_variables(variables: List[Dict]) -> str:

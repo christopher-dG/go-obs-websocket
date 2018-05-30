@@ -1218,7 +1218,7 @@ type GetBrowserSourcePropertiesResponse struct {
 	Height int `json:"height"`
 	// Framerate.
 	// Required: Yes.
-	Fps int `json:"fps"`
+	FPS int `json:"fps"`
 	// Indicates whether the source should be shutdown when not visible.
 	// Required: Yes.
 	Shutdown bool `json:"shutdown"`
@@ -1268,7 +1268,7 @@ type SetBrowserSourcePropertiesRequest struct {
 	Height int `json:"height"`
 	// Framerate.
 	// Required: No.
-	Fps int `json:"fps"`
+	FPS int `json:"fps"`
 	// Indicates whether the source should be shutdown when not visible.
 	// Required: No.
 	Shutdown bool `json:"shutdown"`
