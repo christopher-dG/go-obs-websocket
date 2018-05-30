@@ -119,7 +119,7 @@ type StartStreamingRequest struct {
 	// Ignored if `use-auth` is not set to `true`.
 	// Required: No.
 	StreamSettingsPassword string `json:"stream.settings.password"`
-	_request
+	_request               `json:",squash"`
 }
 
 // NewStartStreamingRequest returns a new StartStreamingRequest.
@@ -234,8 +234,8 @@ type SetStreamSettingsRequest struct {
 	SettingsPassword string `json:"settings.password"`
 	// Persist the settings to disk.
 	// Required: Yes.
-	Save bool `json:"save"`
-	_request
+	Save     bool `json:"save"`
+	_request `json:",squash"`
 }
 
 // NewSetStreamSettingsRequest returns a new SetStreamSettingsRequest.

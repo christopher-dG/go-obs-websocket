@@ -17,7 +17,7 @@ type GetSceneItemPropertiesRequest struct {
 	// The name of the source.
 	// Required: Yes.
 	ItemName string `json:"item.name"`
-	_request
+	_request `json:",squash"`
 }
 
 // NewGetSceneItemPropertiesRequest returns a new GetSceneItemPropertiesRequest.
@@ -183,7 +183,7 @@ type SetSceneItemPropertiesRequest struct {
 	// The new height of the bounding box.
 	// Required: Yes.
 	ItemBoundsY float64 `json:"item.bounds.y"`
-	_request
+	_request    `json:",squash"`
 }
 
 // NewSetSceneItemPropertiesRequest returns a new SetSceneItemPropertiesRequest.
@@ -266,8 +266,8 @@ type ResetSceneItemRequest struct {
 	SceneName string `json:"scene-name"`
 	// Name of the source item.
 	// Required: Yes.
-	Item string `json:"item"`
-	_request
+	Item     string `json:"item"`
+	_request `json:",squash"`
 }
 
 // NewResetSceneItemRequest returns a new ResetSceneItemRequest.
@@ -320,7 +320,7 @@ type SetSceneItemRenderRequest struct {
 	// Defaults to the currently active scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	_request
+	_request  `json:",squash"`
 }
 
 // NewSetSceneItemRenderRequest returns a new SetSceneItemRenderRequest.
@@ -377,8 +377,8 @@ type SetSceneItemPositionRequest struct {
 	X float64 `json:"x"`
 	// Y coordinate.
 	// Required: Yes.
-	Y float64 `json:"y"`
-	_request
+	Y        float64 `json:"y"`
+	_request `json:",squash"`
 }
 
 // NewSetSceneItemPositionRequest returns a new SetSceneItemPositionRequest.
@@ -441,7 +441,7 @@ type SetSceneItemTransformRequest struct {
 	// Source item rotation (in degrees).
 	// Required: Yes.
 	Rotation float64 `json:"rotation"`
-	_request
+	_request `json:",squash"`
 }
 
 // NewSetSceneItemTransformRequest returns a new SetSceneItemTransformRequest.
@@ -508,8 +508,8 @@ type SetSceneItemCropRequest struct {
 	Left int `json:"left"`
 	// Pixel position of the right of the source item.
 	// Required: Yes.
-	Right int `json:"right"`
-	_request
+	Right    int `json:"right"`
+	_request `json:",squash"`
 }
 
 // NewSetSceneItemCropRequest returns a new SetSceneItemCropRequest.

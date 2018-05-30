@@ -120,7 +120,7 @@ def gen_request(data: Dict) -> str:
         struct = f"""\
         type {data["name"]}Request struct {{
             {go_struct_variables(go_variables(data["params"], reserved))}
-            _request
+            _request `json:",squash"`
         }}
         """
     else:
@@ -188,7 +188,7 @@ def gen_request_new(request: Dict):
     variables = go_variables(request.get("params", []), [], export=False)
     if not variables:
         sig = f"{base}) {request['name']}Request {{"
-        constructor_args = f'{{MessageID: c.getMessageID(), RequestType: "{request["name"]}"}}'
+        constructor_args = f'{{MessageID: getMessageID(), RequestType: "{request["name"]}"}}'
     else:
         args = "\n".join(
             f"{'_type' if var['name'] == 'type' else var['name']} {var['type']},"

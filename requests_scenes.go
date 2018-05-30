@@ -10,7 +10,7 @@ type SetCurrentSceneRequest struct {
 	// Name of the scene to switch to.
 	// Required: Yes.
 	SceneName string `json:"scene-name"`
-	_request
+	_request  `json:",squash"`
 }
 
 // NewSetCurrentSceneRequest returns a new SetCurrentSceneRequest.
@@ -143,7 +143,7 @@ type SetSceneItemOrderRequest struct {
 	// Sufficiently unique if no scene items share sources within the scene.
 	// Required: No.
 	ItemsName string `json:"items[].name"`
-	_request
+	_request  `json:",squash"`
 }
 
 // NewSetSceneItemOrderRequest returns a new SetSceneItemOrderRequest.

@@ -126,8 +126,8 @@ func (r GetSourcesTypesListResponse) Err() string { return r.Error }
 type GetVolumeRequest struct {
 	// Name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetVolumeRequest returns a new GetVolumeRequest.
@@ -184,8 +184,8 @@ type SetVolumeRequest struct {
 	// Desired volume.
 	// Must be between `0.0` and `1.0`.
 	// Required: Yes.
-	Volume float64 `json:"volume"`
-	_request
+	Volume   float64 `json:"volume"`
+	_request `json:",squash"`
 }
 
 // NewSetVolumeRequest returns a new SetVolumeRequest.
@@ -230,8 +230,8 @@ func (r SetVolumeResponse) Err() string { return r.Error }
 type GetMuteRequest struct {
 	// The name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetMuteRequest returns a new GetMuteRequest.
@@ -283,8 +283,8 @@ type SetMuteRequest struct {
 	Source string `json:"source"`
 	// Desired mute status.
 	// Required: Yes.
-	Mute bool `json:"mute"`
-	_request
+	Mute     bool `json:"mute"`
+	_request `json:",squash"`
 }
 
 // NewSetMuteRequest returns a new SetMuteRequest.
@@ -329,8 +329,8 @@ func (r SetMuteResponse) Err() string { return r.Error }
 type ToggleMuteRequest struct {
 	// The name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewToggleMuteRequest returns a new ToggleMuteRequest.
@@ -374,8 +374,8 @@ type SetSyncOffsetRequest struct {
 	Source string `json:"source"`
 	// The desired audio sync offset (in nanoseconds).
 	// Required: Yes.
-	Offset int `json:"offset"`
-	_request
+	Offset   int `json:"offset"`
+	_request `json:",squash"`
 }
 
 // NewSetSyncOffsetRequest returns a new SetSyncOffsetRequest.
@@ -420,8 +420,8 @@ func (r SetSyncOffsetResponse) Err() string { return r.Error }
 type GetSyncOffsetRequest struct {
 	// The name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetSyncOffsetRequest returns a new GetSyncOffsetRequest.
@@ -475,7 +475,7 @@ type GetSourceSettingsRequest struct {
 	// Useful for type-checking if you expect a specific settings schema.
 	// Required: No.
 	SourceType string `json:"sourceType"`
-	_request
+	_request   `json:",squash"`
 }
 
 // NewGetSourceSettingsRequest returns a new GetSourceSettingsRequest.
@@ -541,7 +541,7 @@ type SetSourceSettingsRequest struct {
 	// Varying between source types.
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
-	_request
+	_request       `json:",squash"`
 }
 
 // NewSetSourceSettingsRequest returns a new SetSourceSettingsRequest.
@@ -604,8 +604,8 @@ type GetTextGDIPlusPropertiesRequest struct {
 	SceneName string `json:"scene-name"`
 	// Name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetTextGDIPlusPropertiesRequest returns a new GetTextGDIPlusPropertiesRequest.
@@ -828,8 +828,8 @@ type SetTextGDIPlusPropertiesRequest struct {
 	Vertical bool `json:"vertical"`
 	// Visibility of the scene item.
 	// Required: No.
-	Render bool `json:"render"`
-	_request
+	Render   bool `json:"render"`
+	_request `json:",squash"`
 }
 
 // NewSetTextGDIPlusPropertiesRequest returns a new SetTextGDIPlusPropertiesRequest.
@@ -934,8 +934,8 @@ type GetTextFreetype2PropertiesRequest struct {
 	SceneName string `json:"scene-name"`
 	// Name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetTextFreetype2PropertiesRequest returns a new GetTextFreetype2PropertiesRequest.
@@ -1086,8 +1086,8 @@ type SetTextFreetype2PropertiesRequest struct {
 	WordWrap bool `json:"word_wrap"`
 	// Visibility of the scene item.
 	// Required: No.
-	Render bool `json:"render"`
-	_request
+	Render   bool `json:"render"`
+	_request `json:",squash"`
 }
 
 // NewSetTextFreetype2PropertiesRequest returns a new SetTextFreetype2PropertiesRequest.
@@ -1168,8 +1168,8 @@ type GetBrowserSourcePropertiesRequest struct {
 	SceneName string `json:"scene-name"`
 	// Name of the source.
 	// Required: Yes.
-	Source string `json:"source"`
-	_request
+	Source   string `json:"source"`
+	_request `json:",squash"`
 }
 
 // NewGetBrowserSourcePropertiesRequest returns a new GetBrowserSourcePropertiesRequest.
@@ -1274,8 +1274,8 @@ type SetBrowserSourcePropertiesRequest struct {
 	Shutdown bool `json:"shutdown"`
 	// Visibility of the scene item.
 	// Required: No.
-	Render bool `json:"render"`
-	_request
+	Render   bool `json:"render"`
+	_request `json:",squash"`
 }
 
 // NewSetBrowserSourcePropertiesRequest returns a new SetBrowserSourcePropertiesRequest.
@@ -1348,8 +1348,8 @@ type DeleteSceneItemRequest struct {
 	ItemName string `json:"item.name"`
 	// id of the scene item.
 	// Required: Yes.
-	ItemID int `json:"item.id"`
-	_request
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
 }
 
 // NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
@@ -1412,8 +1412,8 @@ type DuplicateSceneItemRequest struct {
 	ItemName string `json:"item.name"`
 	// id of the scene item.
 	// Required: Yes.
-	ItemID int `json:"item.id"`
-	_request
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
 }
 
 // NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.

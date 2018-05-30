@@ -95,8 +95,8 @@ func (r GetAuthRequiredResponse) Err() string { return r.Error }
 type AuthenticateRequest struct {
 	// Response to the auth challenge (see "Authentication" for more information).
 	// Required: Yes.
-	Auth string `json:"auth"`
-	_request
+	Auth     string `json:"auth"`
+	_request `json:",squash"`
 }
 
 // NewAuthenticateRequest returns a new AuthenticateRequest.
@@ -137,8 +137,8 @@ func (r AuthenticateResponse) Err() string { return r.Error }
 type SetHeartbeatRequest struct {
 	// Starts/Stops emitting heartbeat messages.
 	// Required: Yes.
-	Enable bool `json:"enable"`
-	_request
+	Enable   bool `json:"enable"`
+	_request `json:",squash"`
 }
 
 // NewSetHeartbeatRequest returns a new SetHeartbeatRequest.
@@ -180,7 +180,7 @@ type SetFilenameFormattingRequest struct {
 	// Filename formatting string to set.
 	// Required: Yes.
 	FilenameFormatting string `json:"filename-formatting"`
-	_request
+	_request           `json:",squash"`
 }
 
 // NewSetFilenameFormattingRequest returns a new SetFilenameFormattingRequest.

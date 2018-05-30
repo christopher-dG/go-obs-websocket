@@ -90,7 +90,7 @@ type SetCurrentTransitionRequest struct {
 	// The name of the transition.
 	// Required: Yes.
 	TransitionName string `json:"transition-name"`
-	_request
+	_request       `json:",squash"`
 }
 
 // NewSetCurrentTransitionRequest returns a new SetCurrentTransitionRequest.
@@ -132,7 +132,7 @@ type SetTransitionDurationRequest struct {
 	// Desired duration of the transition (in milliseconds).
 	// Required: Yes.
 	Duration int `json:"duration"`
-	_request
+	_request `json:",squash"`
 }
 
 // NewSetTransitionDurationRequest returns a new SetTransitionDurationRequest.

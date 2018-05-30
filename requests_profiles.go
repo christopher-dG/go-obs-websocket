@@ -10,7 +10,7 @@ type SetCurrentProfileRequest struct {
 	// Name of the desired profile.
 	// Required: Yes.
 	ProfileName string `json:"profile-name"`
-	_request
+	_request    `json:",squash"`
 }
 
 // NewSetCurrentProfileRequest returns a new SetCurrentProfileRequest.

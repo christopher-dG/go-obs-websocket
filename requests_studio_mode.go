@@ -85,7 +85,7 @@ type SetPreviewSceneRequest struct {
 	// The name of the scene to preview.
 	// Required: Yes.
 	SceneName string `json:"scene-name"`
-	_request
+	_request  `json:",squash"`
 }
 
 // NewSetPreviewSceneRequest returns a new SetPreviewSceneRequest.
@@ -135,7 +135,7 @@ type TransitionToProgramRequest struct {
 	// Transition duration (in milliseconds).
 	// Required: No.
 	WithTransitionDuration int `json:"with-transition.duration"`
-	_request
+	_request               `json:",squash"`
 }
 
 // NewTransitionToProgramRequest returns a new TransitionToProgramRequest.

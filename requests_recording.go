@@ -102,7 +102,7 @@ type SetRecordingFolderRequest struct {
 	// Path of the recording folder.
 	// Required: Yes.
 	RecFolder string `json:"rec-folder"`
-	_request
+	_request  `json:",squash"`
 }
 
 // NewSetRecordingFolderRequest returns a new SetRecordingFolderRequest.

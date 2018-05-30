@@ -9,8 +9,8 @@ package obsws
 type SetCurrentSceneCollectionRequest struct {
 	// Name of the desired scene collection.
 	// Required: Yes.
-	ScName string `json:"sc-name"`
-	_request
+	ScName   string `json:"sc-name"`
+	_request `json:",squash"`
 }
 
 // NewSetCurrentSceneCollectionRequest returns a new SetCurrentSceneCollectionRequest.
