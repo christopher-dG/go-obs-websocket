@@ -29,6 +29,7 @@ func (c *Client) handleEvent(m map[string]interface{}) {
 
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		ZeroFields: true, // TODO: Is this actually working?
+		TagName:    "json",
 		Result:     event,
 	})
 	if err != nil {

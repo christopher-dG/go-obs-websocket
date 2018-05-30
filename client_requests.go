@@ -63,6 +63,7 @@ func (c *Client) handleResponse(m map[string]interface{}) {
 
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		ZeroFields: true, // TODO: Is this actually working?
+		TagName:    "json",
 		Result:     resp,
 	})
 	if err != nil {

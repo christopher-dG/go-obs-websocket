@@ -159,8 +159,8 @@ func (r GetRecordingFolderRequest) Type() string { return r.RequestType }
 type GetRecordingFolderResponse struct {
 	// Path of the recording folder.
 	// Required: Yes.
-	RecFolder string `mapstructure:"rec-folder"`
-	_response `mapstructure:",squash"`
+	RecFolder string `json:"rec-folder"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.

@@ -50,62 +50,62 @@ func (r GetSceneItemPropertiesRequest) Type() string { return r.RequestType }
 type GetSceneItemPropertiesResponse struct {
 	// The name of the scene.
 	// Required: Yes.
-	Scene string `mapstructure:"scene"`
+	Scene string `json:"scene"`
 	// The name of the source.
 	// Required: Yes.
-	ItemName string `mapstructure:"item.name"`
+	ItemName string `json:"item.name"`
 	// The id of the scene item.
 	// Required: Yes.
-	ItemID string `mapstructure:"item.id"`
+	ItemID string `json:"item.id"`
 	// The x position of the source from the left.
 	// Required: Yes.
-	ItemPositionX int `mapstructure:"item.position.x"`
+	ItemPositionX int `json:"item.position.x"`
 	// The y position of the source from the top.
 	// Required: Yes.
-	ItemPositionY int `mapstructure:"item.position.y"`
+	ItemPositionY int `json:"item.position.y"`
 	// The point on the source that the item is manipulated from.
 	// Required: Yes.
-	ItemPositionAlignment int `mapstructure:"item.position.alignment"`
+	ItemPositionAlignment int `json:"item.position.alignment"`
 	// The clockwise rotation of the item in degrees around the point of alignment.
 	// Required: Yes.
-	ItemRotation float64 `mapstructure:"item.rotation"`
+	ItemRotation float64 `json:"item.rotation"`
 	// The x-scale factor of the source.
 	// Required: Yes.
-	ItemScaleX float64 `mapstructure:"item.scale.x"`
+	ItemScaleX float64 `json:"item.scale.x"`
 	// The y-scale factor of the source.
 	// Required: Yes.
-	ItemScaleY float64 `mapstructure:"item.scale.y"`
+	ItemScaleY float64 `json:"item.scale.y"`
 	// The number of pixels cropped off the top of the source before scaling.
 	// Required: Yes.
-	ItemCropTop int `mapstructure:"item.crop.top"`
+	ItemCropTop int `json:"item.crop.top"`
 	// The number of pixels cropped off the right of the source before scaling.
 	// Required: Yes.
-	ItemCropRight int `mapstructure:"item.crop.right"`
+	ItemCropRight int `json:"item.crop.right"`
 	// The number of pixels cropped off the bottom of the source before scaling.
 	// Required: Yes.
-	ItemCropBottom int `mapstructure:"item.crop.bottom"`
+	ItemCropBottom int `json:"item.crop.bottom"`
 	// The number of pixels cropped off the left of the source before scaling.
 	// Required: Yes.
-	ItemCropLeft int `mapstructure:"item.crop.left"`
+	ItemCropLeft int `json:"item.crop.left"`
 	// If the source is visible.
 	// Required: Yes.
-	ItemVisible bool `mapstructure:"item.visible"`
+	ItemVisible bool `json:"item.visible"`
 	// If the source is locked.
 	// Required: Yes.
-	ItemLocked bool `mapstructure:"item.locked"`
+	ItemLocked bool `json:"item.locked"`
 	// Type of bounding box.
 	// Required: Yes.
-	ItemBoundsType string `mapstructure:"item.bounds.type"`
+	ItemBoundsType string `json:"item.bounds.type"`
 	// Alignment of the bounding box.
 	// Required: Yes.
-	ItemBoundsAlignment int `mapstructure:"item.bounds.alignment"`
+	ItemBoundsAlignment int `json:"item.bounds.alignment"`
 	// Width of the bounding box.
 	// Required: Yes.
-	ItemBoundsX float64 `mapstructure:"item.bounds.x"`
+	ItemBoundsX float64 `json:"item.bounds.x"`
 	// Height of the bounding box.
 	// Required: Yes.
-	ItemBoundsY float64 `mapstructure:"item.bounds.y"`
-	_response   `mapstructure:",squash"`
+	ItemBoundsY float64 `json:"item.bounds.y"`
+	_response   `json:",squash"`
 }
 
 // ID returns the response's message ID.

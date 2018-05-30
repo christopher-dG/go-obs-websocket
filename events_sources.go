@@ -9,11 +9,11 @@ package obsws
 type SourceOrderChangedEvent struct {
 	// Name of the scene where items have been reordered.
 	// Required: Yes.
-	Name string `mapstructure:"name"`
+	Name string `json:"name"`
 	// Array of sources.
 	// Required: Yes.
-	Sources []string `mapstructure:"sources"`
-	_event  `mapstructure:",squash"`
+	Sources []string `json:"sources"`
+	_event  `json:",squash"`
 }
 
 // Type returns the event's update type.
@@ -31,11 +31,11 @@ func (e SourceOrderChangedEvent) RecTC() string { return e.RecTimecode }
 type SceneItemAddedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
-	SceneName string `mapstructure:"scene-name"`
+	SceneName string `json:"scene-name"`
 	// Name of the item added to the scene.
 	// Required: Yes.
-	ItemName string `mapstructure:"item-name"`
-	_event   `mapstructure:",squash"`
+	ItemName string `json:"item-name"`
+	_event   `json:",squash"`
 }
 
 // Type returns the event's update type.
@@ -53,11 +53,11 @@ func (e SceneItemAddedEvent) RecTC() string { return e.RecTimecode }
 type SceneItemRemovedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
-	SceneName string `mapstructure:"scene-name"`
+	SceneName string `json:"scene-name"`
 	// Name of the item removed from the scene.
 	// Required: Yes.
-	ItemName string `mapstructure:"item-name"`
-	_event   `mapstructure:",squash"`
+	ItemName string `json:"item-name"`
+	_event   `json:",squash"`
 }
 
 // Type returns the event's update type.
@@ -75,14 +75,14 @@ func (e SceneItemRemovedEvent) RecTC() string { return e.RecTimecode }
 type SceneItemVisibilityChangedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
-	SceneName string `mapstructure:"scene-name"`
+	SceneName string `json:"scene-name"`
 	// Name of the item in the scene.
 	// Required: Yes.
-	ItemName string `mapstructure:"item-name"`
+	ItemName string `json:"item-name"`
 	// New visibility state of the item.
 	// Required: Yes.
-	ItemVisible bool `mapstructure:"item-visible"`
-	_event      `mapstructure:",squash"`
+	ItemVisible bool `json:"item-visible"`
+	_event      `json:",squash"`
 }
 
 // Type returns the event's update type.

@@ -67,8 +67,8 @@ func (r GetCurrentProfileRequest) Type() string { return r.RequestType }
 type GetCurrentProfileResponse struct {
 	// Name of the currently active profile.
 	// Required: Yes.
-	ProfileName string `mapstructure:"profile-name"`
-	_response   `mapstructure:",squash"`
+	ProfileName string `json:"profile-name"`
+	_response   `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -103,8 +103,8 @@ type ListProfilesResponse struct {
 	// List of available profiles.
 	// Required: Yes.
 	// TODO: Unknown type (Object|Array).
-	Profiles  interface{} `mapstructure:"profiles"`
-	_response `mapstructure:",squash"`
+	Profiles  interface{} `json:"profiles"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.

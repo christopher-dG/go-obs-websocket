@@ -25,18 +25,18 @@ func (r GetSourcesListRequest) Type() string { return r.RequestType }
 type GetSourcesListResponse struct {
 	// Array of sources as objects.
 	// Required: Yes.
-	Sources []map[string]interface{} `mapstructure:"sources"`
+	Sources []map[string]interface{} `json:"sources"`
 	// Unique source name.
 	// Required: Yes.
-	SourcesName string `mapstructure:"sources.*.name"`
+	SourcesName string `json:"sources.*.name"`
 	// Non-unique source internal type (a.k.a type id).
 	// Required: Yes.
-	SourcesTypeID string `mapstructure:"sources.*.typeId"`
+	SourcesTypeID string `json:"sources.*.typeId"`
 	// Source type.
 	// Value is one of the following: "input", "filter", "transition", "scene" or "unknown".
 	// Required: Yes.
-	SourcesType string `mapstructure:"sources.*.type"`
-	_response   `mapstructure:",squash"`
+	SourcesType string `json:"sources.*.type"`
+	_response   `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -70,45 +70,45 @@ func (r GetSourcesTypesListRequest) Type() string { return r.RequestType }
 type GetSourcesTypesListResponse struct {
 	// Array of sources as objects.
 	// Required: Yes.
-	IDs []map[string]interface{} `mapstructure:"ids"`
+	IDs []map[string]interface{} `json:"ids"`
 	// Non-unique internal source type ID.
 	// Required: Yes.
-	IDsTypeID string `mapstructure:"ids.*.typeId"`
+	IDsTypeID string `json:"ids.*.typeId"`
 	// Display name of the source type.
 	// Required: Yes.
-	IDsDisplayName string `mapstructure:"ids.*.displayName"`
+	IDsDisplayName string `json:"ids.*.displayName"`
 	// Type.
 	// Value is one of the following: "input", "filter", "transition" or "other".
 	// Required: Yes.
-	IDsType string `mapstructure:"ids.*.type"`
+	IDsType string `json:"ids.*.type"`
 	// Default settings of this source type.
 	// Required: Yes.
-	IDsDefaultSettings map[string]interface{} `mapstructure:"ids.*.defaultSettings"`
+	IDsDefaultSettings map[string]interface{} `json:"ids.*.defaultSettings"`
 	// Source type capabilities.
 	// Required: Yes.
-	IDsCaps map[string]interface{} `mapstructure:"ids.*.caps"`
+	IDsCaps map[string]interface{} `json:"ids.*.caps"`
 	// True if source of this type provide frames asynchronously.
 	// Required: Yes.
-	IDsCapsIsAsync bool `mapstructure:"ids.*.caps.isAsync"`
+	IDsCapsIsAsync bool `json:"ids.*.caps.isAsync"`
 	// True if sources of this type provide video.
 	// Required: Yes.
-	IDsCapsHasVideo bool `mapstructure:"ids.*.caps.hasVideo"`
+	IDsCapsHasVideo bool `json:"ids.*.caps.hasVideo"`
 	// True if sources of this type provide audio.
 	// Required: Yes.
-	IDsCapsHasAudio bool `mapstructure:"ids.*.caps.hasAudio"`
+	IDsCapsHasAudio bool `json:"ids.*.caps.hasAudio"`
 	// True if interaction with this sources of this type is possible.
 	// Required: Yes.
-	IDsCapsCanInteract bool `mapstructure:"ids.*.caps.canInteract"`
+	IDsCapsCanInteract bool `json:"ids.*.caps.canInteract"`
 	// True if sources of this type composite one or more sub-sources.
 	// Required: Yes.
-	IDsCapsIsComposite bool `mapstructure:"ids.*.caps.isComposite"`
+	IDsCapsIsComposite bool `json:"ids.*.caps.isComposite"`
 	// True if sources of this type should not be fully duplicated.
 	// Required: Yes.
-	IDsCapsDoNotDuplicate bool `mapstructure:"ids.*.caps.doNotDuplicate"`
+	IDsCapsDoNotDuplicate bool `json:"ids.*.caps.doNotDuplicate"`
 	// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be.
 	// Required: Yes.
-	IDsCapsDoNotSelfMonitor bool `mapstructure:"ids.*.caps.doNotSelfMonitor"`
-	_response               `mapstructure:",squash"`
+	IDsCapsDoNotSelfMonitor bool `json:"ids.*.caps.doNotSelfMonitor"`
+	_response               `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -154,15 +154,15 @@ func (r GetVolumeRequest) Type() string { return r.RequestType }
 type GetVolumeResponse struct {
 	// Name of the source.
 	// Required: Yes.
-	Name string `mapstructure:"name"`
+	Name string `json:"name"`
 	// Volume of the source.
 	// Between `0.0` and `1.0`.
 	// Required: Yes.
-	Volume float64 `mapstructure:"volume"`
+	Volume float64 `json:"volume"`
 	// Indicates whether the source is muted.
 	// Required: Yes.
-	Mute      bool `mapstructure:"mute"`
-	_response `mapstructure:",squash"`
+	Mute      bool `json:"mute"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -258,11 +258,11 @@ func (r GetMuteRequest) Type() string { return r.RequestType }
 type GetMuteResponse struct {
 	// The name of the source.
 	// Required: Yes.
-	Name string `mapstructure:"name"`
+	Name string `json:"name"`
 	// Mute status of the source.
 	// Required: Yes.
-	Muted     bool `mapstructure:"muted"`
-	_response `mapstructure:",squash"`
+	Muted     bool `json:"muted"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -448,11 +448,11 @@ func (r GetSyncOffsetRequest) Type() string { return r.RequestType }
 type GetSyncOffsetResponse struct {
 	// The name of the source.
 	// Required: Yes.
-	Name string `mapstructure:"name"`
+	Name string `json:"name"`
 	// The audio sync offset (in nanoseconds).
 	// Required: Yes.
-	Offset    int `mapstructure:"offset"`
-	_response `mapstructure:",squash"`
+	Offset    int `json:"offset"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -506,15 +506,15 @@ func (r GetSourceSettingsRequest) Type() string { return r.RequestType }
 type GetSourceSettingsResponse struct {
 	// Source name.
 	// Required: Yes.
-	SourceName string `mapstructure:"sourceName"`
+	SourceName string `json:"sourceName"`
 	// Type of the specified source.
 	// Required: Yes.
-	SourceType string `mapstructure:"sourceType"`
+	SourceType string `json:"sourceType"`
 	// Source settings.
 	// Varying between source types.
 	// Required: Yes.
-	SourceSettings map[string]interface{} `mapstructure:"sourceSettings"`
-	_response      `mapstructure:",squash"`
+	SourceSettings map[string]interface{} `json:"sourceSettings"`
+	_response      `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -574,15 +574,15 @@ func (r SetSourceSettingsRequest) Type() string { return r.RequestType }
 type SetSourceSettingsResponse struct {
 	// Source name.
 	// Required: Yes.
-	SourceName string `mapstructure:"sourceName"`
+	SourceName string `json:"sourceName"`
 	// Type of the specified source.
 	// Required: Yes.
-	SourceType string `mapstructure:"sourceType"`
+	SourceType string `json:"sourceType"`
 	// Source settings.
 	// Varying between source types.
 	// Required: Yes.
-	SourceSettings map[string]interface{} `mapstructure:"sourceSettings"`
-	_response      `mapstructure:",squash"`
+	SourceSettings map[string]interface{} `json:"sourceSettings"`
+	_response      `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -636,91 +636,91 @@ func (r GetTextGDIPlusPropertiesRequest) Type() string { return r.RequestType }
 type GetTextGDIPlusPropertiesResponse struct {
 	// Text Alignment ("left", "center", "right").
 	// Required: Yes.
-	Align string `mapstructure:"align"`
+	Align string `json:"align"`
 	// Background color.
 	// Required: Yes.
-	BkColor int `mapstructure:"bk-color"`
+	BkColor int `json:"bk-color"`
 	// Background opacity (0-100).
 	// Required: Yes.
-	BkOpacity int `mapstructure:"bk-opacity"`
+	BkOpacity int `json:"bk-opacity"`
 	// Chat log.
 	// Required: Yes.
-	Chatlog bool `mapstructure:"chatlog"`
+	Chatlog bool `json:"chatlog"`
 	// Chat log lines.
 	// Required: Yes.
-	ChatlogLines int `mapstructure:"chatlog_lines"`
+	ChatlogLines int `json:"chatlog_lines"`
 	// Text color.
 	// Required: Yes.
-	Color int `mapstructure:"color"`
+	Color int `json:"color"`
 	// Extents wrap.
 	// Required: Yes.
-	Extents bool `mapstructure:"extents"`
+	Extents bool `json:"extents"`
 	// Extents cx.
 	// Required: Yes.
-	ExtentsCx int `mapstructure:"extents_cx"`
+	ExtentsCx int `json:"extents_cx"`
 	// Extents cy.
 	// Required: Yes.
-	ExtentsCy int `mapstructure:"extents_cy"`
+	ExtentsCy int `json:"extents_cy"`
 	// File path name.
 	// Required: Yes.
-	File string `mapstructure:"file"`
+	File string `json:"file"`
 	// Read text from the specified file.
 	// Required: Yes.
-	ReadFromFile bool `mapstructure:"read_from_file"`
+	ReadFromFile bool `json:"read_from_file"`
 	// Holds data for the font.
 	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
 	// Required: Yes.
-	Font map[string]interface{} `mapstructure:"font"`
+	Font map[string]interface{} `json:"font"`
 	// Font face.
 	// Required: Yes.
-	FontFace string `mapstructure:"font.face"`
+	FontFace string `json:"font.face"`
 	// Font text styling flag.
 	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
 	// Required: Yes.
-	FontFlags int `mapstructure:"font.flags"`
+	FontFlags int `json:"font.flags"`
 	// Font text size.
 	// Required: Yes.
-	FontSize int `mapstructure:"font.size"`
+	FontSize int `json:"font.size"`
 	// Font Style (unknown function).
 	// Required: Yes.
-	FontStyle string `mapstructure:"font.style"`
+	FontStyle string `json:"font.style"`
 	// Gradient enabled.
 	// Required: Yes.
-	Gradient bool `mapstructure:"gradient"`
+	Gradient bool `json:"gradient"`
 	// Gradient color.
 	// Required: Yes.
-	GradientColor int `mapstructure:"gradient_color"`
+	GradientColor int `json:"gradient_color"`
 	// Gradient direction.
 	// Required: Yes.
-	GradientDir float64 `mapstructure:"gradient_dir"`
+	GradientDir float64 `json:"gradient_dir"`
 	// Gradient opacity (0-100).
 	// Required: Yes.
-	GradientOpacity int `mapstructure:"gradient_opacity"`
+	GradientOpacity int `json:"gradient_opacity"`
 	// Outline.
 	// Required: Yes.
-	Outline bool `mapstructure:"outline"`
+	Outline bool `json:"outline"`
 	// Outline color.
 	// Required: Yes.
-	OutlineColor int `mapstructure:"outline_color"`
+	OutlineColor int `json:"outline_color"`
 	// Outline size.
 	// Required: Yes.
-	OutlineSize int `mapstructure:"outline_size"`
+	OutlineSize int `json:"outline_size"`
 	// Outline opacity (0-100).
 	// Required: Yes.
-	OutlineOpacity int `mapstructure:"outline_opacity"`
+	OutlineOpacity int `json:"outline_opacity"`
 	// Text content to be displayed.
 	// Required: Yes.
-	Text string `mapstructure:"text"`
+	Text string `json:"text"`
 	// Text vertical alignment ("top", "center", "bottom").
 	// Required: Yes.
-	Valign string `mapstructure:"valign"`
+	Valign string `json:"valign"`
 	// Vertical text enabled.
 	// Required: Yes.
-	Vertical bool `mapstructure:"vertical"`
+	Vertical bool `json:"vertical"`
 	// Visibility of the scene item.
 	// Required: Yes.
-	Render    bool `mapstructure:"render"`
-	_response `mapstructure:",squash"`
+	Render    bool `json:"render"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -966,55 +966,55 @@ func (r GetTextFreetype2PropertiesRequest) Type() string { return r.RequestType 
 type GetTextFreetype2PropertiesResponse struct {
 	// Gradient top color.
 	// Required: Yes.
-	Color1 int `mapstructure:"color1"`
+	Color1 int `json:"color1"`
 	// Gradient bottom color.
 	// Required: Yes.
-	Color2 int `mapstructure:"color2"`
+	Color2 int `json:"color2"`
 	// Custom width (0 to disable).
 	// Required: Yes.
-	CustomWidth int `mapstructure:"custom_width"`
+	CustomWidth int `json:"custom_width"`
 	// Drop shadow.
 	// Required: Yes.
-	DropShadow bool `mapstructure:"drop_shadow"`
+	DropShadow bool `json:"drop_shadow"`
 	// Holds data for the font.
 	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
 	// Required: Yes.
-	Font map[string]interface{} `mapstructure:"font"`
+	Font map[string]interface{} `json:"font"`
 	// Font face.
 	// Required: Yes.
-	FontFace string `mapstructure:"font.face"`
+	FontFace string `json:"font.face"`
 	// Font text styling flag.
 	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
 	// Required: Yes.
-	FontFlags int `mapstructure:"font.flags"`
+	FontFlags int `json:"font.flags"`
 	// Font text size.
 	// Required: Yes.
-	FontSize int `mapstructure:"font.size"`
+	FontSize int `json:"font.size"`
 	// Font Style (unknown function).
 	// Required: Yes.
-	FontStyle string `mapstructure:"font.style"`
+	FontStyle string `json:"font.style"`
 	// Read text from the specified file.
 	// Required: Yes.
-	FromFile bool `mapstructure:"from_file"`
+	FromFile bool `json:"from_file"`
 	// Chat log.
 	// Required: Yes.
-	LogMode bool `mapstructure:"log_mode"`
+	LogMode bool `json:"log_mode"`
 	// Outline.
 	// Required: Yes.
-	Outline bool `mapstructure:"outline"`
+	Outline bool `json:"outline"`
 	// Text content to be displayed.
 	// Required: Yes.
-	Text string `mapstructure:"text"`
+	Text string `json:"text"`
 	// File path.
 	// Required: Yes.
-	TextFile string `mapstructure:"text_file"`
+	TextFile string `json:"text_file"`
 	// Word wrap.
 	// Required: Yes.
-	WordWrap bool `mapstructure:"word_wrap"`
+	WordWrap bool `json:"word_wrap"`
 	// Visibility of the scene item.
 	// Required: Yes.
-	Render    bool `mapstructure:"render"`
-	_response `mapstructure:",squash"`
+	Render    bool `json:"render"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -1200,32 +1200,32 @@ func (r GetBrowserSourcePropertiesRequest) Type() string { return r.RequestType 
 type GetBrowserSourcePropertiesResponse struct {
 	// Indicates that a local file is in use.
 	// Required: Yes.
-	IsLocalFile bool `mapstructure:"is_local_file"`
+	IsLocalFile bool `json:"is_local_file"`
 	// file path.
 	// Required: Yes.
-	LocalFile string `mapstructure:"local_file"`
+	LocalFile string `json:"local_file"`
 	// Url.
 	// Required: Yes.
-	Url string `mapstructure:"url"`
+	Url string `json:"url"`
 	// CSS to inject.
 	// Required: Yes.
-	Css string `mapstructure:"css"`
+	Css string `json:"css"`
 	// Width.
 	// Required: Yes.
-	Width int `mapstructure:"width"`
+	Width int `json:"width"`
 	// Height.
 	// Required: Yes.
-	Height int `mapstructure:"height"`
+	Height int `json:"height"`
 	// Framerate.
 	// Required: Yes.
-	Fps int `mapstructure:"fps"`
+	Fps int `json:"fps"`
 	// Indicates whether the source should be shutdown when not visible.
 	// Required: Yes.
-	Shutdown bool `mapstructure:"shutdown"`
+	Shutdown bool `json:"shutdown"`
 	// Visibility of the scene item.
 	// Required: No.
-	Render    bool `mapstructure:"render"`
-	_response `mapstructure:",squash"`
+	Render    bool `json:"render"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -1480,20 +1480,20 @@ func (r GetSpecialSourcesRequest) Type() string { return r.RequestType }
 type GetSpecialSourcesResponse struct {
 	// Name of the first Desktop Audio capture source.
 	// Required: No.
-	Desktop1 string `mapstructure:"desktop-1"`
+	Desktop1 string `json:"desktop-1"`
 	// Name of the second Desktop Audio capture source.
 	// Required: No.
-	Desktop2 string `mapstructure:"desktop-2"`
+	Desktop2 string `json:"desktop-2"`
 	// Name of the first Mic/Aux input source.
 	// Required: No.
-	Mic1 string `mapstructure:"mic-1"`
+	Mic1 string `json:"mic-1"`
 	// Name of the second Mic/Aux input source.
 	// Required: No.
-	Mic2 string `mapstructure:"mic-2"`
+	Mic2 string `json:"mic-2"`
 	// Name of the third Mic/Aux input source.
 	// Required: No.
-	Mic3      string `mapstructure:"mic-3"`
-	_response `mapstructure:",squash"`
+	Mic3      string `json:"mic-3"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.

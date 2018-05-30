@@ -9,9 +9,9 @@ type Event interface {
 
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#events
 type _event struct {
-	UpdateType     string `mapstructure:"update-type"`
-	StreamTimecode string `mapstructure:"stream-timecode"`
-	RecTimecode    string `mapstructure:"rec-timecode"`
+	UpdateType     string `json:"update-type"`
+	StreamTimecode string `json:"stream-timecode"`
+	RecTimecode    string `json:"rec-timecode"`
 }
 
 func (e _event) Type() string { return e.UpdateType }

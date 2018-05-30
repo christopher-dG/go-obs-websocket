@@ -26,17 +26,17 @@ type GetVersionResponse struct {
 	// OBSRemote compatible API version.
 	// Fixed to 1.1 for retrocompatibility.
 	// Required: Yes.
-	Version float64 `mapstructure:"version"`
+	Version float64 `json:"version"`
 	// obs-websocket plugin version.
 	// Required: Yes.
-	OBSWebsocketVersion string `mapstructure:"obs-websocket-version"`
+	OBSWebsocketVersion string `json:"obs-websocket-version"`
 	// OBS Studio program version.
 	// Required: Yes.
-	OBSStudioVersion string `mapstructure:"obs-studio-version"`
+	OBSStudioVersion string `json:"obs-studio-version"`
 	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	// Required: Yes.
-	AvailableRequests string `mapstructure:"available-requests"`
-	_response         `mapstructure:",squash"`
+	AvailableRequests string `json:"available-requests"`
+	_response         `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -72,12 +72,12 @@ func (r GetAuthRequiredRequest) Type() string { return r.RequestType }
 type GetAuthRequiredResponse struct {
 	// Indicates whether authentication is required.
 	// Required: Yes.
-	AuthRequired bool `mapstructure:"authRequired"`
+	AuthRequired bool `json:"authRequired"`
 	// Required: No.
-	Challenge string `mapstructure:"challenge"`
+	Challenge string `json:"challenge"`
 	// Required: No.
-	Salt      string `mapstructure:"salt"`
-	_response `mapstructure:",squash"`
+	Salt      string `json:"salt"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -237,8 +237,8 @@ func (r GetFilenameFormattingRequest) Type() string { return r.RequestType }
 type GetFilenameFormattingResponse struct {
 	// Current filename formatting string.
 	// Required: Yes.
-	FilenameFormatting string `mapstructure:"filename-formatting"`
-	_response          `mapstructure:",squash"`
+	FilenameFormatting string `json:"filename-formatting"`
+	_response          `json:",squash"`
 }
 
 // ID returns the response's message ID.

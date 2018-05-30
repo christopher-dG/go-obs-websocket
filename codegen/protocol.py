@@ -79,7 +79,7 @@ def gen_event(data: Dict) -> str:
         struct = f"""\
         type {data["name"]}Event struct {{
             {go_struct_variables(go_variables(data["returns"], reserved))}
-            _event `mapstructure:",squash"`
+            _event `json:",squash"`
         }}\
         """
     else:
@@ -119,7 +119,7 @@ def gen_request(data: Dict) -> str:
     if data.get("params"):
         struct = f"""\
         type {data["name"]}Request struct {{
-            {go_struct_variables(go_variables(data["params"], reserved, tag="json"))}
+            {go_struct_variables(go_variables(data["params"], reserved))}
             _request
         }}
         """
@@ -151,7 +151,7 @@ def gen_request(data: Dict) -> str:
         struct = f"""\
         type {data["name"]}Response struct {{
             {go_struct_variables(go_variables(data["returns"], reserved))}
-            _response `mapstructure:",squash"`
+            _response `json:",squash"`
         }}
         """
     else:
@@ -221,11 +221,17 @@ def gen_request_new(request: Dict):
 
 def gen_typeswitches(data: Dict):
     """Generate a Go file with a mappings from type names to structs."""
+    req_map = {}
+    for category in data["requests"].values():
+        for r in category:
+            req_map[r["name"]] = f"&{r['name']}Request{{}}"
+    req_entries = "\n".join(f'"{k}": {v},' for k, v in req_map.items())
+
     resp_map = {}
     for category in data["requests"].values():
         for r in category:
             resp_map[r["name"]] = f"&{r['name']}Response{{}}"
-    map_entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
+    resp_entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
 
     event_map = {}
     for category in data["events"].values():
@@ -255,8 +261,12 @@ def gen_typeswitches(data: Dict):
 
         {disclaimer}
 
+        var ReqMap = map[string]Request{{
+            {req_entries}
+        }}
+
         var respMap = map[string]Response{{
-            {map_entries}
+            {resp_entries}
         }}
 
         var eventMap = map[string]Event{{
@@ -281,12 +291,7 @@ def gen_typeswitches(data: Dict):
         """)
 
 
-def go_variables(
-        variables: List[Dict],
-        reserved: List[str],
-        tag: str = "mapstructure",
-        export: bool = True,
-) -> str:
+def go_variables(variables: List[Dict], reserved: List[str], export: bool = True) -> str:
     """
     Convert a list of variable names into Go code to be put
     inside a struct definition.
@@ -298,7 +303,7 @@ def go_variables(
         vardicts.append({
             "name": varname,
             "type": type_map[typename.lower()],
-            "tag": f'`{tag}:"{v["name"]}"`',
+            "tag": f'`json:"{v["name"]}"`',
             "description": v["description"].replace("\n", " "),
             "optional": optional,
             "unknown": typename.lower() in unknown_types,

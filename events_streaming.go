@@ -9,8 +9,8 @@ package obsws
 type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `mapstructure:"preview-only"`
-	_event      `mapstructure:",squash"`
+	PreviewOnly bool `json:"preview-only"`
+	_event      `json:",squash"`
 }
 
 // Type returns the event's update type.
@@ -42,8 +42,8 @@ func (e StreamStartedEvent) RecTC() string { return e.RecTimecode }
 type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `mapstructure:"preview-only"`
-	_event      `mapstructure:",squash"`
+	PreviewOnly bool `json:"preview-only"`
+	_event      `json:",squash"`
 }
 
 // Type returns the event's update type.
@@ -75,35 +75,35 @@ func (e StreamStoppedEvent) RecTC() string { return e.RecTimecode }
 type StreamStatusEvent struct {
 	// Current streaming state.
 	// Required: Yes.
-	Streaming bool `mapstructure:"streaming"`
+	Streaming bool `json:"streaming"`
 	// Current recording state.
 	// Required: Yes.
-	Recording bool `mapstructure:"recording"`
+	Recording bool `json:"recording"`
 	// Always false (retrocompatibility).
 	// Required: Yes.
-	PreviewOnly bool `mapstructure:"preview-only"`
+	PreviewOnly bool `json:"preview-only"`
 	// Amount of data per second (in bytes) transmitted by the stream encoder.
 	// Required: Yes.
-	BytesPerSec int `mapstructure:"bytes-per-sec"`
+	BytesPerSec int `json:"bytes-per-sec"`
 	// Amount of data per second (in kilobits) transmitted by the stream encoder.
 	// Required: Yes.
-	KbitsPerSec int `mapstructure:"kbits-per-sec"`
+	KbitsPerSec int `json:"kbits-per-sec"`
 	// Percentage of dropped frames.
 	// Required: Yes.
-	Strain float64 `mapstructure:"strain"`
+	Strain float64 `json:"strain"`
 	// Total time (in seconds) since the stream started.
 	// Required: Yes.
-	TotalStreamTime int `mapstructure:"total-stream-time"`
+	TotalStreamTime int `json:"total-stream-time"`
 	// Total number of frames transmitted since the stream started.
 	// Required: Yes.
-	NumTotalFrames int `mapstructure:"num-total-frames"`
+	NumTotalFrames int `json:"num-total-frames"`
 	// Number of frames dropped by the encoder since the stream started.
 	// Required: Yes.
-	NumDroppedFrames int `mapstructure:"num-dropped-frames"`
+	NumDroppedFrames int `json:"num-dropped-frames"`
 	// Current framerate.
 	// Required: Yes.
-	Fps    float64 `mapstructure:"fps"`
-	_event `mapstructure:",squash"`
+	Fps    float64 `json:"fps"`
+	_event `json:",squash"`
 }
 
 // Type returns the event's update type.
