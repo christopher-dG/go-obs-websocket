@@ -7,6 +7,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+const noID = "noID"
+
 // SendRequest sends a request to the WebSocket server.
 // The return value is a channel to which a response will be written when it
 // is received. Note that to access any fields that are not defined in the base
@@ -21,28 +23,24 @@ func (c *Client) SendRequest(req Request) (chan Response, error) {
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, errors.Wrapf(err, "write %s", req.Type())
 	}
-	c.requestTypes[req.ID()] = req.Type()
-	go func() { future <- c.waitResponse(req, true) }()
-	return future, nil
-}
 
-// SendRequestNoID is the same as SendRequest, except that it does not guarantee
-// that the returned reponse's ID is the same as that of the request.
-func (c *Client) SendRequestNoID(req Request) (chan Response, error) {
-	future := make(chan Response)
-	if err := c.conn.WriteJSON(req); err != nil {
-		return nil, errors.Wrapf(err, "write %s", req.Type())
+	var key string
+	if c.noIDMode {
+		key = noID
+	} else {
+		key = req.ID()
 	}
-	c.requestTypes[req.ID()] = req.Type()
-	go func() { future <- c.waitResponse(req, false) }()
+	c.requestTypes[key] = req.Type()
+
+	go func() { future <- c.waitResponse(req) }()
 	return future, nil
 }
 
 // waitResponse waits until a response matching the request is found.
-func (c *Client) waitResponse(req Request, checkID bool) Response {
+func (c *Client) waitResponse(req Request) Response {
 	for {
 		resp := <-c.respQ
-		if !checkID || resp.ID() == req.ID() {
+		if c.noIDMode || resp.ID() == req.ID() {
 			logger.Debug("received response", resp.ID())
 			return resp
 		}
@@ -59,13 +57,19 @@ func (c *Client) waitResponse(req Request, checkID bool) Response {
 
 // handleResponse sends a response into the queue.
 func (c *Client) handleResponse(m map[string]interface{}) {
-	mID := m["message-id"].(string)
-	respType := c.requestTypes[mID]
+	var key string
+	if c.noIDMode {
+		key = noID
+	} else {
+		key = m["message-id"].(string)
+	}
+
+	respType := c.requestTypes[key]
 	if respType == "" {
-		logger.Warning("no requestTypes entry for message", mID)
+		logger.Warning("no requestTypes entry for message", key)
 		return
 	}
-	delete(c.requestTypes, mID)
+	delete(c.requestTypes, key)
 
 	resp := respMap[respType]
 	if resp == nil {

@@ -18,6 +18,7 @@ type Client struct {
 	conn            *websocket.Conn          // Underlying connection to OBS.
 	active          bool                     // True until Disconnect is called.
 	id              int                      // Counter for creating message IDs.
+	noIDMode        bool                     // When true, don't verify response IDs.
 	responseTimeout time.Duration            // Time to keep unhandled responses.
 	arrivalTimes    map[string]time.Time     // Arrival time of each response.
 	requestTypes    map[string]string        // Mapping of sent requests to their types.
@@ -29,6 +30,13 @@ type Client struct {
 // A value of 0 indicates no timeout.
 func (c *Client) SetResponseTimeout(seconds int) {
 	c.responseTimeout = time.Duration(time.Duration(seconds) * time.Second)
+}
+
+// NoIDMode disables response ID checking when set to true.
+// This means that there is no guarantee that a response obtained from SendRequest
+// corresponds to the request that was sent.
+func (c *Client) NoIDMode(enable bool) {
+	c.noIDMode = enable
 }
 
 // init prepares the client's internal fields.
@@ -45,14 +53,17 @@ func (c *Client) poll() {
 	logger.Debug("started polling")
 
 	for {
-		m := make(map[string]interface{})
-
 		if !c.active {
 			return
 		}
 
+		m := make(map[string]interface{})
 		if err := c.conn.ReadJSON(&m); err != nil {
+			if !c.active {
+				return
+			}
 			logger.Warning("read from WS:", err)
+			continue
 		}
 
 		if _, ok := m["message-id"]; ok {
