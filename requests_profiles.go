@@ -102,7 +102,6 @@ func (r ListProfilesRequest) Type() string { return r.RequestType }
 type ListProfilesResponse struct {
 	// List of available profiles.
 	// Required: Yes.
-	// TODO: Unknown type (Object|Array).
 	Profiles  interface{} `json:"profiles"`
 	_response `json:",squash"`
 }

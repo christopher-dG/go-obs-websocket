@@ -63,8 +63,7 @@ type GetPreviewSceneResponse struct {
 	// Required: Yes.
 	Name string `json:"name"`
 	// Required: Yes.
-	// TODO: Unknown type (Source|Array).
-	Sources   interface{} `json:"sources"`
+	Sources   []map[string]interface{} `json:"sources"`
 	_response `json:",squash"`
 }
 

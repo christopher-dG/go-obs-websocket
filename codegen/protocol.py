@@ -23,25 +23,13 @@ type_map = {
     "array": "[]string",
     "object": "map[string]interface{}",
     "array of objects": "[]map[string]interface{}",
-    "scene": "interface{}",  # String?
     "object|array": "interface{}",
-    "scene|array": "interface{}",
-    "source|array": "interface{}",
+    "scene|array": "[]map[string]interface{}",
+    "source|array": "[]map[string]interface{}",
 }
 
 unknown_types = [
-    "object|array",
-    "scene|array",
-    "scene",  # String?
-    "source|array",
 ]
-
-
-def optional_type(s: str) -> Tuple[str, bool]:
-    """Determine if a type is optional and parse the actual type name."""
-    if s.endswith("(optional)"):
-        return s[:s.find("(optional)")].strip(), True
-    return s, False
 
 
 def process_json(d: Dict):
@@ -365,6 +353,13 @@ def newlinify(s: str, comment: bool = True) -> str:
     if comment:
         s = "\n".join([f"// {_s}" if not _s.startswith("//") else _s for _s in s.split("\n")])
     return s
+
+
+def optional_type(s: str) -> Tuple[str, bool]:
+    """Determine if a type is optional and parse the actual type name."""
+    if s.endswith("(optional)"):
+        return s[:s.find("(optional)")].strip(), True
+    return s, False
 
 
 if __name__ == "__main__":

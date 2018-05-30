@@ -79,7 +79,7 @@ func sendRequests(c obs.Client, requests []obs.Request) {
 				continue
 			}
 			resp := <-future
-			out, err := json.MarshalIndent(resp, "", "\t")
+			out, err := json.MarshalIndent(resp, "", "  ")
 			if err != nil {
 				logger.Warningf(
 					"request %d (%s): couldn't marshal response: %v",

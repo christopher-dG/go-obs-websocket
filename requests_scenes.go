@@ -70,8 +70,7 @@ type GetCurrentSceneResponse struct {
 	Name string `json:"name"`
 	// Ordered list of the current scene's source items.
 	// Required: Yes.
-	// TODO: Unknown type (Source|Array).
-	Sources   interface{} `json:"sources"`
+	Sources   []map[string]interface{} `json:"sources"`
 	_response `json:",squash"`
 }
 
@@ -109,8 +108,7 @@ type GetSceneListResponse struct {
 	CurrentScene string `json:"current-scene"`
 	// Ordered list of the current profile's scenes (See `[GetCurrentScene](#getcurrentscene)` for more information).
 	// Required: Yes.
-	// TODO: Unknown type (Scene|Array).
-	Scenes    interface{} `json:"scenes"`
+	Scenes    []map[string]interface{} `json:"scenes"`
 	_response `json:",squash"`
 }
 
@@ -133,8 +131,7 @@ type SetSceneItemOrderRequest struct {
 	// Ordered list of objects with name and/or id specified.
 	// Id prefered due to uniqueness per scene.
 	// Required: Yes.
-	// TODO: Unknown type (Scene|Array).
-	Items interface{} `json:"items"`
+	Items []map[string]interface{} `json:"items"`
 	// Id of a specific scene item.
 	// Unique on a scene by scene basis.
 	// Required: No.
@@ -149,7 +146,7 @@ type SetSceneItemOrderRequest struct {
 // NewSetSceneItemOrderRequest returns a new SetSceneItemOrderRequest.
 func NewSetSceneItemOrderRequest(
 	scene string,
-	items interface{},
+	items []map[string]interface{},
 	itemsID int,
 	itemsName string,
 ) SetSceneItemOrderRequest {

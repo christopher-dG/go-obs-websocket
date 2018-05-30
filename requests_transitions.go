@@ -28,7 +28,6 @@ type GetTransitionListResponse struct {
 	CurrentTransition string `json:"current-transition"`
 	// List of transitions.
 	// Required: Yes.
-	// TODO: Unknown type (Object|Array).
 	Transitions interface{} `json:"transitions"`
 	// Name of the transition.
 	// Required: Yes.

@@ -102,7 +102,6 @@ func (r ListSceneCollectionsRequest) Type() string { return r.RequestType }
 type ListSceneCollectionsResponse struct {
 	// Scene collections list.
 	// Required: Yes.
-	// TODO: Unknown type (Object|Array).
 	SceneCollections interface{} `json:"scene-collections"`
 	// Required: Yes.
 	SceneCollectionsStar string `json:"scene-collections.*."`
