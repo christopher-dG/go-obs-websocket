@@ -1,2 +1,2 @@
-// Package obsws interacts with OBS via websockets.
+// Package obsws provides client functionality for obs-websocket.
 package obsws

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/christopher-dG/go-obs-websocket.svg?branch=master)](https://travis-ci.com/christopher-dG/go-obs-websocket)
 
-`go-obs-websocket` is a package for interacting with [`obs-websocket`](https://github.com/Palakis/obs-websocket).
+`go-obs-websocket` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
 
 ## Installation
 
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer c.Disconnect()
 
-	future, err := c.SendRequest(c.NewGetStreamingStatusRequest())
+	future, err := c.SendRequest(obs.NewGetStreamingStatusRequest())
 	if err != nil {
 		log.Fatal(err)
 	}

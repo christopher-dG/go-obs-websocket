@@ -22,15 +22,27 @@ func (c *Client) SendRequest(req Request) (chan Response, error) {
 		return nil, errors.Wrapf(err, "write %s", req.Type())
 	}
 	c.requestTypes[req.ID()] = req.Type()
-	go func() { future <- c.waitResponse(req) }()
+	go func() { future <- c.waitResponse(req, true) }()
+	return future, nil
+}
+
+// SendRequestNoID is the same as SendRequest, except that it does not guarantee
+// that the returned reponse's ID is the same as that of the request.
+func (c *Client) SendRequestNoID(req Request) (chan Response, error) {
+	future := make(chan Response)
+	if err := c.conn.WriteJSON(req); err != nil {
+		return nil, errors.Wrapf(err, "write %s", req.Type())
+	}
+	c.requestTypes[req.ID()] = req.Type()
+	go func() { future <- c.waitResponse(req, false) }()
 	return future, nil
 }
 
 // waitResponse waits until a response matching the request is found.
-func (c *Client) waitResponse(req Request) Response {
+func (c *Client) waitResponse(req Request, checkID bool) Response {
 	for {
 		resp := <-c.respQ
-		if resp.ID() == req.ID() {
+		if !checkID || resp.ID() == req.ID() {
 			logger.Debug("received response", resp.ID())
 			return resp
 		}

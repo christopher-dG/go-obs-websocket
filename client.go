@@ -16,6 +16,7 @@ type Client struct {
 	Port            int                      // Port (OBS default is 4444).
 	Password        string                   // Password (OBS default is "").
 	conn            *websocket.Conn          // Underlying connection to OBS.
+	active          bool                     // True until Disconnect is called.
 	id              int                      // Counter for creating message IDs.
 	responseTimeout time.Duration            // Time to keep unhandled responses.
 	arrivalTimes    map[string]time.Time     // Arrival time of each response.
@@ -32,18 +33,23 @@ func (c *Client) SetResponseTimeout(seconds int) {
 
 // init prepares the client's internal fields.
 func (c *Client) init() {
-	c.respQ = make(chan Response)
+	c.arrivalTimes = make(map[string]time.Time)
 	c.requestTypes = make(map[string]string)
 	c.handlers = make(map[string]func(Event))
-	c.arrivalTimes = make(map[string]time.Time)
+	c.respQ = make(chan Response)
 }
 
 // poll listens for responses/events. This function blocks forever.
 func (c *Client) poll() {
+	c.active = true
 	logger.Debug("started polling")
 
 	for {
 		m := make(map[string]interface{})
+
+		if !c.active {
+			return
+		}
 
 		if err := c.conn.ReadJSON(&m); err != nil {
 			logger.Warning("read from WS:", err)
