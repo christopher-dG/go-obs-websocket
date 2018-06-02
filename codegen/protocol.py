@@ -28,8 +28,7 @@ type_map = {
     "source|array": "[]map[string]interface{}",
 }
 
-unknown_types = [
-]
+unknown_types = []
 
 
 def process_json(d: Dict):
@@ -44,13 +43,15 @@ def gen_category(prefix: str, category: str, data: Dict):
     func = gen_event if prefix == "events" else gen_request
     content = "\n\n".join(func(event) for event in data)
     with open(f"{prefix}_{category}.go".replace(" ", "_"), "w") as f:
-        f.write(f"""\
+        f.write(
+            f"""\
         package {package}
 
         {disclaimer}
 
         {content}
-        """)
+        """
+        )
 
 
 def gen_events(events: Dict):
@@ -77,7 +78,9 @@ def gen_event(data: Dict) -> str:
     if not description.endswith("."):
         description += "."
     if data.get("since"):
-        description += f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        description += (
+            f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        )
 
     return f"""\
     {description}
@@ -118,7 +121,9 @@ def gen_request(data: Dict) -> str:
     if description and not description.endswith("."):
         description += "."
     if data.get("since"):
-        description += f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        description += (
+            f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        )
 
     request = f"""\
     {description}
@@ -147,7 +152,9 @@ def gen_request(data: Dict) -> str:
 
     description = f"// {data['name']}Response : Response for {data['name']}Request."
     if data.get("since"):
-        description += f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        description += (
+            f"\n// Since obs-websocket version: {data['since'].capitalize()}."
+        )
 
     response = f"""\
     {description}
@@ -176,22 +183,28 @@ def gen_request_new(request: Dict):
     variables = go_variables(request.get("params", []), [], export=False)
     if not variables:
         sig = f"{base}) {request['name']}Request {{"
-        constructor_args = f'{{MessageID: getMessageID(), RequestType: "{request["name"]}"}}'
+        constructor_args = (
+            f'{{MessageID: getMessageID(), RequestType: "{request["name"]}"}}'
+        )
     else:
         args = "\n".join(
             f"{'_type' if var['name'] == 'type' else var['name']} {var['type']},"
             for var in variables
         )
-        constructor_args = "{\n" + "\n".join(
-            "_type," if var["name"] == "type" else f"{var['name']},"
-            for var in variables
-        ) + f"""
+        constructor_args = (
+            "{\n"
+            + "\n".join(
+                "_type," if var["name"] == "type" else f"{var['name']},"
+                for var in variables
+            )
+            + f"""
         _request{{
             MessageID: getMessageID(),
             RequestType: "{request["name"]}",
         }},
         }}
         """
+        )
         if len(variables) == 1:
             sig = f"{base}{args}) {request['name']}Request {{"
         else:
@@ -229,22 +242,27 @@ def gen_typeswitches(data: Dict):
 
     resp_switch_list = []
     for resp in resp_map:
-        resp_switch_list.append(f"""\
+        resp_switch_list.append(
+            f"""\
         case *{resp}Response:
             return *r\
-        """)
+        """
+        )
     resp_switch_entries = "\n".join(resp_switch_list)
 
     event_switch_list = []
     for event in event_map:
-        event_switch_list.append(f"""\
+        event_switch_list.append(
+            f"""\
         case *{event}Event:
             return *e\
-        """)
+        """
+        )
     event_switch_entries = "\n".join(event_switch_list)
 
     with open("typeswitches.go", "w") as f:
-        f.write(f"""\
+        f.write(
+            f"""\
         package {package}
 
         {disclaimer}
@@ -276,10 +294,13 @@ def gen_typeswitches(data: Dict):
                 return nil
             }}
         }}
-        """)
+        """
+        )
 
 
-def go_variables(variables: List[Dict], reserved: List[str], export: bool = True) -> str:
+def go_variables(
+    variables: List[Dict], reserved: List[str], export: bool = True
+) -> str:
     """
     Convert a list of variable names into Go code to be put
     inside a struct definition.
@@ -288,17 +309,19 @@ def go_variables(variables: List[Dict], reserved: List[str], export: bool = True
     for v in variables:
         typename, optional = optional_type(v["type"])
         varname = go_var(v["name"], export=export)
-        vardicts.append({
-            "name": varname,
-            "type": type_map[typename.lower()],
-            "tag": f'`json:"{v["name"]}"`',
-            "description": v["description"].replace("\n", " "),
-            "optional": optional,
-            "unknown": typename.lower() in unknown_types,
-            "actual_type": v["type"],
-            "duplicate": varname in varnames,
-            "reserved": varname in reserved,
-        })
+        vardicts.append(
+            {
+                "name": varname,
+                "type": type_map[typename.lower()],
+                "tag": f'`json:"{v["name"]}"`',
+                "description": v["description"].replace("\n", " "),
+                "optional": optional,
+                "unknown": typename.lower() in unknown_types,
+                "actual_type": v["type"],
+                "duplicate": varname in varnames,
+                "reserved": varname in reserved,
+            }
+        )
         varnames.append(varname)
     return vardicts
 
@@ -323,10 +346,12 @@ def go_struct_variables(variables: List[Dict]) -> str:
     lines = []
     for var in variables:
         if var["description"]:
-            description = var["description"]\
-                          .replace("e.g. ", "e.g.")\
-                          .replace(". ", "\n")\
-                          .replace("e.g.", "e.g. ")
+            description = (
+                var["description"]
+                .replace("e.g. ", "e.g.")
+                .replace(". ", "\n")
+                .replace("e.g.", "e.g. ")
+            )
             for desc_line in description.split("\n"):
                 desc_line = desc_line.strip()
                 if desc_line and not desc_line.endswith("."):
@@ -351,14 +376,16 @@ def newlinify(s: str, comment: bool = True) -> str:
     """Put each sentence of a string onto its own line."""
     s = s.replace("e.g. ", "e.g.").replace(". ", "\n").replace("e.g.", "e.g. ")
     if comment:
-        s = "\n".join([f"// {_s}" if not _s.startswith("//") else _s for _s in s.split("\n")])
+        s = "\n".join(
+            [f"// {_s}" if not _s.startswith("//") else _s for _s in s.split("\n")]
+        )
     return s
 
 
 def optional_type(s: str) -> Tuple[str, bool]:
     """Determine if a type is optional and parse the actual type name."""
     if s.endswith("(optional)"):
-        return s[:s.find("(optional)")].strip(), True
+        return s[: s.find("(optional)")].strip(), True
     return s, False
 
 
