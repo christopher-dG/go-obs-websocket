@@ -81,7 +81,8 @@ func (c *Client) handleResponse(m map[string]interface{}) {
 	}
 
 	if err = decoder.Decode(m); err != nil {
-		logger.Warningf("unmarshalling map -> %T: %v", resp, err)
+		logger.Warningf("unmarshalling map -> %T: %v", &resp, err)
+		logger.Debugf("input: %#v\n", m)
 		return
 	}
 

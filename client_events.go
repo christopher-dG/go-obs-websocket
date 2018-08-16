@@ -38,7 +38,8 @@ func (c *Client) handleEvent(m map[string]interface{}) {
 	}
 
 	if err = decoder.Decode(m); err != nil {
-		logger.Warningf("unmarshalling map -> %T: %v", event, err)
+		logger.Warningf("unmarshalling map -> %T: %v", &event, err)
+		logger.Debugf("input: %#v\n", m)
 		return
 	}
 
