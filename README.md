@@ -4,6 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/christopher-dG/go-obs-websocket?status.svg)](https://godoc.org/github.com/christopher-dG/go-obs-websocket)
 
 `go-obs-websocket` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
+Currently, the target version is `4.3`.
 
 ## Installation
 
@@ -30,12 +31,12 @@ func main() {
 	}
 	defer c.Disconnect()
 
-	future, err := c.SendRequest(obs.NewGetStreamingStatusRequest())
+	future, err := obs.NewGetStreamingStatusRequest().Send(c)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	status := (<-future).(obs.GetStreamingStatusResponse)
+	status := (<-future)
 	log.Println("streaming:", status.Streaming)
 
 	c.AddEventHandler("Heartbeat", func(e obs.Event) {
@@ -48,7 +49,7 @@ func main() {
 ## gobs
 
 ```
-Usage of gobs:
+Usage of ./gobs:
   -f string
     	JSON file to read requests from
   -host string
@@ -64,7 +65,7 @@ This package also includes an executable: `gobs`.
 It lets you send a series of requests from a list written in JSON, and the responses will be written to the console.
 
 The only required field per entry is `request-type`.
-You can see the list of requests and their fields [here](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md).
+You can see the list of requests and their fields [here](https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md).
 
 There is also one supplemental request type: `Sleep`.
 It takes a field named `seconds` and waits for that amount of time.

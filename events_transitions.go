@@ -66,7 +66,13 @@ type TransitionBeginEvent struct {
 	// Transition duration (in milliseconds).
 	// Required: Yes.
 	Duration int `json:"duration"`
-	_event   `json:",squash"`
+	// Source scene of the transition.
+	// Required: Yes.
+	FromScene string `json:"from-scene"`
+	// Destination scene of the transition.
+	// Required: Yes.
+	ToScene string `json:"to-scene"`
+	_event  `json:",squash"`
 }
 
 // Type returns the event's update type.

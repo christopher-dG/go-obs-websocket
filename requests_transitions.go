@@ -19,6 +19,17 @@ func (r GetTransitionListRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetTransitionListRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetTransitionListRequest) Send(c Client) (chan GetTransitionListResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetTransitionListResponse)
+	go func() { future <- (<-generic).(GetTransitionListResponse) }()
+	return future, nil
+}
+
 // GetTransitionListResponse : Response for GetTransitionListRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettransitionlist
@@ -59,6 +70,17 @@ func (r GetCurrentTransitionRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetCurrentTransitionRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetCurrentTransitionRequest) Send(c Client) (chan GetCurrentTransitionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetCurrentTransitionResponse)
+	go func() { future <- (<-generic).(GetCurrentTransitionResponse) }()
+	return future, nil
+}
 
 // GetCurrentTransitionResponse : Response for GetCurrentTransitionRequest.
 // Since obs-websocket version: 0.3.
@@ -110,6 +132,17 @@ func (r SetCurrentTransitionRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetCurrentTransitionRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetCurrentTransitionResponse)
+	go func() { future <- (<-generic).(SetCurrentTransitionResponse) }()
+	return future, nil
+}
+
 // SetCurrentTransitionResponse : Response for SetCurrentTransitionRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrenttransition
@@ -152,6 +185,17 @@ func (r SetTransitionDurationRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetTransitionDurationRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDurationResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetTransitionDurationResponse)
+	go func() { future <- (<-generic).(SetTransitionDurationResponse) }()
+	return future, nil
+}
+
 // SetTransitionDurationResponse : Response for SetTransitionDurationRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settransitionduration
@@ -181,6 +225,17 @@ func (r GetTransitionDurationRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetTransitionDurationRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetTransitionDurationRequest) Send(c Client) (chan GetTransitionDurationResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetTransitionDurationResponse)
+	go func() { future <- (<-generic).(GetTransitionDurationResponse) }()
+	return future, nil
+}
 
 // GetTransitionDurationResponse : Response for GetTransitionDurationRequest.
 // Since obs-websocket version: 4.1.0.

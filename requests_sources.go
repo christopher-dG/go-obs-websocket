@@ -19,6 +19,17 @@ func (r GetSourcesListRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetSourcesListRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSourcesListRequest) Send(c Client) (chan GetSourcesListResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSourcesListResponse)
+	go func() { future <- (<-generic).(GetSourcesListResponse) }()
+	return future, nil
+}
+
 // GetSourcesListResponse : Response for GetSourcesListRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsourceslist
@@ -63,6 +74,17 @@ func (r GetSourcesTypesListRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetSourcesTypesListRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSourcesTypesListRequest) Send(c Client) (chan GetSourcesTypesListResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSourcesTypesListResponse)
+	go func() { future <- (<-generic).(GetSourcesTypesListResponse) }()
+	return future, nil
+}
 
 // GetSourcesTypesListResponse : Response for GetSourcesTypesListRequest.
 // Since obs-websocket version: 4.3.0.
@@ -148,6 +170,17 @@ func (r GetVolumeRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetVolumeRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetVolumeRequest) Send(c Client) (chan GetVolumeResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetVolumeResponse)
+	go func() { future <- (<-generic).(GetVolumeResponse) }()
+	return future, nil
+}
+
 // GetVolumeResponse : Response for GetVolumeRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getvolume
@@ -210,6 +243,17 @@ func (r SetVolumeRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetVolumeRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetVolumeRequest) Send(c Client) (chan SetVolumeResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetVolumeResponse)
+	go func() { future <- (<-generic).(SetVolumeResponse) }()
+	return future, nil
+}
+
 // SetVolumeResponse : Response for SetVolumeRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setvolume
@@ -251,6 +295,17 @@ func (r GetMuteRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetMuteRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetMuteRequest) Send(c Client) (chan GetMuteResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetMuteResponse)
+	go func() { future <- (<-generic).(GetMuteResponse) }()
+	return future, nil
+}
 
 // GetMuteResponse : Response for GetMuteRequest.
 // Since obs-websocket version: 4.0.0.
@@ -309,6 +364,17 @@ func (r SetMuteRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetMuteRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetMuteRequest) Send(c Client) (chan SetMuteResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetMuteResponse)
+	go func() { future <- (<-generic).(SetMuteResponse) }()
+	return future, nil
+}
+
 // SetMuteResponse : Response for SetMuteRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setmute
@@ -350,6 +416,17 @@ func (r ToggleMuteRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r ToggleMuteRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r ToggleMuteRequest) Send(c Client) (chan ToggleMuteResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan ToggleMuteResponse)
+	go func() { future <- (<-generic).(ToggleMuteResponse) }()
+	return future, nil
+}
 
 // ToggleMuteResponse : Response for ToggleMuteRequest.
 // Since obs-websocket version: 4.0.0.
@@ -400,6 +477,17 @@ func (r SetSyncOffsetRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetSyncOffsetRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSyncOffsetRequest) Send(c Client) (chan SetSyncOffsetResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSyncOffsetResponse)
+	go func() { future <- (<-generic).(SetSyncOffsetResponse) }()
+	return future, nil
+}
+
 // SetSyncOffsetResponse : Response for SetSyncOffsetRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsyncoffset
@@ -441,6 +529,17 @@ func (r GetSyncOffsetRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetSyncOffsetRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSyncOffsetRequest) Send(c Client) (chan GetSyncOffsetResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSyncOffsetResponse)
+	go func() { future <- (<-generic).(GetSyncOffsetResponse) }()
+	return future, nil
+}
 
 // GetSyncOffsetResponse : Response for GetSyncOffsetRequest.
 // Since obs-websocket version: 4.2.0.
@@ -499,6 +598,17 @@ func (r GetSourceSettingsRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetSourceSettingsRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSourceSettingsRequest) Send(c Client) (chan GetSourceSettingsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSourceSettingsResponse)
+	go func() { future <- (<-generic).(GetSourceSettingsResponse) }()
+	return future, nil
+}
 
 // GetSourceSettingsResponse : Response for GetSourceSettingsRequest.
 // Since obs-websocket version: 4.3.0.
@@ -568,6 +678,17 @@ func (r SetSourceSettingsRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetSourceSettingsRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSourceSettingsRequest) Send(c Client) (chan SetSourceSettingsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSourceSettingsResponse)
+	go func() { future <- (<-generic).(SetSourceSettingsResponse) }()
+	return future, nil
+}
+
 // SetSourceSettingsResponse : Response for SetSourceSettingsRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsourcesettings
@@ -629,6 +750,17 @@ func (r GetTextGDIPlusPropertiesRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetTextGDIPlusPropertiesRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetTextGDIPlusPropertiesRequest) Send(c Client) (chan GetTextGDIPlusPropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetTextGDIPlusPropertiesResponse)
+	go func() { future <- (<-generic).(GetTextGDIPlusPropertiesResponse) }()
+	return future, nil
+}
 
 // GetTextGDIPlusPropertiesResponse : Response for GetTextGDIPlusPropertiesRequest.
 // Since obs-websocket version: 4.1.0.
@@ -732,7 +864,7 @@ func (r GetTextGDIPlusPropertiesResponse) Stat() string { return r.Status }
 // Err returns the response's error.
 func (r GetTextGDIPlusPropertiesResponse) Err() string { return r.Error }
 
-// SetTextGDIPlusPropertiesRequest : Set the current properties of a Text GDI Plus source.
+// SetTextGDIPlusPropertiesRequest : Get the current properties of a Text GDI Plus source.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settextgdiplusproperties
 type SetTextGDIPlusPropertiesRequest struct {
@@ -910,6 +1042,17 @@ func (r SetTextGDIPlusPropertiesRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetTextGDIPlusPropertiesRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetTextGDIPlusPropertiesRequest) Send(c Client) (chan SetTextGDIPlusPropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetTextGDIPlusPropertiesResponse)
+	go func() { future <- (<-generic).(SetTextGDIPlusPropertiesResponse) }()
+	return future, nil
+}
+
 // SetTextGDIPlusPropertiesResponse : Response for SetTextGDIPlusPropertiesRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settextgdiplusproperties
@@ -923,240 +1066,6 @@ func (r SetTextGDIPlusPropertiesResponse) Stat() string { return r.Status }
 
 // Err returns the response's error.
 func (r SetTextGDIPlusPropertiesResponse) Err() string { return r.Error }
-
-// GetTextFreetype2PropertiesRequest : Get the current properties of a Text Freetype 2 source.
-// Since obs-websocket version: 4.x.x.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettextfreetype2properties
-type GetTextFreetype2PropertiesRequest struct {
-	// Name of the scene to retrieve.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
-	// Name of the source.
-	// Required: Yes.
-	Source   string `json:"source"`
-	_request `json:",squash"`
-}
-
-// NewGetTextFreetype2PropertiesRequest returns a new GetTextFreetype2PropertiesRequest.
-func NewGetTextFreetype2PropertiesRequest(
-	sceneName string,
-	source string,
-) GetTextFreetype2PropertiesRequest {
-	return GetTextFreetype2PropertiesRequest{
-		sceneName,
-		source,
-		_request{
-			MessageID:   getMessageID(),
-			RequestType: "GetTextFreetype2Properties",
-		},
-	}
-
-}
-
-// ID returns the request's message ID.
-func (r GetTextFreetype2PropertiesRequest) ID() string { return r.MessageID }
-
-// Type returns the request's message type.
-func (r GetTextFreetype2PropertiesRequest) Type() string { return r.RequestType }
-
-// GetTextFreetype2PropertiesResponse : Response for GetTextFreetype2PropertiesRequest.
-// Since obs-websocket version: 4.x.x.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettextfreetype2properties
-type GetTextFreetype2PropertiesResponse struct {
-	// Gradient top color.
-	// Required: Yes.
-	Color1 int `json:"color1"`
-	// Gradient bottom color.
-	// Required: Yes.
-	Color2 int `json:"color2"`
-	// Custom width (0 to disable).
-	// Required: Yes.
-	CustomWidth int `json:"custom_width"`
-	// Drop shadow.
-	// Required: Yes.
-	DropShadow bool `json:"drop_shadow"`
-	// Holds data for the font.
-	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
-	// Required: Yes.
-	Font map[string]interface{} `json:"font"`
-	// Font face.
-	// Required: Yes.
-	FontFace string `json:"font.face"`
-	// Font text styling flag.
-	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
-	// Required: Yes.
-	FontFlags int `json:"font.flags"`
-	// Font text size.
-	// Required: Yes.
-	FontSize int `json:"font.size"`
-	// Font Style (unknown function).
-	// Required: Yes.
-	FontStyle string `json:"font.style"`
-	// Read text from the specified file.
-	// Required: Yes.
-	FromFile bool `json:"from_file"`
-	// Chat log.
-	// Required: Yes.
-	LogMode bool `json:"log_mode"`
-	// Outline.
-	// Required: Yes.
-	Outline bool `json:"outline"`
-	// Text content to be displayed.
-	// Required: Yes.
-	Text string `json:"text"`
-	// File path.
-	// Required: Yes.
-	TextFile string `json:"text_file"`
-	// Word wrap.
-	// Required: Yes.
-	WordWrap bool `json:"word_wrap"`
-	// Visibility of the scene item.
-	// Required: Yes.
-	Render    bool `json:"render"`
-	_response `json:",squash"`
-}
-
-// ID returns the response's message ID.
-func (r GetTextFreetype2PropertiesResponse) ID() string { return r.MessageID }
-
-// Stat returns the response's status.
-func (r GetTextFreetype2PropertiesResponse) Stat() string { return r.Status }
-
-// Err returns the response's error.
-func (r GetTextFreetype2PropertiesResponse) Err() string { return r.Error }
-
-// SetTextFreetype2PropertiesRequest : Set the current properties of a Text Freetype 2 source.
-// Since obs-websocket version: 4.x.x.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settextfreetype2properties
-type SetTextFreetype2PropertiesRequest struct {
-	// Name of the scene to retrieve.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
-	// Name of the source.
-	// Required: Yes.
-	Source string `json:"source"`
-	// Gradient top color.
-	// Required: No.
-	Color1 int `json:"color1"`
-	// Gradient bottom color.
-	// Required: No.
-	Color2 int `json:"color2"`
-	// Custom width (0 to disable).
-	// Required: No.
-	CustomWidth int `json:"custom_width"`
-	// Drop shadow.
-	// Required: No.
-	DropShadow bool `json:"drop_shadow"`
-	// Holds data for the font.
-	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
-	// Required: No.
-	Font map[string]interface{} `json:"font"`
-	// Font face.
-	// Required: No.
-	FontFace string `json:"font.face"`
-	// Font text styling flag.
-	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
-	// Required: No.
-	FontFlags int `json:"font.flags"`
-	// Font text size.
-	// Required: No.
-	FontSize int `json:"font.size"`
-	// Font Style (unknown function).
-	// Required: No.
-	FontStyle string `json:"font.style"`
-	// Read text from the specified file.
-	// Required: No.
-	FromFile bool `json:"from_file"`
-	// Chat log.
-	// Required: No.
-	LogMode bool `json:"log_mode"`
-	// Outline.
-	// Required: No.
-	Outline bool `json:"outline"`
-	// Text content to be displayed.
-	// Required: No.
-	Text string `json:"text"`
-	// File path.
-	// Required: No.
-	TextFile string `json:"text_file"`
-	// Word wrap.
-	// Required: No.
-	WordWrap bool `json:"word_wrap"`
-	// Visibility of the scene item.
-	// Required: No.
-	Render   bool `json:"render"`
-	_request `json:",squash"`
-}
-
-// NewSetTextFreetype2PropertiesRequest returns a new SetTextFreetype2PropertiesRequest.
-func NewSetTextFreetype2PropertiesRequest(
-	sceneName string,
-	source string,
-	color1 int,
-	color2 int,
-	customWidth int,
-	dropShadow bool,
-	font map[string]interface{},
-	fontFace string,
-	fontFlags int,
-	fontSize int,
-	fontStyle string,
-	fromFile bool,
-	logMode bool,
-	outline bool,
-	text string,
-	textFile string,
-	wordWrap bool,
-	render bool,
-) SetTextFreetype2PropertiesRequest {
-	return SetTextFreetype2PropertiesRequest{
-		sceneName,
-		source,
-		color1,
-		color2,
-		customWidth,
-		dropShadow,
-		font,
-		fontFace,
-		fontFlags,
-		fontSize,
-		fontStyle,
-		fromFile,
-		logMode,
-		outline,
-		text,
-		textFile,
-		wordWrap,
-		render,
-		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetTextFreetype2Properties",
-		},
-	}
-
-}
-
-// ID returns the request's message ID.
-func (r SetTextFreetype2PropertiesRequest) ID() string { return r.MessageID }
-
-// Type returns the request's message type.
-func (r SetTextFreetype2PropertiesRequest) Type() string { return r.RequestType }
-
-// SetTextFreetype2PropertiesResponse : Response for SetTextFreetype2PropertiesRequest.
-// Since obs-websocket version: 4.x.x.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settextfreetype2properties
-type SetTextFreetype2PropertiesResponse _response
-
-// ID returns the response's message ID.
-func (r SetTextFreetype2PropertiesResponse) ID() string { return r.MessageID }
-
-// Stat returns the response's status.
-func (r SetTextFreetype2PropertiesResponse) Stat() string { return r.Status }
-
-// Err returns the response's error.
-func (r SetTextFreetype2PropertiesResponse) Err() string { return r.Error }
 
 // GetBrowserSourcePropertiesRequest : Get current properties for a Browser Source.
 // Since obs-websocket version: 4.1.0.
@@ -1193,6 +1102,17 @@ func (r GetBrowserSourcePropertiesRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetBrowserSourcePropertiesRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetBrowserSourcePropertiesRequest) Send(c Client) (chan GetBrowserSourcePropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetBrowserSourcePropertiesResponse)
+	go func() { future <- (<-generic).(GetBrowserSourcePropertiesResponse) }()
+	return future, nil
+}
 
 // GetBrowserSourcePropertiesResponse : Response for GetBrowserSourcePropertiesRequest.
 // Since obs-websocket version: 4.1.0.
@@ -1318,6 +1238,17 @@ func (r SetBrowserSourcePropertiesRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetBrowserSourcePropertiesRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetBrowserSourcePropertiesRequest) Send(c Client) (chan SetBrowserSourcePropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetBrowserSourcePropertiesResponse)
+	go func() { future <- (<-generic).(SetBrowserSourcePropertiesResponse) }()
+	return future, nil
+}
+
 // SetBrowserSourcePropertiesResponse : Response for SetBrowserSourcePropertiesRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setbrowsersourceproperties
@@ -1331,132 +1262,6 @@ func (r SetBrowserSourcePropertiesResponse) Stat() string { return r.Status }
 
 // Err returns the response's error.
 func (r SetBrowserSourcePropertiesResponse) Err() string { return r.Error }
-
-// DeleteSceneItemRequest : Deletes a scene item.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#deletesceneitem
-type DeleteSceneItemRequest struct {
-	// Name of the scene the source belogns to.
-	// Defaults to the current scene.
-	// Required: No.
-	Scene string `json:"scene"`
-	// item to delete (required).
-	// Required: Yes.
-	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
-	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// id of the scene item.
-	// Required: Yes.
-	ItemID   int `json:"item.id"`
-	_request `json:",squash"`
-}
-
-// NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
-func NewDeleteSceneItemRequest(
-	scene string,
-	item map[string]interface{},
-	itemName string,
-	itemID int,
-) DeleteSceneItemRequest {
-	return DeleteSceneItemRequest{
-		scene,
-		item,
-		itemName,
-		itemID,
-		_request{
-			MessageID:   getMessageID(),
-			RequestType: "DeleteSceneItem",
-		},
-	}
-
-}
-
-// ID returns the request's message ID.
-func (r DeleteSceneItemRequest) ID() string { return r.MessageID }
-
-// Type returns the request's message type.
-func (r DeleteSceneItemRequest) Type() string { return r.RequestType }
-
-// DeleteSceneItemResponse : Response for DeleteSceneItemRequest.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#deletesceneitem
-type DeleteSceneItemResponse _response
-
-// ID returns the response's message ID.
-func (r DeleteSceneItemResponse) ID() string { return r.MessageID }
-
-// Stat returns the response's status.
-func (r DeleteSceneItemResponse) Stat() string { return r.Status }
-
-// Err returns the response's error.
-func (r DeleteSceneItemResponse) Err() string { return r.Error }
-
-// DuplicateSceneItemRequest : Duplicates a scene item.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#duplicatesceneitem
-type DuplicateSceneItemRequest struct {
-	// Name of the scene to copy the item from.
-	// Defaults to the current scene.
-	// Required: No.
-	FromScene string `json:"fromScene"`
-	// Name of the scene to create the item in.
-	// Defaults to the current scene.
-	// Required: No.
-	ToScene string `json:"toScene"`
-	// item to delete (required).
-	// Required: Yes.
-	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
-	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// id of the scene item.
-	// Required: Yes.
-	ItemID   int `json:"item.id"`
-	_request `json:",squash"`
-}
-
-// NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.
-func NewDuplicateSceneItemRequest(
-	fromScene string,
-	toScene string,
-	item map[string]interface{},
-	itemName string,
-	itemID int,
-) DuplicateSceneItemRequest {
-	return DuplicateSceneItemRequest{
-		fromScene,
-		toScene,
-		item,
-		itemName,
-		itemID,
-		_request{
-			MessageID:   getMessageID(),
-			RequestType: "DuplicateSceneItem",
-		},
-	}
-
-}
-
-// ID returns the request's message ID.
-func (r DuplicateSceneItemRequest) ID() string { return r.MessageID }
-
-// Type returns the request's message type.
-func (r DuplicateSceneItemRequest) Type() string { return r.RequestType }
-
-// DuplicateSceneItemResponse : Response for DuplicateSceneItemRequest.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#duplicatesceneitem
-type DuplicateSceneItemResponse _response
-
-// ID returns the response's message ID.
-func (r DuplicateSceneItemResponse) ID() string { return r.MessageID }
-
-// Stat returns the response's status.
-func (r DuplicateSceneItemResponse) Stat() string { return r.Status }
-
-// Err returns the response's error.
-func (r DuplicateSceneItemResponse) Err() string { return r.Error }
 
 // GetSpecialSourcesRequest : Get configured special sources like Desktop Audio and Mic/Aux sources.
 // Since obs-websocket version: 4.1.0.
@@ -1474,6 +1279,17 @@ func (r GetSpecialSourcesRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetSpecialSourcesRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSpecialSourcesRequest) Send(c Client) (chan GetSpecialSourcesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSpecialSourcesResponse)
+	go func() { future <- (<-generic).(GetSpecialSourcesResponse) }()
+	return future, nil
+}
+
 // GetSpecialSourcesResponse : Response for GetSpecialSourcesRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getspecialsources
@@ -1490,7 +1306,7 @@ type GetSpecialSourcesResponse struct {
 	// Name of the second Mic/Aux input source.
 	// Required: No.
 	Mic2 string `json:"mic-2"`
-	// Name of the third Mic/Aux input source.
+	// NAme of the third Mic/Aux input source.
 	// Required: No.
 	Mic3      string `json:"mic-3"`
 	_response `json:",squash"`

@@ -31,6 +31,17 @@ func (r SetCurrentSceneRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetCurrentSceneRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetCurrentSceneRequest) Send(c Client) (chan SetCurrentSceneResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetCurrentSceneResponse)
+	go func() { future <- (<-generic).(SetCurrentSceneResponse) }()
+	return future, nil
+}
+
 // SetCurrentSceneResponse : Response for SetCurrentSceneRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscene
@@ -60,6 +71,17 @@ func (r GetCurrentSceneRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetCurrentSceneRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetCurrentSceneRequest) Send(c Client) (chan GetCurrentSceneResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetCurrentSceneResponse)
+	go func() { future <- (<-generic).(GetCurrentSceneResponse) }()
+	return future, nil
+}
 
 // GetCurrentSceneResponse : Response for GetCurrentSceneRequest.
 // Since obs-websocket version: 0.3.
@@ -99,6 +121,17 @@ func (r GetSceneListRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetSceneListRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSceneListRequest) Send(c Client) (chan GetSceneListResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSceneListResponse)
+	go func() { future <- (<-generic).(GetSceneListResponse) }()
+	return future, nil
+}
+
 // GetSceneListResponse : Response for GetSceneListRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getscenelist
@@ -120,65 +153,3 @@ func (r GetSceneListResponse) Stat() string { return r.Status }
 
 // Err returns the response's error.
 func (r GetSceneListResponse) Err() string { return r.Error }
-
-// SetSceneItemOrderRequest : Changes the order of scene items in the requested scene.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemorder
-type SetSceneItemOrderRequest struct {
-	// Name of the scene to reorder (defaults to current).
-	// Required: No.
-	Scene string `json:"scene"`
-	// Ordered list of objects with name and/or id specified.
-	// Id prefered due to uniqueness per scene.
-	// Required: Yes.
-	Items []map[string]interface{} `json:"items"`
-	// Id of a specific scene item.
-	// Unique on a scene by scene basis.
-	// Required: No.
-	ItemsID int `json:"items[].id"`
-	// Name of a scene item.
-	// Sufficiently unique if no scene items share sources within the scene.
-	// Required: No.
-	ItemsName string `json:"items[].name"`
-	_request  `json:",squash"`
-}
-
-// NewSetSceneItemOrderRequest returns a new SetSceneItemOrderRequest.
-func NewSetSceneItemOrderRequest(
-	scene string,
-	items []map[string]interface{},
-	itemsID int,
-	itemsName string,
-) SetSceneItemOrderRequest {
-	return SetSceneItemOrderRequest{
-		scene,
-		items,
-		itemsID,
-		itemsName,
-		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemOrder",
-		},
-	}
-
-}
-
-// ID returns the request's message ID.
-func (r SetSceneItemOrderRequest) ID() string { return r.MessageID }
-
-// Type returns the request's message type.
-func (r SetSceneItemOrderRequest) Type() string { return r.RequestType }
-
-// SetSceneItemOrderResponse : Response for SetSceneItemOrderRequest.
-// Since obs-websocket version: Unreleased.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemorder
-type SetSceneItemOrderResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemOrderResponse) ID() string { return r.MessageID }
-
-// Stat returns the response's status.
-func (r SetSceneItemOrderResponse) Stat() string { return r.Status }
-
-// Err returns the response's error.
-func (r SetSceneItemOrderResponse) Err() string { return r.Error }

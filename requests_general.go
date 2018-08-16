@@ -19,6 +19,17 @@ func (r GetVersionRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetVersionRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetVersionRequest) Send(c Client) (chan GetVersionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetVersionResponse)
+	go func() { future <- (<-generic).(GetVersionResponse) }()
+	return future, nil
+}
+
 // GetVersionResponse : Response for GetVersionRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
@@ -65,6 +76,17 @@ func (r GetAuthRequiredRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetAuthRequiredRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetAuthRequiredRequest) Send(c Client) (chan GetAuthRequiredResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetAuthRequiredResponse)
+	go func() { future <- (<-generic).(GetAuthRequiredResponse) }()
+	return future, nil
+}
 
 // GetAuthRequiredResponse : Response for GetAuthRequiredRequest.
 // Since obs-websocket version: 0.3.
@@ -117,6 +139,17 @@ func (r AuthenticateRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r AuthenticateRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan AuthenticateResponse)
+	go func() { future <- (<-generic).(AuthenticateResponse) }()
+	return future, nil
+}
+
 // AuthenticateResponse : Response for AuthenticateRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
@@ -158,6 +191,17 @@ func (r SetHeartbeatRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetHeartbeatRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetHeartbeatResponse)
+	go func() { future <- (<-generic).(SetHeartbeatResponse) }()
+	return future, nil
+}
 
 // SetHeartbeatResponse : Response for SetHeartbeatRequest.
 // Since obs-websocket version: 4.3.0.
@@ -201,6 +245,17 @@ func (r SetFilenameFormattingRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetFilenameFormattingRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormattingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetFilenameFormattingResponse)
+	go func() { future <- (<-generic).(SetFilenameFormattingResponse) }()
+	return future, nil
+}
+
 // SetFilenameFormattingResponse : Response for SetFilenameFormattingRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setfilenameformatting
@@ -230,6 +285,17 @@ func (r GetFilenameFormattingRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetFilenameFormattingRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetFilenameFormattingRequest) Send(c Client) (chan GetFilenameFormattingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetFilenameFormattingResponse)
+	go func() { future <- (<-generic).(GetFilenameFormattingResponse) }()
+	return future, nil
+}
 
 // GetFilenameFormattingResponse : Response for GetFilenameFormattingRequest.
 // Since obs-websocket version: 4.3.0.

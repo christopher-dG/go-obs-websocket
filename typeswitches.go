@@ -35,7 +35,6 @@ var ReqMap = map[string]Request{
 	"SetCurrentScene":            &SetCurrentSceneRequest{},
 	"GetCurrentScene":            &GetCurrentSceneRequest{},
 	"GetSceneList":               &GetSceneListRequest{},
-	"SetSceneItemOrder":          &SetSceneItemOrderRequest{},
 	"GetSourcesList":             &GetSourcesListRequest{},
 	"GetSourcesTypesList":        &GetSourcesTypesListRequest{},
 	"GetVolume":                  &GetVolumeRequest{},
@@ -49,12 +48,8 @@ var ReqMap = map[string]Request{
 	"SetSourceSettings":          &SetSourceSettingsRequest{},
 	"GetTextGDIPlusProperties":   &GetTextGDIPlusPropertiesRequest{},
 	"SetTextGDIPlusProperties":   &SetTextGDIPlusPropertiesRequest{},
-	"GetTextFreetype2Properties": &GetTextFreetype2PropertiesRequest{},
-	"SetTextFreetype2Properties": &SetTextFreetype2PropertiesRequest{},
 	"GetBrowserSourceProperties": &GetBrowserSourcePropertiesRequest{},
 	"SetBrowserSourceProperties": &SetBrowserSourcePropertiesRequest{},
-	"DeleteSceneItem":            &DeleteSceneItemRequest{},
-	"DuplicateSceneItem":         &DuplicateSceneItemRequest{},
 	"GetSpecialSources":          &GetSpecialSourcesRequest{},
 	"GetStreamingStatus":         &GetStreamingStatusRequest{},
 	"StartStopStreaming":         &StartStopStreamingRequest{},
@@ -109,7 +104,6 @@ var respMap = map[string]Response{
 	"SetCurrentScene":            &SetCurrentSceneResponse{},
 	"GetCurrentScene":            &GetCurrentSceneResponse{},
 	"GetSceneList":               &GetSceneListResponse{},
-	"SetSceneItemOrder":          &SetSceneItemOrderResponse{},
 	"GetSourcesList":             &GetSourcesListResponse{},
 	"GetSourcesTypesList":        &GetSourcesTypesListResponse{},
 	"GetVolume":                  &GetVolumeResponse{},
@@ -123,12 +117,8 @@ var respMap = map[string]Response{
 	"SetSourceSettings":          &SetSourceSettingsResponse{},
 	"GetTextGDIPlusProperties":   &GetTextGDIPlusPropertiesResponse{},
 	"SetTextGDIPlusProperties":   &SetTextGDIPlusPropertiesResponse{},
-	"GetTextFreetype2Properties": &GetTextFreetype2PropertiesResponse{},
-	"SetTextFreetype2Properties": &SetTextFreetype2PropertiesResponse{},
 	"GetBrowserSourceProperties": &GetBrowserSourcePropertiesResponse{},
 	"SetBrowserSourceProperties": &SetBrowserSourcePropertiesResponse{},
-	"DeleteSceneItem":            &DeleteSceneItemResponse{},
-	"DuplicateSceneItem":         &DuplicateSceneItemResponse{},
 	"GetSpecialSources":          &GetSpecialSourcesResponse{},
 	"GetStreamingStatus":         &GetStreamingStatusResponse{},
 	"StartStopStreaming":         &StartStopStreamingResponse{},
@@ -249,8 +239,6 @@ func derefResponse(r Response) Response {
 		return *r
 	case *GetSceneListResponse:
 		return *r
-	case *SetSceneItemOrderResponse:
-		return *r
 	case *GetSourcesListResponse:
 		return *r
 	case *GetSourcesTypesListResponse:
@@ -277,17 +265,9 @@ func derefResponse(r Response) Response {
 		return *r
 	case *SetTextGDIPlusPropertiesResponse:
 		return *r
-	case *GetTextFreetype2PropertiesResponse:
-		return *r
-	case *SetTextFreetype2PropertiesResponse:
-		return *r
 	case *GetBrowserSourcePropertiesResponse:
 		return *r
 	case *SetBrowserSourcePropertiesResponse:
-		return *r
-	case *DeleteSceneItemResponse:
-		return *r
-	case *DuplicateSceneItemResponse:
 		return *r
 	case *GetSpecialSourcesResponse:
 		return *r

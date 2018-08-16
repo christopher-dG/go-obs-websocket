@@ -9,16 +9,8 @@ import (
 
 const noID = "noID"
 
-// SendRequest sends a request to the WebSocket server.
-// The return value is a channel to which a response will be written when it
-// is received. Note that to access any fields that are not defined in the base
-// response, a type assertion is required.
-// The following pattern is recommended:
-//
-//     future, err := client.SendRequest(NewGetStreamingStatusRequest())
-//     if err != nil { /* ... */  }
-//     status := (<-future).(GetStreamingStatusResponse)
-func (c *Client) SendRequest(req Request) (chan Response, error) {
+// sendRequest sends a request to the WebSocket server.
+func (c *Client) sendRequest(req Request) (chan Response, error) {
 	future := make(chan Response)
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, errors.Wrapf(err, "write %s", req.Type())

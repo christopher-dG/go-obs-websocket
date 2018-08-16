@@ -19,6 +19,17 @@ func (r StartStopRecordingRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r StartStopRecordingRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartStopRecordingRequest) Send(c Client) (chan StartStopRecordingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartStopRecordingResponse)
+	go func() { future <- (<-generic).(StartStopRecordingResponse) }()
+	return future, nil
+}
+
 // StartStopRecordingResponse : Response for StartStopRecordingRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstoprecording
@@ -50,6 +61,17 @@ func (r StartRecordingRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r StartRecordingRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartRecordingRequest) Send(c Client) (chan StartRecordingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartRecordingResponse)
+	go func() { future <- (<-generic).(StartRecordingResponse) }()
+	return future, nil
+}
+
 // StartRecordingResponse : Response for StartRecordingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startrecording
@@ -80,6 +102,17 @@ func (r StopRecordingRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r StopRecordingRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StopRecordingRequest) Send(c Client) (chan StopRecordingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StopRecordingResponse)
+	go func() { future <- (<-generic).(StopRecordingResponse) }()
+	return future, nil
+}
 
 // StopRecordingResponse : Response for StopRecordingRequest.
 // Since obs-websocket version: 4.1.0.
@@ -123,6 +156,17 @@ func (r SetRecordingFolderRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetRecordingFolderRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetRecordingFolderRequest) Send(c Client) (chan SetRecordingFolderResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetRecordingFolderResponse)
+	go func() { future <- (<-generic).(SetRecordingFolderResponse) }()
+	return future, nil
+}
+
 // SetRecordingFolderResponse : Response for SetRecordingFolderRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setrecordingfolder
@@ -152,6 +196,17 @@ func (r GetRecordingFolderRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetRecordingFolderRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetRecordingFolderRequest) Send(c Client) (chan GetRecordingFolderResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetRecordingFolderResponse)
+	go func() { future <- (<-generic).(GetRecordingFolderResponse) }()
+	return future, nil
+}
 
 // GetRecordingFolderResponse : Response for GetRecordingFolderRequest.
 // Since obs-websocket version: 4.1.0.

@@ -31,6 +31,17 @@ func (r SetCurrentProfileRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetCurrentProfileRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetCurrentProfileResponse)
+	go func() { future <- (<-generic).(SetCurrentProfileResponse) }()
+	return future, nil
+}
+
 // SetCurrentProfileResponse : Response for SetCurrentProfileRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentprofile
@@ -60,6 +71,17 @@ func (r GetCurrentProfileRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetCurrentProfileRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetCurrentProfileRequest) Send(c Client) (chan GetCurrentProfileResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetCurrentProfileResponse)
+	go func() { future <- (<-generic).(GetCurrentProfileResponse) }()
+	return future, nil
+}
 
 // GetCurrentProfileResponse : Response for GetCurrentProfileRequest.
 // Since obs-websocket version: 4.0.0.
@@ -95,6 +117,17 @@ func (r ListProfilesRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r ListProfilesRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r ListProfilesRequest) Send(c Client) (chan ListProfilesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan ListProfilesResponse)
+	go func() { future <- (<-generic).(ListProfilesResponse) }()
+	return future, nil
+}
 
 // ListProfilesResponse : Response for ListProfilesRequest.
 // Since obs-websocket version: 4.0.0.

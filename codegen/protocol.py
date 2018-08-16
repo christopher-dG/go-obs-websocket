@@ -137,6 +137,17 @@ def gen_request(data: Dict) -> str:
 
     // Type returns the request's message type.
     func (r {data["name"]}Request) Type() string {{ return r.RequestType }}
+
+    // Send sends the request and returns a channel to which the response will be sent.
+    func (r {data["name"]}Request) Send(c Client) (chan {data["name"]}Response, error) {{
+        generic, err := c.sendRequest(r)
+        if err != nil {{
+            return nil, err
+	    }}
+	    future := make(chan {data["name"]}Response)
+	    go func() {{ future <- (<-generic).({data["name"]}Response) }}()
+	    return future, nil
+    }}
     """
 
     if data.get("returns"):

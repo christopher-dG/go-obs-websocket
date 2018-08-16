@@ -31,6 +31,17 @@ func (r SetCurrentSceneCollectionRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetCurrentSceneCollectionRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCollectionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetCurrentSceneCollectionResponse)
+	go func() { future <- (<-generic).(SetCurrentSceneCollectionResponse) }()
+	return future, nil
+}
+
 // SetCurrentSceneCollectionResponse : Response for SetCurrentSceneCollectionRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscenecollection
@@ -60,6 +71,17 @@ func (r GetCurrentSceneCollectionRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetCurrentSceneCollectionRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetCurrentSceneCollectionRequest) Send(c Client) (chan GetCurrentSceneCollectionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetCurrentSceneCollectionResponse)
+	go func() { future <- (<-generic).(GetCurrentSceneCollectionResponse) }()
+	return future, nil
+}
 
 // GetCurrentSceneCollectionResponse : Response for GetCurrentSceneCollectionRequest.
 // Since obs-websocket version: 4.0.0.
@@ -95,6 +117,17 @@ func (r ListSceneCollectionsRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r ListSceneCollectionsRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r ListSceneCollectionsRequest) Send(c Client) (chan ListSceneCollectionsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan ListSceneCollectionsResponse)
+	go func() { future <- (<-generic).(ListSceneCollectionsResponse) }()
+	return future, nil
+}
 
 // ListSceneCollectionsResponse : Response for ListSceneCollectionsRequest.
 // Since obs-websocket version: 4.0.0.

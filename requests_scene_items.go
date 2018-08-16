@@ -10,26 +10,21 @@ type GetSceneItemPropertiesRequest struct {
 	// the name of the scene that the source item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
-	Scene string `json:"scene"`
+	SceneName string `json:"scene-name"`
 	// The name of the source.
 	// Required: Yes.
-	ItemID string `json:"item.id"`
-	// The name of the source.
-	// Required: Yes.
-	ItemName string `json:"item.name"`
+	Item     string `json:"item"`
 	_request `json:",squash"`
 }
 
 // NewGetSceneItemPropertiesRequest returns a new GetSceneItemPropertiesRequest.
 func NewGetSceneItemPropertiesRequest(
-	scene string,
-	itemID string,
-	itemName string,
+	sceneName string,
+	item string,
 ) GetSceneItemPropertiesRequest {
 	return GetSceneItemPropertiesRequest{
-		scene,
-		itemID,
-		itemName,
+		sceneName,
+		item,
 		_request{
 			MessageID:   getMessageID(),
 			RequestType: "GetSceneItemProperties",
@@ -44,68 +39,70 @@ func (r GetSceneItemPropertiesRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetSceneItemPropertiesRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetSceneItemPropertiesRequest) Send(c Client) (chan GetSceneItemPropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetSceneItemPropertiesResponse)
+	go func() { future <- (<-generic).(GetSceneItemPropertiesResponse) }()
+	return future, nil
+}
+
 // GetSceneItemPropertiesResponse : Response for GetSceneItemPropertiesRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsceneitemproperties
 type GetSceneItemPropertiesResponse struct {
-	// The name of the scene.
-	// Required: Yes.
-	Scene string `json:"scene"`
 	// The name of the source.
 	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// The id of the scene item.
-	// Required: Yes.
-	ItemID string `json:"item.id"`
+	Name string `json:"name"`
 	// The x position of the source from the left.
 	// Required: Yes.
-	ItemPositionX int `json:"item.position.x"`
+	PositionX int `json:"position.x"`
 	// The y position of the source from the top.
 	// Required: Yes.
-	ItemPositionY int `json:"item.position.y"`
+	PositionY int `json:"position.y"`
 	// The point on the source that the item is manipulated from.
 	// Required: Yes.
-	ItemPositionAlignment int `json:"item.position.alignment"`
+	PositionAlignment int `json:"position.alignment"`
 	// The clockwise rotation of the item in degrees around the point of alignment.
 	// Required: Yes.
-	ItemRotation float64 `json:"item.rotation"`
+	Rotation float64 `json:"rotation"`
 	// The x-scale factor of the source.
 	// Required: Yes.
-	ItemScaleX float64 `json:"item.scale.x"`
+	ScaleX float64 `json:"scale.x"`
 	// The y-scale factor of the source.
 	// Required: Yes.
-	ItemScaleY float64 `json:"item.scale.y"`
+	ScaleY float64 `json:"scale.y"`
 	// The number of pixels cropped off the top of the source before scaling.
 	// Required: Yes.
-	ItemCropTop int `json:"item.crop.top"`
+	CropTop int `json:"crop.top"`
 	// The number of pixels cropped off the right of the source before scaling.
 	// Required: Yes.
-	ItemCropRight int `json:"item.crop.right"`
+	CropRight int `json:"crop.right"`
 	// The number of pixels cropped off the bottom of the source before scaling.
 	// Required: Yes.
-	ItemCropBottom int `json:"item.crop.bottom"`
+	CropBottom int `json:"crop.bottom"`
 	// The number of pixels cropped off the left of the source before scaling.
 	// Required: Yes.
-	ItemCropLeft int `json:"item.crop.left"`
+	CropLeft int `json:"crop.left"`
 	// If the source is visible.
 	// Required: Yes.
-	ItemVisible bool `json:"item.visible"`
-	// If the source is locked.
-	// Required: Yes.
-	ItemLocked bool `json:"item.locked"`
+	Visible bool `json:"visible"`
 	// Type of bounding box.
 	// Required: Yes.
-	ItemBoundsType string `json:"item.bounds.type"`
+	BoundsType string `json:"bounds.type"`
 	// Alignment of the bounding box.
 	// Required: Yes.
-	ItemBoundsAlignment int `json:"item.bounds.alignment"`
+	BoundsAlignment int `json:"bounds.alignment"`
 	// Width of the bounding box.
 	// Required: Yes.
-	ItemBoundsX float64 `json:"item.bounds.x"`
+	BoundsX float64 `json:"bounds.x"`
 	// Height of the bounding box.
 	// Required: Yes.
-	ItemBoundsY float64 `json:"item.bounds.y"`
-	_response   `json:",squash"`
+	BoundsY   float64 `json:"bounds.y"`
+	_response `json:",squash"`
 }
 
 // ID returns the response's message ID.
@@ -125,109 +122,98 @@ type SetSceneItemPropertiesRequest struct {
 	// the name of the scene that the source item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
-	Scene string `json:"scene"`
-	// The name of the item.
+	SceneName string `json:"scene-name"`
+	// The name of the source.
 	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// The id of the item.
+	Item string `json:"item"`
+	// The new x position of the source.
 	// Required: Yes.
-	ItemID int `json:"item.id"`
-	// The new x position of the item.
+	PositionX int `json:"position.x"`
+	// The new y position of the source.
 	// Required: Yes.
-	ItemPositionX int `json:"item.position.x"`
-	// The new y position of the item.
+	PositionY int `json:"position.y"`
+	// The new alignment of the source.
 	// Required: Yes.
-	ItemPositionY int `json:"item.position.y"`
-	// The new alignment of the item.
-	// Required: Yes.
-	ItemPositionAlignment int `json:"item.position.alignment"`
+	PositionAlignment int `json:"position.alignment"`
 	// The new clockwise rotation of the item in degrees.
 	// Required: Yes.
-	ItemRotation float64 `json:"item.rotation"`
+	Rotation float64 `json:"rotation"`
 	// The new x scale of the item.
 	// Required: Yes.
-	ItemScaleX float64 `json:"item.scale.x"`
+	ScaleX float64 `json:"scale.x"`
 	// The new y scale of the item.
 	// Required: Yes.
-	ItemScaleY float64 `json:"item.scale.y"`
+	ScaleY float64 `json:"scale.y"`
 	// The new amount of pixels cropped off the top of the source before scaling.
 	// Required: Yes.
-	ItemCropTop int `json:"item.crop.top"`
+	CropTop int `json:"crop.top"`
 	// The new amount of pixels cropped off the bottom of the source before scaling.
 	// Required: Yes.
-	ItemCropBottom int `json:"item.crop.bottom"`
+	CropBottom int `json:"crop.bottom"`
 	// The new amount of pixels cropped off the left of the source before scaling.
 	// Required: Yes.
-	ItemCropLeft int `json:"item.crop.left"`
+	CropLeft int `json:"crop.left"`
 	// The new amount of pixels cropped off the right of the source before scaling.
 	// Required: Yes.
-	ItemCropRight int `json:"item.crop.right"`
-	// The new visibility of the item.
+	CropRight int `json:"crop.right"`
+	// The new visibility of the source.
 	// 'true' shows source, 'false' hides source.
 	// Required: Yes.
-	ItemVisible bool `json:"item.visible"`
-	// The new locked of the item.
-	// 'true' is locked, 'false' is unlocked.
+	Visible bool `json:"visible"`
+	// The new bounds type of the source.
 	// Required: Yes.
-	ItemLocked bool `json:"item.locked"`
-	// The new bounds type of the item.
-	// Required: Yes.
-	ItemBoundsType string `json:"item.bounds.type"`
+	BoundsType string `json:"bounds.type"`
 	// The new alignment of the bounding box.
 	// (0-2, 4-6, 8-10).
 	// Required: Yes.
-	ItemBoundsAlignment int `json:"item.bounds.alignment"`
+	BoundsAlignment int `json:"bounds.alignment"`
 	// The new width of the bounding box.
 	// Required: Yes.
-	ItemBoundsX float64 `json:"item.bounds.x"`
+	BoundsX float64 `json:"bounds.x"`
 	// The new height of the bounding box.
 	// Required: Yes.
-	ItemBoundsY float64 `json:"item.bounds.y"`
-	_request    `json:",squash"`
+	BoundsY  float64 `json:"bounds.y"`
+	_request `json:",squash"`
 }
 
 // NewSetSceneItemPropertiesRequest returns a new SetSceneItemPropertiesRequest.
 func NewSetSceneItemPropertiesRequest(
-	scene string,
-	itemName string,
-	itemID int,
-	itemPositionX int,
-	itemPositionY int,
-	itemPositionAlignment int,
-	itemRotation float64,
-	itemScaleX float64,
-	itemScaleY float64,
-	itemCropTop int,
-	itemCropBottom int,
-	itemCropLeft int,
-	itemCropRight int,
-	itemVisible bool,
-	itemLocked bool,
-	itemBoundsType string,
-	itemBoundsAlignment int,
-	itemBoundsX float64,
-	itemBoundsY float64,
+	sceneName string,
+	item string,
+	positionX int,
+	positionY int,
+	positionAlignment int,
+	rotation float64,
+	scaleX float64,
+	scaleY float64,
+	cropTop int,
+	cropBottom int,
+	cropLeft int,
+	cropRight int,
+	visible bool,
+	boundsType string,
+	boundsAlignment int,
+	boundsX float64,
+	boundsY float64,
 ) SetSceneItemPropertiesRequest {
 	return SetSceneItemPropertiesRequest{
-		scene,
-		itemName,
-		itemID,
-		itemPositionX,
-		itemPositionY,
-		itemPositionAlignment,
-		itemRotation,
-		itemScaleX,
-		itemScaleY,
-		itemCropTop,
-		itemCropBottom,
-		itemCropLeft,
-		itemCropRight,
-		itemVisible,
-		itemLocked,
-		itemBoundsType,
-		itemBoundsAlignment,
-		itemBoundsX,
-		itemBoundsY,
+		sceneName,
+		item,
+		positionX,
+		positionY,
+		positionAlignment,
+		rotation,
+		scaleX,
+		scaleY,
+		cropTop,
+		cropBottom,
+		cropLeft,
+		cropRight,
+		visible,
+		boundsType,
+		boundsAlignment,
+		boundsX,
+		boundsY,
 		_request{
 			MessageID:   getMessageID(),
 			RequestType: "SetSceneItemProperties",
@@ -241,6 +227,17 @@ func (r SetSceneItemPropertiesRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetSceneItemPropertiesRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemPropertiesResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSceneItemPropertiesResponse)
+	go func() { future <- (<-generic).(SetSceneItemPropertiesResponse) }()
+	return future, nil
+}
 
 // SetSceneItemPropertiesResponse : Response for SetSceneItemPropertiesRequest.
 // Since obs-websocket version: 4.3.0.
@@ -291,6 +288,17 @@ func (r ResetSceneItemRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r ResetSceneItemRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan ResetSceneItemResponse)
+	go func() { future <- (<-generic).(ResetSceneItemResponse) }()
+	return future, nil
+}
 
 // ResetSceneItemResponse : Response for ResetSceneItemRequest.
 // Since obs-websocket version: 4.2.0.
@@ -346,6 +354,17 @@ func (r SetSceneItemRenderRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetSceneItemRenderRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSceneItemRenderResponse)
+	go func() { future <- (<-generic).(SetSceneItemRenderResponse) }()
+	return future, nil
+}
 
 // SetSceneItemRenderResponse : Response for SetSceneItemRenderRequest.
 // Since obs-websocket version: 0.3.
@@ -406,6 +425,17 @@ func (r SetSceneItemPositionRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetSceneItemPositionRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSceneItemPositionResponse)
+	go func() { future <- (<-generic).(SetSceneItemPositionResponse) }()
+	return future, nil
+}
 
 // SetSceneItemPositionResponse : Response for SetSceneItemPositionRequest.
 // Since obs-websocket version: 4.0.0.
@@ -471,6 +501,17 @@ func (r SetSceneItemTransformRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetSceneItemTransformRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransformResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSceneItemTransformResponse)
+	go func() { future <- (<-generic).(SetSceneItemTransformResponse) }()
+	return future, nil
+}
 
 // SetSceneItemTransformResponse : Response for SetSceneItemTransformRequest.
 // Since obs-websocket version: 4.0.0.
@@ -541,6 +582,17 @@ func (r SetSceneItemCropRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetSceneItemCropRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetSceneItemCropResponse)
+	go func() { future <- (<-generic).(SetSceneItemCropResponse) }()
+	return future, nil
+}
 
 // SetSceneItemCropResponse : Response for SetSceneItemCropRequest.
 // Since obs-websocket version: 4.1.0.

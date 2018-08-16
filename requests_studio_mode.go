@@ -19,6 +19,17 @@ func (r GetStudioModeStatusRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetStudioModeStatusRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetStudioModeStatusRequest) Send(c Client) (chan GetStudioModeStatusResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetStudioModeStatusResponse)
+	go func() { future <- (<-generic).(GetStudioModeStatusResponse) }()
+	return future, nil
+}
+
 // GetStudioModeStatusResponse : Response for GetStudioModeStatusRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstudiomodestatus
@@ -54,6 +65,17 @@ func (r GetPreviewSceneRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetPreviewSceneRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetPreviewSceneRequest) Send(c Client) (chan GetPreviewSceneResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetPreviewSceneResponse)
+	go func() { future <- (<-generic).(GetPreviewSceneResponse) }()
+	return future, nil
+}
 
 // GetPreviewSceneResponse : Response for GetPreviewSceneRequest.
 // Since obs-websocket version: 4.1.0.
@@ -104,6 +126,17 @@ func (r SetPreviewSceneRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SetPreviewSceneRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetPreviewSceneResponse)
+	go func() { future <- (<-generic).(SetPreviewSceneResponse) }()
+	return future, nil
+}
 
 // SetPreviewSceneResponse : Response for SetPreviewSceneRequest.
 // Since obs-websocket version: 4.1.0.
@@ -161,6 +194,17 @@ func (r TransitionToProgramRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r TransitionToProgramRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan TransitionToProgramResponse)
+	go func() { future <- (<-generic).(TransitionToProgramResponse) }()
+	return future, nil
+}
+
 // TransitionToProgramResponse : Response for TransitionToProgramRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitiontoprogram
@@ -190,6 +234,17 @@ func (r EnableStudioModeRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r EnableStudioModeRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan EnableStudioModeResponse)
+	go func() { future <- (<-generic).(EnableStudioModeResponse) }()
+	return future, nil
+}
 
 // EnableStudioModeResponse : Response for EnableStudioModeRequest.
 // Since obs-websocket version: 4.1.0.
@@ -221,6 +276,17 @@ func (r DisableStudioModeRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r DisableStudioModeRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan DisableStudioModeResponse)
+	go func() { future <- (<-generic).(DisableStudioModeResponse) }()
+	return future, nil
+}
+
 // DisableStudioModeResponse : Response for DisableStudioModeRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#disablestudiomode
@@ -250,6 +316,17 @@ func (r ToggleStudioModeRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r ToggleStudioModeRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan ToggleStudioModeResponse)
+	go func() { future <- (<-generic).(ToggleStudioModeResponse) }()
+	return future, nil
+}
 
 // ToggleStudioModeResponse : Response for ToggleStudioModeRequest.
 // Since obs-websocket version: 4.1.0.

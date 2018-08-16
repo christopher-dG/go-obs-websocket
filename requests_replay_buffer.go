@@ -19,6 +19,17 @@ func (r StartStopReplayBufferRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r StartStopReplayBufferRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBufferResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartStopReplayBufferResponse)
+	go func() { future <- (<-generic).(StartStopReplayBufferResponse) }()
+	return future, nil
+}
+
 // StartStopReplayBufferResponse : Response for StartStopReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
@@ -53,6 +64,17 @@ func (r StartReplayBufferRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r StartReplayBufferRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartReplayBufferResponse)
+	go func() { future <- (<-generic).(StartReplayBufferResponse) }()
+	return future, nil
+}
+
 // StartReplayBufferResponse : Response for StartReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
@@ -83,6 +105,17 @@ func (r StopReplayBufferRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r StopReplayBufferRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StopReplayBufferResponse)
+	go func() { future <- (<-generic).(StopReplayBufferResponse) }()
+	return future, nil
+}
 
 // StopReplayBufferResponse : Response for StopReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
@@ -116,6 +149,17 @@ func (r SaveReplayBufferRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SaveReplayBufferRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SaveReplayBufferResponse)
+	go func() { future <- (<-generic).(SaveReplayBufferResponse) }()
+	return future, nil
+}
 
 // SaveReplayBufferResponse : Response for SaveReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.

@@ -9,11 +9,8 @@ package obsws
 type SourceOrderChangedEvent struct {
 	// Name of the scene where items have been reordered.
 	// Required: Yes.
-	Name string `json:"name"`
-	// Array of sources.
-	// Required: Yes.
-	Sources []string `json:"sources"`
-	_event  `json:",squash"`
+	SceneName string `json:"scene-name"`
+	_event    `json:",squash"`
 }
 
 // Type returns the event's update type.

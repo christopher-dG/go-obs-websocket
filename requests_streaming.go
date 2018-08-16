@@ -19,6 +19,17 @@ func (r GetStreamingStatusRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r GetStreamingStatusRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetStreamingStatusRequest) Send(c Client) (chan GetStreamingStatusResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetStreamingStatusResponse)
+	go func() { future <- (<-generic).(GetStreamingStatusResponse) }()
+	return future, nil
+}
+
 // GetStreamingStatusResponse : Response for GetStreamingStatusRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamingstatus
@@ -66,6 +77,17 @@ func (r StartStopStreamingRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r StartStopStreamingRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartStopStreamingResponse)
+	go func() { future <- (<-generic).(StartStopStreamingResponse) }()
+	return future, nil
+}
 
 // StartStopStreamingResponse : Response for StartStopStreamingRequest.
 // Since obs-websocket version: 0.3.
@@ -158,6 +180,17 @@ func (r StartStreamingRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r StartStreamingRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StartStreamingResponse)
+	go func() { future <- (<-generic).(StartStreamingResponse) }()
+	return future, nil
+}
+
 // StartStreamingResponse : Response for StartStreamingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstreaming
@@ -188,6 +221,17 @@ func (r StopStreamingRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r StopStreamingRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan StopStreamingResponse)
+	go func() { future <- (<-generic).(StopStreamingResponse) }()
+	return future, nil
+}
 
 // StopStreamingResponse : Response for StopStreamingRequest.
 // Since obs-websocket version: 4.1.0.
@@ -272,6 +316,17 @@ func (r SetStreamSettingsRequest) ID() string { return r.MessageID }
 // Type returns the request's message type.
 func (r SetStreamSettingsRequest) Type() string { return r.RequestType }
 
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SetStreamSettingsResponse)
+	go func() { future <- (<-generic).(SetStreamSettingsResponse) }()
+	return future, nil
+}
+
 // SetStreamSettingsResponse : Response for SetStreamSettingsRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setstreamsettings
@@ -301,6 +356,17 @@ func (r GetStreamSettingsRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r GetStreamSettingsRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r GetStreamSettingsRequest) Send(c Client) (chan GetStreamSettingsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan GetStreamSettingsResponse)
+	go func() { future <- (<-generic).(GetStreamSettingsResponse) }()
+	return future, nil
+}
 
 // GetStreamSettingsResponse : Response for GetStreamSettingsRequest.
 // Since obs-websocket version: 4.1.0.
@@ -357,6 +423,17 @@ func (r SaveStreamSettingsRequest) ID() string { return r.MessageID }
 
 // Type returns the request's message type.
 func (r SaveStreamSettingsRequest) Type() string { return r.RequestType }
+
+// Send sends the request and returns a channel to which the response will be sent.
+func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsResponse, error) {
+	generic, err := c.sendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan SaveStreamSettingsResponse)
+	go func() { future <- (<-generic).(SaveStreamSettingsResponse) }()
+	return future, nil
+}
 
 // SaveStreamSettingsResponse : Response for SaveStreamSettingsRequest.
 // Since obs-websocket version: 4.1.0.
