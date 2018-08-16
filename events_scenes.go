@@ -12,7 +12,7 @@ type SwitchScenesEvent struct {
 	SceneName string `json:"scene-name"`
 	// List of sources in the new scene.
 	// Required: Yes.
-	Sources []string `json:"sources"`
+	Sources []interface{} `json:"sources"`
 	_event  `json:",squash"`
 }
 

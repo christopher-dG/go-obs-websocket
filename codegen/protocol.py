@@ -15,7 +15,7 @@ disclaimer = """\
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py\
 """
 
-
+# TODO: Test the less clear ones.
 type_map = {
     "bool": "bool",
     "boolean": "bool",
@@ -23,7 +23,7 @@ type_map = {
     "float": "float64",
     "double": "float64",
     "string": "string",
-    "array": "[]string",
+    "array": "[]interface{}",
     "object": "map[string]interface{}",
     "array of objects": "[]map[string]interface{}",
     "object|array": "interface{}",
