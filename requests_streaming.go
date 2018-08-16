@@ -10,18 +10,18 @@ type GetStreamingStatusRequest _request
 
 // NewGetStreamingStatusRequest returns a new GetStreamingStatusRequest.
 func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
-	return GetStreamingStatusRequest{MessageID: getMessageID(), RequestType: "GetStreamingStatus"}
+	return GetStreamingStatusRequest{ID_: getMessageID(), Type_: "GetStreamingStatus"}
 }
 
 // ID returns the request's message ID.
-func (r GetStreamingStatusRequest) ID() string { return r.MessageID }
+func (r GetStreamingStatusRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetStreamingStatusRequest) Type() string { return r.RequestType }
+func (r GetStreamingStatusRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStreamingStatusRequest) Send(c Client) (chan GetStreamingStatusResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -54,13 +54,13 @@ type GetStreamingStatusResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetStreamingStatusResponse) ID() string { return r.MessageID }
+func (r GetStreamingStatusResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetStreamingStatusResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetStreamingStatusResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetStreamingStatusResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetStreamingStatusResponse) Error() string { return r.Error_ }
 
 // StartStopStreamingRequest : Toggle streaming on or off.
 // Since obs-websocket version: 0.3.
@@ -69,18 +69,18 @@ type StartStopStreamingRequest _request
 
 // NewStartStopStreamingRequest returns a new StartStopStreamingRequest.
 func NewStartStopStreamingRequest() StartStopStreamingRequest {
-	return StartStopStreamingRequest{MessageID: getMessageID(), RequestType: "StartStopStreaming"}
+	return StartStopStreamingRequest{ID_: getMessageID(), Type_: "StartStopStreaming"}
 }
 
 // ID returns the request's message ID.
-func (r StartStopStreamingRequest) ID() string { return r.MessageID }
+func (r StartStopStreamingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartStopStreamingRequest) Type() string { return r.RequestType }
+func (r StartStopStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -95,13 +95,13 @@ func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingRespon
 type StartStopStreamingResponse _response
 
 // ID returns the response's message ID.
-func (r StartStopStreamingResponse) ID() string { return r.MessageID }
+func (r StartStopStreamingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartStopStreamingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartStopStreamingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartStopStreamingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartStopStreamingResponse) Error() string { return r.Error_ }
 
 // StartStreamingRequest : Start streaming.
 // Will return an `error` if streaming is already active.
@@ -167,22 +167,22 @@ func NewStartStreamingRequest(
 		streamSettingsUsername,
 		streamSettingsPassword,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "StartStreaming",
+			ID_:   getMessageID(),
+			Type_: "StartStreaming",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r StartStreamingRequest) ID() string { return r.MessageID }
+func (r StartStreamingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartStreamingRequest) Type() string { return r.RequestType }
+func (r StartStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -197,13 +197,13 @@ func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, erro
 type StartStreamingResponse _response
 
 // ID returns the response's message ID.
-func (r StartStreamingResponse) ID() string { return r.MessageID }
+func (r StartStreamingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartStreamingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartStreamingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartStreamingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartStreamingResponse) Error() string { return r.Error_ }
 
 // StopStreamingRequest : Stop streaming.
 // Will return an `error` if streaming is not active.
@@ -213,18 +213,18 @@ type StopStreamingRequest _request
 
 // NewStopStreamingRequest returns a new StopStreamingRequest.
 func NewStopStreamingRequest() StopStreamingRequest {
-	return StopStreamingRequest{MessageID: getMessageID(), RequestType: "StopStreaming"}
+	return StopStreamingRequest{ID_: getMessageID(), Type_: "StopStreaming"}
 }
 
 // ID returns the request's message ID.
-func (r StopStreamingRequest) ID() string { return r.MessageID }
+func (r StopStreamingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StopStreamingRequest) Type() string { return r.RequestType }
+func (r StopStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -239,13 +239,13 @@ func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error)
 type StopStreamingResponse _response
 
 // ID returns the response's message ID.
-func (r StopStreamingResponse) ID() string { return r.MessageID }
+func (r StopStreamingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StopStreamingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StopStreamingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StopStreamingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StopStreamingResponse) Error() string { return r.Error_ }
 
 // SetStreamSettingsRequest : Sets one or more attributes of the current streaming server settings
 // Any options not passed will remain unchanged
@@ -303,22 +303,22 @@ func NewSetStreamSettingsRequest(
 		settingsPassword,
 		save,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetStreamSettings",
+			ID_:   getMessageID(),
+			Type_: "SetStreamSettings",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetStreamSettingsRequest) ID() string { return r.MessageID }
+func (r SetStreamSettingsRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetStreamSettingsRequest) Type() string { return r.RequestType }
+func (r SetStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -333,13 +333,13 @@ func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse
 type SetStreamSettingsResponse _response
 
 // ID returns the response's message ID.
-func (r SetStreamSettingsResponse) ID() string { return r.MessageID }
+func (r SetStreamSettingsResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetStreamSettingsResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetStreamSettingsResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetStreamSettingsResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetStreamSettingsResponse) Error() string { return r.Error_ }
 
 // GetStreamSettingsRequest : Get the current streaming server settings.
 // Since obs-websocket version: 4.1.0.
@@ -348,18 +348,18 @@ type GetStreamSettingsRequest _request
 
 // NewGetStreamSettingsRequest returns a new GetStreamSettingsRequest.
 func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
-	return GetStreamSettingsRequest{MessageID: getMessageID(), RequestType: "GetStreamSettings"}
+	return GetStreamSettingsRequest{ID_: getMessageID(), Type_: "GetStreamSettings"}
 }
 
 // ID returns the request's message ID.
-func (r GetStreamSettingsRequest) ID() string { return r.MessageID }
+func (r GetStreamSettingsRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetStreamSettingsRequest) Type() string { return r.RequestType }
+func (r GetStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStreamSettingsRequest) Send(c Client) (chan GetStreamSettingsResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -400,13 +400,13 @@ type GetStreamSettingsResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetStreamSettingsResponse) ID() string { return r.MessageID }
+func (r GetStreamSettingsResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetStreamSettingsResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetStreamSettingsResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetStreamSettingsResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetStreamSettingsResponse) Error() string { return r.Error_ }
 
 // SaveStreamSettingsRequest : Save the current streaming server settings to disk.
 // Since obs-websocket version: 4.1.0.
@@ -415,18 +415,18 @@ type SaveStreamSettingsRequest _request
 
 // NewSaveStreamSettingsRequest returns a new SaveStreamSettingsRequest.
 func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
-	return SaveStreamSettingsRequest{MessageID: getMessageID(), RequestType: "SaveStreamSettings"}
+	return SaveStreamSettingsRequest{ID_: getMessageID(), Type_: "SaveStreamSettings"}
 }
 
 // ID returns the request's message ID.
-func (r SaveStreamSettingsRequest) ID() string { return r.MessageID }
+func (r SaveStreamSettingsRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SaveStreamSettingsRequest) Type() string { return r.RequestType }
+func (r SaveStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -441,10 +441,10 @@ func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsRespon
 type SaveStreamSettingsResponse _response
 
 // ID returns the response's message ID.
-func (r SaveStreamSettingsResponse) ID() string { return r.MessageID }
+func (r SaveStreamSettingsResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SaveStreamSettingsResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SaveStreamSettingsResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SaveStreamSettingsResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SaveStreamSettingsResponse) Error() string { return r.Error_ }

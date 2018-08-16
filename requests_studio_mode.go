@@ -10,18 +10,18 @@ type GetStudioModeStatusRequest _request
 
 // NewGetStudioModeStatusRequest returns a new GetStudioModeStatusRequest.
 func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
-	return GetStudioModeStatusRequest{MessageID: getMessageID(), RequestType: "GetStudioModeStatus"}
+	return GetStudioModeStatusRequest{ID_: getMessageID(), Type_: "GetStudioModeStatus"}
 }
 
 // ID returns the request's message ID.
-func (r GetStudioModeStatusRequest) ID() string { return r.MessageID }
+func (r GetStudioModeStatusRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetStudioModeStatusRequest) Type() string { return r.RequestType }
+func (r GetStudioModeStatusRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStudioModeStatusRequest) Send(c Client) (chan GetStudioModeStatusResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -41,13 +41,13 @@ type GetStudioModeStatusResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetStudioModeStatusResponse) ID() string { return r.MessageID }
+func (r GetStudioModeStatusResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetStudioModeStatusResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetStudioModeStatusResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetStudioModeStatusResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetStudioModeStatusResponse) Error() string { return r.Error_ }
 
 // GetPreviewSceneRequest : Get the name of the currently previewed scene and its list of sources.
 // Will return an `error` if Studio Mode is not enabled.
@@ -57,18 +57,18 @@ type GetPreviewSceneRequest _request
 
 // NewGetPreviewSceneRequest returns a new GetPreviewSceneRequest.
 func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
-	return GetPreviewSceneRequest{MessageID: getMessageID(), RequestType: "GetPreviewScene"}
+	return GetPreviewSceneRequest{ID_: getMessageID(), Type_: "GetPreviewScene"}
 }
 
 // ID returns the request's message ID.
-func (r GetPreviewSceneRequest) ID() string { return r.MessageID }
+func (r GetPreviewSceneRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetPreviewSceneRequest) Type() string { return r.RequestType }
+func (r GetPreviewSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetPreviewSceneRequest) Send(c Client) (chan GetPreviewSceneResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -90,13 +90,13 @@ type GetPreviewSceneResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetPreviewSceneResponse) ID() string { return r.MessageID }
+func (r GetPreviewSceneResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetPreviewSceneResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetPreviewSceneResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetPreviewSceneResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetPreviewSceneResponse) Error() string { return r.Error_ }
 
 // SetPreviewSceneRequest : Set the active preview scene.
 // Will return an `error` if Studio Mode is not enabled.
@@ -114,22 +114,22 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 	return SetPreviewSceneRequest{
 		sceneName,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetPreviewScene",
+			ID_:   getMessageID(),
+			Type_: "SetPreviewScene",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetPreviewSceneRequest) ID() string { return r.MessageID }
+func (r SetPreviewSceneRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetPreviewSceneRequest) Type() string { return r.RequestType }
+func (r SetPreviewSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -144,13 +144,13 @@ func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, er
 type SetPreviewSceneResponse _response
 
 // ID returns the response's message ID.
-func (r SetPreviewSceneResponse) ID() string { return r.MessageID }
+func (r SetPreviewSceneResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetPreviewSceneResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetPreviewSceneResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetPreviewSceneResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetPreviewSceneResponse) Error() string { return r.Error_ }
 
 // TransitionToProgramRequest : Transitions the currently previewed scene to the main output.
 // Will return an `error` if Studio Mode is not enabled.
@@ -181,22 +181,22 @@ func NewTransitionToProgramRequest(
 		withTransitionName,
 		withTransitionDuration,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "TransitionToProgram",
+			ID_:   getMessageID(),
+			Type_: "TransitionToProgram",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r TransitionToProgramRequest) ID() string { return r.MessageID }
+func (r TransitionToProgramRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r TransitionToProgramRequest) Type() string { return r.RequestType }
+func (r TransitionToProgramRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -211,13 +211,13 @@ func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResp
 type TransitionToProgramResponse _response
 
 // ID returns the response's message ID.
-func (r TransitionToProgramResponse) ID() string { return r.MessageID }
+func (r TransitionToProgramResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r TransitionToProgramResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r TransitionToProgramResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r TransitionToProgramResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r TransitionToProgramResponse) Error() string { return r.Error_ }
 
 // EnableStudioModeRequest : Enables Studio Mode.
 // Since obs-websocket version: 4.1.0.
@@ -226,18 +226,18 @@ type EnableStudioModeRequest _request
 
 // NewEnableStudioModeRequest returns a new EnableStudioModeRequest.
 func NewEnableStudioModeRequest() EnableStudioModeRequest {
-	return EnableStudioModeRequest{MessageID: getMessageID(), RequestType: "EnableStudioMode"}
+	return EnableStudioModeRequest{ID_: getMessageID(), Type_: "EnableStudioMode"}
 }
 
 // ID returns the request's message ID.
-func (r EnableStudioModeRequest) ID() string { return r.MessageID }
+func (r EnableStudioModeRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r EnableStudioModeRequest) Type() string { return r.RequestType }
+func (r EnableStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -252,13 +252,13 @@ func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, 
 type EnableStudioModeResponse _response
 
 // ID returns the response's message ID.
-func (r EnableStudioModeResponse) ID() string { return r.MessageID }
+func (r EnableStudioModeResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r EnableStudioModeResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r EnableStudioModeResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r EnableStudioModeResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r EnableStudioModeResponse) Error() string { return r.Error_ }
 
 // DisableStudioModeRequest : Disables Studio Mode.
 // Since obs-websocket version: 4.1.0.
@@ -267,18 +267,18 @@ type DisableStudioModeRequest _request
 
 // NewDisableStudioModeRequest returns a new DisableStudioModeRequest.
 func NewDisableStudioModeRequest() DisableStudioModeRequest {
-	return DisableStudioModeRequest{MessageID: getMessageID(), RequestType: "DisableStudioMode"}
+	return DisableStudioModeRequest{ID_: getMessageID(), Type_: "DisableStudioMode"}
 }
 
 // ID returns the request's message ID.
-func (r DisableStudioModeRequest) ID() string { return r.MessageID }
+func (r DisableStudioModeRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r DisableStudioModeRequest) Type() string { return r.RequestType }
+func (r DisableStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -293,13 +293,13 @@ func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse
 type DisableStudioModeResponse _response
 
 // ID returns the response's message ID.
-func (r DisableStudioModeResponse) ID() string { return r.MessageID }
+func (r DisableStudioModeResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r DisableStudioModeResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r DisableStudioModeResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r DisableStudioModeResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r DisableStudioModeResponse) Error() string { return r.Error_ }
 
 // ToggleStudioModeRequest : Toggles Studio Mode.
 // Since obs-websocket version: 4.1.0.
@@ -308,18 +308,18 @@ type ToggleStudioModeRequest _request
 
 // NewToggleStudioModeRequest returns a new ToggleStudioModeRequest.
 func NewToggleStudioModeRequest() ToggleStudioModeRequest {
-	return ToggleStudioModeRequest{MessageID: getMessageID(), RequestType: "ToggleStudioMode"}
+	return ToggleStudioModeRequest{ID_: getMessageID(), Type_: "ToggleStudioMode"}
 }
 
 // ID returns the request's message ID.
-func (r ToggleStudioModeRequest) ID() string { return r.MessageID }
+func (r ToggleStudioModeRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r ToggleStudioModeRequest) Type() string { return r.RequestType }
+func (r ToggleStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -334,10 +334,10 @@ func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, 
 type ToggleStudioModeResponse _response
 
 // ID returns the response's message ID.
-func (r ToggleStudioModeResponse) ID() string { return r.MessageID }
+func (r ToggleStudioModeResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r ToggleStudioModeResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r ToggleStudioModeResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r ToggleStudioModeResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r ToggleStudioModeResponse) Error() string { return r.Error_ }

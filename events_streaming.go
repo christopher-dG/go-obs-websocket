@@ -14,13 +14,13 @@ type StreamStartingEvent struct {
 }
 
 // Type returns the event's update type.
-func (e StreamStartingEvent) Type() string { return e.UpdateType }
+func (e StreamStartingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StreamStartingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StreamStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StreamStartingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StreamStartingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // StreamStartedEvent : Streaming started successfully.
 // Since obs-websocket version: 0.3.
@@ -28,13 +28,13 @@ func (e StreamStartingEvent) RecTC() string { return e.RecTimecode }
 type StreamStartedEvent _event
 
 // Type returns the event's update type.
-func (e StreamStartedEvent) Type() string { return e.UpdateType }
+func (e StreamStartedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StreamStartedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StreamStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StreamStartedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StreamStartedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // StreamStoppingEvent : A request to stop streaming has been issued.
 // Since obs-websocket version: 0.3.
@@ -47,13 +47,13 @@ type StreamStoppingEvent struct {
 }
 
 // Type returns the event's update type.
-func (e StreamStoppingEvent) Type() string { return e.UpdateType }
+func (e StreamStoppingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StreamStoppingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StreamStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StreamStoppingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StreamStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // StreamStoppedEvent : Streaming stopped successfully.
 // Since obs-websocket version: 0.3.
@@ -61,13 +61,13 @@ func (e StreamStoppingEvent) RecTC() string { return e.RecTimecode }
 type StreamStoppedEvent _event
 
 // Type returns the event's update type.
-func (e StreamStoppedEvent) Type() string { return e.UpdateType }
+func (e StreamStoppedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StreamStoppedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StreamStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StreamStoppedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StreamStoppedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // StreamStatusEvent : Emit every 2 seconds.
 // Since obs-websocket version: 0.3.
@@ -107,10 +107,10 @@ type StreamStatusEvent struct {
 }
 
 // Type returns the event's update type.
-func (e StreamStatusEvent) Type() string { return e.UpdateType }
+func (e StreamStatusEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StreamStatusEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StreamStatusEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StreamStatusEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StreamStatusEvent) RecTimecode() string { return e.RecTimecode_ }

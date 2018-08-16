@@ -26,22 +26,22 @@ func NewGetSceneItemPropertiesRequest(
 		sceneName,
 		item,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "GetSceneItemProperties",
+			ID_:   getMessageID(),
+			Type_: "GetSceneItemProperties",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r GetSceneItemPropertiesRequest) ID() string { return r.MessageID }
+func (r GetSceneItemPropertiesRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetSceneItemPropertiesRequest) Type() string { return r.RequestType }
+func (r GetSceneItemPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSceneItemPropertiesRequest) Send(c Client) (chan GetSceneItemPropertiesResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -106,13 +106,13 @@ type GetSceneItemPropertiesResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetSceneItemPropertiesResponse) ID() string { return r.MessageID }
+func (r GetSceneItemPropertiesResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetSceneItemPropertiesResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetSceneItemPropertiesResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetSceneItemPropertiesResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetSceneItemPropertiesResponse) Error() string { return r.Error_ }
 
 // SetSceneItemPropertiesRequest : Sets the scene specific properties of a source
 // Unspecified properties will remain unchanged.
@@ -215,22 +215,22 @@ func NewSetSceneItemPropertiesRequest(
 		boundsX,
 		boundsY,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemProperties",
+			ID_:   getMessageID(),
+			Type_: "SetSceneItemProperties",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetSceneItemPropertiesRequest) ID() string { return r.MessageID }
+func (r SetSceneItemPropertiesRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetSceneItemPropertiesRequest) Type() string { return r.RequestType }
+func (r SetSceneItemPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemPropertiesResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -245,13 +245,13 @@ func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemProperti
 type SetSceneItemPropertiesResponse _response
 
 // ID returns the response's message ID.
-func (r SetSceneItemPropertiesResponse) ID() string { return r.MessageID }
+func (r SetSceneItemPropertiesResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetSceneItemPropertiesResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetSceneItemPropertiesResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetSceneItemPropertiesResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetSceneItemPropertiesResponse) Error() string { return r.Error_ }
 
 // ResetSceneItemRequest : Reset a scene item.
 // Since obs-websocket version: 4.2.0.
@@ -276,22 +276,22 @@ func NewResetSceneItemRequest(
 		sceneName,
 		item,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "ResetSceneItem",
+			ID_:   getMessageID(),
+			Type_: "ResetSceneItem",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r ResetSceneItemRequest) ID() string { return r.MessageID }
+func (r ResetSceneItemRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r ResetSceneItemRequest) Type() string { return r.RequestType }
+func (r ResetSceneItemRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -306,13 +306,13 @@ func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, erro
 type ResetSceneItemResponse _response
 
 // ID returns the response's message ID.
-func (r ResetSceneItemResponse) ID() string { return r.MessageID }
+func (r ResetSceneItemResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r ResetSceneItemResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r ResetSceneItemResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r ResetSceneItemResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r ResetSceneItemResponse) Error() string { return r.Error_ }
 
 // SetSceneItemRenderRequest : Show or hide a specified source item in a specified scene.
 // Since obs-websocket version: 0.3.
@@ -342,22 +342,22 @@ func NewSetSceneItemRenderRequest(
 		render,
 		sceneName,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemRender",
+			ID_:   getMessageID(),
+			Type_: "SetSceneItemRender",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetSceneItemRenderRequest) ID() string { return r.MessageID }
+func (r SetSceneItemRenderRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetSceneItemRenderRequest) Type() string { return r.RequestType }
+func (r SetSceneItemRenderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -372,13 +372,13 @@ func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderRespon
 type SetSceneItemRenderResponse _response
 
 // ID returns the response's message ID.
-func (r SetSceneItemRenderResponse) ID() string { return r.MessageID }
+func (r SetSceneItemRenderResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetSceneItemRenderResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetSceneItemRenderResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetSceneItemRenderResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetSceneItemRenderResponse) Error() string { return r.Error_ }
 
 // SetSceneItemPositionRequest : Sets the coordinates of a specified source item.
 // Since obs-websocket version: 4.0.0.
@@ -413,22 +413,22 @@ func NewSetSceneItemPositionRequest(
 		x,
 		y,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemPosition",
+			ID_:   getMessageID(),
+			Type_: "SetSceneItemPosition",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetSceneItemPositionRequest) ID() string { return r.MessageID }
+func (r SetSceneItemPositionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetSceneItemPositionRequest) Type() string { return r.RequestType }
+func (r SetSceneItemPositionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -443,13 +443,13 @@ func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionRe
 type SetSceneItemPositionResponse _response
 
 // ID returns the response's message ID.
-func (r SetSceneItemPositionResponse) ID() string { return r.MessageID }
+func (r SetSceneItemPositionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetSceneItemPositionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetSceneItemPositionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetSceneItemPositionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetSceneItemPositionResponse) Error() string { return r.Error_ }
 
 // SetSceneItemTransformRequest : Set the transform of the specified source item.
 // Since obs-websocket version: 4.0.0.
@@ -489,22 +489,22 @@ func NewSetSceneItemTransformRequest(
 		yScale,
 		rotation,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemTransform",
+			ID_:   getMessageID(),
+			Type_: "SetSceneItemTransform",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetSceneItemTransformRequest) ID() string { return r.MessageID }
+func (r SetSceneItemTransformRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetSceneItemTransformRequest) Type() string { return r.RequestType }
+func (r SetSceneItemTransformRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransformResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -519,13 +519,13 @@ func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransform
 type SetSceneItemTransformResponse _response
 
 // ID returns the response's message ID.
-func (r SetSceneItemTransformResponse) ID() string { return r.MessageID }
+func (r SetSceneItemTransformResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetSceneItemTransformResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetSceneItemTransformResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetSceneItemTransformResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetSceneItemTransformResponse) Error() string { return r.Error_ }
 
 // SetSceneItemCropRequest : Sets the crop coordinates of the specified source item.
 // Since obs-websocket version: 4.1.0.
@@ -570,22 +570,22 @@ func NewSetSceneItemCropRequest(
 		left,
 		right,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetSceneItemCrop",
+			ID_:   getMessageID(),
+			Type_: "SetSceneItemCrop",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetSceneItemCropRequest) ID() string { return r.MessageID }
+func (r SetSceneItemCropRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetSceneItemCropRequest) Type() string { return r.RequestType }
+func (r SetSceneItemCropRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -600,10 +600,10 @@ func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, 
 type SetSceneItemCropResponse _response
 
 // ID returns the response's message ID.
-func (r SetSceneItemCropResponse) ID() string { return r.MessageID }
+func (r SetSceneItemCropResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetSceneItemCropResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetSceneItemCropResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetSceneItemCropResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetSceneItemCropResponse) Error() string { return r.Error_ }

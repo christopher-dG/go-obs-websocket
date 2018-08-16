@@ -43,10 +43,10 @@ type HeartbeatEvent struct {
 }
 
 // Type returns the event's update type.
-func (e HeartbeatEvent) Type() string { return e.UpdateType }
+func (e HeartbeatEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e HeartbeatEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e HeartbeatEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e HeartbeatEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e HeartbeatEvent) RecTimecode() string { return e.RecTimecode_ }

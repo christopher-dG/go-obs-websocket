@@ -9,29 +9,39 @@ type Request interface {
 // Response is a response from obs-websocket.
 type Response interface {
 	ID() string
-	Stat() string
-	Err() string
+	Status() string
+	Error() string
 }
 
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#requests
 type _request struct {
-	MessageID   string `json:"message-id"`
-	RequestType string `json:"request-type"`
+	ID_   string `json:"message-id"`
+	Type_ string `json:"request-type"`
 }
 
-func (r _request) ID() string { return r.MessageID }
+func (r _request) ID() string { return r.ID_ }
 
-func (r _request) Type() string { return r.RequestType }
+func (r _request) Type() string { return r.Type_ }
+
+func (r _request) Send(c Client) (chan _response, error) {
+	generic, err := c.SendRequest(r)
+	if err != nil {
+		return nil, err
+	}
+	future := make(chan _response)
+	go func() { future <- (<-generic).(_response) }()
+	return future, nil
+}
 
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#requests
 type _response struct {
-	MessageID string `json:"message-id"`
-	Status    string `json:"status"`
-	Error     string `json:"error"`
+	ID_     string `json:"message-id"`
+	Status_ string `json:"status"`
+	Error_  string `json:"error"`
 }
 
-func (r _response) ID() string { return r.MessageID }
+func (r _response) ID() string { return r.ID_ }
 
-func (r _response) Stat() string { return r.Status }
+func (r _response) Status() string { return r.Status_ }
 
-func (r _response) Err() string { return r.Error }
+func (r _response) Error() string { return r.Error_ }

@@ -1,3 +1,6 @@
+# TODO: No warning is given for struct fields whose names match function names.
+# Maybe bring the reserved list back.
+
 import json
 import os
 import sys
@@ -62,12 +65,10 @@ def gen_events(events: Dict):
 
 def gen_event(data: Dict) -> str:
     """Write Go code with a type definition and interface functions."""
-    reserved = ["Type", "StreamTC", "RecTC"]
-
     if data.get("returns"):
         struct = f"""\
         type {data["name"]}Event struct {{
-            {go_struct_variables(go_variables(data["returns"], reserved))}
+            {go_struct_variables(go_variables(data["returns"]))}
             _event `json:",squash"`
         }}\
         """
@@ -88,13 +89,13 @@ def gen_event(data: Dict) -> str:
     {struct}
 
     // Type returns the event's update type.
-    func (e {data["name"]}Event) Type() string {{ return e.UpdateType }}
+    func (e {data["name"]}Event) Type() string {{ return e.Type_ }}
 
-    // StreamTC returns the event's stream timecode.
-    func (e {data["name"]}Event) StreamTC() string {{ return e.StreamTimecode }}
+    // StreamTimecode returns the event's stream timecode.
+    func (e {data["name"]}Event) StreamTimecode() string {{ return e.StreamTimecode_ }}
 
-    // RecTC returns the event's recording timecode.
-    func (e {data["name"]}Event) RecTC() string {{ return e.RecTimecode }}
+    // RecTimecode returns the event's recording timecode.
+    func (e {data["name"]}Event) RecTimecode() string {{ return e.RecTimecode_ }}
     """
 
 
@@ -106,11 +107,10 @@ def gen_requests(requests: Dict):
 
 def gen_request(data: Dict) -> str:
     """Write Go code with type definitions and interface functions."""
-    reserved = ["ID", "Type"]
     if data.get("params"):
         struct = f"""\
         type {data["name"]}Request struct {{
-            {go_struct_variables(go_variables(data["params"], reserved))}
+            {go_struct_variables(go_variables(data["params"]))}
             _request `json:",squash"`
         }}
         """
@@ -133,14 +133,14 @@ def gen_request(data: Dict) -> str:
     {gen_request_new(data)}
 
     // ID returns the request's message ID.
-    func (r {data["name"]}Request) ID() string {{ return r.MessageID }}
+    func (r {data["name"]}Request) ID() string {{ return r.ID_ }}
 
     // Type returns the request's message type.
-    func (r {data["name"]}Request) Type() string {{ return r.RequestType }}
+    func (r {data["name"]}Request) Type() string {{ return r.Type_ }}
 
     // Send sends the request and returns a channel to which the response will be sent.
     func (r {data["name"]}Request) Send(c Client) (chan {data["name"]}Response, error) {{
-        generic, err := c.sendRequest(r)
+        generic, err := c.SendRequest(r)
         if err != nil {{
             return nil, err
 	    }}
@@ -151,10 +151,9 @@ def gen_request(data: Dict) -> str:
     """
 
     if data.get("returns"):
-        reserved = ["ID", "Stat", "Err"]
         struct = f"""\
         type {data["name"]}Response struct {{
-            {go_struct_variables(go_variables(data["returns"], reserved))}
+            {go_struct_variables(go_variables(data["returns"]))}
             _response `json:",squash"`
         }}
         """
@@ -173,13 +172,13 @@ def gen_request(data: Dict) -> str:
     {struct}
 
     // ID returns the response's message ID.
-    func (r {data["name"]}Response) ID() string {{ return r.MessageID }}
+    func (r {data["name"]}Response) ID() string {{ return r.ID_ }}
 
-    // Stat returns the response's status.
-    func (r {data["name"]}Response) Stat() string {{ return r.Status }}
+    // Status returns the response's status.
+    func (r {data["name"]}Response) Status() string {{ return r.Status_ }}
 
-    // Err returns the response's error.
-    func (r {data["name"]}Response) Err() string {{ return r.Error }}
+    // Error returns the response's error.
+    func (r {data["name"]}Response) Error() string {{ return r.Error_ }}
     """
 
     return f"{request}\n\n{response}"
@@ -191,12 +190,10 @@ def gen_request_new(request: Dict):
     // New{request["name"]}Request returns a new {request["name"]}Request.
     func New{request["name"]}Request(\
     """
-    variables = go_variables(request.get("params", []), [], export=False)
+    variables = go_variables(request.get("params", []), export=False)
     if not variables:
         sig = f"{base}) {request['name']}Request {{"
-        constructor_args = (
-            f'{{MessageID: getMessageID(), RequestType: "{request["name"]}"}}'
-        )
+        constructor_args = f'{{ID_: getMessageID(), Type_: "{request["name"]}"}}'
     else:
         args = "\n".join(
             f"{'_type' if var['name'] == 'type' else var['name']} {var['type']},"
@@ -210,8 +207,8 @@ def gen_request_new(request: Dict):
             )
             + f"""
         _request{{
-            MessageID: getMessageID(),
-            RequestType: "{request["name"]}",
+            ID_: getMessageID(),
+            Type_: "{request["name"]}",
         }},
         }}
         """
@@ -309,9 +306,7 @@ def gen_typeswitches(data: Dict):
         )
 
 
-def go_variables(
-    variables: List[Dict], reserved: List[str], export: bool = True
-) -> str:
+def go_variables(variables: List[Dict], export: bool = True) -> str:
     """
     Convert a list of variable names into Go code to be put
     inside a struct definition.
@@ -330,7 +325,6 @@ def go_variables(
                 "unknown": typename.lower() in unknown_types,
                 "actual_type": v["type"],
                 "duplicate": varname in varnames,
-                "reserved": varname in reserved,
             }
         )
         varnames.append(varname)
@@ -374,8 +368,6 @@ def go_struct_variables(variables: List[Dict]) -> str:
             todos.append(f"Unknown type ({var['actual_type']})")
         if var["duplicate"]:
             todos.append("Duplicate name")
-        if var["reserved"]:
-            todos.append("Reserved name")
         todos = " ".join(f"TODO: {todo}." for todo in todos)
         if todos:
             lines.append(f"// {todos}")

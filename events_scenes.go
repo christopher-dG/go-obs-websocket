@@ -17,13 +17,13 @@ type SwitchScenesEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SwitchScenesEvent) Type() string { return e.UpdateType }
+func (e SwitchScenesEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SwitchScenesEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SwitchScenesEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SwitchScenesEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SwitchScenesEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // ScenesChangedEvent : The scene list has been modified.
 // Scenes have been added, removed, or renamed.
@@ -32,13 +32,13 @@ func (e SwitchScenesEvent) RecTC() string { return e.RecTimecode }
 type ScenesChangedEvent _event
 
 // Type returns the event's update type.
-func (e ScenesChangedEvent) Type() string { return e.UpdateType }
+func (e ScenesChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ScenesChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ScenesChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ScenesChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ScenesChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // SceneCollectionChangedEvent : Triggered when switching to another scene collection or when renaming the current scene collection.
 // Since obs-websocket version: 4.0.0.
@@ -46,13 +46,13 @@ func (e ScenesChangedEvent) RecTC() string { return e.RecTimecode }
 type SceneCollectionChangedEvent _event
 
 // Type returns the event's update type.
-func (e SceneCollectionChangedEvent) Type() string { return e.UpdateType }
+func (e SceneCollectionChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SceneCollectionChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SceneCollectionChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SceneCollectionChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SceneCollectionChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // SceneCollectionListChangedEvent : Triggered when a scene collection is created, added, renamed, or removed.
 // Since obs-websocket version: 4.0.0.
@@ -60,10 +60,10 @@ func (e SceneCollectionChangedEvent) RecTC() string { return e.RecTimecode }
 type SceneCollectionListChangedEvent _event
 
 // Type returns the event's update type.
-func (e SceneCollectionListChangedEvent) Type() string { return e.UpdateType }
+func (e SceneCollectionListChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SceneCollectionListChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SceneCollectionListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SceneCollectionListChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SceneCollectionListChangedEvent) RecTimecode() string { return e.RecTimecode_ }

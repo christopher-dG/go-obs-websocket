@@ -10,18 +10,18 @@ type GetTransitionListRequest _request
 
 // NewGetTransitionListRequest returns a new GetTransitionListRequest.
 func NewGetTransitionListRequest() GetTransitionListRequest {
-	return GetTransitionListRequest{MessageID: getMessageID(), RequestType: "GetTransitionList"}
+	return GetTransitionListRequest{ID_: getMessageID(), Type_: "GetTransitionList"}
 }
 
 // ID returns the request's message ID.
-func (r GetTransitionListRequest) ID() string { return r.MessageID }
+func (r GetTransitionListRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetTransitionListRequest) Type() string { return r.RequestType }
+func (r GetTransitionListRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetTransitionListRequest) Send(c Client) (chan GetTransitionListResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -47,13 +47,13 @@ type GetTransitionListResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetTransitionListResponse) ID() string { return r.MessageID }
+func (r GetTransitionListResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetTransitionListResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetTransitionListResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetTransitionListResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetTransitionListResponse) Error() string { return r.Error_ }
 
 // GetCurrentTransitionRequest : Get the name of the currently selected transition in the frontend's dropdown menu.
 // Since obs-websocket version: 0.3.
@@ -62,18 +62,18 @@ type GetCurrentTransitionRequest _request
 
 // NewGetCurrentTransitionRequest returns a new GetCurrentTransitionRequest.
 func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
-	return GetCurrentTransitionRequest{MessageID: getMessageID(), RequestType: "GetCurrentTransition"}
+	return GetCurrentTransitionRequest{ID_: getMessageID(), Type_: "GetCurrentTransition"}
 }
 
 // ID returns the request's message ID.
-func (r GetCurrentTransitionRequest) ID() string { return r.MessageID }
+func (r GetCurrentTransitionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetCurrentTransitionRequest) Type() string { return r.RequestType }
+func (r GetCurrentTransitionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentTransitionRequest) Send(c Client) (chan GetCurrentTransitionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -96,13 +96,13 @@ type GetCurrentTransitionResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetCurrentTransitionResponse) ID() string { return r.MessageID }
+func (r GetCurrentTransitionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetCurrentTransitionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetCurrentTransitionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetCurrentTransitionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetCurrentTransitionResponse) Error() string { return r.Error_ }
 
 // SetCurrentTransitionRequest : Set the active transition.
 // Since obs-websocket version: 0.3.
@@ -119,22 +119,22 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 	return SetCurrentTransitionRequest{
 		transitionName,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetCurrentTransition",
+			ID_:   getMessageID(),
+			Type_: "SetCurrentTransition",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetCurrentTransitionRequest) ID() string { return r.MessageID }
+func (r SetCurrentTransitionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetCurrentTransitionRequest) Type() string { return r.RequestType }
+func (r SetCurrentTransitionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -149,13 +149,13 @@ func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionRe
 type SetCurrentTransitionResponse _response
 
 // ID returns the response's message ID.
-func (r SetCurrentTransitionResponse) ID() string { return r.MessageID }
+func (r SetCurrentTransitionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetCurrentTransitionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetCurrentTransitionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetCurrentTransitionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetCurrentTransitionResponse) Error() string { return r.Error_ }
 
 // SetTransitionDurationRequest : Set the duration of the currently selected transition if supported.
 // Since obs-websocket version: 4.0.0.
@@ -172,22 +172,22 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 	return SetTransitionDurationRequest{
 		duration,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetTransitionDuration",
+			ID_:   getMessageID(),
+			Type_: "SetTransitionDuration",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetTransitionDurationRequest) ID() string { return r.MessageID }
+func (r SetTransitionDurationRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetTransitionDurationRequest) Type() string { return r.RequestType }
+func (r SetTransitionDurationRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDurationResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -202,13 +202,13 @@ func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDuration
 type SetTransitionDurationResponse _response
 
 // ID returns the response's message ID.
-func (r SetTransitionDurationResponse) ID() string { return r.MessageID }
+func (r SetTransitionDurationResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetTransitionDurationResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetTransitionDurationResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetTransitionDurationResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetTransitionDurationResponse) Error() string { return r.Error_ }
 
 // GetTransitionDurationRequest : Get the duration of the currently selected transition if supported.
 // Since obs-websocket version: 4.1.0.
@@ -217,18 +217,18 @@ type GetTransitionDurationRequest _request
 
 // NewGetTransitionDurationRequest returns a new GetTransitionDurationRequest.
 func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
-	return GetTransitionDurationRequest{MessageID: getMessageID(), RequestType: "GetTransitionDuration"}
+	return GetTransitionDurationRequest{ID_: getMessageID(), Type_: "GetTransitionDuration"}
 }
 
 // ID returns the request's message ID.
-func (r GetTransitionDurationRequest) ID() string { return r.MessageID }
+func (r GetTransitionDurationRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetTransitionDurationRequest) Type() string { return r.RequestType }
+func (r GetTransitionDurationRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetTransitionDurationRequest) Send(c Client) (chan GetTransitionDurationResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -248,10 +248,10 @@ type GetTransitionDurationResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetTransitionDurationResponse) ID() string { return r.MessageID }
+func (r GetTransitionDurationResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetTransitionDurationResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetTransitionDurationResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetTransitionDurationResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetTransitionDurationResponse) Error() string { return r.Error_ }

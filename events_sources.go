@@ -14,13 +14,13 @@ type SourceOrderChangedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SourceOrderChangedEvent) Type() string { return e.UpdateType }
+func (e SourceOrderChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SourceOrderChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SourceOrderChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SourceOrderChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SourceOrderChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // SceneItemAddedEvent : An item has been added to the current scene.
 // Since obs-websocket version: 4.0.0.
@@ -36,13 +36,13 @@ type SceneItemAddedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SceneItemAddedEvent) Type() string { return e.UpdateType }
+func (e SceneItemAddedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SceneItemAddedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SceneItemAddedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SceneItemAddedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SceneItemAddedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // SceneItemRemovedEvent : An item has been removed from the current scene.
 // Since obs-websocket version: 4.0.0.
@@ -58,13 +58,13 @@ type SceneItemRemovedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SceneItemRemovedEvent) Type() string { return e.UpdateType }
+func (e SceneItemRemovedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SceneItemRemovedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SceneItemRemovedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SceneItemRemovedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SceneItemRemovedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // SceneItemVisibilityChangedEvent : An item's visibility has been toggled.
 // Since obs-websocket version: 4.0.0.
@@ -83,10 +83,10 @@ type SceneItemVisibilityChangedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SceneItemVisibilityChangedEvent) Type() string { return e.UpdateType }
+func (e SceneItemVisibilityChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SceneItemVisibilityChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SceneItemVisibilityChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SceneItemVisibilityChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SceneItemVisibilityChangedEvent) RecTimecode() string { return e.RecTimecode_ }

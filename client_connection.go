@@ -21,8 +21,8 @@ func (c *Client) Connect() error {
 	// We can't use SendRequest yet because we haven't started polling.
 
 	reqGAR := GetAuthRequiredRequest{
-		MessageID:   getMessageID(),
-		RequestType: "GetAuthRequired",
+		ID_:   getMessageID(),
+		Type_: "GetAuthRequired",
 	}
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
 		return errors.Wrap(err, "write Authenticate")
@@ -45,8 +45,8 @@ func (c *Client) Connect() error {
 	reqA := AuthenticateRequest{
 		Auth: auth,
 		_request: _request{
-			MessageID:   getMessageID(),
-			RequestType: "Authenticate",
+			ID_:   getMessageID(),
+			Type_: "Authenticate",
 		},
 	}
 	if err = c.conn.WriteJSON(reqA); err != nil {
@@ -57,8 +57,8 @@ func (c *Client) Connect() error {
 	if err = c.conn.ReadJSON(respA); err != nil {
 		return errors.Wrap(err, "read Authenticate")
 	}
-	if respA.Stat() != "ok" {
-		return errors.Errorf("login failed: %s", respA.Err())
+	if respA.Status() != "ok" {
+		return errors.Errorf("login failed: %s", respA.Error())
 	}
 
 	logger.Info("logged in (authentication successful)")

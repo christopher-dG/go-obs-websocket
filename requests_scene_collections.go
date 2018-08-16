@@ -18,22 +18,22 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 	return SetCurrentSceneCollectionRequest{
 		scName,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetCurrentSceneCollection",
+			ID_:   getMessageID(),
+			Type_: "SetCurrentSceneCollection",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetCurrentSceneCollectionRequest) ID() string { return r.MessageID }
+func (r SetCurrentSceneCollectionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetCurrentSceneCollectionRequest) Type() string { return r.RequestType }
+func (r SetCurrentSceneCollectionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCollectionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -48,13 +48,13 @@ func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCo
 type SetCurrentSceneCollectionResponse _response
 
 // ID returns the response's message ID.
-func (r SetCurrentSceneCollectionResponse) ID() string { return r.MessageID }
+func (r SetCurrentSceneCollectionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetCurrentSceneCollectionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetCurrentSceneCollectionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetCurrentSceneCollectionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetCurrentSceneCollectionResponse) Error() string { return r.Error_ }
 
 // GetCurrentSceneCollectionRequest : Get the name of the current scene collection.
 // Since obs-websocket version: 4.0.0.
@@ -63,18 +63,18 @@ type GetCurrentSceneCollectionRequest _request
 
 // NewGetCurrentSceneCollectionRequest returns a new GetCurrentSceneCollectionRequest.
 func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
-	return GetCurrentSceneCollectionRequest{MessageID: getMessageID(), RequestType: "GetCurrentSceneCollection"}
+	return GetCurrentSceneCollectionRequest{ID_: getMessageID(), Type_: "GetCurrentSceneCollection"}
 }
 
 // ID returns the request's message ID.
-func (r GetCurrentSceneCollectionRequest) ID() string { return r.MessageID }
+func (r GetCurrentSceneCollectionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetCurrentSceneCollectionRequest) Type() string { return r.RequestType }
+func (r GetCurrentSceneCollectionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentSceneCollectionRequest) Send(c Client) (chan GetCurrentSceneCollectionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -94,13 +94,13 @@ type GetCurrentSceneCollectionResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetCurrentSceneCollectionResponse) ID() string { return r.MessageID }
+func (r GetCurrentSceneCollectionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetCurrentSceneCollectionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetCurrentSceneCollectionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetCurrentSceneCollectionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetCurrentSceneCollectionResponse) Error() string { return r.Error_ }
 
 // ListSceneCollectionsRequest : List available scene collections.
 // Since obs-websocket version: 4.0.0.
@@ -109,18 +109,18 @@ type ListSceneCollectionsRequest _request
 
 // NewListSceneCollectionsRequest returns a new ListSceneCollectionsRequest.
 func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
-	return ListSceneCollectionsRequest{MessageID: getMessageID(), RequestType: "ListSceneCollections"}
+	return ListSceneCollectionsRequest{ID_: getMessageID(), Type_: "ListSceneCollections"}
 }
 
 // ID returns the request's message ID.
-func (r ListSceneCollectionsRequest) ID() string { return r.MessageID }
+func (r ListSceneCollectionsRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r ListSceneCollectionsRequest) Type() string { return r.RequestType }
+func (r ListSceneCollectionsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ListSceneCollectionsRequest) Send(c Client) (chan ListSceneCollectionsResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -142,10 +142,10 @@ type ListSceneCollectionsResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r ListSceneCollectionsResponse) ID() string { return r.MessageID }
+func (r ListSceneCollectionsResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r ListSceneCollectionsResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r ListSceneCollectionsResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r ListSceneCollectionsResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r ListSceneCollectionsResponse) Error() string { return r.Error_ }

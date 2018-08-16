@@ -9,8 +9,9 @@ import (
 
 const noID = "noID"
 
-// sendRequest sends a request to the WebSocket server.
-func (c *Client) sendRequest(req Request) (chan Response, error) {
+// SendRequest sends a request to the WebSocket server.
+// It's not recommended to use this directly, use requests' Send functions instead.
+func (c *Client) SendRequest(req Request) (chan Response, error) {
 	future := make(chan Response)
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, errors.Wrapf(err, "write %s", req.Type())

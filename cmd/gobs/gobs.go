@@ -61,20 +61,20 @@ func main() {
 }
 
 func sendRequests(c obs.Client, requests []obs.Request) {
-	for i, request := range requests {
-		switch request.(type) {
+	for i, r := range requests {
+		switch r.(type) {
 		case sleepRequest:
-			seconds := request.(sleepRequest).Seconds
+			seconds := r.(sleepRequest).Seconds
 
 			logger.Infof("request %d (Sleep): sleeping for %d second(s)", i, seconds)
 			time.Sleep(time.Second * time.Duration(seconds))
 		default:
-			logger.Infof("request %d (%s): sending request", i, request.Type())
-			future, err := c.SendRequest(request)
+			logger.Infof("request %d (%s): sending request", i, r.Type())
+			future, err := c.SendRequest(r)
 			if err != nil {
 				logger.Warningf(
 					"request %d (%s): sending request failed: %v",
-					i, request.Type(), err,
+					i, r.Type(), err,
 				)
 				continue
 			}
@@ -83,11 +83,11 @@ func sendRequests(c obs.Client, requests []obs.Request) {
 			if err != nil {
 				logger.Warningf(
 					"request %d (%s): couldn't marshal response: %v",
-					i, request.Type(), err,
+					i, r.Type(), err,
 				)
 				continue
 			}
-			logger.Infof("request %d (%s): response:\n%s", i, request.Type(), string(out))
+			logger.Infof("request %d (%s): response:\n%s", i, r.Type(), string(out))
 		}
 	}
 }

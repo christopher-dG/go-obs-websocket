@@ -10,18 +10,18 @@ type GetVersionRequest _request
 
 // NewGetVersionRequest returns a new GetVersionRequest.
 func NewGetVersionRequest() GetVersionRequest {
-	return GetVersionRequest{MessageID: getMessageID(), RequestType: "GetVersion"}
+	return GetVersionRequest{ID_: getMessageID(), Type_: "GetVersion"}
 }
 
 // ID returns the request's message ID.
-func (r GetVersionRequest) ID() string { return r.MessageID }
+func (r GetVersionRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetVersionRequest) Type() string { return r.RequestType }
+func (r GetVersionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetVersionRequest) Send(c Client) (chan GetVersionResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -51,13 +51,13 @@ type GetVersionResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetVersionResponse) ID() string { return r.MessageID }
+func (r GetVersionResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetVersionResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetVersionResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetVersionResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetVersionResponse) Error() string { return r.Error_ }
 
 // GetAuthRequiredRequest : Tells the client if authentication is required
 // If so, returns authentication parameters `challenge`
@@ -68,18 +68,18 @@ type GetAuthRequiredRequest _request
 
 // NewGetAuthRequiredRequest returns a new GetAuthRequiredRequest.
 func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
-	return GetAuthRequiredRequest{MessageID: getMessageID(), RequestType: "GetAuthRequired"}
+	return GetAuthRequiredRequest{ID_: getMessageID(), Type_: "GetAuthRequired"}
 }
 
 // ID returns the request's message ID.
-func (r GetAuthRequiredRequest) ID() string { return r.MessageID }
+func (r GetAuthRequiredRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetAuthRequiredRequest) Type() string { return r.RequestType }
+func (r GetAuthRequiredRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetAuthRequiredRequest) Send(c Client) (chan GetAuthRequiredResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -103,13 +103,13 @@ type GetAuthRequiredResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetAuthRequiredResponse) ID() string { return r.MessageID }
+func (r GetAuthRequiredResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetAuthRequiredResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetAuthRequiredResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetAuthRequiredResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetAuthRequiredResponse) Error() string { return r.Error_ }
 
 // AuthenticateRequest : Attempt to authenticate the client to the server.
 // Since obs-websocket version: 0.3.
@@ -126,22 +126,22 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 	return AuthenticateRequest{
 		auth,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "Authenticate",
+			ID_:   getMessageID(),
+			Type_: "Authenticate",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r AuthenticateRequest) ID() string { return r.MessageID }
+func (r AuthenticateRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r AuthenticateRequest) Type() string { return r.RequestType }
+func (r AuthenticateRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -156,13 +156,13 @@ func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
 type AuthenticateResponse _response
 
 // ID returns the response's message ID.
-func (r AuthenticateResponse) ID() string { return r.MessageID }
+func (r AuthenticateResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r AuthenticateResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r AuthenticateResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r AuthenticateResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r AuthenticateResponse) Error() string { return r.Error_ }
 
 // SetHeartbeatRequest : Enable/disable sending of the Heartbeat event.
 // Since obs-websocket version: 4.3.0.
@@ -179,22 +179,22 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 	return SetHeartbeatRequest{
 		enable,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetHeartbeat",
+			ID_:   getMessageID(),
+			Type_: "SetHeartbeat",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetHeartbeatRequest) ID() string { return r.MessageID }
+func (r SetHeartbeatRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetHeartbeatRequest) Type() string { return r.RequestType }
+func (r SetHeartbeatRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -209,13 +209,13 @@ func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
 type SetHeartbeatResponse _response
 
 // ID returns the response's message ID.
-func (r SetHeartbeatResponse) ID() string { return r.MessageID }
+func (r SetHeartbeatResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetHeartbeatResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetHeartbeatResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetHeartbeatResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetHeartbeatResponse) Error() string { return r.Error_ }
 
 // SetFilenameFormattingRequest : Set the filename formatting string.
 // Since obs-websocket version: 4.3.0.
@@ -232,22 +232,22 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 	return SetFilenameFormattingRequest{
 		filenameFormatting,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetFilenameFormatting",
+			ID_:   getMessageID(),
+			Type_: "SetFilenameFormatting",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetFilenameFormattingRequest) ID() string { return r.MessageID }
+func (r SetFilenameFormattingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetFilenameFormattingRequest) Type() string { return r.RequestType }
+func (r SetFilenameFormattingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormattingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -262,13 +262,13 @@ func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormatting
 type SetFilenameFormattingResponse _response
 
 // ID returns the response's message ID.
-func (r SetFilenameFormattingResponse) ID() string { return r.MessageID }
+func (r SetFilenameFormattingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetFilenameFormattingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetFilenameFormattingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetFilenameFormattingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetFilenameFormattingResponse) Error() string { return r.Error_ }
 
 // GetFilenameFormattingRequest : Get the filename formatting string.
 // Since obs-websocket version: 4.3.0.
@@ -277,18 +277,18 @@ type GetFilenameFormattingRequest _request
 
 // NewGetFilenameFormattingRequest returns a new GetFilenameFormattingRequest.
 func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
-	return GetFilenameFormattingRequest{MessageID: getMessageID(), RequestType: "GetFilenameFormatting"}
+	return GetFilenameFormattingRequest{ID_: getMessageID(), Type_: "GetFilenameFormatting"}
 }
 
 // ID returns the request's message ID.
-func (r GetFilenameFormattingRequest) ID() string { return r.MessageID }
+func (r GetFilenameFormattingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetFilenameFormattingRequest) Type() string { return r.RequestType }
+func (r GetFilenameFormattingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetFilenameFormattingRequest) Send(c Client) (chan GetFilenameFormattingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -308,10 +308,10 @@ type GetFilenameFormattingResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetFilenameFormattingResponse) ID() string { return r.MessageID }
+func (r GetFilenameFormattingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetFilenameFormattingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetFilenameFormattingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetFilenameFormattingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetFilenameFormattingResponse) Error() string { return r.Error_ }

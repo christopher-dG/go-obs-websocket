@@ -10,18 +10,18 @@ type StartStopReplayBufferRequest _request
 
 // NewStartStopReplayBufferRequest returns a new StartStopReplayBufferRequest.
 func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
-	return StartStopReplayBufferRequest{MessageID: getMessageID(), RequestType: "StartStopReplayBuffer"}
+	return StartStopReplayBufferRequest{ID_: getMessageID(), Type_: "StartStopReplayBuffer"}
 }
 
 // ID returns the request's message ID.
-func (r StartStopReplayBufferRequest) ID() string { return r.MessageID }
+func (r StartStopReplayBufferRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartStopReplayBufferRequest) Type() string { return r.RequestType }
+func (r StartStopReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBufferResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -36,13 +36,13 @@ func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBuffer
 type StartStopReplayBufferResponse _response
 
 // ID returns the response's message ID.
-func (r StartStopReplayBufferResponse) ID() string { return r.MessageID }
+func (r StartStopReplayBufferResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartStopReplayBufferResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartStopReplayBufferResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartStopReplayBufferResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartStopReplayBufferResponse) Error() string { return r.Error_ }
 
 // StartReplayBufferRequest : Start recording into the Replay Buffer.
 // Will return an `error` if the Replay Buffer is already active or if the
@@ -55,18 +55,18 @@ type StartReplayBufferRequest _request
 
 // NewStartReplayBufferRequest returns a new StartReplayBufferRequest.
 func NewStartReplayBufferRequest() StartReplayBufferRequest {
-	return StartReplayBufferRequest{MessageID: getMessageID(), RequestType: "StartReplayBuffer"}
+	return StartReplayBufferRequest{ID_: getMessageID(), Type_: "StartReplayBuffer"}
 }
 
 // ID returns the request's message ID.
-func (r StartReplayBufferRequest) ID() string { return r.MessageID }
+func (r StartReplayBufferRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartReplayBufferRequest) Type() string { return r.RequestType }
+func (r StartReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -81,13 +81,13 @@ func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse
 type StartReplayBufferResponse _response
 
 // ID returns the response's message ID.
-func (r StartReplayBufferResponse) ID() string { return r.MessageID }
+func (r StartReplayBufferResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartReplayBufferResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartReplayBufferResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartReplayBufferResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartReplayBufferResponse) Error() string { return r.Error_ }
 
 // StopReplayBufferRequest : Stop recording into the Replay Buffer.
 // Will return an `error` if the Replay Buffer is not active.
@@ -97,18 +97,18 @@ type StopReplayBufferRequest _request
 
 // NewStopReplayBufferRequest returns a new StopReplayBufferRequest.
 func NewStopReplayBufferRequest() StopReplayBufferRequest {
-	return StopReplayBufferRequest{MessageID: getMessageID(), RequestType: "StopReplayBuffer"}
+	return StopReplayBufferRequest{ID_: getMessageID(), Type_: "StopReplayBuffer"}
 }
 
 // ID returns the request's message ID.
-func (r StopReplayBufferRequest) ID() string { return r.MessageID }
+func (r StopReplayBufferRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StopReplayBufferRequest) Type() string { return r.RequestType }
+func (r StopReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -123,13 +123,13 @@ func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, 
 type StopReplayBufferResponse _response
 
 // ID returns the response's message ID.
-func (r StopReplayBufferResponse) ID() string { return r.MessageID }
+func (r StopReplayBufferResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StopReplayBufferResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StopReplayBufferResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StopReplayBufferResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StopReplayBufferResponse) Error() string { return r.Error_ }
 
 // SaveReplayBufferRequest : Flush and save the contents of the Replay Buffer to disk
 // This is
@@ -141,18 +141,18 @@ type SaveReplayBufferRequest _request
 
 // NewSaveReplayBufferRequest returns a new SaveReplayBufferRequest.
 func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
-	return SaveReplayBufferRequest{MessageID: getMessageID(), RequestType: "SaveReplayBuffer"}
+	return SaveReplayBufferRequest{ID_: getMessageID(), Type_: "SaveReplayBuffer"}
 }
 
 // ID returns the request's message ID.
-func (r SaveReplayBufferRequest) ID() string { return r.MessageID }
+func (r SaveReplayBufferRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SaveReplayBufferRequest) Type() string { return r.RequestType }
+func (r SaveReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -167,10 +167,10 @@ func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, 
 type SaveReplayBufferResponse _response
 
 // ID returns the response's message ID.
-func (r SaveReplayBufferResponse) ID() string { return r.MessageID }
+func (r SaveReplayBufferResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SaveReplayBufferResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SaveReplayBufferResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SaveReplayBufferResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SaveReplayBufferResponse) Error() string { return r.Error_ }

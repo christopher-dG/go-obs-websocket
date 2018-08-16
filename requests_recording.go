@@ -10,18 +10,18 @@ type StartStopRecordingRequest _request
 
 // NewStartStopRecordingRequest returns a new StartStopRecordingRequest.
 func NewStartStopRecordingRequest() StartStopRecordingRequest {
-	return StartStopRecordingRequest{MessageID: getMessageID(), RequestType: "StartStopRecording"}
+	return StartStopRecordingRequest{ID_: getMessageID(), Type_: "StartStopRecording"}
 }
 
 // ID returns the request's message ID.
-func (r StartStopRecordingRequest) ID() string { return r.MessageID }
+func (r StartStopRecordingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartStopRecordingRequest) Type() string { return r.RequestType }
+func (r StartStopRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopRecordingRequest) Send(c Client) (chan StartStopRecordingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -36,13 +36,13 @@ func (r StartStopRecordingRequest) Send(c Client) (chan StartStopRecordingRespon
 type StartStopRecordingResponse _response
 
 // ID returns the response's message ID.
-func (r StartStopRecordingResponse) ID() string { return r.MessageID }
+func (r StartStopRecordingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartStopRecordingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartStopRecordingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartStopRecordingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartStopRecordingResponse) Error() string { return r.Error_ }
 
 // StartRecordingRequest : Start recording.
 // Will return an `error` if recording is already active.
@@ -52,18 +52,18 @@ type StartRecordingRequest _request
 
 // NewStartRecordingRequest returns a new StartRecordingRequest.
 func NewStartRecordingRequest() StartRecordingRequest {
-	return StartRecordingRequest{MessageID: getMessageID(), RequestType: "StartRecording"}
+	return StartRecordingRequest{ID_: getMessageID(), Type_: "StartRecording"}
 }
 
 // ID returns the request's message ID.
-func (r StartRecordingRequest) ID() string { return r.MessageID }
+func (r StartRecordingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StartRecordingRequest) Type() string { return r.RequestType }
+func (r StartRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartRecordingRequest) Send(c Client) (chan StartRecordingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -78,13 +78,13 @@ func (r StartRecordingRequest) Send(c Client) (chan StartRecordingResponse, erro
 type StartRecordingResponse _response
 
 // ID returns the response's message ID.
-func (r StartRecordingResponse) ID() string { return r.MessageID }
+func (r StartRecordingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StartRecordingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StartRecordingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StartRecordingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StartRecordingResponse) Error() string { return r.Error_ }
 
 // StopRecordingRequest : Stop recording.
 // Will return an `error` if recording is not active.
@@ -94,18 +94,18 @@ type StopRecordingRequest _request
 
 // NewStopRecordingRequest returns a new StopRecordingRequest.
 func NewStopRecordingRequest() StopRecordingRequest {
-	return StopRecordingRequest{MessageID: getMessageID(), RequestType: "StopRecording"}
+	return StopRecordingRequest{ID_: getMessageID(), Type_: "StopRecording"}
 }
 
 // ID returns the request's message ID.
-func (r StopRecordingRequest) ID() string { return r.MessageID }
+func (r StopRecordingRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r StopRecordingRequest) Type() string { return r.RequestType }
+func (r StopRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopRecordingRequest) Send(c Client) (chan StopRecordingResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -120,13 +120,13 @@ func (r StopRecordingRequest) Send(c Client) (chan StopRecordingResponse, error)
 type StopRecordingResponse _response
 
 // ID returns the response's message ID.
-func (r StopRecordingResponse) ID() string { return r.MessageID }
+func (r StopRecordingResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r StopRecordingResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r StopRecordingResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r StopRecordingResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r StopRecordingResponse) Error() string { return r.Error_ }
 
 // SetRecordingFolderRequest : Change the current recording folder.
 // Since obs-websocket version: 4.1.0.
@@ -143,22 +143,22 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 	return SetRecordingFolderRequest{
 		recFolder,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetRecordingFolder",
+			ID_:   getMessageID(),
+			Type_: "SetRecordingFolder",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetRecordingFolderRequest) ID() string { return r.MessageID }
+func (r SetRecordingFolderRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetRecordingFolderRequest) Type() string { return r.RequestType }
+func (r SetRecordingFolderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetRecordingFolderRequest) Send(c Client) (chan SetRecordingFolderResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +173,13 @@ func (r SetRecordingFolderRequest) Send(c Client) (chan SetRecordingFolderRespon
 type SetRecordingFolderResponse _response
 
 // ID returns the response's message ID.
-func (r SetRecordingFolderResponse) ID() string { return r.MessageID }
+func (r SetRecordingFolderResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetRecordingFolderResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetRecordingFolderResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetRecordingFolderResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetRecordingFolderResponse) Error() string { return r.Error_ }
 
 // GetRecordingFolderRequest : Get the path of  the current recording folder.
 // Since obs-websocket version: 4.1.0.
@@ -188,18 +188,18 @@ type GetRecordingFolderRequest _request
 
 // NewGetRecordingFolderRequest returns a new GetRecordingFolderRequest.
 func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
-	return GetRecordingFolderRequest{MessageID: getMessageID(), RequestType: "GetRecordingFolder"}
+	return GetRecordingFolderRequest{ID_: getMessageID(), Type_: "GetRecordingFolder"}
 }
 
 // ID returns the request's message ID.
-func (r GetRecordingFolderRequest) ID() string { return r.MessageID }
+func (r GetRecordingFolderRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetRecordingFolderRequest) Type() string { return r.RequestType }
+func (r GetRecordingFolderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetRecordingFolderRequest) Send(c Client) (chan GetRecordingFolderResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -219,10 +219,10 @@ type GetRecordingFolderResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetRecordingFolderResponse) ID() string { return r.MessageID }
+func (r GetRecordingFolderResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetRecordingFolderResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetRecordingFolderResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetRecordingFolderResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetRecordingFolderResponse) Error() string { return r.Error_ }

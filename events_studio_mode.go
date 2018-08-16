@@ -18,13 +18,13 @@ type PreviewSceneChangedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e PreviewSceneChangedEvent) Type() string { return e.UpdateType }
+func (e PreviewSceneChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e PreviewSceneChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e PreviewSceneChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e PreviewSceneChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e PreviewSceneChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // StudioModeSwitchedEvent : Studio Mode has been enabled or disabled.
 // Since obs-websocket version: 4.1.0.
@@ -37,10 +37,10 @@ type StudioModeSwitchedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e StudioModeSwitchedEvent) Type() string { return e.UpdateType }
+func (e StudioModeSwitchedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e StudioModeSwitchedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e StudioModeSwitchedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e StudioModeSwitchedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e StudioModeSwitchedEvent) RecTimecode() string { return e.RecTimecode_ }

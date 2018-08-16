@@ -18,22 +18,22 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 	return SetCurrentProfileRequest{
 		profileName,
 		_request{
-			MessageID:   getMessageID(),
-			RequestType: "SetCurrentProfile",
+			ID_:   getMessageID(),
+			Type_: "SetCurrentProfile",
 		},
 	}
 
 }
 
 // ID returns the request's message ID.
-func (r SetCurrentProfileRequest) ID() string { return r.MessageID }
+func (r SetCurrentProfileRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r SetCurrentProfileRequest) Type() string { return r.RequestType }
+func (r SetCurrentProfileRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -48,13 +48,13 @@ func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse
 type SetCurrentProfileResponse _response
 
 // ID returns the response's message ID.
-func (r SetCurrentProfileResponse) ID() string { return r.MessageID }
+func (r SetCurrentProfileResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r SetCurrentProfileResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r SetCurrentProfileResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r SetCurrentProfileResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r SetCurrentProfileResponse) Error() string { return r.Error_ }
 
 // GetCurrentProfileRequest : Get the name of the current profile.
 // Since obs-websocket version: 4.0.0.
@@ -63,18 +63,18 @@ type GetCurrentProfileRequest _request
 
 // NewGetCurrentProfileRequest returns a new GetCurrentProfileRequest.
 func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
-	return GetCurrentProfileRequest{MessageID: getMessageID(), RequestType: "GetCurrentProfile"}
+	return GetCurrentProfileRequest{ID_: getMessageID(), Type_: "GetCurrentProfile"}
 }
 
 // ID returns the request's message ID.
-func (r GetCurrentProfileRequest) ID() string { return r.MessageID }
+func (r GetCurrentProfileRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r GetCurrentProfileRequest) Type() string { return r.RequestType }
+func (r GetCurrentProfileRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentProfileRequest) Send(c Client) (chan GetCurrentProfileResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -94,13 +94,13 @@ type GetCurrentProfileResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r GetCurrentProfileResponse) ID() string { return r.MessageID }
+func (r GetCurrentProfileResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r GetCurrentProfileResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r GetCurrentProfileResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r GetCurrentProfileResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r GetCurrentProfileResponse) Error() string { return r.Error_ }
 
 // ListProfilesRequest : Get a list of available profiles.
 // Since obs-websocket version: 4.0.0.
@@ -109,18 +109,18 @@ type ListProfilesRequest _request
 
 // NewListProfilesRequest returns a new ListProfilesRequest.
 func NewListProfilesRequest() ListProfilesRequest {
-	return ListProfilesRequest{MessageID: getMessageID(), RequestType: "ListProfiles"}
+	return ListProfilesRequest{ID_: getMessageID(), Type_: "ListProfiles"}
 }
 
 // ID returns the request's message ID.
-func (r ListProfilesRequest) ID() string { return r.MessageID }
+func (r ListProfilesRequest) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
-func (r ListProfilesRequest) Type() string { return r.RequestType }
+func (r ListProfilesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ListProfilesRequest) Send(c Client) (chan ListProfilesResponse, error) {
-	generic, err := c.sendRequest(r)
+	generic, err := c.SendRequest(r)
 	if err != nil {
 		return nil, err
 	}
@@ -140,10 +140,10 @@ type ListProfilesResponse struct {
 }
 
 // ID returns the response's message ID.
-func (r ListProfilesResponse) ID() string { return r.MessageID }
+func (r ListProfilesResponse) ID() string { return r.ID_ }
 
-// Stat returns the response's status.
-func (r ListProfilesResponse) Stat() string { return r.Status }
+// Status returns the response's status.
+func (r ListProfilesResponse) Status() string { return r.Status_ }
 
-// Err returns the response's error.
-func (r ListProfilesResponse) Err() string { return r.Error }
+// Error returns the response's error.
+func (r ListProfilesResponse) Error() string { return r.Error_ }

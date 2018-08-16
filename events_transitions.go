@@ -14,13 +14,13 @@ type SwitchTransitionEvent struct {
 }
 
 // Type returns the event's update type.
-func (e SwitchTransitionEvent) Type() string { return e.UpdateType }
+func (e SwitchTransitionEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e SwitchTransitionEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e SwitchTransitionEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e SwitchTransitionEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e SwitchTransitionEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // TransitionListChangedEvent : The list of available transitions has been modified.
 // Transitions have been added, removed, or renamed.
@@ -29,13 +29,13 @@ func (e SwitchTransitionEvent) RecTC() string { return e.RecTimecode }
 type TransitionListChangedEvent _event
 
 // Type returns the event's update type.
-func (e TransitionListChangedEvent) Type() string { return e.UpdateType }
+func (e TransitionListChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e TransitionListChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e TransitionListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e TransitionListChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e TransitionListChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // TransitionDurationChangedEvent : The active transition duration has been changed.
 // Since obs-websocket version: 4.0.0.
@@ -48,13 +48,13 @@ type TransitionDurationChangedEvent struct {
 }
 
 // Type returns the event's update type.
-func (e TransitionDurationChangedEvent) Type() string { return e.UpdateType }
+func (e TransitionDurationChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e TransitionDurationChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e TransitionDurationChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e TransitionDurationChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e TransitionDurationChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // TransitionBeginEvent : A transition (other than "cut") has begun.
 // Since obs-websocket version: 4.0.0.
@@ -76,10 +76,10 @@ type TransitionBeginEvent struct {
 }
 
 // Type returns the event's update type.
-func (e TransitionBeginEvent) Type() string { return e.UpdateType }
+func (e TransitionBeginEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e TransitionBeginEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e TransitionBeginEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e TransitionBeginEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e TransitionBeginEvent) RecTimecode() string { return e.RecTimecode_ }

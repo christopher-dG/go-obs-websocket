@@ -9,13 +9,13 @@ package obsws
 type RecordingStartingEvent _event
 
 // Type returns the event's update type.
-func (e RecordingStartingEvent) Type() string { return e.UpdateType }
+func (e RecordingStartingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e RecordingStartingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e RecordingStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e RecordingStartingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e RecordingStartingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // RecordingStartedEvent : Recording started successfully.
 // Since obs-websocket version: 0.3.
@@ -23,13 +23,13 @@ func (e RecordingStartingEvent) RecTC() string { return e.RecTimecode }
 type RecordingStartedEvent _event
 
 // Type returns the event's update type.
-func (e RecordingStartedEvent) Type() string { return e.UpdateType }
+func (e RecordingStartedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e RecordingStartedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e RecordingStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e RecordingStartedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e RecordingStartedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // RecordingStoppingEvent : A request to stop recording has been issued.
 // Since obs-websocket version: 0.3.
@@ -37,13 +37,13 @@ func (e RecordingStartedEvent) RecTC() string { return e.RecTimecode }
 type RecordingStoppingEvent _event
 
 // Type returns the event's update type.
-func (e RecordingStoppingEvent) Type() string { return e.UpdateType }
+func (e RecordingStoppingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e RecordingStoppingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e RecordingStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e RecordingStoppingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e RecordingStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // RecordingStoppedEvent : Recording stopped successfully.
 // Since obs-websocket version: 0.3.
@@ -51,10 +51,10 @@ func (e RecordingStoppingEvent) RecTC() string { return e.RecTimecode }
 type RecordingStoppedEvent _event
 
 // Type returns the event's update type.
-func (e RecordingStoppedEvent) Type() string { return e.UpdateType }
+func (e RecordingStoppedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e RecordingStoppedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e RecordingStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e RecordingStoppedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e RecordingStoppedEvent) RecTimecode() string { return e.RecTimecode_ }

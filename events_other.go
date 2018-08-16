@@ -9,10 +9,10 @@ package obsws
 type ExitingEvent _event
 
 // Type returns the event's update type.
-func (e ExitingEvent) Type() string { return e.UpdateType }
+func (e ExitingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ExitingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ExitingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ExitingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ExitingEvent) RecTimecode() string { return e.RecTimecode_ }

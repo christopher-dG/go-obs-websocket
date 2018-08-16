@@ -9,13 +9,13 @@ package obsws
 type ProfileChangedEvent _event
 
 // Type returns the event's update type.
-func (e ProfileChangedEvent) Type() string { return e.UpdateType }
+func (e ProfileChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ProfileChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ProfileChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ProfileChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ProfileChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // ProfileListChangedEvent : Triggered when a profile is created, added, renamed, or removed.
 // Since obs-websocket version: 4.0.0.
@@ -23,10 +23,10 @@ func (e ProfileChangedEvent) RecTC() string { return e.RecTimecode }
 type ProfileListChangedEvent _event
 
 // Type returns the event's update type.
-func (e ProfileListChangedEvent) Type() string { return e.UpdateType }
+func (e ProfileListChangedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ProfileListChangedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ProfileListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ProfileListChangedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ProfileListChangedEvent) RecTimecode() string { return e.RecTimecode_ }

@@ -9,13 +9,13 @@ package obsws
 type ReplayStartingEvent _event
 
 // Type returns the event's update type.
-func (e ReplayStartingEvent) Type() string { return e.UpdateType }
+func (e ReplayStartingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ReplayStartingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ReplayStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ReplayStartingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ReplayStartingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // ReplayStartedEvent : Replay Buffer started successfully.
 // Since obs-websocket version: 4.2.0.
@@ -23,13 +23,13 @@ func (e ReplayStartingEvent) RecTC() string { return e.RecTimecode }
 type ReplayStartedEvent _event
 
 // Type returns the event's update type.
-func (e ReplayStartedEvent) Type() string { return e.UpdateType }
+func (e ReplayStartedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ReplayStartedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ReplayStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ReplayStartedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ReplayStartedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // ReplayStoppingEvent : A request to stop the replay buffer has been issued.
 // Since obs-websocket version: 4.2.0.
@@ -37,13 +37,13 @@ func (e ReplayStartedEvent) RecTC() string { return e.RecTimecode }
 type ReplayStoppingEvent _event
 
 // Type returns the event's update type.
-func (e ReplayStoppingEvent) Type() string { return e.UpdateType }
+func (e ReplayStoppingEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ReplayStoppingEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ReplayStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ReplayStoppingEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ReplayStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // ReplayStoppedEvent : Replay Buffer stopped successfully.
 // Since obs-websocket version: 4.2.0.
@@ -51,10 +51,10 @@ func (e ReplayStoppingEvent) RecTC() string { return e.RecTimecode }
 type ReplayStoppedEvent _event
 
 // Type returns the event's update type.
-func (e ReplayStoppedEvent) Type() string { return e.UpdateType }
+func (e ReplayStoppedEvent) Type() string { return e.Type_ }
 
-// StreamTC returns the event's stream timecode.
-func (e ReplayStoppedEvent) StreamTC() string { return e.StreamTimecode }
+// StreamTimecode returns the event's stream timecode.
+func (e ReplayStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
 
-// RecTC returns the event's recording timecode.
-func (e ReplayStoppedEvent) RecTC() string { return e.RecTimecode }
+// RecTimecode returns the event's recording timecode.
+func (e ReplayStoppedEvent) RecTimecode() string { return e.RecTimecode_ }
