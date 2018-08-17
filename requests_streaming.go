@@ -25,7 +25,7 @@ func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetStreamingStatusRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -108,7 +108,7 @@ func NewStartStopStreamingRequest() StartStopStreamingRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StartStopStreamingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -227,7 +227,7 @@ func NewStartStreamingRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StartStreamingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -295,7 +295,7 @@ func NewStopStreamingRequest() StopStreamingRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StopStreamingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -406,7 +406,7 @@ func NewSetStreamSettingsRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetStreamSettingsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -473,7 +473,7 @@ func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetStreamSettingsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -564,7 +564,7 @@ func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SaveStreamSettingsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}

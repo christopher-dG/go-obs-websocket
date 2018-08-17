@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
+	"github.com/mitchellh/mapstructure"
 )
 
 const bufferSize = 100
@@ -22,16 +23,8 @@ type Client struct {
 	Password string                      // Password (OBS default is "").
 	conn     *websocket.Conn             // Underlying connection to OBS.
 	active   bool                        // True until Disconnect is called.
-	noIDMode bool                        // When true, don't verify response IDs.
 	handlers map[string]func(e Event)    // Event handlers.
 	respQ    chan map[string]interface{} // Queue of received responses.
-}
-
-// NoIDMode disables response ID checking when set to true.
-// This means that there is no guarantee that a response obtained from SendRequest
-// corresponds to the request that was sent.
-func (c *Client) NoIDMode(enable bool) {
-	c.noIDMode = enable
 }
 
 // init prepares the client's internal fields.
@@ -71,4 +64,23 @@ func getMessageID() string {
 	id := strconv.Itoa(messageID)
 	lock.Unlock()
 	return id
+}
+
+// mapToStruct serializes a map into a struct.
+func mapToStruct(data map[string]interface{}, dest interface{}) error {
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		ZeroFields: true, // TODO: Is this actually working?
+		TagName:    "json",
+		Result:     dest,
+	})
+	if err != nil {
+		logger.Warning("initializing decoder:", err)
+		return err
+	}
+	if err = decoder.Decode(data); err != nil {
+		logger.Warningf("unmarshalling map -> %T: %v", dest, err)
+		logger.Debugf("input: %#v\n", data)
+		return err
+	}
+	return nil
 }

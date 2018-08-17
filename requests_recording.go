@@ -25,7 +25,7 @@ func NewStartStopRecordingRequest() StartStopRecordingRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StartStopRecordingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -93,7 +93,7 @@ func NewStartRecordingRequest() StartRecordingRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StartRecordingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -161,7 +161,7 @@ func NewStopRecordingRequest() StopRecordingRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *StopRecordingRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -231,7 +231,7 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetRecordingFolderRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -298,7 +298,7 @@ func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetRecordingFolderRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}

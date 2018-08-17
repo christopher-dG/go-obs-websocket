@@ -28,7 +28,7 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetCurrentSceneCollectionRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -95,7 +95,7 @@ func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetCurrentSceneCollectionRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -165,7 +165,7 @@ func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *ListSceneCollectionsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}

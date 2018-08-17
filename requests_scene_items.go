@@ -36,7 +36,7 @@ func NewGetSceneItemPropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -240,7 +240,7 @@ func NewSetSceneItemPropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -318,7 +318,7 @@ func NewResetSceneItemRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *ResetSceneItemRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -401,7 +401,7 @@ func NewSetSceneItemRenderRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSceneItemRenderRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -489,7 +489,7 @@ func NewSetSceneItemPositionRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSceneItemPositionRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -582,7 +582,7 @@ func NewSetSceneItemTransformRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSceneItemTransformRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -680,7 +680,7 @@ func NewSetSceneItemCropRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSceneItemCropRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}

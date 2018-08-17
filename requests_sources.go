@@ -25,7 +25,7 @@ func NewGetSourcesListRequest() GetSourcesListRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSourcesListRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -105,7 +105,7 @@ func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSourcesTypesListRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -215,7 +215,7 @@ func NewGetVolumeRequest(source string) GetVolumeRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetVolumeRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -303,7 +303,7 @@ func NewSetVolumeRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetVolumeRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -373,7 +373,7 @@ func NewGetMuteRequest(source string) GetMuteRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetMuteRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -456,7 +456,7 @@ func NewSetMuteRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetMuteRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -526,7 +526,7 @@ func NewToggleMuteRequest(source string) ToggleMuteRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *ToggleMuteRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -603,7 +603,7 @@ func NewSetSyncOffsetRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSyncOffsetRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -673,7 +673,7 @@ func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSyncOffsetRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -757,7 +757,7 @@ func NewGetSourceSettingsRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSourceSettingsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -851,7 +851,7 @@ func NewSetSourceSettingsRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetSourceSettingsRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -939,7 +939,7 @@ func NewGetTextGDIPlusPropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetTextGDIPlusPropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -1245,7 +1245,7 @@ func NewSetTextGDIPlusPropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetTextGDIPlusPropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -1323,7 +1323,7 @@ func NewGetBrowserSourcePropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetBrowserSourcePropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -1473,7 +1473,7 @@ func NewSetBrowserSourcePropertiesRequest(
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *SetBrowserSourcePropertiesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -1540,7 +1540,7 @@ func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r *GetSpecialSourcesRequest) Send(c Client) error {
-	future, err := c.SendRequest(r)
+	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
 	}

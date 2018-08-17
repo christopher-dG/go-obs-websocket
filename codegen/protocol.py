@@ -126,7 +126,7 @@ def gen_request(data: Dict) -> str:
 
     // Send sends the request and returns a channel to which the response will be sent.
     func (r *{data["name"]}Request) Send(c Client) error {{
-        future, err := c.SendRequest(r)
+        future, err := c.sendRequest(r)
         if err != nil {{
             return err
         }}
