@@ -14,8 +14,11 @@ type _event struct {
 	RecTimecode_    string `json:"rec-timecode"`
 }
 
+// Type returns the event's update type.
 func (e _event) Type() string { return e.Type_ }
 
+// StreamTimeode returns the event's stream timecode.
 func (e _event) StreamTimecode() string { return e.StreamTimecode_ }
 
+// RecTimecode returns the event's recording timecode.
 func (e _event) RecTimecode() string { return e.RecTimecode_ }

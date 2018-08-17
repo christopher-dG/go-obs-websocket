@@ -6,27 +6,13 @@ package obsws
 // ProfileChangedEvent : Triggered when switching to another profile or when renaming the current profile.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#profilechanged
-type ProfileChangedEvent _event
-
-// Type returns the event's update type.
-func (e ProfileChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ProfileChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ProfileChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type ProfileChangedEvent struct {
+	_event `json:",squash"`
+}
 
 // ProfileListChangedEvent : Triggered when a profile is created, added, renamed, or removed.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#profilelistchanged
-type ProfileListChangedEvent _event
-
-// Type returns the event's update type.
-func (e ProfileListChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ProfileListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ProfileListChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type ProfileListChangedEvent struct {
+	_event `json:",squash"`
+}

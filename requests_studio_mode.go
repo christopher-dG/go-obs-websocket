@@ -6,18 +6,15 @@ package obsws
 // GetStudioModeStatusRequest : Indicates if Studio Mode is currently enabled.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstudiomodestatus
-type GetStudioModeStatusRequest _request
+type GetStudioModeStatusRequest struct{ _request }
 
 // NewGetStudioModeStatusRequest returns a new GetStudioModeStatusRequest.
 func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
-	return GetStudioModeStatusRequest{ID_: getMessageID(), Type_: "GetStudioModeStatus"}
+	return GetStudioModeStatusRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetStudioModeStatus",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetStudioModeStatusRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetStudioModeStatusRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStudioModeStatusRequest) Send(c Client) (chan GetStudioModeStatusResponse, error) {
@@ -40,31 +37,19 @@ type GetStudioModeStatusResponse struct {
 	_response  `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetStudioModeStatusResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetStudioModeStatusResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetStudioModeStatusResponse) Error() string { return r.Error_ }
-
 // GetPreviewSceneRequest : Get the name of the currently previewed scene and its list of sources.
 // Will return an `error` if Studio Mode is not enabled.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getpreviewscene
-type GetPreviewSceneRequest _request
+type GetPreviewSceneRequest struct{ _request }
 
 // NewGetPreviewSceneRequest returns a new GetPreviewSceneRequest.
 func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
-	return GetPreviewSceneRequest{ID_: getMessageID(), Type_: "GetPreviewScene"}
+	return GetPreviewSceneRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetPreviewScene",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetPreviewSceneRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetPreviewSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetPreviewSceneRequest) Send(c Client) (chan GetPreviewSceneResponse, error) {
@@ -89,15 +74,6 @@ type GetPreviewSceneResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetPreviewSceneResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetPreviewSceneResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetPreviewSceneResponse) Error() string { return r.Error_ }
-
 // SetPreviewSceneRequest : Set the active preview scene.
 // Will return an `error` if Studio Mode is not enabled.
 // Since obs-websocket version: 4.1.0.
@@ -118,14 +94,7 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 			Type_: "SetPreviewScene",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetPreviewSceneRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetPreviewSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, error) {
@@ -141,16 +110,9 @@ func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, er
 // SetPreviewSceneResponse : Response for SetPreviewSceneRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setpreviewscene
-type SetPreviewSceneResponse _response
-
-// ID returns the response's message ID.
-func (r SetPreviewSceneResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetPreviewSceneResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetPreviewSceneResponse) Error() string { return r.Error_ }
+type SetPreviewSceneResponse struct {
+	_response `json:",squash"`
+}
 
 // TransitionToProgramRequest : Transitions the currently previewed scene to the main output.
 // Will return an `error` if Studio Mode is not enabled.
@@ -185,14 +147,7 @@ func NewTransitionToProgramRequest(
 			Type_: "TransitionToProgram",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r TransitionToProgramRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r TransitionToProgramRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResponse, error) {
@@ -208,32 +163,22 @@ func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResp
 // TransitionToProgramResponse : Response for TransitionToProgramRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitiontoprogram
-type TransitionToProgramResponse _response
-
-// ID returns the response's message ID.
-func (r TransitionToProgramResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r TransitionToProgramResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r TransitionToProgramResponse) Error() string { return r.Error_ }
+type TransitionToProgramResponse struct {
+	_response `json:",squash"`
+}
 
 // EnableStudioModeRequest : Enables Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#enablestudiomode
-type EnableStudioModeRequest _request
+type EnableStudioModeRequest struct{ _request }
 
 // NewEnableStudioModeRequest returns a new EnableStudioModeRequest.
 func NewEnableStudioModeRequest() EnableStudioModeRequest {
-	return EnableStudioModeRequest{ID_: getMessageID(), Type_: "EnableStudioMode"}
+	return EnableStudioModeRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "EnableStudioMode",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r EnableStudioModeRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r EnableStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, error) {
@@ -249,32 +194,22 @@ func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, 
 // EnableStudioModeResponse : Response for EnableStudioModeRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#enablestudiomode
-type EnableStudioModeResponse _response
-
-// ID returns the response's message ID.
-func (r EnableStudioModeResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r EnableStudioModeResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r EnableStudioModeResponse) Error() string { return r.Error_ }
+type EnableStudioModeResponse struct {
+	_response `json:",squash"`
+}
 
 // DisableStudioModeRequest : Disables Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#disablestudiomode
-type DisableStudioModeRequest _request
+type DisableStudioModeRequest struct{ _request }
 
 // NewDisableStudioModeRequest returns a new DisableStudioModeRequest.
 func NewDisableStudioModeRequest() DisableStudioModeRequest {
-	return DisableStudioModeRequest{ID_: getMessageID(), Type_: "DisableStudioMode"}
+	return DisableStudioModeRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "DisableStudioMode",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r DisableStudioModeRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r DisableStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse, error) {
@@ -290,32 +225,22 @@ func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse
 // DisableStudioModeResponse : Response for DisableStudioModeRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#disablestudiomode
-type DisableStudioModeResponse _response
-
-// ID returns the response's message ID.
-func (r DisableStudioModeResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r DisableStudioModeResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r DisableStudioModeResponse) Error() string { return r.Error_ }
+type DisableStudioModeResponse struct {
+	_response `json:",squash"`
+}
 
 // ToggleStudioModeRequest : Toggles Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#togglestudiomode
-type ToggleStudioModeRequest _request
+type ToggleStudioModeRequest struct{ _request }
 
 // NewToggleStudioModeRequest returns a new ToggleStudioModeRequest.
 func NewToggleStudioModeRequest() ToggleStudioModeRequest {
-	return ToggleStudioModeRequest{ID_: getMessageID(), Type_: "ToggleStudioMode"}
+	return ToggleStudioModeRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "ToggleStudioMode",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r ToggleStudioModeRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r ToggleStudioModeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, error) {
@@ -331,13 +256,6 @@ func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, 
 // ToggleStudioModeResponse : Response for ToggleStudioModeRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#togglestudiomode
-type ToggleStudioModeResponse _response
-
-// ID returns the response's message ID.
-func (r ToggleStudioModeResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r ToggleStudioModeResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r ToggleStudioModeResponse) Error() string { return r.Error_ }
+type ToggleStudioModeResponse struct {
+	_response `json:",squash"`
+}

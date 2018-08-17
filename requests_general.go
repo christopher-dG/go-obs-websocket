@@ -6,18 +6,15 @@ package obsws
 // GetVersionRequest : Returns the latest version of the plugin and the API.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
-type GetVersionRequest _request
+type GetVersionRequest struct{ _request }
 
 // NewGetVersionRequest returns a new GetVersionRequest.
 func NewGetVersionRequest() GetVersionRequest {
-	return GetVersionRequest{ID_: getMessageID(), Type_: "GetVersion"}
+	return GetVersionRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetVersion",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetVersionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetVersionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetVersionRequest) Send(c Client) (chan GetVersionResponse, error) {
@@ -50,32 +47,20 @@ type GetVersionResponse struct {
 	_response         `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetVersionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetVersionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetVersionResponse) Error() string { return r.Error_ }
-
 // GetAuthRequiredRequest : Tells the client if authentication is required
 // If so, returns authentication parameters `challenge`
 // and `salt` (see "Authentication" for more information).
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
-type GetAuthRequiredRequest _request
+type GetAuthRequiredRequest struct{ _request }
 
 // NewGetAuthRequiredRequest returns a new GetAuthRequiredRequest.
 func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
-	return GetAuthRequiredRequest{ID_: getMessageID(), Type_: "GetAuthRequired"}
+	return GetAuthRequiredRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetAuthRequired",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetAuthRequiredRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetAuthRequiredRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetAuthRequiredRequest) Send(c Client) (chan GetAuthRequiredResponse, error) {
@@ -102,15 +87,6 @@ type GetAuthRequiredResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetAuthRequiredResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetAuthRequiredResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetAuthRequiredResponse) Error() string { return r.Error_ }
-
 // AuthenticateRequest : Attempt to authenticate the client to the server.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
@@ -130,14 +106,7 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 			Type_: "Authenticate",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r AuthenticateRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r AuthenticateRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
@@ -153,16 +122,9 @@ func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
 // AuthenticateResponse : Response for AuthenticateRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
-type AuthenticateResponse _response
-
-// ID returns the response's message ID.
-func (r AuthenticateResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r AuthenticateResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r AuthenticateResponse) Error() string { return r.Error_ }
+type AuthenticateResponse struct {
+	_response `json:",squash"`
+}
 
 // SetHeartbeatRequest : Enable/disable sending of the Heartbeat event.
 // Since obs-websocket version: 4.3.0.
@@ -183,14 +145,7 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 			Type_: "SetHeartbeat",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetHeartbeatRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetHeartbeatRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
@@ -206,16 +161,9 @@ func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
 // SetHeartbeatResponse : Response for SetHeartbeatRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setheartbeat
-type SetHeartbeatResponse _response
-
-// ID returns the response's message ID.
-func (r SetHeartbeatResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetHeartbeatResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetHeartbeatResponse) Error() string { return r.Error_ }
+type SetHeartbeatResponse struct {
+	_response `json:",squash"`
+}
 
 // SetFilenameFormattingRequest : Set the filename formatting string.
 // Since obs-websocket version: 4.3.0.
@@ -236,14 +184,7 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 			Type_: "SetFilenameFormatting",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetFilenameFormattingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetFilenameFormattingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormattingResponse, error) {
@@ -259,32 +200,22 @@ func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormatting
 // SetFilenameFormattingResponse : Response for SetFilenameFormattingRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setfilenameformatting
-type SetFilenameFormattingResponse _response
-
-// ID returns the response's message ID.
-func (r SetFilenameFormattingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetFilenameFormattingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetFilenameFormattingResponse) Error() string { return r.Error_ }
+type SetFilenameFormattingResponse struct {
+	_response `json:",squash"`
+}
 
 // GetFilenameFormattingRequest : Get the filename formatting string.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getfilenameformatting
-type GetFilenameFormattingRequest _request
+type GetFilenameFormattingRequest struct{ _request }
 
 // NewGetFilenameFormattingRequest returns a new GetFilenameFormattingRequest.
 func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
-	return GetFilenameFormattingRequest{ID_: getMessageID(), Type_: "GetFilenameFormatting"}
+	return GetFilenameFormattingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetFilenameFormatting",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetFilenameFormattingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetFilenameFormattingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetFilenameFormattingRequest) Send(c Client) (chan GetFilenameFormattingResponse, error) {
@@ -306,12 +237,3 @@ type GetFilenameFormattingResponse struct {
 	FilenameFormatting string `json:"filename-formatting"`
 	_response          `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetFilenameFormattingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetFilenameFormattingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetFilenameFormattingResponse) Error() string { return r.Error_ }

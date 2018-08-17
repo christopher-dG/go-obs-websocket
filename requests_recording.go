@@ -6,18 +6,15 @@ package obsws
 // StartStopRecordingRequest : Toggle recording on or off.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstoprecording
-type StartStopRecordingRequest _request
+type StartStopRecordingRequest struct{ _request }
 
 // NewStartStopRecordingRequest returns a new StartStopRecordingRequest.
 func NewStartStopRecordingRequest() StartStopRecordingRequest {
-	return StartStopRecordingRequest{ID_: getMessageID(), Type_: "StartStopRecording"}
+	return StartStopRecordingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StartStopRecording",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StartStopRecordingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartStopRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopRecordingRequest) Send(c Client) (chan StartStopRecordingResponse, error) {
@@ -33,33 +30,23 @@ func (r StartStopRecordingRequest) Send(c Client) (chan StartStopRecordingRespon
 // StartStopRecordingResponse : Response for StartStopRecordingRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstoprecording
-type StartStopRecordingResponse _response
-
-// ID returns the response's message ID.
-func (r StartStopRecordingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartStopRecordingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartStopRecordingResponse) Error() string { return r.Error_ }
+type StartStopRecordingResponse struct {
+	_response `json:",squash"`
+}
 
 // StartRecordingRequest : Start recording.
 // Will return an `error` if recording is already active.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startrecording
-type StartRecordingRequest _request
+type StartRecordingRequest struct{ _request }
 
 // NewStartRecordingRequest returns a new StartRecordingRequest.
 func NewStartRecordingRequest() StartRecordingRequest {
-	return StartRecordingRequest{ID_: getMessageID(), Type_: "StartRecording"}
+	return StartRecordingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StartRecording",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StartRecordingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartRecordingRequest) Send(c Client) (chan StartRecordingResponse, error) {
@@ -75,33 +62,23 @@ func (r StartRecordingRequest) Send(c Client) (chan StartRecordingResponse, erro
 // StartRecordingResponse : Response for StartRecordingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startrecording
-type StartRecordingResponse _response
-
-// ID returns the response's message ID.
-func (r StartRecordingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartRecordingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartRecordingResponse) Error() string { return r.Error_ }
+type StartRecordingResponse struct {
+	_response `json:",squash"`
+}
 
 // StopRecordingRequest : Stop recording.
 // Will return an `error` if recording is not active.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stoprecording
-type StopRecordingRequest _request
+type StopRecordingRequest struct{ _request }
 
 // NewStopRecordingRequest returns a new StopRecordingRequest.
 func NewStopRecordingRequest() StopRecordingRequest {
-	return StopRecordingRequest{ID_: getMessageID(), Type_: "StopRecording"}
+	return StopRecordingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StopRecording",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StopRecordingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StopRecordingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopRecordingRequest) Send(c Client) (chan StopRecordingResponse, error) {
@@ -117,16 +94,9 @@ func (r StopRecordingRequest) Send(c Client) (chan StopRecordingResponse, error)
 // StopRecordingResponse : Response for StopRecordingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stoprecording
-type StopRecordingResponse _response
-
-// ID returns the response's message ID.
-func (r StopRecordingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StopRecordingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StopRecordingResponse) Error() string { return r.Error_ }
+type StopRecordingResponse struct {
+	_response `json:",squash"`
+}
 
 // SetRecordingFolderRequest : Change the current recording folder.
 // Since obs-websocket version: 4.1.0.
@@ -147,14 +117,7 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 			Type_: "SetRecordingFolder",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetRecordingFolderRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetRecordingFolderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetRecordingFolderRequest) Send(c Client) (chan SetRecordingFolderResponse, error) {
@@ -170,32 +133,22 @@ func (r SetRecordingFolderRequest) Send(c Client) (chan SetRecordingFolderRespon
 // SetRecordingFolderResponse : Response for SetRecordingFolderRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setrecordingfolder
-type SetRecordingFolderResponse _response
-
-// ID returns the response's message ID.
-func (r SetRecordingFolderResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetRecordingFolderResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetRecordingFolderResponse) Error() string { return r.Error_ }
+type SetRecordingFolderResponse struct {
+	_response `json:",squash"`
+}
 
 // GetRecordingFolderRequest : Get the path of  the current recording folder.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getrecordingfolder
-type GetRecordingFolderRequest _request
+type GetRecordingFolderRequest struct{ _request }
 
 // NewGetRecordingFolderRequest returns a new GetRecordingFolderRequest.
 func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
-	return GetRecordingFolderRequest{ID_: getMessageID(), Type_: "GetRecordingFolder"}
+	return GetRecordingFolderRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetRecordingFolder",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetRecordingFolderRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetRecordingFolderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetRecordingFolderRequest) Send(c Client) (chan GetRecordingFolderResponse, error) {
@@ -217,12 +170,3 @@ type GetRecordingFolderResponse struct {
 	RecFolder string `json:"rec-folder"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetRecordingFolderResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetRecordingFolderResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetRecordingFolderResponse) Error() string { return r.Error_ }

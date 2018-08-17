@@ -41,12 +41,3 @@ type HeartbeatEvent struct {
 	TotalRecordFrames int `json:"total-record-frames"`
 	_event            `json:",squash"`
 }
-
-// Type returns the event's update type.
-func (e HeartbeatEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e HeartbeatEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e HeartbeatEvent) RecTimecode() string { return e.RecTimecode_ }

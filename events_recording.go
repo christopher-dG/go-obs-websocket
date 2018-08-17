@@ -6,55 +6,27 @@ package obsws
 // RecordingStartingEvent : A request to start recording has been issued.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstarting
-type RecordingStartingEvent _event
-
-// Type returns the event's update type.
-func (e RecordingStartingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e RecordingStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e RecordingStartingEvent) RecTimecode() string { return e.RecTimecode_ }
+type RecordingStartingEvent struct {
+	_event `json:",squash"`
+}
 
 // RecordingStartedEvent : Recording started successfully.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstarted
-type RecordingStartedEvent _event
-
-// Type returns the event's update type.
-func (e RecordingStartedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e RecordingStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e RecordingStartedEvent) RecTimecode() string { return e.RecTimecode_ }
+type RecordingStartedEvent struct {
+	_event `json:",squash"`
+}
 
 // RecordingStoppingEvent : A request to stop recording has been issued.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstopping
-type RecordingStoppingEvent _event
-
-// Type returns the event's update type.
-func (e RecordingStoppingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e RecordingStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e RecordingStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
+type RecordingStoppingEvent struct {
+	_event `json:",squash"`
+}
 
 // RecordingStoppedEvent : Recording stopped successfully.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstopped
-type RecordingStoppedEvent _event
-
-// Type returns the event's update type.
-func (e RecordingStoppedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e RecordingStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e RecordingStoppedEvent) RecTimecode() string { return e.RecTimecode_ }
+type RecordingStoppedEvent struct {
+	_event `json:",squash"`
+}

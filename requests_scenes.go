@@ -22,14 +22,7 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 			Type_: "SetCurrentScene",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetCurrentSceneRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetCurrentSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentSceneRequest) Send(c Client) (chan SetCurrentSceneResponse, error) {
@@ -45,32 +38,22 @@ func (r SetCurrentSceneRequest) Send(c Client) (chan SetCurrentSceneResponse, er
 // SetCurrentSceneResponse : Response for SetCurrentSceneRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscene
-type SetCurrentSceneResponse _response
-
-// ID returns the response's message ID.
-func (r SetCurrentSceneResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetCurrentSceneResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetCurrentSceneResponse) Error() string { return r.Error_ }
+type SetCurrentSceneResponse struct {
+	_response `json:",squash"`
+}
 
 // GetCurrentSceneRequest : Get the current scene's name and source items.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscene
-type GetCurrentSceneRequest _request
+type GetCurrentSceneRequest struct{ _request }
 
 // NewGetCurrentSceneRequest returns a new GetCurrentSceneRequest.
 func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
-	return GetCurrentSceneRequest{ID_: getMessageID(), Type_: "GetCurrentScene"}
+	return GetCurrentSceneRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetCurrentScene",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetCurrentSceneRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetCurrentSceneRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentSceneRequest) Send(c Client) (chan GetCurrentSceneResponse, error) {
@@ -96,30 +79,18 @@ type GetCurrentSceneResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetCurrentSceneResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetCurrentSceneResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetCurrentSceneResponse) Error() string { return r.Error_ }
-
 // GetSceneListRequest : Get a list of scenes in the currently active profile.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getscenelist
-type GetSceneListRequest _request
+type GetSceneListRequest struct{ _request }
 
 // NewGetSceneListRequest returns a new GetSceneListRequest.
 func NewGetSceneListRequest() GetSceneListRequest {
-	return GetSceneListRequest{ID_: getMessageID(), Type_: "GetSceneList"}
+	return GetSceneListRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetSceneList",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetSceneListRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSceneListRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSceneListRequest) Send(c Client) (chan GetSceneListResponse, error) {
@@ -144,12 +115,3 @@ type GetSceneListResponse struct {
 	Scenes    []map[string]interface{} `json:"scenes"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetSceneListResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSceneListResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSceneListResponse) Error() string { return r.Error_ }

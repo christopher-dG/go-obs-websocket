@@ -6,55 +6,27 @@ package obsws
 // ReplayStartingEvent : A request to start the replay buffer has been issued.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#replaystarting
-type ReplayStartingEvent _event
-
-// Type returns the event's update type.
-func (e ReplayStartingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ReplayStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ReplayStartingEvent) RecTimecode() string { return e.RecTimecode_ }
+type ReplayStartingEvent struct {
+	_event `json:",squash"`
+}
 
 // ReplayStartedEvent : Replay Buffer started successfully.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#replaystarted
-type ReplayStartedEvent _event
-
-// Type returns the event's update type.
-func (e ReplayStartedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ReplayStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ReplayStartedEvent) RecTimecode() string { return e.RecTimecode_ }
+type ReplayStartedEvent struct {
+	_event `json:",squash"`
+}
 
 // ReplayStoppingEvent : A request to stop the replay buffer has been issued.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#replaystopping
-type ReplayStoppingEvent _event
-
-// Type returns the event's update type.
-func (e ReplayStoppingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ReplayStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ReplayStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
+type ReplayStoppingEvent struct {
+	_event `json:",squash"`
+}
 
 // ReplayStoppedEvent : Replay Buffer stopped successfully.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#replaystopped
-type ReplayStoppedEvent _event
-
-// Type returns the event's update type.
-func (e ReplayStoppedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ReplayStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ReplayStoppedEvent) RecTimecode() string { return e.RecTimecode_ }
+type ReplayStoppedEvent struct {
+	_event `json:",squash"`
+}

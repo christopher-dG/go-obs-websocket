@@ -22,14 +22,7 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 			Type_: "SetCurrentProfile",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetCurrentProfileRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetCurrentProfileRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse, error) {
@@ -45,32 +38,22 @@ func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse
 // SetCurrentProfileResponse : Response for SetCurrentProfileRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentprofile
-type SetCurrentProfileResponse _response
-
-// ID returns the response's message ID.
-func (r SetCurrentProfileResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetCurrentProfileResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetCurrentProfileResponse) Error() string { return r.Error_ }
+type SetCurrentProfileResponse struct {
+	_response `json:",squash"`
+}
 
 // GetCurrentProfileRequest : Get the name of the current profile.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentprofile
-type GetCurrentProfileRequest _request
+type GetCurrentProfileRequest struct{ _request }
 
 // NewGetCurrentProfileRequest returns a new GetCurrentProfileRequest.
 func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
-	return GetCurrentProfileRequest{ID_: getMessageID(), Type_: "GetCurrentProfile"}
+	return GetCurrentProfileRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetCurrentProfile",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetCurrentProfileRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetCurrentProfileRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentProfileRequest) Send(c Client) (chan GetCurrentProfileResponse, error) {
@@ -93,30 +76,18 @@ type GetCurrentProfileResponse struct {
 	_response   `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetCurrentProfileResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetCurrentProfileResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetCurrentProfileResponse) Error() string { return r.Error_ }
-
 // ListProfilesRequest : Get a list of available profiles.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listprofiles
-type ListProfilesRequest _request
+type ListProfilesRequest struct{ _request }
 
 // NewListProfilesRequest returns a new ListProfilesRequest.
 func NewListProfilesRequest() ListProfilesRequest {
-	return ListProfilesRequest{ID_: getMessageID(), Type_: "ListProfiles"}
+	return ListProfilesRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "ListProfiles",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r ListProfilesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r ListProfilesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ListProfilesRequest) Send(c Client) (chan ListProfilesResponse, error) {
@@ -138,12 +109,3 @@ type ListProfilesResponse struct {
 	Profiles  interface{} `json:"profiles"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r ListProfilesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r ListProfilesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r ListProfilesResponse) Error() string { return r.Error_ }

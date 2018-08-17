@@ -16,54 +16,24 @@ type SwitchScenesEvent struct {
 	_event  `json:",squash"`
 }
 
-// Type returns the event's update type.
-func (e SwitchScenesEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e SwitchScenesEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e SwitchScenesEvent) RecTimecode() string { return e.RecTimecode_ }
-
 // ScenesChangedEvent : The scene list has been modified.
 // Scenes have been added, removed, or renamed.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#sceneschanged
-type ScenesChangedEvent _event
-
-// Type returns the event's update type.
-func (e ScenesChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ScenesChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ScenesChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type ScenesChangedEvent struct {
+	_event `json:",squash"`
+}
 
 // SceneCollectionChangedEvent : Triggered when switching to another scene collection or when renaming the current scene collection.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#scenecollectionchanged
-type SceneCollectionChangedEvent _event
-
-// Type returns the event's update type.
-func (e SceneCollectionChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e SceneCollectionChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e SceneCollectionChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type SceneCollectionChangedEvent struct {
+	_event `json:",squash"`
+}
 
 // SceneCollectionListChangedEvent : Triggered when a scene collection is created, added, renamed, or removed.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#scenecollectionlistchanged
-type SceneCollectionListChangedEvent _event
-
-// Type returns the event's update type.
-func (e SceneCollectionListChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e SceneCollectionListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e SceneCollectionListChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type SceneCollectionListChangedEvent struct {
+	_event `json:",squash"`
+}

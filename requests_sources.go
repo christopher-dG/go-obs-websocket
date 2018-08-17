@@ -6,18 +6,15 @@ package obsws
 // GetSourcesListRequest : List all sources available in the running OBS instance.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsourceslist
-type GetSourcesListRequest _request
+type GetSourcesListRequest struct{ _request }
 
 // NewGetSourcesListRequest returns a new GetSourcesListRequest.
 func NewGetSourcesListRequest() GetSourcesListRequest {
-	return GetSourcesListRequest{ID_: getMessageID(), Type_: "GetSourcesList"}
+	return GetSourcesListRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetSourcesList",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetSourcesListRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSourcesListRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSourcesListRequest) Send(c Client) (chan GetSourcesListResponse, error) {
@@ -50,30 +47,18 @@ type GetSourcesListResponse struct {
 	_response   `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetSourcesListResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSourcesListResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSourcesListResponse) Error() string { return r.Error_ }
-
 // GetSourcesTypesListRequest : Get a list of all available sources types.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsourcestypeslist
-type GetSourcesTypesListRequest _request
+type GetSourcesTypesListRequest struct{ _request }
 
 // NewGetSourcesTypesListRequest returns a new GetSourcesTypesListRequest.
 func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
-	return GetSourcesTypesListRequest{ID_: getMessageID(), Type_: "GetSourcesTypesList"}
+	return GetSourcesTypesListRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetSourcesTypesList",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetSourcesTypesListRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSourcesTypesListRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSourcesTypesListRequest) Send(c Client) (chan GetSourcesTypesListResponse, error) {
@@ -133,15 +118,6 @@ type GetSourcesTypesListResponse struct {
 	_response               `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetSourcesTypesListResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSourcesTypesListResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSourcesTypesListResponse) Error() string { return r.Error_ }
-
 // GetVolumeRequest : Get the volume of the specified source.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getvolume
@@ -161,14 +137,7 @@ func NewGetVolumeRequest(source string) GetVolumeRequest {
 			Type_: "GetVolume",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetVolumeRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetVolumeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetVolumeRequest) Send(c Client) (chan GetVolumeResponse, error) {
@@ -198,15 +167,6 @@ type GetVolumeResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetVolumeResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetVolumeResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetVolumeResponse) Error() string { return r.Error_ }
-
 // SetVolumeRequest : Set the volume of the specified source.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setvolume
@@ -234,14 +194,7 @@ func NewSetVolumeRequest(
 			Type_: "SetVolume",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetVolumeRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetVolumeRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetVolumeRequest) Send(c Client) (chan SetVolumeResponse, error) {
@@ -257,16 +210,9 @@ func (r SetVolumeRequest) Send(c Client) (chan SetVolumeResponse, error) {
 // SetVolumeResponse : Response for SetVolumeRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setvolume
-type SetVolumeResponse _response
-
-// ID returns the response's message ID.
-func (r SetVolumeResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetVolumeResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetVolumeResponse) Error() string { return r.Error_ }
+type SetVolumeResponse struct {
+	_response `json:",squash"`
+}
 
 // GetMuteRequest : Get the mute status of a specified source.
 // Since obs-websocket version: 4.0.0.
@@ -287,14 +233,7 @@ func NewGetMuteRequest(source string) GetMuteRequest {
 			Type_: "GetMute",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetMuteRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetMuteRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetMuteRequest) Send(c Client) (chan GetMuteResponse, error) {
@@ -319,15 +258,6 @@ type GetMuteResponse struct {
 	Muted     bool `json:"muted"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetMuteResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetMuteResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetMuteResponse) Error() string { return r.Error_ }
 
 // SetMuteRequest : Sets the mute status of a specified source.
 // Since obs-websocket version: 4.0.0.
@@ -355,14 +285,7 @@ func NewSetMuteRequest(
 			Type_: "SetMute",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetMuteRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetMuteRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetMuteRequest) Send(c Client) (chan SetMuteResponse, error) {
@@ -378,16 +301,9 @@ func (r SetMuteRequest) Send(c Client) (chan SetMuteResponse, error) {
 // SetMuteResponse : Response for SetMuteRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setmute
-type SetMuteResponse _response
-
-// ID returns the response's message ID.
-func (r SetMuteResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetMuteResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetMuteResponse) Error() string { return r.Error_ }
+type SetMuteResponse struct {
+	_response `json:",squash"`
+}
 
 // ToggleMuteRequest : Inverts the mute status of a specified source.
 // Since obs-websocket version: 4.0.0.
@@ -408,14 +324,7 @@ func NewToggleMuteRequest(source string) ToggleMuteRequest {
 			Type_: "ToggleMute",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r ToggleMuteRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r ToggleMuteRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ToggleMuteRequest) Send(c Client) (chan ToggleMuteResponse, error) {
@@ -431,16 +340,9 @@ func (r ToggleMuteRequest) Send(c Client) (chan ToggleMuteResponse, error) {
 // ToggleMuteResponse : Response for ToggleMuteRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#togglemute
-type ToggleMuteResponse _response
-
-// ID returns the response's message ID.
-func (r ToggleMuteResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r ToggleMuteResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r ToggleMuteResponse) Error() string { return r.Error_ }
+type ToggleMuteResponse struct {
+	_response `json:",squash"`
+}
 
 // SetSyncOffsetRequest : Set the audio sync offset of a specified source.
 // Since obs-websocket version: 4.2.0.
@@ -468,14 +370,7 @@ func NewSetSyncOffsetRequest(
 			Type_: "SetSyncOffset",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSyncOffsetRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSyncOffsetRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSyncOffsetRequest) Send(c Client) (chan SetSyncOffsetResponse, error) {
@@ -491,16 +386,9 @@ func (r SetSyncOffsetRequest) Send(c Client) (chan SetSyncOffsetResponse, error)
 // SetSyncOffsetResponse : Response for SetSyncOffsetRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsyncoffset
-type SetSyncOffsetResponse _response
-
-// ID returns the response's message ID.
-func (r SetSyncOffsetResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSyncOffsetResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSyncOffsetResponse) Error() string { return r.Error_ }
+type SetSyncOffsetResponse struct {
+	_response `json:",squash"`
+}
 
 // GetSyncOffsetRequest : Get the audio sync offset of a specified source.
 // Since obs-websocket version: 4.2.0.
@@ -521,14 +409,7 @@ func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 			Type_: "GetSyncOffset",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetSyncOffsetRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSyncOffsetRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSyncOffsetRequest) Send(c Client) (chan GetSyncOffsetResponse, error) {
@@ -553,15 +434,6 @@ type GetSyncOffsetResponse struct {
 	Offset    int `json:"offset"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetSyncOffsetResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSyncOffsetResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSyncOffsetResponse) Error() string { return r.Error_ }
 
 // GetSourceSettingsRequest : Get settings of the specified source.
 // Since obs-websocket version: 4.3.0.
@@ -590,14 +462,7 @@ func NewGetSourceSettingsRequest(
 			Type_: "GetSourceSettings",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetSourceSettingsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSourceSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSourceSettingsRequest) Send(c Client) (chan GetSourceSettingsResponse, error) {
@@ -626,15 +491,6 @@ type GetSourceSettingsResponse struct {
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 	_response      `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetSourceSettingsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSourceSettingsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSourceSettingsResponse) Error() string { return r.Error_ }
 
 // SetSourceSettingsRequest : Set settings of the specified source.
 // Since obs-websocket version: 4.3.0.
@@ -669,14 +525,7 @@ func NewSetSourceSettingsRequest(
 			Type_: "SetSourceSettings",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSourceSettingsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSourceSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSourceSettingsRequest) Send(c Client) (chan SetSourceSettingsResponse, error) {
@@ -706,15 +555,6 @@ type SetSourceSettingsResponse struct {
 	_response      `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r SetSourceSettingsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSourceSettingsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSourceSettingsResponse) Error() string { return r.Error_ }
-
 // GetTextGDIPlusPropertiesRequest : Get the current properties of a Text GDI Plus source.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettextgdiplusproperties
@@ -742,14 +582,7 @@ func NewGetTextGDIPlusPropertiesRequest(
 			Type_: "GetTextGDIPlusProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetTextGDIPlusPropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetTextGDIPlusPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetTextGDIPlusPropertiesRequest) Send(c Client) (chan GetTextGDIPlusPropertiesResponse, error) {
@@ -854,15 +687,6 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Render    bool `json:"render"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetTextGDIPlusPropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetTextGDIPlusPropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetTextGDIPlusPropertiesResponse) Error() string { return r.Error_ }
 
 // SetTextGDIPlusPropertiesRequest : Get the current properties of a Text GDI Plus source.
 // Since obs-websocket version: 4.1.0.
@@ -1033,14 +857,7 @@ func NewSetTextGDIPlusPropertiesRequest(
 			Type_: "SetTextGDIPlusProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetTextGDIPlusPropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetTextGDIPlusPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetTextGDIPlusPropertiesRequest) Send(c Client) (chan SetTextGDIPlusPropertiesResponse, error) {
@@ -1056,16 +873,9 @@ func (r SetTextGDIPlusPropertiesRequest) Send(c Client) (chan SetTextGDIPlusProp
 // SetTextGDIPlusPropertiesResponse : Response for SetTextGDIPlusPropertiesRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settextgdiplusproperties
-type SetTextGDIPlusPropertiesResponse _response
-
-// ID returns the response's message ID.
-func (r SetTextGDIPlusPropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetTextGDIPlusPropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetTextGDIPlusPropertiesResponse) Error() string { return r.Error_ }
+type SetTextGDIPlusPropertiesResponse struct {
+	_response `json:",squash"`
+}
 
 // GetBrowserSourcePropertiesRequest : Get current properties for a Browser Source.
 // Since obs-websocket version: 4.1.0.
@@ -1094,14 +904,7 @@ func NewGetBrowserSourcePropertiesRequest(
 			Type_: "GetBrowserSourceProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetBrowserSourcePropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetBrowserSourcePropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetBrowserSourcePropertiesRequest) Send(c Client) (chan GetBrowserSourcePropertiesResponse, error) {
@@ -1147,15 +950,6 @@ type GetBrowserSourcePropertiesResponse struct {
 	Render    bool `json:"render"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetBrowserSourcePropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetBrowserSourcePropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetBrowserSourcePropertiesResponse) Error() string { return r.Error_ }
 
 // SetBrowserSourcePropertiesRequest : Set current properties for a Browser Source.
 // Since obs-websocket version: 4.1.0.
@@ -1229,14 +1023,7 @@ func NewSetBrowserSourcePropertiesRequest(
 			Type_: "SetBrowserSourceProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetBrowserSourcePropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetBrowserSourcePropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetBrowserSourcePropertiesRequest) Send(c Client) (chan SetBrowserSourcePropertiesResponse, error) {
@@ -1252,32 +1039,22 @@ func (r SetBrowserSourcePropertiesRequest) Send(c Client) (chan SetBrowserSource
 // SetBrowserSourcePropertiesResponse : Response for SetBrowserSourcePropertiesRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setbrowsersourceproperties
-type SetBrowserSourcePropertiesResponse _response
-
-// ID returns the response's message ID.
-func (r SetBrowserSourcePropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetBrowserSourcePropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetBrowserSourcePropertiesResponse) Error() string { return r.Error_ }
+type SetBrowserSourcePropertiesResponse struct {
+	_response `json:",squash"`
+}
 
 // GetSpecialSourcesRequest : Get configured special sources like Desktop Audio and Mic/Aux sources.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getspecialsources
-type GetSpecialSourcesRequest _request
+type GetSpecialSourcesRequest struct{ _request }
 
 // NewGetSpecialSourcesRequest returns a new GetSpecialSourcesRequest.
 func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
-	return GetSpecialSourcesRequest{ID_: getMessageID(), Type_: "GetSpecialSources"}
+	return GetSpecialSourcesRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetSpecialSources",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetSpecialSourcesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSpecialSourcesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSpecialSourcesRequest) Send(c Client) (chan GetSpecialSourcesResponse, error) {
@@ -1311,12 +1088,3 @@ type GetSpecialSourcesResponse struct {
 	Mic3      string `json:"mic-3"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetSpecialSourcesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSpecialSourcesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSpecialSourcesResponse) Error() string { return r.Error_ }

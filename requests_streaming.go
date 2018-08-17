@@ -6,18 +6,15 @@ package obsws
 // GetStreamingStatusRequest : Get current streaming and recording status.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamingstatus
-type GetStreamingStatusRequest _request
+type GetStreamingStatusRequest struct{ _request }
 
 // NewGetStreamingStatusRequest returns a new GetStreamingStatusRequest.
 func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
-	return GetStreamingStatusRequest{ID_: getMessageID(), Type_: "GetStreamingStatus"}
+	return GetStreamingStatusRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetStreamingStatus",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetStreamingStatusRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetStreamingStatusRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStreamingStatusRequest) Send(c Client) (chan GetStreamingStatusResponse, error) {
@@ -53,30 +50,18 @@ type GetStreamingStatusResponse struct {
 	_response   `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetStreamingStatusResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetStreamingStatusResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetStreamingStatusResponse) Error() string { return r.Error_ }
-
 // StartStopStreamingRequest : Toggle streaming on or off.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopstreaming
-type StartStopStreamingRequest _request
+type StartStopStreamingRequest struct{ _request }
 
 // NewStartStopStreamingRequest returns a new StartStopStreamingRequest.
 func NewStartStopStreamingRequest() StartStopStreamingRequest {
-	return StartStopStreamingRequest{ID_: getMessageID(), Type_: "StartStopStreaming"}
+	return StartStopStreamingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StartStopStreaming",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StartStopStreamingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartStopStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingResponse, error) {
@@ -92,16 +77,9 @@ func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingRespon
 // StartStopStreamingResponse : Response for StartStopStreamingRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopstreaming
-type StartStopStreamingResponse _response
-
-// ID returns the response's message ID.
-func (r StartStopStreamingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartStopStreamingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartStopStreamingResponse) Error() string { return r.Error_ }
+type StartStopStreamingResponse struct {
+	_response `json:",squash"`
+}
 
 // StartStreamingRequest : Start streaming.
 // Will return an `error` if streaming is already active.
@@ -171,14 +149,7 @@ func NewStartStreamingRequest(
 			Type_: "StartStreaming",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r StartStreamingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, error) {
@@ -194,33 +165,23 @@ func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, erro
 // StartStreamingResponse : Response for StartStreamingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstreaming
-type StartStreamingResponse _response
-
-// ID returns the response's message ID.
-func (r StartStreamingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartStreamingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartStreamingResponse) Error() string { return r.Error_ }
+type StartStreamingResponse struct {
+	_response `json:",squash"`
+}
 
 // StopStreamingRequest : Stop streaming.
 // Will return an `error` if streaming is not active.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopstreaming
-type StopStreamingRequest _request
+type StopStreamingRequest struct{ _request }
 
 // NewStopStreamingRequest returns a new StopStreamingRequest.
 func NewStopStreamingRequest() StopStreamingRequest {
-	return StopStreamingRequest{ID_: getMessageID(), Type_: "StopStreaming"}
+	return StopStreamingRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StopStreaming",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StopStreamingRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StopStreamingRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error) {
@@ -236,16 +197,9 @@ func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error)
 // StopStreamingResponse : Response for StopStreamingRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopstreaming
-type StopStreamingResponse _response
-
-// ID returns the response's message ID.
-func (r StopStreamingResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StopStreamingResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StopStreamingResponse) Error() string { return r.Error_ }
+type StopStreamingResponse struct {
+	_response `json:",squash"`
+}
 
 // SetStreamSettingsRequest : Sets one or more attributes of the current streaming server settings
 // Any options not passed will remain unchanged
@@ -307,14 +261,7 @@ func NewSetStreamSettingsRequest(
 			Type_: "SetStreamSettings",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetStreamSettingsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse, error) {
@@ -330,32 +277,22 @@ func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse
 // SetStreamSettingsResponse : Response for SetStreamSettingsRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setstreamsettings
-type SetStreamSettingsResponse _response
-
-// ID returns the response's message ID.
-func (r SetStreamSettingsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetStreamSettingsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetStreamSettingsResponse) Error() string { return r.Error_ }
+type SetStreamSettingsResponse struct {
+	_response `json:",squash"`
+}
 
 // GetStreamSettingsRequest : Get the current streaming server settings.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamsettings
-type GetStreamSettingsRequest _request
+type GetStreamSettingsRequest struct{ _request }
 
 // NewGetStreamSettingsRequest returns a new GetStreamSettingsRequest.
 func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
-	return GetStreamSettingsRequest{ID_: getMessageID(), Type_: "GetStreamSettings"}
+	return GetStreamSettingsRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetStreamSettings",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetStreamSettingsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetStreamSettingsRequest) Send(c Client) (chan GetStreamSettingsResponse, error) {
@@ -399,30 +336,18 @@ type GetStreamSettingsResponse struct {
 	_response        `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetStreamSettingsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetStreamSettingsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetStreamSettingsResponse) Error() string { return r.Error_ }
-
 // SaveStreamSettingsRequest : Save the current streaming server settings to disk.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savestreamsettings
-type SaveStreamSettingsRequest _request
+type SaveStreamSettingsRequest struct{ _request }
 
 // NewSaveStreamSettingsRequest returns a new SaveStreamSettingsRequest.
 func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
-	return SaveStreamSettingsRequest{ID_: getMessageID(), Type_: "SaveStreamSettings"}
+	return SaveStreamSettingsRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "SaveStreamSettings",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r SaveStreamSettingsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SaveStreamSettingsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsResponse, error) {
@@ -438,13 +363,6 @@ func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsRespon
 // SaveStreamSettingsResponse : Response for SaveStreamSettingsRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savestreamsettings
-type SaveStreamSettingsResponse _response
-
-// ID returns the response's message ID.
-func (r SaveStreamSettingsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SaveStreamSettingsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SaveStreamSettingsResponse) Error() string { return r.Error_ }
+type SaveStreamSettingsResponse struct {
+	_response `json:",squash"`
+}

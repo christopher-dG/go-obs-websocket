@@ -20,10 +20,10 @@ func (c *Client) Connect() error {
 
 	// We can't use SendRequest yet because we haven't started polling.
 
-	reqGAR := GetAuthRequiredRequest{
+	reqGAR := GetAuthRequiredRequest{_request{
 		ID_:   getMessageID(),
 		Type_: "GetAuthRequired",
-	}
+	}}
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
 		return errors.Wrap(err, "write Authenticate")
 	}

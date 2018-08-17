@@ -6,13 +6,6 @@ package obsws
 // ExitingEvent : OBS is exiting.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#exiting
-type ExitingEvent _event
-
-// Type returns the event's update type.
-func (e ExitingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e ExitingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e ExitingEvent) RecTimecode() string { return e.RecTimecode_ }
+type ExitingEvent struct {
+	_event `json:",squash"`
+}

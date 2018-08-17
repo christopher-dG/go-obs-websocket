@@ -6,18 +6,15 @@ package obsws
 // StartStopReplayBufferRequest : Toggle the Replay Buffer on/off.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
-type StartStopReplayBufferRequest _request
+type StartStopReplayBufferRequest struct{ _request }
 
 // NewStartStopReplayBufferRequest returns a new StartStopReplayBufferRequest.
 func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
-	return StartStopReplayBufferRequest{ID_: getMessageID(), Type_: "StartStopReplayBuffer"}
+	return StartStopReplayBufferRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StartStopReplayBuffer",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StartStopReplayBufferRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartStopReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBufferResponse, error) {
@@ -33,16 +30,9 @@ func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBuffer
 // StartStopReplayBufferResponse : Response for StartStopReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
-type StartStopReplayBufferResponse _response
-
-// ID returns the response's message ID.
-func (r StartStopReplayBufferResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartStopReplayBufferResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartStopReplayBufferResponse) Error() string { return r.Error_ }
+type StartStopReplayBufferResponse struct {
+	_response `json:",squash"`
+}
 
 // StartReplayBufferRequest : Start recording into the Replay Buffer.
 // Will return an `error` if the Replay Buffer is already active or if the
@@ -51,18 +41,15 @@ func (r StartStopReplayBufferResponse) Error() string { return r.Error_ }
 // through obs-websocket.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
-type StartReplayBufferRequest _request
+type StartReplayBufferRequest struct{ _request }
 
 // NewStartReplayBufferRequest returns a new StartReplayBufferRequest.
 func NewStartReplayBufferRequest() StartReplayBufferRequest {
-	return StartReplayBufferRequest{ID_: getMessageID(), Type_: "StartReplayBuffer"}
+	return StartReplayBufferRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StartReplayBuffer",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StartReplayBufferRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StartReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse, error) {
@@ -78,33 +65,23 @@ func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse
 // StartReplayBufferResponse : Response for StartReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
-type StartReplayBufferResponse _response
-
-// ID returns the response's message ID.
-func (r StartReplayBufferResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StartReplayBufferResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StartReplayBufferResponse) Error() string { return r.Error_ }
+type StartReplayBufferResponse struct {
+	_response `json:",squash"`
+}
 
 // StopReplayBufferRequest : Stop recording into the Replay Buffer.
 // Will return an `error` if the Replay Buffer is not active.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopreplaybuffer
-type StopReplayBufferRequest _request
+type StopReplayBufferRequest struct{ _request }
 
 // NewStopReplayBufferRequest returns a new StopReplayBufferRequest.
 func NewStopReplayBufferRequest() StopReplayBufferRequest {
-	return StopReplayBufferRequest{ID_: getMessageID(), Type_: "StopReplayBuffer"}
+	return StopReplayBufferRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "StopReplayBuffer",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r StopReplayBufferRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r StopReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, error) {
@@ -120,16 +97,9 @@ func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, 
 // StopReplayBufferResponse : Response for StopReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopreplaybuffer
-type StopReplayBufferResponse _response
-
-// ID returns the response's message ID.
-func (r StopReplayBufferResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r StopReplayBufferResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r StopReplayBufferResponse) Error() string { return r.Error_ }
+type StopReplayBufferResponse struct {
+	_response `json:",squash"`
+}
 
 // SaveReplayBufferRequest : Flush and save the contents of the Replay Buffer to disk
 // This is
@@ -137,18 +107,15 @@ func (r StopReplayBufferResponse) Error() string { return r.Error_ }
 // Will return an `error` if the Replay Buffer is not active.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savereplaybuffer
-type SaveReplayBufferRequest _request
+type SaveReplayBufferRequest struct{ _request }
 
 // NewSaveReplayBufferRequest returns a new SaveReplayBufferRequest.
 func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
-	return SaveReplayBufferRequest{ID_: getMessageID(), Type_: "SaveReplayBuffer"}
+	return SaveReplayBufferRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "SaveReplayBuffer",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r SaveReplayBufferRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SaveReplayBufferRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, error) {
@@ -164,13 +131,6 @@ func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, 
 // SaveReplayBufferResponse : Response for SaveReplayBufferRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savereplaybuffer
-type SaveReplayBufferResponse _response
-
-// ID returns the response's message ID.
-func (r SaveReplayBufferResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SaveReplayBufferResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SaveReplayBufferResponse) Error() string { return r.Error_ }
+type SaveReplayBufferResponse struct {
+	_response `json:",squash"`
+}

@@ -17,15 +17,6 @@ type PreviewSceneChangedEvent struct {
 	_event  `json:",squash"`
 }
 
-// Type returns the event's update type.
-func (e PreviewSceneChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e PreviewSceneChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e PreviewSceneChangedEvent) RecTimecode() string { return e.RecTimecode_ }
-
 // StudioModeSwitchedEvent : Studio Mode has been enabled or disabled.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#studiomodeswitched
@@ -35,12 +26,3 @@ type StudioModeSwitchedEvent struct {
 	NewState bool `json:"new-state"`
 	_event   `json:",squash"`
 }
-
-// Type returns the event's update type.
-func (e StudioModeSwitchedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StudioModeSwitchedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StudioModeSwitchedEvent) RecTimecode() string { return e.RecTimecode_ }

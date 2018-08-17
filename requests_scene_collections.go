@@ -22,14 +22,7 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 			Type_: "SetCurrentSceneCollection",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetCurrentSceneCollectionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetCurrentSceneCollectionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCollectionResponse, error) {
@@ -45,32 +38,22 @@ func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCo
 // SetCurrentSceneCollectionResponse : Response for SetCurrentSceneCollectionRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscenecollection
-type SetCurrentSceneCollectionResponse _response
-
-// ID returns the response's message ID.
-func (r SetCurrentSceneCollectionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetCurrentSceneCollectionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetCurrentSceneCollectionResponse) Error() string { return r.Error_ }
+type SetCurrentSceneCollectionResponse struct {
+	_response `json:",squash"`
+}
 
 // GetCurrentSceneCollectionRequest : Get the name of the current scene collection.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscenecollection
-type GetCurrentSceneCollectionRequest _request
+type GetCurrentSceneCollectionRequest struct{ _request }
 
 // NewGetCurrentSceneCollectionRequest returns a new GetCurrentSceneCollectionRequest.
 func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
-	return GetCurrentSceneCollectionRequest{ID_: getMessageID(), Type_: "GetCurrentSceneCollection"}
+	return GetCurrentSceneCollectionRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetCurrentSceneCollection",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetCurrentSceneCollectionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetCurrentSceneCollectionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentSceneCollectionRequest) Send(c Client) (chan GetCurrentSceneCollectionResponse, error) {
@@ -93,30 +76,18 @@ type GetCurrentSceneCollectionResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetCurrentSceneCollectionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetCurrentSceneCollectionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetCurrentSceneCollectionResponse) Error() string { return r.Error_ }
-
 // ListSceneCollectionsRequest : List available scene collections.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listscenecollections
-type ListSceneCollectionsRequest _request
+type ListSceneCollectionsRequest struct{ _request }
 
 // NewListSceneCollectionsRequest returns a new ListSceneCollectionsRequest.
 func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
-	return ListSceneCollectionsRequest{ID_: getMessageID(), Type_: "ListSceneCollections"}
+	return ListSceneCollectionsRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "ListSceneCollections",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r ListSceneCollectionsRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r ListSceneCollectionsRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ListSceneCollectionsRequest) Send(c Client) (chan ListSceneCollectionsResponse, error) {
@@ -140,12 +111,3 @@ type ListSceneCollectionsResponse struct {
 	SceneCollectionsStar string `json:"scene-collections.*."`
 	_response            `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r ListSceneCollectionsResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r ListSceneCollectionsResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r ListSceneCollectionsResponse) Error() string { return r.Error_ }

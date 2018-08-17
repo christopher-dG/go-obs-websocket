@@ -30,14 +30,7 @@ func NewGetSceneItemPropertiesRequest(
 			Type_: "GetSceneItemProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r GetSceneItemPropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetSceneItemPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetSceneItemPropertiesRequest) Send(c Client) (chan GetSceneItemPropertiesResponse, error) {
@@ -104,15 +97,6 @@ type GetSceneItemPropertiesResponse struct {
 	BoundsY   float64 `json:"bounds.y"`
 	_response `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetSceneItemPropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetSceneItemPropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetSceneItemPropertiesResponse) Error() string { return r.Error_ }
 
 // SetSceneItemPropertiesRequest : Sets the scene specific properties of a source
 // Unspecified properties will remain unchanged.
@@ -219,14 +203,7 @@ func NewSetSceneItemPropertiesRequest(
 			Type_: "SetSceneItemProperties",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSceneItemPropertiesRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSceneItemPropertiesRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemPropertiesResponse, error) {
@@ -242,16 +219,9 @@ func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemProperti
 // SetSceneItemPropertiesResponse : Response for SetSceneItemPropertiesRequest.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemproperties
-type SetSceneItemPropertiesResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemPropertiesResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSceneItemPropertiesResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSceneItemPropertiesResponse) Error() string { return r.Error_ }
+type SetSceneItemPropertiesResponse struct {
+	_response `json:",squash"`
+}
 
 // ResetSceneItemRequest : Reset a scene item.
 // Since obs-websocket version: 4.2.0.
@@ -280,14 +250,7 @@ func NewResetSceneItemRequest(
 			Type_: "ResetSceneItem",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r ResetSceneItemRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r ResetSceneItemRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, error) {
@@ -303,16 +266,9 @@ func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, erro
 // ResetSceneItemResponse : Response for ResetSceneItemRequest.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#resetsceneitem
-type ResetSceneItemResponse _response
-
-// ID returns the response's message ID.
-func (r ResetSceneItemResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r ResetSceneItemResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r ResetSceneItemResponse) Error() string { return r.Error_ }
+type ResetSceneItemResponse struct {
+	_response `json:",squash"`
+}
 
 // SetSceneItemRenderRequest : Show or hide a specified source item in a specified scene.
 // Since obs-websocket version: 0.3.
@@ -346,14 +302,7 @@ func NewSetSceneItemRenderRequest(
 			Type_: "SetSceneItemRender",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSceneItemRenderRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSceneItemRenderRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderResponse, error) {
@@ -369,16 +318,9 @@ func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderRespon
 // SetSceneItemRenderResponse : Response for SetSceneItemRenderRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemrender
-type SetSceneItemRenderResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemRenderResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSceneItemRenderResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSceneItemRenderResponse) Error() string { return r.Error_ }
+type SetSceneItemRenderResponse struct {
+	_response `json:",squash"`
+}
 
 // SetSceneItemPositionRequest : Sets the coordinates of a specified source item.
 // Since obs-websocket version: 4.0.0.
@@ -417,14 +359,7 @@ func NewSetSceneItemPositionRequest(
 			Type_: "SetSceneItemPosition",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSceneItemPositionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSceneItemPositionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionResponse, error) {
@@ -440,16 +375,9 @@ func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionRe
 // SetSceneItemPositionResponse : Response for SetSceneItemPositionRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemposition
-type SetSceneItemPositionResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemPositionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSceneItemPositionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSceneItemPositionResponse) Error() string { return r.Error_ }
+type SetSceneItemPositionResponse struct {
+	_response `json:",squash"`
+}
 
 // SetSceneItemTransformRequest : Set the transform of the specified source item.
 // Since obs-websocket version: 4.0.0.
@@ -493,14 +421,7 @@ func NewSetSceneItemTransformRequest(
 			Type_: "SetSceneItemTransform",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSceneItemTransformRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSceneItemTransformRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransformResponse, error) {
@@ -516,16 +437,9 @@ func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransform
 // SetSceneItemTransformResponse : Response for SetSceneItemTransformRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemtransform
-type SetSceneItemTransformResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemTransformResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSceneItemTransformResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSceneItemTransformResponse) Error() string { return r.Error_ }
+type SetSceneItemTransformResponse struct {
+	_response `json:",squash"`
+}
 
 // SetSceneItemCropRequest : Sets the crop coordinates of the specified source item.
 // Since obs-websocket version: 4.1.0.
@@ -574,14 +488,7 @@ func NewSetSceneItemCropRequest(
 			Type_: "SetSceneItemCrop",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetSceneItemCropRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetSceneItemCropRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, error) {
@@ -597,13 +504,6 @@ func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, 
 // SetSceneItemCropResponse : Response for SetSceneItemCropRequest.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setsceneitemcrop
-type SetSceneItemCropResponse _response
-
-// ID returns the response's message ID.
-func (r SetSceneItemCropResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetSceneItemCropResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetSceneItemCropResponse) Error() string { return r.Error_ }
+type SetSceneItemCropResponse struct {
+	_response `json:",squash"`
+}

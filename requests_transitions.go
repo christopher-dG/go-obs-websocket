@@ -6,18 +6,15 @@ package obsws
 // GetTransitionListRequest : List of all transitions available in the frontend's dropdown menu.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettransitionlist
-type GetTransitionListRequest _request
+type GetTransitionListRequest struct{ _request }
 
 // NewGetTransitionListRequest returns a new GetTransitionListRequest.
 func NewGetTransitionListRequest() GetTransitionListRequest {
-	return GetTransitionListRequest{ID_: getMessageID(), Type_: "GetTransitionList"}
+	return GetTransitionListRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetTransitionList",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetTransitionListRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetTransitionListRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetTransitionListRequest) Send(c Client) (chan GetTransitionListResponse, error) {
@@ -46,30 +43,18 @@ type GetTransitionListResponse struct {
 	_response       `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetTransitionListResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetTransitionListResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetTransitionListResponse) Error() string { return r.Error_ }
-
 // GetCurrentTransitionRequest : Get the name of the currently selected transition in the frontend's dropdown menu.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrenttransition
-type GetCurrentTransitionRequest _request
+type GetCurrentTransitionRequest struct{ _request }
 
 // NewGetCurrentTransitionRequest returns a new GetCurrentTransitionRequest.
 func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
-	return GetCurrentTransitionRequest{ID_: getMessageID(), Type_: "GetCurrentTransition"}
+	return GetCurrentTransitionRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetCurrentTransition",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetCurrentTransitionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetCurrentTransitionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetCurrentTransitionRequest) Send(c Client) (chan GetCurrentTransitionResponse, error) {
@@ -95,15 +80,6 @@ type GetCurrentTransitionResponse struct {
 	_response `json:",squash"`
 }
 
-// ID returns the response's message ID.
-func (r GetCurrentTransitionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetCurrentTransitionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetCurrentTransitionResponse) Error() string { return r.Error_ }
-
 // SetCurrentTransitionRequest : Set the active transition.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrenttransition
@@ -123,14 +99,7 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 			Type_: "SetCurrentTransition",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetCurrentTransitionRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetCurrentTransitionRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionResponse, error) {
@@ -146,16 +115,9 @@ func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionRe
 // SetCurrentTransitionResponse : Response for SetCurrentTransitionRequest.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrenttransition
-type SetCurrentTransitionResponse _response
-
-// ID returns the response's message ID.
-func (r SetCurrentTransitionResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetCurrentTransitionResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetCurrentTransitionResponse) Error() string { return r.Error_ }
+type SetCurrentTransitionResponse struct {
+	_response `json:",squash"`
+}
 
 // SetTransitionDurationRequest : Set the duration of the currently selected transition if supported.
 // Since obs-websocket version: 4.0.0.
@@ -176,14 +138,7 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 			Type_: "SetTransitionDuration",
 		},
 	}
-
 }
-
-// ID returns the request's message ID.
-func (r SetTransitionDurationRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r SetTransitionDurationRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDurationResponse, error) {
@@ -199,32 +154,22 @@ func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDuration
 // SetTransitionDurationResponse : Response for SetTransitionDurationRequest.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#settransitionduration
-type SetTransitionDurationResponse _response
-
-// ID returns the response's message ID.
-func (r SetTransitionDurationResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r SetTransitionDurationResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r SetTransitionDurationResponse) Error() string { return r.Error_ }
+type SetTransitionDurationResponse struct {
+	_response `json:",squash"`
+}
 
 // GetTransitionDurationRequest : Get the duration of the currently selected transition if supported.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettransitionduration
-type GetTransitionDurationRequest _request
+type GetTransitionDurationRequest struct{ _request }
 
 // NewGetTransitionDurationRequest returns a new GetTransitionDurationRequest.
 func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
-	return GetTransitionDurationRequest{ID_: getMessageID(), Type_: "GetTransitionDuration"}
+	return GetTransitionDurationRequest{_request{
+		ID_:   getMessageID(),
+		Type_: "GetTransitionDuration",
+	}}
 }
-
-// ID returns the request's message ID.
-func (r GetTransitionDurationRequest) ID() string { return r.ID_ }
-
-// Type returns the request's message type.
-func (r GetTransitionDurationRequest) Type() string { return r.Type_ }
 
 // Send sends the request and returns a channel to which the response will be sent.
 func (r GetTransitionDurationRequest) Send(c Client) (chan GetTransitionDurationResponse, error) {
@@ -246,12 +191,3 @@ type GetTransitionDurationResponse struct {
 	TransitionDuration int `json:"transition-duration"`
 	_response          `json:",squash"`
 }
-
-// ID returns the response's message ID.
-func (r GetTransitionDurationResponse) ID() string { return r.ID_ }
-
-// Status returns the response's status.
-func (r GetTransitionDurationResponse) Status() string { return r.Status_ }
-
-// Error returns the response's error.
-func (r GetTransitionDurationResponse) Error() string { return r.Error_ }

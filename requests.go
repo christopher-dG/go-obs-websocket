@@ -40,8 +40,11 @@ type _response struct {
 	Error_  string `json:"error"`
 }
 
+// ID returns the response's message ID.
 func (r _response) ID() string { return r.ID_ }
 
+// Status returns the response's status.
 func (r _response) Status() string { return r.Status_ }
 
+// Error returns the response's error.
 func (r _response) Error() string { return r.Error_ }

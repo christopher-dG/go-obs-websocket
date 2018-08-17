@@ -13,29 +13,13 @@ type SwitchTransitionEvent struct {
 	_event         `json:",squash"`
 }
 
-// Type returns the event's update type.
-func (e SwitchTransitionEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e SwitchTransitionEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e SwitchTransitionEvent) RecTimecode() string { return e.RecTimecode_ }
-
 // TransitionListChangedEvent : The list of available transitions has been modified.
 // Transitions have been added, removed, or renamed.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitionlistchanged
-type TransitionListChangedEvent _event
-
-// Type returns the event's update type.
-func (e TransitionListChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e TransitionListChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e TransitionListChangedEvent) RecTimecode() string { return e.RecTimecode_ }
+type TransitionListChangedEvent struct {
+	_event `json:",squash"`
+}
 
 // TransitionDurationChangedEvent : The active transition duration has been changed.
 // Since obs-websocket version: 4.0.0.
@@ -46,15 +30,6 @@ type TransitionDurationChangedEvent struct {
 	NewDuration int `json:"new-duration"`
 	_event      `json:",squash"`
 }
-
-// Type returns the event's update type.
-func (e TransitionDurationChangedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e TransitionDurationChangedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e TransitionDurationChangedEvent) RecTimecode() string { return e.RecTimecode_ }
 
 // TransitionBeginEvent : A transition (other than "cut") has begun.
 // Since obs-websocket version: 4.0.0.
@@ -74,12 +49,3 @@ type TransitionBeginEvent struct {
 	ToScene string `json:"to-scene"`
 	_event  `json:",squash"`
 }
-
-// Type returns the event's update type.
-func (e TransitionBeginEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e TransitionBeginEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e TransitionBeginEvent) RecTimecode() string { return e.RecTimecode_ }

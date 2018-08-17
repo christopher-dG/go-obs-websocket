@@ -13,28 +13,12 @@ type StreamStartingEvent struct {
 	_event      `json:",squash"`
 }
 
-// Type returns the event's update type.
-func (e StreamStartingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StreamStartingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StreamStartingEvent) RecTimecode() string { return e.RecTimecode_ }
-
 // StreamStartedEvent : Streaming started successfully.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstarted
-type StreamStartedEvent _event
-
-// Type returns the event's update type.
-func (e StreamStartedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StreamStartedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StreamStartedEvent) RecTimecode() string { return e.RecTimecode_ }
+type StreamStartedEvent struct {
+	_event `json:",squash"`
+}
 
 // StreamStoppingEvent : A request to stop streaming has been issued.
 // Since obs-websocket version: 0.3.
@@ -46,28 +30,12 @@ type StreamStoppingEvent struct {
 	_event      `json:",squash"`
 }
 
-// Type returns the event's update type.
-func (e StreamStoppingEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StreamStoppingEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StreamStoppingEvent) RecTimecode() string { return e.RecTimecode_ }
-
 // StreamStoppedEvent : Streaming stopped successfully.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstopped
-type StreamStoppedEvent _event
-
-// Type returns the event's update type.
-func (e StreamStoppedEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StreamStoppedEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StreamStoppedEvent) RecTimecode() string { return e.RecTimecode_ }
+type StreamStoppedEvent struct {
+	_event `json:",squash"`
+}
 
 // StreamStatusEvent : Emit every 2 seconds.
 // Since obs-websocket version: 0.3.
@@ -105,12 +73,3 @@ type StreamStatusEvent struct {
 	FPS    float64 `json:"fps"`
 	_event `json:",squash"`
 }
-
-// Type returns the event's update type.
-func (e StreamStatusEvent) Type() string { return e.Type_ }
-
-// StreamTimecode returns the event's stream timecode.
-func (e StreamStatusEvent) StreamTimecode() string { return e.StreamTimecode_ }
-
-// RecTimecode returns the event's recording timecode.
-func (e StreamStatusEvent) RecTimecode() string { return e.RecTimecode_ }
