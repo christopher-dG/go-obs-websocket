@@ -11,6 +11,7 @@ type SetCurrentSceneCollectionRequest struct {
 	// Required: Yes.
 	ScName   string `json:"sc-name"`
 	_request `json:",squash"`
+	response chan SetCurrentSceneCollectionResponse
 }
 
 // NewSetCurrentSceneCollectionRequest returns a new SetCurrentSceneCollectionRequest.
@@ -21,18 +22,48 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 			ID_:   getMessageID(),
 			Type_: "SetCurrentSceneCollection",
 		},
+		make(chan SetCurrentSceneCollectionResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetCurrentSceneCollectionRequest) Send(c Client) (chan SetCurrentSceneCollectionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetCurrentSceneCollectionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetCurrentSceneCollectionResponse)
-	go func() { future <- (<-generic).(SetCurrentSceneCollectionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetCurrentSceneCollectionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetCurrentSceneCollectionRequest) Receive() (SetCurrentSceneCollectionResponse, error) {
+	if !r.sent {
+		return SetCurrentSceneCollectionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetCurrentSceneCollectionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetCurrentSceneCollectionRequest) SendReceive(c Client) (SetCurrentSceneCollectionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetCurrentSceneCollectionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetCurrentSceneCollectionResponse : Response for SetCurrentSceneCollectionRequest.
@@ -45,25 +76,61 @@ type SetCurrentSceneCollectionResponse struct {
 // GetCurrentSceneCollectionRequest : Get the name of the current scene collection.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscenecollection
-type GetCurrentSceneCollectionRequest struct{ _request }
+type GetCurrentSceneCollectionRequest struct {
+	_request `json:",squash"`
+	response chan GetCurrentSceneCollectionResponse
+}
 
 // NewGetCurrentSceneCollectionRequest returns a new GetCurrentSceneCollectionRequest.
 func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
-	return GetCurrentSceneCollectionRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetCurrentSceneCollection",
-	}}
+	return GetCurrentSceneCollectionRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetCurrentSceneCollection",
+			err:   make(chan error),
+		},
+		make(chan GetCurrentSceneCollectionResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetCurrentSceneCollectionRequest) Send(c Client) (chan GetCurrentSceneCollectionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetCurrentSceneCollectionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetCurrentSceneCollectionResponse)
-	go func() { future <- (<-generic).(GetCurrentSceneCollectionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetCurrentSceneCollectionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetCurrentSceneCollectionRequest) Receive() (GetCurrentSceneCollectionResponse, error) {
+	if !r.sent {
+		return GetCurrentSceneCollectionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetCurrentSceneCollectionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetCurrentSceneCollectionRequest) SendReceive(c Client) (GetCurrentSceneCollectionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetCurrentSceneCollectionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetCurrentSceneCollectionResponse : Response for GetCurrentSceneCollectionRequest.
@@ -79,25 +146,61 @@ type GetCurrentSceneCollectionResponse struct {
 // ListSceneCollectionsRequest : List available scene collections.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listscenecollections
-type ListSceneCollectionsRequest struct{ _request }
+type ListSceneCollectionsRequest struct {
+	_request `json:",squash"`
+	response chan ListSceneCollectionsResponse
+}
 
 // NewListSceneCollectionsRequest returns a new ListSceneCollectionsRequest.
 func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
-	return ListSceneCollectionsRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "ListSceneCollections",
-	}}
+	return ListSceneCollectionsRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ListSceneCollections",
+			err:   make(chan error),
+		},
+		make(chan ListSceneCollectionsResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r ListSceneCollectionsRequest) Send(c Client) (chan ListSceneCollectionsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *ListSceneCollectionsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan ListSceneCollectionsResponse)
-	go func() { future <- (<-generic).(ListSceneCollectionsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ListSceneCollectionsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ListSceneCollectionsRequest) Receive() (ListSceneCollectionsResponse, error) {
+	if !r.sent {
+		return ListSceneCollectionsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return ListSceneCollectionsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ListSceneCollectionsRequest) SendReceive(c Client) (ListSceneCollectionsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ListSceneCollectionsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // ListSceneCollectionsResponse : Response for ListSceneCollectionsRequest.
@@ -108,6 +211,7 @@ type ListSceneCollectionsResponse struct {
 	// Required: Yes.
 	SceneCollections interface{} `json:"scene-collections"`
 	// Required: Yes.
-	SceneCollectionsStar string `json:"scene-collections.*."`
-	_response            `json:",squash"`
+	// TODO: Duplicate name.
+	SceneCollections_ string `json:"scene-collections.*."`
+	_response         `json:",squash"`
 }

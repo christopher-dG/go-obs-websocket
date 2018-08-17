@@ -6,25 +6,61 @@ package obsws
 // GetStudioModeStatusRequest : Indicates if Studio Mode is currently enabled.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstudiomodestatus
-type GetStudioModeStatusRequest struct{ _request }
+type GetStudioModeStatusRequest struct {
+	_request `json:",squash"`
+	response chan GetStudioModeStatusResponse
+}
 
 // NewGetStudioModeStatusRequest returns a new GetStudioModeStatusRequest.
 func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
-	return GetStudioModeStatusRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetStudioModeStatus",
-	}}
+	return GetStudioModeStatusRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetStudioModeStatus",
+			err:   make(chan error),
+		},
+		make(chan GetStudioModeStatusResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetStudioModeStatusRequest) Send(c Client) (chan GetStudioModeStatusResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetStudioModeStatusRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetStudioModeStatusResponse)
-	go func() { future <- (<-generic).(GetStudioModeStatusResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetStudioModeStatusResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetStudioModeStatusRequest) Receive() (GetStudioModeStatusResponse, error) {
+	if !r.sent {
+		return GetStudioModeStatusResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetStudioModeStatusResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetStudioModeStatusRequest) SendReceive(c Client) (GetStudioModeStatusResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetStudioModeStatusResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetStudioModeStatusResponse : Response for GetStudioModeStatusRequest.
@@ -41,25 +77,61 @@ type GetStudioModeStatusResponse struct {
 // Will return an `error` if Studio Mode is not enabled.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getpreviewscene
-type GetPreviewSceneRequest struct{ _request }
+type GetPreviewSceneRequest struct {
+	_request `json:",squash"`
+	response chan GetPreviewSceneResponse
+}
 
 // NewGetPreviewSceneRequest returns a new GetPreviewSceneRequest.
 func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
-	return GetPreviewSceneRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetPreviewScene",
-	}}
+	return GetPreviewSceneRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetPreviewScene",
+			err:   make(chan error),
+		},
+		make(chan GetPreviewSceneResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetPreviewSceneRequest) Send(c Client) (chan GetPreviewSceneResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetPreviewSceneRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetPreviewSceneResponse)
-	go func() { future <- (<-generic).(GetPreviewSceneResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetPreviewSceneResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetPreviewSceneRequest) Receive() (GetPreviewSceneResponse, error) {
+	if !r.sent {
+		return GetPreviewSceneResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetPreviewSceneResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetPreviewSceneRequest) SendReceive(c Client) (GetPreviewSceneResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetPreviewSceneResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetPreviewSceneResponse : Response for GetPreviewSceneRequest.
@@ -83,6 +155,7 @@ type SetPreviewSceneRequest struct {
 	// Required: Yes.
 	SceneName string `json:"scene-name"`
 	_request  `json:",squash"`
+	response  chan SetPreviewSceneResponse
 }
 
 // NewSetPreviewSceneRequest returns a new SetPreviewSceneRequest.
@@ -93,18 +166,48 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 			ID_:   getMessageID(),
 			Type_: "SetPreviewScene",
 		},
+		make(chan SetPreviewSceneResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetPreviewSceneRequest) Send(c Client) (chan SetPreviewSceneResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetPreviewSceneRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetPreviewSceneResponse)
-	go func() { future <- (<-generic).(SetPreviewSceneResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetPreviewSceneResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetPreviewSceneRequest) Receive() (SetPreviewSceneResponse, error) {
+	if !r.sent {
+		return SetPreviewSceneResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetPreviewSceneResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetPreviewSceneRequest) SendReceive(c Client) (SetPreviewSceneResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetPreviewSceneResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetPreviewSceneResponse : Response for SetPreviewSceneRequest.
@@ -130,6 +233,7 @@ type TransitionToProgramRequest struct {
 	// Required: No.
 	WithTransitionDuration int `json:"with-transition.duration"`
 	_request               `json:",squash"`
+	response               chan TransitionToProgramResponse
 }
 
 // NewTransitionToProgramRequest returns a new TransitionToProgramRequest.
@@ -146,18 +250,48 @@ func NewTransitionToProgramRequest(
 			ID_:   getMessageID(),
 			Type_: "TransitionToProgram",
 		},
+		make(chan TransitionToProgramResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r TransitionToProgramRequest) Send(c Client) (chan TransitionToProgramResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *TransitionToProgramRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan TransitionToProgramResponse)
-	go func() { future <- (<-generic).(TransitionToProgramResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp TransitionToProgramResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r TransitionToProgramRequest) Receive() (TransitionToProgramResponse, error) {
+	if !r.sent {
+		return TransitionToProgramResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return TransitionToProgramResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r TransitionToProgramRequest) SendReceive(c Client) (TransitionToProgramResponse, error) {
+	if err := r.Send(c); err != nil {
+		return TransitionToProgramResponse{}, err
+	}
+	return r.Receive()
 }
 
 // TransitionToProgramResponse : Response for TransitionToProgramRequest.
@@ -170,25 +304,61 @@ type TransitionToProgramResponse struct {
 // EnableStudioModeRequest : Enables Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#enablestudiomode
-type EnableStudioModeRequest struct{ _request }
+type EnableStudioModeRequest struct {
+	_request `json:",squash"`
+	response chan EnableStudioModeResponse
+}
 
 // NewEnableStudioModeRequest returns a new EnableStudioModeRequest.
 func NewEnableStudioModeRequest() EnableStudioModeRequest {
-	return EnableStudioModeRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "EnableStudioMode",
-	}}
+	return EnableStudioModeRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "EnableStudioMode",
+			err:   make(chan error),
+		},
+		make(chan EnableStudioModeResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r EnableStudioModeRequest) Send(c Client) (chan EnableStudioModeResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *EnableStudioModeRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan EnableStudioModeResponse)
-	go func() { future <- (<-generic).(EnableStudioModeResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp EnableStudioModeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r EnableStudioModeRequest) Receive() (EnableStudioModeResponse, error) {
+	if !r.sent {
+		return EnableStudioModeResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return EnableStudioModeResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r EnableStudioModeRequest) SendReceive(c Client) (EnableStudioModeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return EnableStudioModeResponse{}, err
+	}
+	return r.Receive()
 }
 
 // EnableStudioModeResponse : Response for EnableStudioModeRequest.
@@ -201,25 +371,61 @@ type EnableStudioModeResponse struct {
 // DisableStudioModeRequest : Disables Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#disablestudiomode
-type DisableStudioModeRequest struct{ _request }
+type DisableStudioModeRequest struct {
+	_request `json:",squash"`
+	response chan DisableStudioModeResponse
+}
 
 // NewDisableStudioModeRequest returns a new DisableStudioModeRequest.
 func NewDisableStudioModeRequest() DisableStudioModeRequest {
-	return DisableStudioModeRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "DisableStudioMode",
-	}}
+	return DisableStudioModeRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "DisableStudioMode",
+			err:   make(chan error),
+		},
+		make(chan DisableStudioModeResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r DisableStudioModeRequest) Send(c Client) (chan DisableStudioModeResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *DisableStudioModeRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan DisableStudioModeResponse)
-	go func() { future <- (<-generic).(DisableStudioModeResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp DisableStudioModeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r DisableStudioModeRequest) Receive() (DisableStudioModeResponse, error) {
+	if !r.sent {
+		return DisableStudioModeResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return DisableStudioModeResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r DisableStudioModeRequest) SendReceive(c Client) (DisableStudioModeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return DisableStudioModeResponse{}, err
+	}
+	return r.Receive()
 }
 
 // DisableStudioModeResponse : Response for DisableStudioModeRequest.
@@ -232,25 +438,61 @@ type DisableStudioModeResponse struct {
 // ToggleStudioModeRequest : Toggles Studio Mode.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#togglestudiomode
-type ToggleStudioModeRequest struct{ _request }
+type ToggleStudioModeRequest struct {
+	_request `json:",squash"`
+	response chan ToggleStudioModeResponse
+}
 
 // NewToggleStudioModeRequest returns a new ToggleStudioModeRequest.
 func NewToggleStudioModeRequest() ToggleStudioModeRequest {
-	return ToggleStudioModeRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "ToggleStudioMode",
-	}}
+	return ToggleStudioModeRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ToggleStudioMode",
+			err:   make(chan error),
+		},
+		make(chan ToggleStudioModeResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r ToggleStudioModeRequest) Send(c Client) (chan ToggleStudioModeResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *ToggleStudioModeRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan ToggleStudioModeResponse)
-	go func() { future <- (<-generic).(ToggleStudioModeResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ToggleStudioModeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ToggleStudioModeRequest) Receive() (ToggleStudioModeResponse, error) {
+	if !r.sent {
+		return ToggleStudioModeResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return ToggleStudioModeResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ToggleStudioModeRequest) SendReceive(c Client) (ToggleStudioModeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ToggleStudioModeResponse{}, err
+	}
+	return r.Receive()
 }
 
 // ToggleStudioModeResponse : Response for ToggleStudioModeRequest.

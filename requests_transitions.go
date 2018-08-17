@@ -6,25 +6,61 @@ package obsws
 // GetTransitionListRequest : List of all transitions available in the frontend's dropdown menu.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettransitionlist
-type GetTransitionListRequest struct{ _request }
+type GetTransitionListRequest struct {
+	_request `json:",squash"`
+	response chan GetTransitionListResponse
+}
 
 // NewGetTransitionListRequest returns a new GetTransitionListRequest.
 func NewGetTransitionListRequest() GetTransitionListRequest {
-	return GetTransitionListRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetTransitionList",
-	}}
+	return GetTransitionListRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetTransitionList",
+			err:   make(chan error),
+		},
+		make(chan GetTransitionListResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetTransitionListRequest) Send(c Client) (chan GetTransitionListResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetTransitionListRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetTransitionListResponse)
-	go func() { future <- (<-generic).(GetTransitionListResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTransitionListResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTransitionListRequest) Receive() (GetTransitionListResponse, error) {
+	if !r.sent {
+		return GetTransitionListResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetTransitionListResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTransitionListRequest) SendReceive(c Client) (GetTransitionListResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTransitionListResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetTransitionListResponse : Response for GetTransitionListRequest.
@@ -46,25 +82,61 @@ type GetTransitionListResponse struct {
 // GetCurrentTransitionRequest : Get the name of the currently selected transition in the frontend's dropdown menu.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrenttransition
-type GetCurrentTransitionRequest struct{ _request }
+type GetCurrentTransitionRequest struct {
+	_request `json:",squash"`
+	response chan GetCurrentTransitionResponse
+}
 
 // NewGetCurrentTransitionRequest returns a new GetCurrentTransitionRequest.
 func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
-	return GetCurrentTransitionRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetCurrentTransition",
-	}}
+	return GetCurrentTransitionRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetCurrentTransition",
+			err:   make(chan error),
+		},
+		make(chan GetCurrentTransitionResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetCurrentTransitionRequest) Send(c Client) (chan GetCurrentTransitionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetCurrentTransitionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetCurrentTransitionResponse)
-	go func() { future <- (<-generic).(GetCurrentTransitionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetCurrentTransitionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetCurrentTransitionRequest) Receive() (GetCurrentTransitionResponse, error) {
+	if !r.sent {
+		return GetCurrentTransitionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetCurrentTransitionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetCurrentTransitionRequest) SendReceive(c Client) (GetCurrentTransitionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetCurrentTransitionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetCurrentTransitionResponse : Response for GetCurrentTransitionRequest.
@@ -88,6 +160,7 @@ type SetCurrentTransitionRequest struct {
 	// Required: Yes.
 	TransitionName string `json:"transition-name"`
 	_request       `json:",squash"`
+	response       chan SetCurrentTransitionResponse
 }
 
 // NewSetCurrentTransitionRequest returns a new SetCurrentTransitionRequest.
@@ -98,18 +171,48 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 			ID_:   getMessageID(),
 			Type_: "SetCurrentTransition",
 		},
+		make(chan SetCurrentTransitionResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetCurrentTransitionRequest) Send(c Client) (chan SetCurrentTransitionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetCurrentTransitionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetCurrentTransitionResponse)
-	go func() { future <- (<-generic).(SetCurrentTransitionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetCurrentTransitionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetCurrentTransitionRequest) Receive() (SetCurrentTransitionResponse, error) {
+	if !r.sent {
+		return SetCurrentTransitionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetCurrentTransitionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetCurrentTransitionRequest) SendReceive(c Client) (SetCurrentTransitionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetCurrentTransitionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetCurrentTransitionResponse : Response for SetCurrentTransitionRequest.
@@ -127,6 +230,7 @@ type SetTransitionDurationRequest struct {
 	// Required: Yes.
 	Duration int `json:"duration"`
 	_request `json:",squash"`
+	response chan SetTransitionDurationResponse
 }
 
 // NewSetTransitionDurationRequest returns a new SetTransitionDurationRequest.
@@ -137,18 +241,48 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 			ID_:   getMessageID(),
 			Type_: "SetTransitionDuration",
 		},
+		make(chan SetTransitionDurationResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetTransitionDurationRequest) Send(c Client) (chan SetTransitionDurationResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetTransitionDurationRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetTransitionDurationResponse)
-	go func() { future <- (<-generic).(SetTransitionDurationResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetTransitionDurationResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetTransitionDurationRequest) Receive() (SetTransitionDurationResponse, error) {
+	if !r.sent {
+		return SetTransitionDurationResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetTransitionDurationResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetTransitionDurationRequest) SendReceive(c Client) (SetTransitionDurationResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetTransitionDurationResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetTransitionDurationResponse : Response for SetTransitionDurationRequest.
@@ -161,25 +295,61 @@ type SetTransitionDurationResponse struct {
 // GetTransitionDurationRequest : Get the duration of the currently selected transition if supported.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#gettransitionduration
-type GetTransitionDurationRequest struct{ _request }
+type GetTransitionDurationRequest struct {
+	_request `json:",squash"`
+	response chan GetTransitionDurationResponse
+}
 
 // NewGetTransitionDurationRequest returns a new GetTransitionDurationRequest.
 func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
-	return GetTransitionDurationRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetTransitionDuration",
-	}}
+	return GetTransitionDurationRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetTransitionDuration",
+			err:   make(chan error),
+		},
+		make(chan GetTransitionDurationResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetTransitionDurationRequest) Send(c Client) (chan GetTransitionDurationResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetTransitionDurationRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetTransitionDurationResponse)
-	go func() { future <- (<-generic).(GetTransitionDurationResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTransitionDurationResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTransitionDurationRequest) Receive() (GetTransitionDurationResponse, error) {
+	if !r.sent {
+		return GetTransitionDurationResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetTransitionDurationResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTransitionDurationRequest) SendReceive(c Client) (GetTransitionDurationResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTransitionDurationResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetTransitionDurationResponse : Response for GetTransitionDurationRequest.

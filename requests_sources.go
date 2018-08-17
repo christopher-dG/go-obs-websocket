@@ -6,25 +6,61 @@ package obsws
 // GetSourcesListRequest : List all sources available in the running OBS instance.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsourceslist
-type GetSourcesListRequest struct{ _request }
+type GetSourcesListRequest struct {
+	_request `json:",squash"`
+	response chan GetSourcesListResponse
+}
 
 // NewGetSourcesListRequest returns a new GetSourcesListRequest.
 func NewGetSourcesListRequest() GetSourcesListRequest {
-	return GetSourcesListRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetSourcesList",
-	}}
+	return GetSourcesListRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSourcesList",
+			err:   make(chan error),
+		},
+		make(chan GetSourcesListResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSourcesListRequest) Send(c Client) (chan GetSourcesListResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSourcesListRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSourcesListResponse)
-	go func() { future <- (<-generic).(GetSourcesListResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourcesListResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourcesListRequest) Receive() (GetSourcesListResponse, error) {
+	if !r.sent {
+		return GetSourcesListResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSourcesListResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourcesListRequest) SendReceive(c Client) (GetSourcesListResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourcesListResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSourcesListResponse : Response for GetSourcesListRequest.
@@ -50,25 +86,61 @@ type GetSourcesListResponse struct {
 // GetSourcesTypesListRequest : Get a list of all available sources types.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getsourcestypeslist
-type GetSourcesTypesListRequest struct{ _request }
+type GetSourcesTypesListRequest struct {
+	_request `json:",squash"`
+	response chan GetSourcesTypesListResponse
+}
 
 // NewGetSourcesTypesListRequest returns a new GetSourcesTypesListRequest.
 func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
-	return GetSourcesTypesListRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetSourcesTypesList",
-	}}
+	return GetSourcesTypesListRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSourcesTypesList",
+			err:   make(chan error),
+		},
+		make(chan GetSourcesTypesListResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSourcesTypesListRequest) Send(c Client) (chan GetSourcesTypesListResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSourcesTypesListRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSourcesTypesListResponse)
-	go func() { future <- (<-generic).(GetSourcesTypesListResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourcesTypesListResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourcesTypesListRequest) Receive() (GetSourcesTypesListResponse, error) {
+	if !r.sent {
+		return GetSourcesTypesListResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSourcesTypesListResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourcesTypesListRequest) SendReceive(c Client) (GetSourcesTypesListResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourcesTypesListResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSourcesTypesListResponse : Response for GetSourcesTypesListRequest.
@@ -126,6 +198,7 @@ type GetVolumeRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan GetVolumeResponse
 }
 
 // NewGetVolumeRequest returns a new GetVolumeRequest.
@@ -136,18 +209,48 @@ func NewGetVolumeRequest(source string) GetVolumeRequest {
 			ID_:   getMessageID(),
 			Type_: "GetVolume",
 		},
+		make(chan GetVolumeResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetVolumeRequest) Send(c Client) (chan GetVolumeResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetVolumeRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetVolumeResponse)
-	go func() { future <- (<-generic).(GetVolumeResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetVolumeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetVolumeRequest) Receive() (GetVolumeResponse, error) {
+	if !r.sent {
+		return GetVolumeResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetVolumeResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetVolumeRequest) SendReceive(c Client) (GetVolumeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetVolumeResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetVolumeResponse : Response for GetVolumeRequest.
@@ -179,6 +282,7 @@ type SetVolumeRequest struct {
 	// Required: Yes.
 	Volume   float64 `json:"volume"`
 	_request `json:",squash"`
+	response chan SetVolumeResponse
 }
 
 // NewSetVolumeRequest returns a new SetVolumeRequest.
@@ -193,18 +297,48 @@ func NewSetVolumeRequest(
 			ID_:   getMessageID(),
 			Type_: "SetVolume",
 		},
+		make(chan SetVolumeResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetVolumeRequest) Send(c Client) (chan SetVolumeResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetVolumeRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetVolumeResponse)
-	go func() { future <- (<-generic).(SetVolumeResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetVolumeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetVolumeRequest) Receive() (SetVolumeResponse, error) {
+	if !r.sent {
+		return SetVolumeResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetVolumeResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetVolumeRequest) SendReceive(c Client) (SetVolumeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetVolumeResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetVolumeResponse : Response for SetVolumeRequest.
@@ -222,6 +356,7 @@ type GetMuteRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan GetMuteResponse
 }
 
 // NewGetMuteRequest returns a new GetMuteRequest.
@@ -232,18 +367,48 @@ func NewGetMuteRequest(source string) GetMuteRequest {
 			ID_:   getMessageID(),
 			Type_: "GetMute",
 		},
+		make(chan GetMuteResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetMuteRequest) Send(c Client) (chan GetMuteResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetMuteRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetMuteResponse)
-	go func() { future <- (<-generic).(GetMuteResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetMuteResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetMuteRequest) Receive() (GetMuteResponse, error) {
+	if !r.sent {
+		return GetMuteResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetMuteResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetMuteRequest) SendReceive(c Client) (GetMuteResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetMuteResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetMuteResponse : Response for GetMuteRequest.
@@ -270,6 +435,7 @@ type SetMuteRequest struct {
 	// Required: Yes.
 	Mute     bool `json:"mute"`
 	_request `json:",squash"`
+	response chan SetMuteResponse
 }
 
 // NewSetMuteRequest returns a new SetMuteRequest.
@@ -284,18 +450,48 @@ func NewSetMuteRequest(
 			ID_:   getMessageID(),
 			Type_: "SetMute",
 		},
+		make(chan SetMuteResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetMuteRequest) Send(c Client) (chan SetMuteResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetMuteRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetMuteResponse)
-	go func() { future <- (<-generic).(SetMuteResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetMuteResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetMuteRequest) Receive() (SetMuteResponse, error) {
+	if !r.sent {
+		return SetMuteResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetMuteResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetMuteRequest) SendReceive(c Client) (SetMuteResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetMuteResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetMuteResponse : Response for SetMuteRequest.
@@ -313,6 +509,7 @@ type ToggleMuteRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan ToggleMuteResponse
 }
 
 // NewToggleMuteRequest returns a new ToggleMuteRequest.
@@ -323,18 +520,48 @@ func NewToggleMuteRequest(source string) ToggleMuteRequest {
 			ID_:   getMessageID(),
 			Type_: "ToggleMute",
 		},
+		make(chan ToggleMuteResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r ToggleMuteRequest) Send(c Client) (chan ToggleMuteResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *ToggleMuteRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan ToggleMuteResponse)
-	go func() { future <- (<-generic).(ToggleMuteResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ToggleMuteResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ToggleMuteRequest) Receive() (ToggleMuteResponse, error) {
+	if !r.sent {
+		return ToggleMuteResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return ToggleMuteResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ToggleMuteRequest) SendReceive(c Client) (ToggleMuteResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ToggleMuteResponse{}, err
+	}
+	return r.Receive()
 }
 
 // ToggleMuteResponse : Response for ToggleMuteRequest.
@@ -355,6 +582,7 @@ type SetSyncOffsetRequest struct {
 	// Required: Yes.
 	Offset   int `json:"offset"`
 	_request `json:",squash"`
+	response chan SetSyncOffsetResponse
 }
 
 // NewSetSyncOffsetRequest returns a new SetSyncOffsetRequest.
@@ -369,18 +597,48 @@ func NewSetSyncOffsetRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSyncOffset",
 		},
+		make(chan SetSyncOffsetResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSyncOffsetRequest) Send(c Client) (chan SetSyncOffsetResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSyncOffsetRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSyncOffsetResponse)
-	go func() { future <- (<-generic).(SetSyncOffsetResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSyncOffsetResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSyncOffsetRequest) Receive() (SetSyncOffsetResponse, error) {
+	if !r.sent {
+		return SetSyncOffsetResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSyncOffsetResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSyncOffsetRequest) SendReceive(c Client) (SetSyncOffsetResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSyncOffsetResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSyncOffsetResponse : Response for SetSyncOffsetRequest.
@@ -398,6 +656,7 @@ type GetSyncOffsetRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan GetSyncOffsetResponse
 }
 
 // NewGetSyncOffsetRequest returns a new GetSyncOffsetRequest.
@@ -408,18 +667,48 @@ func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 			ID_:   getMessageID(),
 			Type_: "GetSyncOffset",
 		},
+		make(chan GetSyncOffsetResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSyncOffsetRequest) Send(c Client) (chan GetSyncOffsetResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSyncOffsetRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSyncOffsetResponse)
-	go func() { future <- (<-generic).(GetSyncOffsetResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSyncOffsetResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSyncOffsetRequest) Receive() (GetSyncOffsetResponse, error) {
+	if !r.sent {
+		return GetSyncOffsetResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSyncOffsetResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSyncOffsetRequest) SendReceive(c Client) (GetSyncOffsetResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSyncOffsetResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSyncOffsetResponse : Response for GetSyncOffsetRequest.
@@ -447,6 +736,7 @@ type GetSourceSettingsRequest struct {
 	// Required: No.
 	SourceType string `json:"sourceType"`
 	_request   `json:",squash"`
+	response   chan GetSourceSettingsResponse
 }
 
 // NewGetSourceSettingsRequest returns a new GetSourceSettingsRequest.
@@ -461,18 +751,48 @@ func NewGetSourceSettingsRequest(
 			ID_:   getMessageID(),
 			Type_: "GetSourceSettings",
 		},
+		make(chan GetSourceSettingsResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSourceSettingsRequest) Send(c Client) (chan GetSourceSettingsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSourceSettingsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSourceSettingsResponse)
-	go func() { future <- (<-generic).(GetSourceSettingsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourceSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourceSettingsRequest) Receive() (GetSourceSettingsResponse, error) {
+	if !r.sent {
+		return GetSourceSettingsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSourceSettingsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourceSettingsRequest) SendReceive(c Client) (GetSourceSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourceSettingsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSourceSettingsResponse : Response for GetSourceSettingsRequest.
@@ -508,6 +828,7 @@ type SetSourceSettingsRequest struct {
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 	_request       `json:",squash"`
+	response       chan SetSourceSettingsResponse
 }
 
 // NewSetSourceSettingsRequest returns a new SetSourceSettingsRequest.
@@ -524,18 +845,48 @@ func NewSetSourceSettingsRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSourceSettings",
 		},
+		make(chan SetSourceSettingsResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSourceSettingsRequest) Send(c Client) (chan SetSourceSettingsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSourceSettingsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSourceSettingsResponse)
-	go func() { future <- (<-generic).(SetSourceSettingsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSourceSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSourceSettingsRequest) Receive() (SetSourceSettingsResponse, error) {
+	if !r.sent {
+		return SetSourceSettingsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSourceSettingsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSourceSettingsRequest) SendReceive(c Client) (SetSourceSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSourceSettingsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSourceSettingsResponse : Response for SetSourceSettingsRequest.
@@ -567,6 +918,7 @@ type GetTextGDIPlusPropertiesRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan GetTextGDIPlusPropertiesResponse
 }
 
 // NewGetTextGDIPlusPropertiesRequest returns a new GetTextGDIPlusPropertiesRequest.
@@ -581,18 +933,48 @@ func NewGetTextGDIPlusPropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "GetTextGDIPlusProperties",
 		},
+		make(chan GetTextGDIPlusPropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetTextGDIPlusPropertiesRequest) Send(c Client) (chan GetTextGDIPlusPropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetTextGDIPlusPropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetTextGDIPlusPropertiesResponse)
-	go func() { future <- (<-generic).(GetTextGDIPlusPropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTextGDIPlusPropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTextGDIPlusPropertiesRequest) Receive() (GetTextGDIPlusPropertiesResponse, error) {
+	if !r.sent {
+		return GetTextGDIPlusPropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetTextGDIPlusPropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTextGDIPlusPropertiesRequest) SendReceive(c Client) (GetTextGDIPlusPropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTextGDIPlusPropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetTextGDIPlusPropertiesResponse : Response for GetTextGDIPlusPropertiesRequest.
@@ -786,6 +1168,7 @@ type SetTextGDIPlusPropertiesRequest struct {
 	// Required: No.
 	Render   bool `json:"render"`
 	_request `json:",squash"`
+	response chan SetTextGDIPlusPropertiesResponse
 }
 
 // NewSetTextGDIPlusPropertiesRequest returns a new SetTextGDIPlusPropertiesRequest.
@@ -856,18 +1239,48 @@ func NewSetTextGDIPlusPropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "SetTextGDIPlusProperties",
 		},
+		make(chan SetTextGDIPlusPropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetTextGDIPlusPropertiesRequest) Send(c Client) (chan SetTextGDIPlusPropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetTextGDIPlusPropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetTextGDIPlusPropertiesResponse)
-	go func() { future <- (<-generic).(SetTextGDIPlusPropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetTextGDIPlusPropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetTextGDIPlusPropertiesRequest) Receive() (SetTextGDIPlusPropertiesResponse, error) {
+	if !r.sent {
+		return SetTextGDIPlusPropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetTextGDIPlusPropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetTextGDIPlusPropertiesRequest) SendReceive(c Client) (SetTextGDIPlusPropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetTextGDIPlusPropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetTextGDIPlusPropertiesResponse : Response for SetTextGDIPlusPropertiesRequest.
@@ -889,6 +1302,7 @@ type GetBrowserSourcePropertiesRequest struct {
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
+	response chan GetBrowserSourcePropertiesResponse
 }
 
 // NewGetBrowserSourcePropertiesRequest returns a new GetBrowserSourcePropertiesRequest.
@@ -903,18 +1317,48 @@ func NewGetBrowserSourcePropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "GetBrowserSourceProperties",
 		},
+		make(chan GetBrowserSourcePropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetBrowserSourcePropertiesRequest) Send(c Client) (chan GetBrowserSourcePropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetBrowserSourcePropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetBrowserSourcePropertiesResponse)
-	go func() { future <- (<-generic).(GetBrowserSourcePropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetBrowserSourcePropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetBrowserSourcePropertiesRequest) Receive() (GetBrowserSourcePropertiesResponse, error) {
+	if !r.sent {
+		return GetBrowserSourcePropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetBrowserSourcePropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetBrowserSourcePropertiesRequest) SendReceive(c Client) (GetBrowserSourcePropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetBrowserSourcePropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetBrowserSourcePropertiesResponse : Response for GetBrowserSourcePropertiesRequest.
@@ -990,6 +1434,7 @@ type SetBrowserSourcePropertiesRequest struct {
 	// Required: No.
 	Render   bool `json:"render"`
 	_request `json:",squash"`
+	response chan SetBrowserSourcePropertiesResponse
 }
 
 // NewSetBrowserSourcePropertiesRequest returns a new SetBrowserSourcePropertiesRequest.
@@ -1022,18 +1467,48 @@ func NewSetBrowserSourcePropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "SetBrowserSourceProperties",
 		},
+		make(chan SetBrowserSourcePropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetBrowserSourcePropertiesRequest) Send(c Client) (chan SetBrowserSourcePropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetBrowserSourcePropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetBrowserSourcePropertiesResponse)
-	go func() { future <- (<-generic).(SetBrowserSourcePropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetBrowserSourcePropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetBrowserSourcePropertiesRequest) Receive() (SetBrowserSourcePropertiesResponse, error) {
+	if !r.sent {
+		return SetBrowserSourcePropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetBrowserSourcePropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetBrowserSourcePropertiesRequest) SendReceive(c Client) (SetBrowserSourcePropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetBrowserSourcePropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetBrowserSourcePropertiesResponse : Response for SetBrowserSourcePropertiesRequest.
@@ -1046,25 +1521,61 @@ type SetBrowserSourcePropertiesResponse struct {
 // GetSpecialSourcesRequest : Get configured special sources like Desktop Audio and Mic/Aux sources.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getspecialsources
-type GetSpecialSourcesRequest struct{ _request }
+type GetSpecialSourcesRequest struct {
+	_request `json:",squash"`
+	response chan GetSpecialSourcesResponse
+}
 
 // NewGetSpecialSourcesRequest returns a new GetSpecialSourcesRequest.
 func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
-	return GetSpecialSourcesRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetSpecialSources",
-	}}
+	return GetSpecialSourcesRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSpecialSources",
+			err:   make(chan error),
+		},
+		make(chan GetSpecialSourcesResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSpecialSourcesRequest) Send(c Client) (chan GetSpecialSourcesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSpecialSourcesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSpecialSourcesResponse)
-	go func() { future <- (<-generic).(GetSpecialSourcesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSpecialSourcesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSpecialSourcesRequest) Receive() (GetSpecialSourcesResponse, error) {
+	if !r.sent {
+		return GetSpecialSourcesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSpecialSourcesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSpecialSourcesRequest) SendReceive(c Client) (GetSpecialSourcesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSpecialSourcesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSpecialSourcesResponse : Response for GetSpecialSourcesRequest.

@@ -3,10 +3,10 @@ package obsws
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"errors"
 	"fmt"
 
 	"github.com/gorilla/websocket"
-	"github.com/pkg/errors"
 )
 
 // Connect opens a WebSocket connection and authenticates if necessary.
@@ -20,17 +20,19 @@ func (c *Client) Connect() error {
 
 	// We can't use SendRequest yet because we haven't started polling.
 
-	reqGAR := GetAuthRequiredRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetAuthRequired",
-	}}
+	reqGAR := GetAuthRequiredRequest{
+		_request: _request{
+			ID_:   getMessageID(),
+			Type_: "GetAuthRequired",
+		},
+	}
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
-		return errors.Wrap(err, "write Authenticate")
+		return err
 	}
 
 	respGAR := &GetAuthRequiredResponse{}
 	if err = c.conn.ReadJSON(respGAR); err != nil {
-		return errors.Wrap(err, "read GetAuthRequired")
+		return err
 	}
 
 	if !respGAR.AuthRequired {
@@ -50,15 +52,15 @@ func (c *Client) Connect() error {
 		},
 	}
 	if err = c.conn.WriteJSON(reqA); err != nil {
-		return errors.Wrap(err, "write Authenticate")
+		return err
 	}
 
 	respA := &AuthenticateResponse{}
 	if err = c.conn.ReadJSON(respA); err != nil {
-		return errors.Wrap(err, "read Authenticate")
+		return err
 	}
 	if respA.Status() != "ok" {
-		return errors.Errorf("login failed: %s", respA.Error())
+		return errors.New(respA.Error())
 	}
 
 	logger.Info("logged in (authentication successful)")
@@ -70,7 +72,7 @@ func (c *Client) Connect() error {
 func (c *Client) Disconnect() error {
 	c.active = false
 	if err := c.conn.Close(); err != nil {
-		return errors.Wrap(err, "logout failed")
+		return err
 	}
 	return nil
 }

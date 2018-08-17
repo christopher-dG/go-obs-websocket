@@ -38,7 +38,7 @@ def process_json(d: Dict):
     """Generate Go code for the entire protocol file."""
     ("--events" in sys.argv or "--all" in sys.argv) and gen_events(d["events"])
     ("--requests" in sys.argv or "--all" in sys.argv) and gen_requests(d["requests"])
-    ("--typeswitches" in sys.argv or "--all" in sys.argv) and gen_typeswitches(d)
+
 
 
 def gen_category(prefix: str, category: str, data: Dict):
@@ -67,6 +67,7 @@ def gen_events(events: Dict):
     """Generate all events."""
     for category, data in events.items():
         gen_category("events", category, data)
+    gen_event_map(events)
 
 
 def gen_event(data: Dict) -> str:
@@ -77,9 +78,6 @@ def gen_event(data: Dict) -> str:
         _event `json:",squash"`
     }}
     """
-    # else:
-    #     struct = f"type {data['name']}Event _event"
-
     description = newlinify(f"{data['name']}Event : {data['description']}")
     if not description.endswith("."):
         description += "."
@@ -103,15 +101,13 @@ def gen_requests(requests: Dict):
 
 def gen_request(data: Dict) -> str:
     """Write Go code with type definitions and interface functions."""
-    if data.get("params"):
-        struct = f"""
-        type {data["name"]}Request struct {{
-            {go_struct_variables(go_variables(data["params"]))}
-            _request `json:",squash"`
-        }}
-        """
-    else:
-        struct = f"type {data['name']}Request struct {{ _request }}"
+    struct = f"""
+    type {data["name"]}Request struct {{
+        {go_struct_variables(go_variables(data.get("params", [])))}
+        _request `json:",squash"`
+        response chan {data["name"]}Response
+    }}
+    """
 
     description = newlinify(f"{data['name']}Request : {data['description']}")
     if description and not description.endswith("."):
@@ -129,14 +125,43 @@ def gen_request(data: Dict) -> str:
     {gen_request_new(data)}
 
     // Send sends the request and returns a channel to which the response will be sent.
-    func (r {data["name"]}Request) Send(c Client) (chan {data["name"]}Response, error) {{
-        generic, err := c.SendRequest(r)
+    func (r *{data["name"]}Request) Send(c Client) error {{
+        future, err := c.SendRequest(r)
         if err != nil {{
-            return nil, err
-	    }}
-	    future := make(chan {data["name"]}Response)
-	    go func() {{ future <- (<-generic).({data["name"]}Response) }}()
-	    return future, nil
+            return err
+        }}
+        r.sent = true
+        go func() {{
+            m := <-future
+            var resp {data["name"]}Response
+            if err = mapToStruct(m, &resp); err != nil {{
+                r.err <- err
+            }} else {{
+                r.response <- resp
+            }}
+        }}()
+	return nil
+    }}
+
+    // Receive waits for the response.
+    func (r {data["name"]}Request) Receive() ({data["name"]}Response, error) {{
+        if !r.sent {{
+            return {data["name"]}Response{{}}, ErrNotSent
+        }}
+        select {{
+        case resp := <-r.response:
+            return resp, nil
+        case err := <-r.err:
+            return {data["name"]}Response{{}}, err
+        }}
+    }}
+
+    // SendReceive sends the request then immediately waits for the response.
+    func (r {data["name"]}Request) SendReceive(c Client) ({data["name"]}Response, error) {{
+        if err := r.Send(c); err != nil {{
+            return {data["name"]}Response{{}}, err
+        }}
+        return r.Receive()
     }}
     """
 
@@ -177,10 +202,14 @@ def gen_request_new(request: Dict):
     if not variables:
         sig = f"{base}) {request['name']}Request"
         constructor_args = f"""\
-        {{_request{{
-            ID_: getMessageID(),
-            Type_: "{request["name"]}",
-        }}}}
+        {{
+            _request{{
+                ID_: getMessageID(),
+                Type_: "{request["name"]}",
+                err: make(chan error),
+            }},
+            make(chan {request["name"]}Response),
+        }}
         """
     else:
         args = "\n".join(
@@ -194,10 +223,11 @@ def gen_request_new(request: Dict):
                 for var in variables
             )
             + f"""
-        _request{{
-            ID_: getMessageID(),
-            Type_: "{request["name"]}",
-        }},
+            _request{{
+                ID_: getMessageID(),
+                Type_: "{request["name"]}",
+            }},
+            make(chan {request["name"]}Response),
         }}
         """
         )
@@ -212,45 +242,13 @@ def gen_request_new(request: Dict):
     return f"{sig} {{ return {request['name']}Request{constructor_args} }}"
 
 
-def gen_typeswitches(data: Dict):
+def gen_event_map(events: Dict):
     """Generate a Go file with a mappings from type names to structs."""
-    req_map = {}
-    for category in data["requests"].values():
-        for r in category:
-            req_map[r["name"]] = f"&{r['name']}Request{{}}"
-    req_entries = "\n".join(f'"{k}": {v},' for k, v in req_map.items())
-
-    resp_map = {}
-    for category in data["requests"].values():
-        for r in category:
-            resp_map[r["name"]] = f"&{r['name']}Response{{}}"
-    resp_entries = "\n".join(f'"{k}": {v},' for k, v in resp_map.items())
-
     event_map = {}
-    for category in data["events"].values():
+    for category in events.values():
         for e in category:
             event_map[e["name"]] = f"&{e['name']}Event{{}}"
     event_entries = "\n".join(f'"{k}": {v},' for k, v in event_map.items())
-
-    resp_switch_list = []
-    for resp in resp_map:
-        resp_switch_list.append(
-            f"""\
-        case *{resp}Response:
-            return *r\
-        """
-        )
-    resp_switch_entries = "\n".join(resp_switch_list)
-
-    event_switch_list = []
-    for event in event_map:
-        event_switch_list.append(
-            f"""\
-        case *{event}Event:
-            return *e\
-        """
-        )
-    event_switch_entries = "\n".join(event_switch_list)
 
     with open("typeswitches.go", "w") as f:
         f.write(
@@ -259,32 +257,8 @@ def gen_typeswitches(data: Dict):
 
         {disclaimer}
 
-        var ReqMap = map[string]Request{{
-            {req_entries}
-        }}
-
-        var respMap = map[string]Response{{
-            {resp_entries}
-        }}
-
         var eventMap = map[string]Event{{
             {event_entries}
-        }}
-
-        func derefResponse(r Response) Response {{
-            switch r := r.(type) {{
-            {resp_switch_entries}
-            default:
-                return nil
-            }}
-        }}
-
-        func derefEvent(e Event) Event {{
-            switch e := e.(type) {{
-            {event_switch_entries}
-            default:
-                return nil
-            }}
         }}
         """
         )

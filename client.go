@@ -2,33 +2,29 @@ package obsws
 
 import (
 	"strconv"
-	"time"
+	"sync"
 
 	"github.com/gorilla/websocket"
 )
 
-var messageID = 0
+const bufferSize = 100
+
+var (
+	messageID = 0
+	lock      = sync.Mutex{}
+)
 
 // Client is the interface to obs-websocket.
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
-	Host            string                   // Host (probably "localhost").
-	Port            int                      // Port (OBS default is 4444).
-	Password        string                   // Password (OBS default is "").
-	conn            *websocket.Conn          // Underlying connection to OBS.
-	active          bool                     // True until Disconnect is called.
-	noIDMode        bool                     // When true, don't verify response IDs.
-	responseTimeout time.Duration            // Time to keep unhandled responses.
-	arrivalTimes    map[string]time.Time     // Arrival time of each response.
-	requestTypes    map[string]string        // Mapping of sent requests to their types.
-	handlers        map[string]func(e Event) // Event handlers.
-	respQ           chan Response            // Queue of received responses.
-}
-
-// SetResponseTimeout sets the number of seconds before a response is discarded.
-// A value of 0 indicates no timeout.
-func (c *Client) SetResponseTimeout(seconds int) {
-	c.responseTimeout = time.Duration(time.Duration(seconds) * time.Second)
+	Host     string                      // Host (probably "localhost").
+	Port     int                         // Port (OBS default is 4444).
+	Password string                      // Password (OBS default is "").
+	conn     *websocket.Conn             // Underlying connection to OBS.
+	active   bool                        // True until Disconnect is called.
+	noIDMode bool                        // When true, don't verify response IDs.
+	handlers map[string]func(e Event)    // Event handlers.
+	respQ    chan map[string]interface{} // Queue of received responses.
 }
 
 // NoIDMode disables response ID checking when set to true.
@@ -40,10 +36,8 @@ func (c *Client) NoIDMode(enable bool) {
 
 // init prepares the client's internal fields.
 func (c *Client) init() {
-	c.arrivalTimes = make(map[string]time.Time)
-	c.requestTypes = make(map[string]string)
 	c.handlers = make(map[string]func(Event))
-	c.respQ = make(chan Response)
+	c.respQ = make(chan map[string]interface{}, bufferSize)
 }
 
 // poll listens for responses/events.
@@ -72,6 +66,9 @@ func (c *Client) poll() {
 
 // getMessageID generates a string that the client has not yet used.
 func getMessageID() string {
+	lock.Lock()
 	messageID++
-	return strconv.Itoa(messageID)
+	id := strconv.Itoa(messageID)
+	lock.Unlock()
+	return id
 }

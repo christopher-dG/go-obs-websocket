@@ -1,14 +1,15 @@
 package obsws
 
 import (
-	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
+	"errors"
 )
+
+var ErrUnknownEventType = errors.New("unknown event type")
 
 // AddEventHandler adds a handler function for a given event type.
 func (c *Client) AddEventHandler(eventType string, handler func(Event)) error {
 	if eventMap[eventType] == nil {
-		return errors.Errorf("unknown event type %s", eventType)
+		return ErrUnknownEventType
 	}
 	c.handlers[eventType] = handler
 	return nil
@@ -23,28 +24,17 @@ func (c *Client) RemoveEventHandler(eventType string) {
 func (c *Client) handleEvent(m map[string]interface{}) {
 	event := eventMap[m["update-type"].(string)]
 	if event == nil {
-		logger.Warning("unknown event type", m["update-type"])
+		logger.Warning("unknown event type:", m["update-type"])
 		return
 	}
 
-	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		ZeroFields: true, // TODO: Is this actually working?
-		TagName:    "json",
-		Result:     event,
-	})
-	if err != nil {
-		logger.Warning("initializing decoder", err)
-		return
-	}
-
-	if err = decoder.Decode(m); err != nil {
-		logger.Warningf("unmarshalling map -> %T: %v", &event, err)
-		logger.Debugf("input: %#v\n", m)
+	if err := mapToStruct(m, event); err != nil {
+		logger.Warning("event handler failed:", err)
 		return
 	}
 
 	handler := c.handlers[event.Type()]
 	if handler != nil {
-		go handler(derefEvent(event))
+		go handler(event)
 	}
 }

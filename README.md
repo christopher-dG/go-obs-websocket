@@ -25,23 +25,43 @@ import (
 )
 
 func main() {
+	// Connect a client.
 	c := obs.Client{Host: "localhost", Port: 4444}
 	if err := c.Connect(); err != nil {
 		log.Fatal(err)
 	}
 	defer c.Disconnect()
 
-	future, err := obs.NewGetStreamingStatusRequest().Send(c)
+	// Send and receive a request asynchronously.
+	req := obs.NewGetStreamingStatusRequest()
+	if err := req.Send(c); err != nil {
+		log.Fatal(err)
+	}
+	// This will block until the response comes.
+	resp, err := req.Receive()
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println("streaming:", resp.Streaming)
 
-	status := (<-future)
-	log.Println("streaming:", status.Streaming)
+	// Send and receive a request synchronously.
+	req = obs.NewGetStreamingStatusRequest()
+	// Note that we create a new request,
+	// because requests have IDs that must be unique.a
+	// This will block until the response comes.
+	resp, err = req.SendReceive(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("streaming:", resp.Streaming)
 
-	c.AddEventHandler("Heartbeat", func(e obs.Event) {
-		log.Println("profile:", e.(obs.HeartbeatEvent).CurrentProfile)
+	// Respond to events by registering handlers.
+	c.AddEventHandler("SwitchScenes", func(e obs.Event) {
+		// Make sure to assert the actual event type.
+		// The event is always a pointer.
+		log.Println("new scene:", e.(*obs.SwitchScenesEvent).SceneName)
 	})
+
 	time.Sleep(time.Second * 10)
 }
 ```

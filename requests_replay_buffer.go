@@ -6,25 +6,61 @@ package obsws
 // StartStopReplayBufferRequest : Toggle the Replay Buffer on/off.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
-type StartStopReplayBufferRequest struct{ _request }
+type StartStopReplayBufferRequest struct {
+	_request `json:",squash"`
+	response chan StartStopReplayBufferResponse
+}
 
 // NewStartStopReplayBufferRequest returns a new StartStopReplayBufferRequest.
 func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
-	return StartStopReplayBufferRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "StartStopReplayBuffer",
-	}}
+	return StartStopReplayBufferRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "StartStopReplayBuffer",
+			err:   make(chan error),
+		},
+		make(chan StartStopReplayBufferResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StartStopReplayBufferRequest) Send(c Client) (chan StartStopReplayBufferResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StartStopReplayBufferRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StartStopReplayBufferResponse)
-	go func() { future <- (<-generic).(StartStopReplayBufferResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StartStopReplayBufferResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StartStopReplayBufferRequest) Receive() (StartStopReplayBufferResponse, error) {
+	if !r.sent {
+		return StartStopReplayBufferResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StartStopReplayBufferResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StartStopReplayBufferRequest) SendReceive(c Client) (StartStopReplayBufferResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StartStopReplayBufferResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StartStopReplayBufferResponse : Response for StartStopReplayBufferRequest.
@@ -41,25 +77,61 @@ type StartStopReplayBufferResponse struct {
 // through obs-websocket.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
-type StartReplayBufferRequest struct{ _request }
+type StartReplayBufferRequest struct {
+	_request `json:",squash"`
+	response chan StartReplayBufferResponse
+}
 
 // NewStartReplayBufferRequest returns a new StartReplayBufferRequest.
 func NewStartReplayBufferRequest() StartReplayBufferRequest {
-	return StartReplayBufferRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "StartReplayBuffer",
-	}}
+	return StartReplayBufferRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "StartReplayBuffer",
+			err:   make(chan error),
+		},
+		make(chan StartReplayBufferResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StartReplayBufferRequest) Send(c Client) (chan StartReplayBufferResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StartReplayBufferRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StartReplayBufferResponse)
-	go func() { future <- (<-generic).(StartReplayBufferResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StartReplayBufferResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StartReplayBufferRequest) Receive() (StartReplayBufferResponse, error) {
+	if !r.sent {
+		return StartReplayBufferResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StartReplayBufferResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StartReplayBufferRequest) SendReceive(c Client) (StartReplayBufferResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StartReplayBufferResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StartReplayBufferResponse : Response for StartReplayBufferRequest.
@@ -73,25 +145,61 @@ type StartReplayBufferResponse struct {
 // Will return an `error` if the Replay Buffer is not active.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopreplaybuffer
-type StopReplayBufferRequest struct{ _request }
+type StopReplayBufferRequest struct {
+	_request `json:",squash"`
+	response chan StopReplayBufferResponse
+}
 
 // NewStopReplayBufferRequest returns a new StopReplayBufferRequest.
 func NewStopReplayBufferRequest() StopReplayBufferRequest {
-	return StopReplayBufferRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "StopReplayBuffer",
-	}}
+	return StopReplayBufferRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "StopReplayBuffer",
+			err:   make(chan error),
+		},
+		make(chan StopReplayBufferResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StopReplayBufferRequest) Send(c Client) (chan StopReplayBufferResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StopReplayBufferRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StopReplayBufferResponse)
-	go func() { future <- (<-generic).(StopReplayBufferResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StopReplayBufferResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StopReplayBufferRequest) Receive() (StopReplayBufferResponse, error) {
+	if !r.sent {
+		return StopReplayBufferResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StopReplayBufferResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StopReplayBufferRequest) SendReceive(c Client) (StopReplayBufferResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StopReplayBufferResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StopReplayBufferResponse : Response for StopReplayBufferRequest.
@@ -107,25 +215,61 @@ type StopReplayBufferResponse struct {
 // Will return an `error` if the Replay Buffer is not active.
 // Since obs-websocket version: 4.2.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savereplaybuffer
-type SaveReplayBufferRequest struct{ _request }
+type SaveReplayBufferRequest struct {
+	_request `json:",squash"`
+	response chan SaveReplayBufferResponse
+}
 
 // NewSaveReplayBufferRequest returns a new SaveReplayBufferRequest.
 func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
-	return SaveReplayBufferRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "SaveReplayBuffer",
-	}}
+	return SaveReplayBufferRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SaveReplayBuffer",
+			err:   make(chan error),
+		},
+		make(chan SaveReplayBufferResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SaveReplayBufferRequest) Send(c Client) (chan SaveReplayBufferResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SaveReplayBufferRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SaveReplayBufferResponse)
-	go func() { future <- (<-generic).(SaveReplayBufferResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SaveReplayBufferResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SaveReplayBufferRequest) Receive() (SaveReplayBufferResponse, error) {
+	if !r.sent {
+		return SaveReplayBufferResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SaveReplayBufferResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SaveReplayBufferRequest) SendReceive(c Client) (SaveReplayBufferResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SaveReplayBufferResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SaveReplayBufferResponse : Response for SaveReplayBufferRequest.

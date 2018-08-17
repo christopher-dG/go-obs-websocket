@@ -1,5 +1,10 @@
 package obsws
 
+import "errors"
+
+// ErrNotSent is returned when you call Receive on a request that has not been sent.
+var ErrNotSent = errors.New("request not yet sent")
+
 // Request is a request to obs-websocket.
 type Request interface {
 	ID() string
@@ -17,21 +22,15 @@ type Response interface {
 type _request struct {
 	ID_   string `json:"message-id"`
 	Type_ string `json:"request-type"`
+	sent  bool
+	err   chan error
 }
 
+// ID returns the requet's message ID.
 func (r _request) ID() string { return r.ID_ }
 
+// Type returns the request's message type.
 func (r _request) Type() string { return r.Type_ }
-
-func (r _request) Send(c Client) (chan _response, error) {
-	generic, err := c.SendRequest(r)
-	if err != nil {
-		return nil, err
-	}
-	future := make(chan _response)
-	go func() { future <- (<-generic).(_response) }()
-	return future, nil
-}
 
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#requests
 type _response struct {

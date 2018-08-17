@@ -11,6 +11,7 @@ type SetCurrentSceneRequest struct {
 	// Required: Yes.
 	SceneName string `json:"scene-name"`
 	_request  `json:",squash"`
+	response  chan SetCurrentSceneResponse
 }
 
 // NewSetCurrentSceneRequest returns a new SetCurrentSceneRequest.
@@ -21,18 +22,48 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 			ID_:   getMessageID(),
 			Type_: "SetCurrentScene",
 		},
+		make(chan SetCurrentSceneResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetCurrentSceneRequest) Send(c Client) (chan SetCurrentSceneResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetCurrentSceneRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetCurrentSceneResponse)
-	go func() { future <- (<-generic).(SetCurrentSceneResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetCurrentSceneResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetCurrentSceneRequest) Receive() (SetCurrentSceneResponse, error) {
+	if !r.sent {
+		return SetCurrentSceneResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetCurrentSceneResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetCurrentSceneRequest) SendReceive(c Client) (SetCurrentSceneResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetCurrentSceneResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetCurrentSceneResponse : Response for SetCurrentSceneRequest.
@@ -45,25 +76,61 @@ type SetCurrentSceneResponse struct {
 // GetCurrentSceneRequest : Get the current scene's name and source items.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscene
-type GetCurrentSceneRequest struct{ _request }
+type GetCurrentSceneRequest struct {
+	_request `json:",squash"`
+	response chan GetCurrentSceneResponse
+}
 
 // NewGetCurrentSceneRequest returns a new GetCurrentSceneRequest.
 func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
-	return GetCurrentSceneRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetCurrentScene",
-	}}
+	return GetCurrentSceneRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetCurrentScene",
+			err:   make(chan error),
+		},
+		make(chan GetCurrentSceneResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetCurrentSceneRequest) Send(c Client) (chan GetCurrentSceneResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetCurrentSceneRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetCurrentSceneResponse)
-	go func() { future <- (<-generic).(GetCurrentSceneResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetCurrentSceneResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetCurrentSceneRequest) Receive() (GetCurrentSceneResponse, error) {
+	if !r.sent {
+		return GetCurrentSceneResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetCurrentSceneResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetCurrentSceneRequest) SendReceive(c Client) (GetCurrentSceneResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetCurrentSceneResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetCurrentSceneResponse : Response for GetCurrentSceneRequest.
@@ -82,25 +149,61 @@ type GetCurrentSceneResponse struct {
 // GetSceneListRequest : Get a list of scenes in the currently active profile.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getscenelist
-type GetSceneListRequest struct{ _request }
+type GetSceneListRequest struct {
+	_request `json:",squash"`
+	response chan GetSceneListResponse
+}
 
 // NewGetSceneListRequest returns a new GetSceneListRequest.
 func NewGetSceneListRequest() GetSceneListRequest {
-	return GetSceneListRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetSceneList",
-	}}
+	return GetSceneListRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSceneList",
+			err:   make(chan error),
+		},
+		make(chan GetSceneListResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSceneListRequest) Send(c Client) (chan GetSceneListResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSceneListRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSceneListResponse)
-	go func() { future <- (<-generic).(GetSceneListResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSceneListResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSceneListRequest) Receive() (GetSceneListResponse, error) {
+	if !r.sent {
+		return GetSceneListResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSceneListResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSceneListRequest) SendReceive(c Client) (GetSceneListResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSceneListResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSceneListResponse : Response for GetSceneListRequest.

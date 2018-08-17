@@ -15,6 +15,7 @@ type GetSceneItemPropertiesRequest struct {
 	// Required: Yes.
 	Item     string `json:"item"`
 	_request `json:",squash"`
+	response chan GetSceneItemPropertiesResponse
 }
 
 // NewGetSceneItemPropertiesRequest returns a new GetSceneItemPropertiesRequest.
@@ -29,18 +30,48 @@ func NewGetSceneItemPropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "GetSceneItemProperties",
 		},
+		make(chan GetSceneItemPropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetSceneItemPropertiesRequest) Send(c Client) (chan GetSceneItemPropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetSceneItemPropertiesResponse)
-	go func() { future <- (<-generic).(GetSceneItemPropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSceneItemPropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSceneItemPropertiesRequest) Receive() (GetSceneItemPropertiesResponse, error) {
+	if !r.sent {
+		return GetSceneItemPropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetSceneItemPropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSceneItemPropertiesRequest) SendReceive(c Client) (GetSceneItemPropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSceneItemPropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetSceneItemPropertiesResponse : Response for GetSceneItemPropertiesRequest.
@@ -158,6 +189,7 @@ type SetSceneItemPropertiesRequest struct {
 	// Required: Yes.
 	BoundsY  float64 `json:"bounds.y"`
 	_request `json:",squash"`
+	response chan SetSceneItemPropertiesResponse
 }
 
 // NewSetSceneItemPropertiesRequest returns a new SetSceneItemPropertiesRequest.
@@ -202,18 +234,48 @@ func NewSetSceneItemPropertiesRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemProperties",
 		},
+		make(chan SetSceneItemPropertiesResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSceneItemPropertiesRequest) Send(c Client) (chan SetSceneItemPropertiesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSceneItemPropertiesResponse)
-	go func() { future <- (<-generic).(SetSceneItemPropertiesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSceneItemPropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSceneItemPropertiesRequest) Receive() (SetSceneItemPropertiesResponse, error) {
+	if !r.sent {
+		return SetSceneItemPropertiesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSceneItemPropertiesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSceneItemPropertiesRequest) SendReceive(c Client) (SetSceneItemPropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSceneItemPropertiesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSceneItemPropertiesResponse : Response for SetSceneItemPropertiesRequest.
@@ -235,6 +297,7 @@ type ResetSceneItemRequest struct {
 	// Required: Yes.
 	Item     string `json:"item"`
 	_request `json:",squash"`
+	response chan ResetSceneItemResponse
 }
 
 // NewResetSceneItemRequest returns a new ResetSceneItemRequest.
@@ -249,18 +312,48 @@ func NewResetSceneItemRequest(
 			ID_:   getMessageID(),
 			Type_: "ResetSceneItem",
 		},
+		make(chan ResetSceneItemResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r ResetSceneItemRequest) Send(c Client) (chan ResetSceneItemResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *ResetSceneItemRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan ResetSceneItemResponse)
-	go func() { future <- (<-generic).(ResetSceneItemResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ResetSceneItemResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ResetSceneItemRequest) Receive() (ResetSceneItemResponse, error) {
+	if !r.sent {
+		return ResetSceneItemResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return ResetSceneItemResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ResetSceneItemRequest) SendReceive(c Client) (ResetSceneItemResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ResetSceneItemResponse{}, err
+	}
+	return r.Receive()
 }
 
 // ResetSceneItemResponse : Response for ResetSceneItemRequest.
@@ -285,6 +378,7 @@ type SetSceneItemRenderRequest struct {
 	// Required: No.
 	SceneName string `json:"scene-name"`
 	_request  `json:",squash"`
+	response  chan SetSceneItemRenderResponse
 }
 
 // NewSetSceneItemRenderRequest returns a new SetSceneItemRenderRequest.
@@ -301,18 +395,48 @@ func NewSetSceneItemRenderRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemRender",
 		},
+		make(chan SetSceneItemRenderResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSceneItemRenderRequest) Send(c Client) (chan SetSceneItemRenderResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSceneItemRenderRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSceneItemRenderResponse)
-	go func() { future <- (<-generic).(SetSceneItemRenderResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSceneItemRenderResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSceneItemRenderRequest) Receive() (SetSceneItemRenderResponse, error) {
+	if !r.sent {
+		return SetSceneItemRenderResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSceneItemRenderResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSceneItemRenderRequest) SendReceive(c Client) (SetSceneItemRenderResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSceneItemRenderResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSceneItemRenderResponse : Response for SetSceneItemRenderRequest.
@@ -340,6 +464,7 @@ type SetSceneItemPositionRequest struct {
 	// Required: Yes.
 	Y        float64 `json:"y"`
 	_request `json:",squash"`
+	response chan SetSceneItemPositionResponse
 }
 
 // NewSetSceneItemPositionRequest returns a new SetSceneItemPositionRequest.
@@ -358,18 +483,48 @@ func NewSetSceneItemPositionRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemPosition",
 		},
+		make(chan SetSceneItemPositionResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSceneItemPositionRequest) Send(c Client) (chan SetSceneItemPositionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSceneItemPositionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSceneItemPositionResponse)
-	go func() { future <- (<-generic).(SetSceneItemPositionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSceneItemPositionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSceneItemPositionRequest) Receive() (SetSceneItemPositionResponse, error) {
+	if !r.sent {
+		return SetSceneItemPositionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSceneItemPositionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSceneItemPositionRequest) SendReceive(c Client) (SetSceneItemPositionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSceneItemPositionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSceneItemPositionResponse : Response for SetSceneItemPositionRequest.
@@ -400,6 +555,7 @@ type SetSceneItemTransformRequest struct {
 	// Required: Yes.
 	Rotation float64 `json:"rotation"`
 	_request `json:",squash"`
+	response chan SetSceneItemTransformResponse
 }
 
 // NewSetSceneItemTransformRequest returns a new SetSceneItemTransformRequest.
@@ -420,18 +576,48 @@ func NewSetSceneItemTransformRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemTransform",
 		},
+		make(chan SetSceneItemTransformResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSceneItemTransformRequest) Send(c Client) (chan SetSceneItemTransformResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSceneItemTransformRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSceneItemTransformResponse)
-	go func() { future <- (<-generic).(SetSceneItemTransformResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSceneItemTransformResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSceneItemTransformRequest) Receive() (SetSceneItemTransformResponse, error) {
+	if !r.sent {
+		return SetSceneItemTransformResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSceneItemTransformResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSceneItemTransformRequest) SendReceive(c Client) (SetSceneItemTransformResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSceneItemTransformResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSceneItemTransformResponse : Response for SetSceneItemTransformRequest.
@@ -465,6 +651,7 @@ type SetSceneItemCropRequest struct {
 	// Required: Yes.
 	Right    int `json:"right"`
 	_request `json:",squash"`
+	response chan SetSceneItemCropResponse
 }
 
 // NewSetSceneItemCropRequest returns a new SetSceneItemCropRequest.
@@ -487,18 +674,48 @@ func NewSetSceneItemCropRequest(
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemCrop",
 		},
+		make(chan SetSceneItemCropResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetSceneItemCropRequest) Send(c Client) (chan SetSceneItemCropResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetSceneItemCropRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetSceneItemCropResponse)
-	go func() { future <- (<-generic).(SetSceneItemCropResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSceneItemCropResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSceneItemCropRequest) Receive() (SetSceneItemCropResponse, error) {
+	if !r.sent {
+		return SetSceneItemCropResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetSceneItemCropResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSceneItemCropRequest) SendReceive(c Client) (SetSceneItemCropResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSceneItemCropResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetSceneItemCropResponse : Response for SetSceneItemCropRequest.

@@ -4,88 +4,55 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
 )
 
-const noID = "noID"
+const interval = time.Millisecond * 50
 
 // SendRequest sends a request to the WebSocket server.
 // It's not recommended to use this directly, use requests' Send functions instead.
-func (c *Client) SendRequest(req Request) (chan Response, error) {
-	future := make(chan Response)
+func (c *Client) SendRequest(req Request) (chan map[string]interface{}, error) {
+	future := make(chan map[string]interface{})
 	if err := c.conn.WriteJSON(req); err != nil {
-		return nil, errors.Wrapf(err, "write %s", req.Type())
+		return nil, err
 	}
-
-	var key string
-	if c.noIDMode {
-		key = noID
-	} else {
-		key = req.ID()
-	}
-	c.requestTypes[key] = req.Type()
-
 	go func() { future <- c.waitResponse(req) }()
 	return future, nil
 }
 
 // waitResponse waits until a response matching the request is found.
-func (c *Client) waitResponse(req Request) Response {
+func (c *Client) waitResponse(req Request) map[string]interface{} {
 	for {
 		resp := <-c.respQ
-		if c.noIDMode || resp.ID() == req.ID() {
-			logger.Debug("received response", resp.ID())
+		id := resp["message-id"]
+		if c.noIDMode || resp["message-id"] == req.ID() {
+			logger.Debug("received response", id)
 			return resp
 		}
-
-		if c.responseTimeout > 0 && time.Since(c.arrivalTimes[resp.ID()]) > c.responseTimeout {
-			delete(c.arrivalTimes, resp.ID())
-		} else {
-			c.respQ <- resp
-		}
-
-		time.Sleep(time.Millisecond * 50)
+		c.respQ <- resp
+		time.Sleep(interval)
 	}
 }
 
 // handleResponse sends a response into the queue.
 func (c *Client) handleResponse(m map[string]interface{}) {
-	var key string
-	if c.noIDMode {
-		key = noID
-	} else {
-		key = m["message-id"].(string)
-	}
+	c.respQ <- m
+}
 
-	respType := c.requestTypes[key]
-	if respType == "" {
-		logger.Warning("no requestTypes entry for message", key)
-		return
-	}
-	delete(c.requestTypes, key)
-
-	resp := respMap[respType]
-	if resp == nil {
-		logger.Warning("unknown response type", respType)
-		return
-	}
-
+// mapToStruct serializes a map into a struct.
+func mapToStruct(data map[string]interface{}, dest interface{}) error {
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		ZeroFields: true, // TODO: Is this actually working?
 		TagName:    "json",
-		Result:     resp,
+		Result:     dest,
 	})
 	if err != nil {
 		logger.Warning("initializing decoder:", err)
-		return
+		return err
 	}
-
-	if err = decoder.Decode(m); err != nil {
-		logger.Warningf("unmarshalling map -> %T: %v", &resp, err)
-		logger.Debugf("input: %#v\n", m)
-		return
+	if err = decoder.Decode(data); err != nil {
+		logger.Warningf("unmarshalling map -> %T: %v", dest, err)
+		logger.Debugf("input: %#v\n", data)
+		return err
 	}
-
-	c.arrivalTimes[resp.ID()] = time.Now()
-	c.respQ <- derefResponse(resp)
+	return nil
 }

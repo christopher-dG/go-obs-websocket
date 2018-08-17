@@ -6,25 +6,61 @@ package obsws
 // GetVersionRequest : Returns the latest version of the plugin and the API.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
-type GetVersionRequest struct{ _request }
+type GetVersionRequest struct {
+	_request `json:",squash"`
+	response chan GetVersionResponse
+}
 
 // NewGetVersionRequest returns a new GetVersionRequest.
 func NewGetVersionRequest() GetVersionRequest {
-	return GetVersionRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetVersion",
-	}}
+	return GetVersionRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetVersion",
+			err:   make(chan error),
+		},
+		make(chan GetVersionResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetVersionRequest) Send(c Client) (chan GetVersionResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetVersionRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetVersionResponse)
-	go func() { future <- (<-generic).(GetVersionResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetVersionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetVersionRequest) Receive() (GetVersionResponse, error) {
+	if !r.sent {
+		return GetVersionResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetVersionResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetVersionRequest) SendReceive(c Client) (GetVersionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetVersionResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetVersionResponse : Response for GetVersionRequest.
@@ -52,25 +88,61 @@ type GetVersionResponse struct {
 // and `salt` (see "Authentication" for more information).
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
-type GetAuthRequiredRequest struct{ _request }
+type GetAuthRequiredRequest struct {
+	_request `json:",squash"`
+	response chan GetAuthRequiredResponse
+}
 
 // NewGetAuthRequiredRequest returns a new GetAuthRequiredRequest.
 func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
-	return GetAuthRequiredRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetAuthRequired",
-	}}
+	return GetAuthRequiredRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetAuthRequired",
+			err:   make(chan error),
+		},
+		make(chan GetAuthRequiredResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetAuthRequiredRequest) Send(c Client) (chan GetAuthRequiredResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetAuthRequiredRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetAuthRequiredResponse)
-	go func() { future <- (<-generic).(GetAuthRequiredResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetAuthRequiredResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetAuthRequiredRequest) Receive() (GetAuthRequiredResponse, error) {
+	if !r.sent {
+		return GetAuthRequiredResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetAuthRequiredResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetAuthRequiredRequest) SendReceive(c Client) (GetAuthRequiredResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetAuthRequiredResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetAuthRequiredResponse : Response for GetAuthRequiredRequest.
@@ -95,6 +167,7 @@ type AuthenticateRequest struct {
 	// Required: Yes.
 	Auth     string `json:"auth"`
 	_request `json:",squash"`
+	response chan AuthenticateResponse
 }
 
 // NewAuthenticateRequest returns a new AuthenticateRequest.
@@ -105,18 +178,48 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 			ID_:   getMessageID(),
 			Type_: "Authenticate",
 		},
+		make(chan AuthenticateResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r AuthenticateRequest) Send(c Client) (chan AuthenticateResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *AuthenticateRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan AuthenticateResponse)
-	go func() { future <- (<-generic).(AuthenticateResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp AuthenticateResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r AuthenticateRequest) Receive() (AuthenticateResponse, error) {
+	if !r.sent {
+		return AuthenticateResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return AuthenticateResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r AuthenticateRequest) SendReceive(c Client) (AuthenticateResponse, error) {
+	if err := r.Send(c); err != nil {
+		return AuthenticateResponse{}, err
+	}
+	return r.Receive()
 }
 
 // AuthenticateResponse : Response for AuthenticateRequest.
@@ -134,6 +237,7 @@ type SetHeartbeatRequest struct {
 	// Required: Yes.
 	Enable   bool `json:"enable"`
 	_request `json:",squash"`
+	response chan SetHeartbeatResponse
 }
 
 // NewSetHeartbeatRequest returns a new SetHeartbeatRequest.
@@ -144,18 +248,48 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 			ID_:   getMessageID(),
 			Type_: "SetHeartbeat",
 		},
+		make(chan SetHeartbeatResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetHeartbeatRequest) Send(c Client) (chan SetHeartbeatResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetHeartbeatRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetHeartbeatResponse)
-	go func() { future <- (<-generic).(SetHeartbeatResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetHeartbeatResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetHeartbeatRequest) Receive() (SetHeartbeatResponse, error) {
+	if !r.sent {
+		return SetHeartbeatResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetHeartbeatResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetHeartbeatRequest) SendReceive(c Client) (SetHeartbeatResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetHeartbeatResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetHeartbeatResponse : Response for SetHeartbeatRequest.
@@ -173,6 +307,7 @@ type SetFilenameFormattingRequest struct {
 	// Required: Yes.
 	FilenameFormatting string `json:"filename-formatting"`
 	_request           `json:",squash"`
+	response           chan SetFilenameFormattingResponse
 }
 
 // NewSetFilenameFormattingRequest returns a new SetFilenameFormattingRequest.
@@ -183,18 +318,48 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 			ID_:   getMessageID(),
 			Type_: "SetFilenameFormatting",
 		},
+		make(chan SetFilenameFormattingResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetFilenameFormattingRequest) Send(c Client) (chan SetFilenameFormattingResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetFilenameFormattingRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetFilenameFormattingResponse)
-	go func() { future <- (<-generic).(SetFilenameFormattingResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetFilenameFormattingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetFilenameFormattingRequest) Receive() (SetFilenameFormattingResponse, error) {
+	if !r.sent {
+		return SetFilenameFormattingResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetFilenameFormattingResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetFilenameFormattingRequest) SendReceive(c Client) (SetFilenameFormattingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetFilenameFormattingResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetFilenameFormattingResponse : Response for SetFilenameFormattingRequest.
@@ -207,25 +372,61 @@ type SetFilenameFormattingResponse struct {
 // GetFilenameFormattingRequest : Get the filename formatting string.
 // Since obs-websocket version: 4.3.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getfilenameformatting
-type GetFilenameFormattingRequest struct{ _request }
+type GetFilenameFormattingRequest struct {
+	_request `json:",squash"`
+	response chan GetFilenameFormattingResponse
+}
 
 // NewGetFilenameFormattingRequest returns a new GetFilenameFormattingRequest.
 func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
-	return GetFilenameFormattingRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetFilenameFormatting",
-	}}
+	return GetFilenameFormattingRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetFilenameFormatting",
+			err:   make(chan error),
+		},
+		make(chan GetFilenameFormattingResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetFilenameFormattingRequest) Send(c Client) (chan GetFilenameFormattingResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetFilenameFormattingRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetFilenameFormattingResponse)
-	go func() { future <- (<-generic).(GetFilenameFormattingResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetFilenameFormattingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetFilenameFormattingRequest) Receive() (GetFilenameFormattingResponse, error) {
+	if !r.sent {
+		return GetFilenameFormattingResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetFilenameFormattingResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetFilenameFormattingRequest) SendReceive(c Client) (GetFilenameFormattingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetFilenameFormattingResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetFilenameFormattingResponse : Response for GetFilenameFormattingRequest.

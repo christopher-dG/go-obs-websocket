@@ -6,25 +6,61 @@ package obsws
 // GetStreamingStatusRequest : Get current streaming and recording status.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamingstatus
-type GetStreamingStatusRequest struct{ _request }
+type GetStreamingStatusRequest struct {
+	_request `json:",squash"`
+	response chan GetStreamingStatusResponse
+}
 
 // NewGetStreamingStatusRequest returns a new GetStreamingStatusRequest.
 func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
-	return GetStreamingStatusRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetStreamingStatus",
-	}}
+	return GetStreamingStatusRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetStreamingStatus",
+			err:   make(chan error),
+		},
+		make(chan GetStreamingStatusResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetStreamingStatusRequest) Send(c Client) (chan GetStreamingStatusResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetStreamingStatusRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetStreamingStatusResponse)
-	go func() { future <- (<-generic).(GetStreamingStatusResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetStreamingStatusResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetStreamingStatusRequest) Receive() (GetStreamingStatusResponse, error) {
+	if !r.sent {
+		return GetStreamingStatusResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetStreamingStatusResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetStreamingStatusRequest) SendReceive(c Client) (GetStreamingStatusResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetStreamingStatusResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetStreamingStatusResponse : Response for GetStreamingStatusRequest.
@@ -53,25 +89,61 @@ type GetStreamingStatusResponse struct {
 // StartStopStreamingRequest : Toggle streaming on or off.
 // Since obs-websocket version: 0.3.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopstreaming
-type StartStopStreamingRequest struct{ _request }
+type StartStopStreamingRequest struct {
+	_request `json:",squash"`
+	response chan StartStopStreamingResponse
+}
 
 // NewStartStopStreamingRequest returns a new StartStopStreamingRequest.
 func NewStartStopStreamingRequest() StartStopStreamingRequest {
-	return StartStopStreamingRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "StartStopStreaming",
-	}}
+	return StartStopStreamingRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "StartStopStreaming",
+			err:   make(chan error),
+		},
+		make(chan StartStopStreamingResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StartStopStreamingRequest) Send(c Client) (chan StartStopStreamingResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StartStopStreamingRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StartStopStreamingResponse)
-	go func() { future <- (<-generic).(StartStopStreamingResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StartStopStreamingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StartStopStreamingRequest) Receive() (StartStopStreamingResponse, error) {
+	if !r.sent {
+		return StartStopStreamingResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StartStopStreamingResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StartStopStreamingRequest) SendReceive(c Client) (StartStopStreamingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StartStopStreamingResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StartStopStreamingResponse : Response for StartStopStreamingRequest.
@@ -120,6 +192,7 @@ type StartStreamingRequest struct {
 	// Required: No.
 	StreamSettingsPassword string `json:"stream.settings.password"`
 	_request               `json:",squash"`
+	response               chan StartStreamingResponse
 }
 
 // NewStartStreamingRequest returns a new StartStreamingRequest.
@@ -148,18 +221,48 @@ func NewStartStreamingRequest(
 			ID_:   getMessageID(),
 			Type_: "StartStreaming",
 		},
+		make(chan StartStreamingResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StartStreamingRequest) Send(c Client) (chan StartStreamingResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StartStreamingRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StartStreamingResponse)
-	go func() { future <- (<-generic).(StartStreamingResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StartStreamingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StartStreamingRequest) Receive() (StartStreamingResponse, error) {
+	if !r.sent {
+		return StartStreamingResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StartStreamingResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StartStreamingRequest) SendReceive(c Client) (StartStreamingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StartStreamingResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StartStreamingResponse : Response for StartStreamingRequest.
@@ -173,25 +276,61 @@ type StartStreamingResponse struct {
 // Will return an `error` if streaming is not active.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopstreaming
-type StopStreamingRequest struct{ _request }
+type StopStreamingRequest struct {
+	_request `json:",squash"`
+	response chan StopStreamingResponse
+}
 
 // NewStopStreamingRequest returns a new StopStreamingRequest.
 func NewStopStreamingRequest() StopStreamingRequest {
-	return StopStreamingRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "StopStreaming",
-	}}
+	return StopStreamingRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "StopStreaming",
+			err:   make(chan error),
+		},
+		make(chan StopStreamingResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r StopStreamingRequest) Send(c Client) (chan StopStreamingResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *StopStreamingRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan StopStreamingResponse)
-	go func() { future <- (<-generic).(StopStreamingResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp StopStreamingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r StopStreamingRequest) Receive() (StopStreamingResponse, error) {
+	if !r.sent {
+		return StopStreamingResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return StopStreamingResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r StopStreamingRequest) SendReceive(c Client) (StopStreamingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return StopStreamingResponse{}, err
+	}
+	return r.Receive()
 }
 
 // StopStreamingResponse : Response for StopStreamingRequest.
@@ -211,7 +350,7 @@ type StopStreamingResponse struct {
 type SetStreamSettingsRequest struct {
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	// Required: Yes.
-	StreamType string `json:"type"`
+	Type_ string `json:"type"`
 	// The actual settings of the stream.
 	// Required: Yes.
 	Settings map[string]interface{} `json:"settings"`
@@ -234,6 +373,7 @@ type SetStreamSettingsRequest struct {
 	// Required: Yes.
 	Save     bool `json:"save"`
 	_request `json:",squash"`
+	response chan SetStreamSettingsResponse
 }
 
 // NewSetStreamSettingsRequest returns a new SetStreamSettingsRequest.
@@ -260,18 +400,48 @@ func NewSetStreamSettingsRequest(
 			ID_:   getMessageID(),
 			Type_: "SetStreamSettings",
 		},
+		make(chan SetStreamSettingsResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetStreamSettingsRequest) Send(c Client) (chan SetStreamSettingsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetStreamSettingsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetStreamSettingsResponse)
-	go func() { future <- (<-generic).(SetStreamSettingsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetStreamSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetStreamSettingsRequest) Receive() (SetStreamSettingsResponse, error) {
+	if !r.sent {
+		return SetStreamSettingsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetStreamSettingsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetStreamSettingsRequest) SendReceive(c Client) (SetStreamSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetStreamSettingsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetStreamSettingsResponse : Response for SetStreamSettingsRequest.
@@ -284,25 +454,61 @@ type SetStreamSettingsResponse struct {
 // GetStreamSettingsRequest : Get the current streaming server settings.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamsettings
-type GetStreamSettingsRequest struct{ _request }
+type GetStreamSettingsRequest struct {
+	_request `json:",squash"`
+	response chan GetStreamSettingsResponse
+}
 
 // NewGetStreamSettingsRequest returns a new GetStreamSettingsRequest.
 func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
-	return GetStreamSettingsRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetStreamSettings",
-	}}
+	return GetStreamSettingsRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetStreamSettings",
+			err:   make(chan error),
+		},
+		make(chan GetStreamSettingsResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetStreamSettingsRequest) Send(c Client) (chan GetStreamSettingsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetStreamSettingsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetStreamSettingsResponse)
-	go func() { future <- (<-generic).(GetStreamSettingsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetStreamSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetStreamSettingsRequest) Receive() (GetStreamSettingsResponse, error) {
+	if !r.sent {
+		return GetStreamSettingsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetStreamSettingsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetStreamSettingsRequest) SendReceive(c Client) (GetStreamSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetStreamSettingsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetStreamSettingsResponse : Response for GetStreamSettingsRequest.
@@ -339,25 +545,61 @@ type GetStreamSettingsResponse struct {
 // SaveStreamSettingsRequest : Save the current streaming server settings to disk.
 // Since obs-websocket version: 4.1.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savestreamsettings
-type SaveStreamSettingsRequest struct{ _request }
+type SaveStreamSettingsRequest struct {
+	_request `json:",squash"`
+	response chan SaveStreamSettingsResponse
+}
 
 // NewSaveStreamSettingsRequest returns a new SaveStreamSettingsRequest.
 func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
-	return SaveStreamSettingsRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "SaveStreamSettings",
-	}}
+	return SaveStreamSettingsRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SaveStreamSettings",
+			err:   make(chan error),
+		},
+		make(chan SaveStreamSettingsResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SaveStreamSettingsRequest) Send(c Client) (chan SaveStreamSettingsResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SaveStreamSettingsRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SaveStreamSettingsResponse)
-	go func() { future <- (<-generic).(SaveStreamSettingsResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SaveStreamSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SaveStreamSettingsRequest) Receive() (SaveStreamSettingsResponse, error) {
+	if !r.sent {
+		return SaveStreamSettingsResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SaveStreamSettingsResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SaveStreamSettingsRequest) SendReceive(c Client) (SaveStreamSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SaveStreamSettingsResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SaveStreamSettingsResponse : Response for SaveStreamSettingsRequest.

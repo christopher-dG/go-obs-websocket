@@ -11,6 +11,7 @@ type SetCurrentProfileRequest struct {
 	// Required: Yes.
 	ProfileName string `json:"profile-name"`
 	_request    `json:",squash"`
+	response    chan SetCurrentProfileResponse
 }
 
 // NewSetCurrentProfileRequest returns a new SetCurrentProfileRequest.
@@ -21,18 +22,48 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 			ID_:   getMessageID(),
 			Type_: "SetCurrentProfile",
 		},
+		make(chan SetCurrentProfileResponse),
 	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r SetCurrentProfileRequest) Send(c Client) (chan SetCurrentProfileResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *SetCurrentProfileRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan SetCurrentProfileResponse)
-	go func() { future <- (<-generic).(SetCurrentProfileResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetCurrentProfileResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetCurrentProfileRequest) Receive() (SetCurrentProfileResponse, error) {
+	if !r.sent {
+		return SetCurrentProfileResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return SetCurrentProfileResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetCurrentProfileRequest) SendReceive(c Client) (SetCurrentProfileResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetCurrentProfileResponse{}, err
+	}
+	return r.Receive()
 }
 
 // SetCurrentProfileResponse : Response for SetCurrentProfileRequest.
@@ -45,25 +76,61 @@ type SetCurrentProfileResponse struct {
 // GetCurrentProfileRequest : Get the name of the current profile.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentprofile
-type GetCurrentProfileRequest struct{ _request }
+type GetCurrentProfileRequest struct {
+	_request `json:",squash"`
+	response chan GetCurrentProfileResponse
+}
 
 // NewGetCurrentProfileRequest returns a new GetCurrentProfileRequest.
 func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
-	return GetCurrentProfileRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "GetCurrentProfile",
-	}}
+	return GetCurrentProfileRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetCurrentProfile",
+			err:   make(chan error),
+		},
+		make(chan GetCurrentProfileResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r GetCurrentProfileRequest) Send(c Client) (chan GetCurrentProfileResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *GetCurrentProfileRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan GetCurrentProfileResponse)
-	go func() { future <- (<-generic).(GetCurrentProfileResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetCurrentProfileResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetCurrentProfileRequest) Receive() (GetCurrentProfileResponse, error) {
+	if !r.sent {
+		return GetCurrentProfileResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return GetCurrentProfileResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetCurrentProfileRequest) SendReceive(c Client) (GetCurrentProfileResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetCurrentProfileResponse{}, err
+	}
+	return r.Receive()
 }
 
 // GetCurrentProfileResponse : Response for GetCurrentProfileRequest.
@@ -79,25 +146,61 @@ type GetCurrentProfileResponse struct {
 // ListProfilesRequest : Get a list of available profiles.
 // Since obs-websocket version: 4.0.0.
 // https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listprofiles
-type ListProfilesRequest struct{ _request }
+type ListProfilesRequest struct {
+	_request `json:",squash"`
+	response chan ListProfilesResponse
+}
 
 // NewListProfilesRequest returns a new ListProfilesRequest.
 func NewListProfilesRequest() ListProfilesRequest {
-	return ListProfilesRequest{_request{
-		ID_:   getMessageID(),
-		Type_: "ListProfiles",
-	}}
+	return ListProfilesRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ListProfiles",
+			err:   make(chan error),
+		},
+		make(chan ListProfilesResponse),
+	}
 }
 
 // Send sends the request and returns a channel to which the response will be sent.
-func (r ListProfilesRequest) Send(c Client) (chan ListProfilesResponse, error) {
-	generic, err := c.SendRequest(r)
+func (r *ListProfilesRequest) Send(c Client) error {
+	future, err := c.SendRequest(r)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	future := make(chan ListProfilesResponse)
-	go func() { future <- (<-generic).(ListProfilesResponse) }()
-	return future, nil
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ListProfilesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ListProfilesRequest) Receive() (ListProfilesResponse, error) {
+	if !r.sent {
+		return ListProfilesResponse{}, ErrNotSent
+	}
+	select {
+	case resp := <-r.response:
+		return resp, nil
+	case err := <-r.err:
+		return ListProfilesResponse{}, err
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ListProfilesRequest) SendReceive(c Client) (ListProfilesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ListProfilesResponse{}, err
+	}
+	return r.Receive()
 }
 
 // ListProfilesResponse : Response for ListProfilesRequest.
