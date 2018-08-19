@@ -9,6 +9,7 @@ var ErrNotSent = errors.New("request not yet sent")
 type Request interface {
 	ID() string
 	Type() string
+	Send(Client) error
 }
 
 // Response is a response from obs-websocket.
@@ -25,6 +26,8 @@ type _request struct {
 	sent  bool
 	err   chan error
 }
+
+func (r _request) Send(c Client) error { return nil }
 
 // ID returns the requet's message ID.
 func (r _request) ID() string { return r.ID_ }

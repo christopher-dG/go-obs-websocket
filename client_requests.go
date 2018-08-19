@@ -1,10 +1,13 @@
 package obsws
 
 import (
+	"errors"
 	"time"
 )
 
 const interval = time.Millisecond * 50
+
+var ErrReceiveTimeout = errors.New("receive timed out")
 
 // sendRequest sends a request to the WebSocket server.
 func (c *Client) sendRequest(req Request) (chan map[string]interface{}, error) {
@@ -12,17 +15,17 @@ func (c *Client) sendRequest(req Request) (chan map[string]interface{}, error) {
 	if err := c.conn.WriteJSON(req); err != nil {
 		return nil, err
 	}
-	go func() { future <- c.waitResponse(req) }()
+	logger.Debug("sent request", req.ID())
+	go func() { future <- c.receive(req.ID()) }()
 	return future, nil
 }
 
-// waitResponse waits until a response matching the request is found.
-func (c *Client) waitResponse(req Request) map[string]interface{} {
+// receive waits until a response matching the given ID arrives.
+func (c *Client) receive(id string) map[string]interface{} {
 	for {
 		resp := <-c.respQ
-		id := resp["message-id"]
-		if resp["message-id"] == req.ID() {
-			logger.Debug("received response", id)
+		if resp["message-id"] == id {
+			logger.Debug("received response", resp["message-id"])
 			return resp
 		}
 		c.respQ <- resp

@@ -148,11 +148,22 @@ def gen_request(data: Dict) -> str:
         if !r.sent {{
             return {data["name"]}Response{{}}, ErrNotSent
         }}
-        select {{
-        case resp := <-r.response:
-            return resp, nil
-        case err := <-r.err:
-            return {data["name"]}Response{{}}, err
+        if receiveTimeout == 0 {{
+            select {{
+            case resp := <-r.response:
+                return resp, nil
+            case err := <-r.err:
+                return {data["name"]}Response{{}}, err
+            }}
+        }} else {{
+            select {{
+            case resp := <-r.response:
+                return resp, nil
+            case err := <-r.err:
+                return {data["name"]}Response{{}}, err
+            case <-time.After(receiveTimeout):
+                return {data["name"]}Response{{}}, ErrReceiveTimeout
+            }}
         }}
     }}
 
@@ -363,4 +374,4 @@ if __name__ == "__main__":
         d = json.load(f)
 
     process_json(d)
-    os.system("gofmt -w *.go")
+    os.system("goimports -w *.go")

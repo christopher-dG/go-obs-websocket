@@ -3,6 +3,7 @@ package obsws
 import (
 	"strconv"
 	"sync"
+	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/mitchellh/mapstructure"
@@ -11,8 +12,9 @@ import (
 const bufferSize = 100
 
 var (
-	messageID = 0
-	lock      = sync.Mutex{}
+	receiveTimeout = time.Duration(0)
+	messageID      = 0
+	lock           = sync.Mutex{}
 )
 
 // Client is the interface to obs-websocket.
@@ -55,6 +57,12 @@ func (c *Client) poll() {
 			c.handleEvent(m)
 		}
 	}
+}
+
+// SetReceiveTimeout sets the maximum blocking time for receiving request responses.
+// If set to 0 (the default), there is no timeout.
+func SetReceiveTimeout(timeout time.Duration) {
+	receiveTimeout = timeout
 }
 
 // getMessageID generates a string that the client has not yet used.
