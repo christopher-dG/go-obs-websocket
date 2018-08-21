@@ -49,4 +49,6 @@ func (r _response) ID() string { return r.ID_ }
 func (r _response) Status() string { return r.Status_ }
 
 // Error returns the response's error.
+// When using Receive or SendReceive, this should always return an empty string,
+// because the error will have been returned explictly instead of stored here.
 func (r _response) Error() string { return r.Error_ }
