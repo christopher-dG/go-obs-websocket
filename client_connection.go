@@ -11,21 +11,18 @@ import (
 
 // Connect opens a WebSocket connection and authenticates if necessary.
 func (c *Client) Connect() error {
-	c.init()
+	c.handlers = make(map[string]func(Event))
+	c.respQ = make(chan map[string]interface{}, bufferSize)
+
 	conn, err := connectWS(c.Host, c.Port)
 	if err != nil {
 		return err
 	}
 	c.conn = conn
 
-	// We can't use SendRequest yet because we haven't started polling.
+	// We can't use SendReceive yet because we haven't started polling.
 
-	reqGAR := GetAuthRequiredRequest{
-		_request: _request{
-			ID_:   getMessageID(),
-			Type_: "GetAuthRequired",
-		},
-	}
+	reqGAR := NewGetAuthRequiredRequest()
 	if err = c.conn.WriteJSON(reqGAR); err != nil {
 		return err
 	}
@@ -44,13 +41,7 @@ func (c *Client) Connect() error {
 	auth := getAuth(c.Password, respGAR.Salt, respGAR.Challenge)
 	logger.Debug("auth:", auth)
 
-	reqA := AuthenticateRequest{
-		Auth: auth,
-		_request: _request{
-			ID_:   getMessageID(),
-			Type_: "Authenticate",
-		},
-	}
+	reqA := NewAuthenticateRequest(auth)
 	if err = c.conn.WriteJSON(reqA); err != nil {
 		return err
 	}

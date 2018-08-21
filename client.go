@@ -29,12 +29,6 @@ type Client struct {
 	respQ    chan map[string]interface{} // Queue of received responses.
 }
 
-// init prepares the client's internal fields.
-func (c *Client) init() {
-	c.handlers = make(map[string]func(Event))
-	c.respQ = make(chan map[string]interface{}, bufferSize)
-}
-
 // poll listens for responses/events.
 // This function blocks until Disconnect is called.
 func (c *Client) poll() {
