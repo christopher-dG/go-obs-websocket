@@ -36,9 +36,10 @@ unknown_types = []
 
 def process_json(d: Dict):
     """Generate Go code for the entire protocol file."""
-    ("--events" in sys.argv or "--all" in sys.argv) and gen_events(d["events"])
-    ("--requests" in sys.argv or "--all" in sys.argv) and gen_requests(d["requests"])
-
+    if "--events" in sys.argv or "--all" in sys.argv:
+        gen_events(d["events"])
+    if "--requests" in sys.argv or "--all" in sys.argv:
+        gen_requests(d["requests"])
 
 
 def gen_category(prefix: str, category: str, data: Dict):
@@ -67,7 +68,7 @@ def gen_events(events: Dict):
     """Generate all events."""
     for category, data in events.items():
         gen_category("events", category, data)
-    gen_event_map(events)
+    gen_event_utils(events)
 
 
 def gen_event(data: Dict) -> str:
@@ -253,24 +254,43 @@ def gen_request_new(request: Dict):
     return f"{sig} {{ return {request['name']}Request{constructor_args} }}"
 
 
-def gen_event_map(events: Dict):
-    """Generate a Go file with a mappings from type names to structs."""
+def gen_event_utils(events: Dict):
+    """
+    Generate a Go file with a mappings from type names to structs,
+    and a function for dereferencing interface pointers.
+    """
     event_map = {}
+    event_list = []
     for category in events.values():
         for e in category:
-            event_map[e["name"]] = f"&{e['name']}Event{{}}"
+            event_map[e["name"]] = f"func() Event {{ return &{e['name']}Event{{}} }}"
+            event_list.append(f"*{e['name']}Event")
     event_entries = "\n".join(f'"{k}": {v},' for k, v in event_map.items())
+    event_cases = "\n".join(f"case {e}:\nreturn *e" for e in event_list)
 
-    with open("typeswitches.go", "w") as f:
+    deref = f"""
+    func derefEvent(e Event) Event {{
+        switch e := e.(type) {{
+            {event_cases}
+        default:
+            return nil
+        }}
+    }}
+    """
+
+    with open("event_utils.go", "w") as f:
         f.write(
             f"""
         package {package}
 
         {disclaimer}
 
-        var eventMap = map[string]Event{{
+        var eventMap = map[string]func() Event {{
             {event_entries}
         }}
+
+        // derefEvent returns an Event struct from a pointer to an Event struct.
+        {deref}
         """
         )
 

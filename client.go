@@ -77,9 +77,8 @@ func getMessageID() string {
 // mapToStruct serializes a map into a struct.
 func mapToStruct(data map[string]interface{}, dest interface{}) error {
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		ZeroFields: true, // TODO: Is this actually working?
-		TagName:    "json",
-		Result:     dest,
+		TagName: "json",
+		Result:  dest,
 	})
 	if err != nil {
 		logger.Warning("initializing decoder:", err)

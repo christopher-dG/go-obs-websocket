@@ -22,9 +22,17 @@ func (c *Client) RemoveEventHandler(eventType string) {
 
 // handleEvent runs an event's handler if it exists.
 func (c *Client) handleEvent(m map[string]interface{}) {
-	event := eventMap[m["update-type"].(string)]
-	if event == nil {
+	t := m["update-type"].(string)
+
+	eventFn, ok := eventMap[t]
+	if !ok {
 		logger.Warning("unknown event type:", m["update-type"])
+		return
+	}
+	event := eventFn()
+
+	handler, ok := c.handlers[t]
+	if !ok {
 		return
 	}
 
@@ -33,8 +41,5 @@ func (c *Client) handleEvent(m map[string]interface{}) {
 		return
 	}
 
-	handler := c.handlers[event.Type()]
-	if handler != nil {
-		go handler(event)
-	}
+	go handler(derefEvent(event))
 }

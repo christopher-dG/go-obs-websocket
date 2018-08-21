@@ -21,19 +21,19 @@ import (
 	"log"
 	"time"
 
-	obs "github.com/christopher-dG/go-obs-websocket"
+	"github.com/christopher-dG/go-obs-websocket"
 )
 
 func main() {
 	// Connect a client.
-	c := obs.Client{Host: "localhost", Port: 4444}
+	c := obsws.Client{Host: "localhost", Port: 4444}
 	if err := c.Connect(); err != nil {
 		log.Fatal(err)
 	}
 	defer c.Disconnect()
 
 	// Send and receive a request asynchronously.
-	req := obs.NewGetStreamingStatusRequest()
+	req := obsws.NewGetStreamingStatusRequest()
 	if err := req.Send(c); err != nil {
 		log.Fatal(err)
 	}
@@ -45,10 +45,10 @@ func main() {
 	log.Println("streaming:", resp.Streaming)
 
 	// Set the amount of time we can wait for a response.
-	obs.SetReceiveTimeout(time.Second)
+	obsws.SetReceiveTimeout(time.Second)
 
 	// Send and receive a request synchronously.
-	req = obs.NewGetStreamingStatusRequest()
+	req = obsws.NewGetStreamingStatusRequest()
 	// Note that we create a new request,
 	// because requests have IDs that must be unique.a
 	// This will block for up to two seconds, since we set a timeout.
@@ -59,10 +59,9 @@ func main() {
 	log.Println("streaming:", resp.Streaming)
 
 	// Respond to events by registering handlers.
-	c.AddEventHandler("SwitchScenes", func(e obs.Event) {
+	c.AddEventHandler("SwitchScenes", func(e obsws.Event) {
 		// Make sure to assert the actual event type.
-		// The event is always a pointer.
-		log.Println("new scene:", e.(*obs.SwitchScenesEvent).SceneName)
+		log.Println("new scene:", e.(obs.SwitchScenesEvent).SceneName)
 	})
 
 	time.Sleep(time.Second * 10)
