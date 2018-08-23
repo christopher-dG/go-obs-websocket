@@ -45,12 +45,12 @@ func main() {
 	log.Println("streaming:", resp.Streaming)
 
 	// Set the amount of time we can wait for a response.
-	obsws.SetReceiveTimeout(time.Second)
+	obsws.SetReceiveTimeout(time.Second * 2)
 
 	// Send and receive a request synchronously.
 	req = obsws.NewGetStreamingStatusRequest()
 	// Note that we create a new request,
-	// because requests have IDs that must be unique.a
+	// because requests have IDs that must be unique.
 	// This will block for up to two seconds, since we set a timeout.
 	resp, err = req.SendReceive(c)
 	if err != nil {
