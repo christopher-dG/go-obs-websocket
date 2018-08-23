@@ -28,7 +28,7 @@ func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetStreamingStatusRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -124,7 +124,7 @@ func NewStartStopStreamingRequest() StartStopStreamingRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StartStopStreamingRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -257,7 +257,7 @@ func NewStartStreamingRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StartStreamingRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -338,7 +338,7 @@ func NewStopStreamingRequest() StopStreamingRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StopStreamingRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -463,7 +463,7 @@ func NewSetStreamSettingsRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetStreamSettingsRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -543,7 +543,7 @@ func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetStreamSettingsRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -647,7 +647,7 @@ func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SaveStreamSettingsRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

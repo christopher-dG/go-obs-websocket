@@ -3,7 +3,9 @@ package obsws
 import "errors"
 
 const (
-	StatusOK    = "ok"
+	// StatusOK indicates that the request was successful.
+	StatusOK = "ok"
+	// StatusError indicates that the request was unsuccessful.
 	StatusError = "error"
 )
 

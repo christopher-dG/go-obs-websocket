@@ -28,7 +28,7 @@ func NewGetTransitionListRequest() GetTransitionListRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetTransitionListRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -117,7 +117,7 @@ func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetCurrentTransitionRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -207,7 +207,7 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetCurrentTransitionRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -291,7 +291,7 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetTransitionDurationRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -371,7 +371,7 @@ func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetTransitionDurationRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

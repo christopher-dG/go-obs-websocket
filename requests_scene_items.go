@@ -40,7 +40,7 @@ func NewGetSceneItemPropertiesRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -258,7 +258,7 @@ func NewSetSceneItemPropertiesRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -350,7 +350,7 @@ func NewResetSceneItemRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *ResetSceneItemRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -447,7 +447,7 @@ func NewSetSceneItemRenderRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetSceneItemRenderRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -549,7 +549,7 @@ func NewSetSceneItemPositionRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetSceneItemPositionRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -656,7 +656,7 @@ func NewSetSceneItemTransformRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetSceneItemTransformRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -768,7 +768,7 @@ func NewSetSceneItemCropRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetSceneItemCropRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

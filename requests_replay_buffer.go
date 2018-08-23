@@ -28,7 +28,7 @@ func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StartStopReplayBufferRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -112,7 +112,7 @@ func NewStartReplayBufferRequest() StartReplayBufferRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StartReplayBufferRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -193,7 +193,7 @@ func NewStopReplayBufferRequest() StopReplayBufferRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *StopReplayBufferRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -276,7 +276,7 @@ func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SaveReplayBufferRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

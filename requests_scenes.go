@@ -32,7 +32,7 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetCurrentSceneRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -112,7 +112,7 @@ func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetCurrentSceneRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -198,7 +198,7 @@ func NewGetSceneListRequest() GetSceneListRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetSceneListRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

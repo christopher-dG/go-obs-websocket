@@ -4,6 +4,7 @@ import (
 	"errors"
 )
 
+// ErrUnknownEventType is returned when a handler is added for an unknown event.
 var ErrUnknownEventType = errors.New("unknown event type")
 
 // AddEventHandler adds a handler function for a given event type.

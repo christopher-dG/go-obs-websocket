@@ -8,7 +8,9 @@ import (
 const interval = time.Millisecond * 50
 
 var (
-	ErrNotConnected   = errors.New("not connected")
+	// ErrNotConnected is returned when a request is sent by a client which is not connected.
+	ErrNotConnected = errors.New("not connected")
+	// ErrReceiveTimeout is returned when a response takes too long to arrive.
 	ErrReceiveTimeout = errors.New("receive timed out")
 )
 

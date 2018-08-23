@@ -32,7 +32,7 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetCurrentProfileRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -112,7 +112,7 @@ func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetCurrentProfileRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -195,7 +195,7 @@ func NewListProfilesRequest() ListProfilesRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *ListProfilesRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

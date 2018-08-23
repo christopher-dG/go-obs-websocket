@@ -28,7 +28,7 @@ func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetStudioModeStatusRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -112,7 +112,7 @@ func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetPreviewSceneRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -202,7 +202,7 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetPreviewSceneRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -300,7 +300,7 @@ func NewTransitionToProgramRequest(
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *TransitionToProgramRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -380,7 +380,7 @@ func NewEnableStudioModeRequest() EnableStudioModeRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *EnableStudioModeRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -460,7 +460,7 @@ func NewDisableStudioModeRequest() DisableStudioModeRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *DisableStudioModeRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -540,7 +540,7 @@ func NewToggleStudioModeRequest() ToggleStudioModeRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *ToggleStudioModeRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {

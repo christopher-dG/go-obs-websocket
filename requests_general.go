@@ -28,7 +28,7 @@ func NewGetVersionRequest() GetVersionRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetVersionRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -123,7 +123,7 @@ func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetAuthRequiredRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -214,7 +214,7 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *AuthenticateRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -298,7 +298,7 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetHeartbeatRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -382,7 +382,7 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *SetFilenameFormattingRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
@@ -462,7 +462,7 @@ func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
 	}
 }
 
-// Send sends the request and returns a channel to which the response will be sent.
+// Send sends the request.
 func (r *GetFilenameFormattingRequest) Send(c Client) error {
 	future, err := c.sendRequest(r)
 	if err != nil {
