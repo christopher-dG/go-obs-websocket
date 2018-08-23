@@ -40,7 +40,7 @@ func (r *GetStreamingStatusRequest) Send(c Client) error {
 		var resp GetStreamingStatusResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -136,7 +136,7 @@ func (r *StartStopStreamingRequest) Send(c Client) error {
 		var resp StartStopStreamingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -269,7 +269,7 @@ func (r *StartStreamingRequest) Send(c Client) error {
 		var resp StartStreamingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -350,7 +350,7 @@ func (r *StopStreamingRequest) Send(c Client) error {
 		var resp StopStreamingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -475,7 +475,7 @@ func (r *SetStreamSettingsRequest) Send(c Client) error {
 		var resp SetStreamSettingsResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -555,7 +555,7 @@ func (r *GetStreamSettingsRequest) Send(c Client) error {
 		var resp GetStreamSettingsResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -659,7 +659,7 @@ func (r *SaveStreamSettingsRequest) Send(c Client) error {
 		var resp SaveStreamSettingsResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

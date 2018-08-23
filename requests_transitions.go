@@ -40,7 +40,7 @@ func (r *GetTransitionListRequest) Send(c Client) error {
 		var resp GetTransitionListResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -129,7 +129,7 @@ func (r *GetCurrentTransitionRequest) Send(c Client) error {
 		var resp GetCurrentTransitionResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -219,7 +219,7 @@ func (r *SetCurrentTransitionRequest) Send(c Client) error {
 		var resp SetCurrentTransitionResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -303,7 +303,7 @@ func (r *SetTransitionDurationRequest) Send(c Client) error {
 		var resp SetTransitionDurationResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -383,7 +383,7 @@ func (r *GetTransitionDurationRequest) Send(c Client) error {
 		var resp GetTransitionDurationResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

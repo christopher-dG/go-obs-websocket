@@ -44,7 +44,7 @@ func (r *SetCurrentProfileRequest) Send(c Client) error {
 		var resp SetCurrentProfileResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -124,7 +124,7 @@ func (r *GetCurrentProfileRequest) Send(c Client) error {
 		var resp GetCurrentProfileResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -207,7 +207,7 @@ func (r *ListProfilesRequest) Send(c Client) error {
 		var resp ListProfilesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

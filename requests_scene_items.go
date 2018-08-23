@@ -52,7 +52,7 @@ func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
 		var resp GetSceneItemPropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -270,7 +270,7 @@ func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
 		var resp SetSceneItemPropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -362,7 +362,7 @@ func (r *ResetSceneItemRequest) Send(c Client) error {
 		var resp ResetSceneItemResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -459,7 +459,7 @@ func (r *SetSceneItemRenderRequest) Send(c Client) error {
 		var resp SetSceneItemRenderResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -561,7 +561,7 @@ func (r *SetSceneItemPositionRequest) Send(c Client) error {
 		var resp SetSceneItemPositionResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -668,7 +668,7 @@ func (r *SetSceneItemTransformRequest) Send(c Client) error {
 		var resp SetSceneItemTransformResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -780,7 +780,7 @@ func (r *SetSceneItemCropRequest) Send(c Client) error {
 		var resp SetSceneItemCropResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

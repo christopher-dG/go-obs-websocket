@@ -137,7 +137,7 @@ def gen_request(data: Dict) -> str:
             var resp {data["name"]}Response
             if err = mapToStruct(m, &resp); err != nil {{
                 r.err <- err
-            }} else if resp.Status() != "ok" {{
+            }} else if resp.Status() != StatusOK {{
                 r.err <- errors.New(resp.Error())
             }} else {{
                 r.response <- resp

@@ -2,6 +2,11 @@ package obsws
 
 import "errors"
 
+const (
+	StatusOK    = "ok"
+	StatusError = "error"
+)
+
 // ErrNotSent is returned when you call Receive on a request that has not been sent.
 var ErrNotSent = errors.New("request not yet sent")
 

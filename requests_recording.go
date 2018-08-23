@@ -40,7 +40,7 @@ func (r *StartStopRecordingRequest) Send(c Client) error {
 		var resp StartStopRecordingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -121,7 +121,7 @@ func (r *StartRecordingRequest) Send(c Client) error {
 		var resp StartRecordingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -202,7 +202,7 @@ func (r *StopRecordingRequest) Send(c Client) error {
 		var resp StopRecordingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -286,7 +286,7 @@ func (r *SetRecordingFolderRequest) Send(c Client) error {
 		var resp SetRecordingFolderResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -366,7 +366,7 @@ func (r *GetRecordingFolderRequest) Send(c Client) error {
 		var resp GetRecordingFolderResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

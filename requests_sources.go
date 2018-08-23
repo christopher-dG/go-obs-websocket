@@ -40,7 +40,7 @@ func (r *GetSourcesListRequest) Send(c Client) error {
 		var resp GetSourcesListResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -133,7 +133,7 @@ func (r *GetSourcesTypesListRequest) Send(c Client) error {
 		var resp GetSourcesTypesListResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -257,7 +257,7 @@ func (r *GetVolumeRequest) Send(c Client) error {
 		var resp GetVolumeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -359,7 +359,7 @@ func (r *SetVolumeRequest) Send(c Client) error {
 		var resp SetVolumeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -443,7 +443,7 @@ func (r *GetMuteRequest) Send(c Client) error {
 		var resp GetMuteResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -540,7 +540,7 @@ func (r *SetMuteRequest) Send(c Client) error {
 		var resp SetMuteResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -624,7 +624,7 @@ func (r *ToggleMuteRequest) Send(c Client) error {
 		var resp ToggleMuteResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -715,7 +715,7 @@ func (r *SetSyncOffsetRequest) Send(c Client) error {
 		var resp SetSyncOffsetResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -799,7 +799,7 @@ func (r *GetSyncOffsetRequest) Send(c Client) error {
 		var resp GetSyncOffsetResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -897,7 +897,7 @@ func (r *GetSourceSettingsRequest) Send(c Client) error {
 		var resp GetSourceSettingsResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1005,7 +1005,7 @@ func (r *SetSourceSettingsRequest) Send(c Client) error {
 		var resp SetSourceSettingsResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1107,7 +1107,7 @@ func (r *GetTextGDIPlusPropertiesRequest) Send(c Client) error {
 		var resp GetTextGDIPlusPropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1427,7 +1427,7 @@ func (r *SetTextGDIPlusPropertiesRequest) Send(c Client) error {
 		var resp SetTextGDIPlusPropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1519,7 +1519,7 @@ func (r *GetBrowserSourcePropertiesRequest) Send(c Client) error {
 		var resp GetBrowserSourcePropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1683,7 +1683,7 @@ func (r *SetBrowserSourcePropertiesRequest) Send(c Client) error {
 		var resp SetBrowserSourcePropertiesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -1763,7 +1763,7 @@ func (r *GetSpecialSourcesRequest) Send(c Client) error {
 		var resp GetSpecialSourcesResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

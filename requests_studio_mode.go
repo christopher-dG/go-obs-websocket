@@ -40,7 +40,7 @@ func (r *GetStudioModeStatusRequest) Send(c Client) error {
 		var resp GetStudioModeStatusResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -124,7 +124,7 @@ func (r *GetPreviewSceneRequest) Send(c Client) error {
 		var resp GetPreviewSceneResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -214,7 +214,7 @@ func (r *SetPreviewSceneRequest) Send(c Client) error {
 		var resp SetPreviewSceneResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -312,7 +312,7 @@ func (r *TransitionToProgramRequest) Send(c Client) error {
 		var resp TransitionToProgramResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -392,7 +392,7 @@ func (r *EnableStudioModeRequest) Send(c Client) error {
 		var resp EnableStudioModeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -472,7 +472,7 @@ func (r *DisableStudioModeRequest) Send(c Client) error {
 		var resp DisableStudioModeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -552,7 +552,7 @@ func (r *ToggleStudioModeRequest) Send(c Client) error {
 		var resp ToggleStudioModeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

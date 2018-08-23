@@ -40,7 +40,7 @@ func (r *StartStopReplayBufferRequest) Send(c Client) error {
 		var resp StartStopReplayBufferResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -124,7 +124,7 @@ func (r *StartReplayBufferRequest) Send(c Client) error {
 		var resp StartReplayBufferResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -205,7 +205,7 @@ func (r *StopReplayBufferRequest) Send(c Client) error {
 		var resp StopReplayBufferResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -288,7 +288,7 @@ func (r *SaveReplayBufferRequest) Send(c Client) error {
 		var resp SaveReplayBufferResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

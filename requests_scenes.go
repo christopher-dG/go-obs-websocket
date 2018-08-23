@@ -44,7 +44,7 @@ func (r *SetCurrentSceneRequest) Send(c Client) error {
 		var resp SetCurrentSceneResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -124,7 +124,7 @@ func (r *GetCurrentSceneRequest) Send(c Client) error {
 		var resp GetCurrentSceneResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -210,7 +210,7 @@ func (r *GetSceneListRequest) Send(c Client) error {
 		var resp GetSceneListResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp

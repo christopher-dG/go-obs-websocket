@@ -40,7 +40,7 @@ func (r *GetVersionRequest) Send(c Client) error {
 		var resp GetVersionResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -135,7 +135,7 @@ func (r *GetAuthRequiredRequest) Send(c Client) error {
 		var resp GetAuthRequiredResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -226,7 +226,7 @@ func (r *AuthenticateRequest) Send(c Client) error {
 		var resp AuthenticateResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -310,7 +310,7 @@ func (r *SetHeartbeatRequest) Send(c Client) error {
 		var resp SetHeartbeatResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -394,7 +394,7 @@ func (r *SetFilenameFormattingRequest) Send(c Client) error {
 		var resp SetFilenameFormattingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
@@ -474,7 +474,7 @@ func (r *GetFilenameFormattingRequest) Send(c Client) error {
 		var resp GetFilenameFormattingResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
-		} else if resp.Status() != "ok" {
+		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
 			r.response <- resp
