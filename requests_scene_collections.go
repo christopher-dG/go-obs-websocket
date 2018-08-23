@@ -26,8 +26,9 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetCurrentSceneCollection",
+			err:   make(chan error, 1),
 		},
-		make(chan SetCurrentSceneCollectionResponse),
+		make(chan SetCurrentSceneCollectionResponse, 1),
 	}
 }
 
@@ -105,9 +106,9 @@ func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetCurrentSceneCollection",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetCurrentSceneCollectionResponse),
+		make(chan GetCurrentSceneCollectionResponse, 1),
 	}
 }
 
@@ -188,9 +189,9 @@ func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "ListSceneCollections",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan ListSceneCollectionsResponse),
+		make(chan ListSceneCollectionsResponse, 1),
 	}
 }
 

@@ -22,9 +22,9 @@ func NewStartStopRecordingRequest() StartStopRecordingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartStopRecording",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StartStopRecordingResponse),
+		make(chan StartStopRecordingResponse, 1),
 	}
 }
 
@@ -103,9 +103,9 @@ func NewStartRecordingRequest() StartRecordingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartRecording",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StartRecordingResponse),
+		make(chan StartRecordingResponse, 1),
 	}
 }
 
@@ -184,9 +184,9 @@ func NewStopRecordingRequest() StopRecordingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StopRecording",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StopRecordingResponse),
+		make(chan StopRecordingResponse, 1),
 	}
 }
 
@@ -268,8 +268,9 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetRecordingFolder",
+			err:   make(chan error, 1),
 		},
-		make(chan SetRecordingFolderResponse),
+		make(chan SetRecordingFolderResponse, 1),
 	}
 }
 
@@ -347,9 +348,9 @@ func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetRecordingFolder",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetRecordingFolderResponse),
+		make(chan GetRecordingFolderResponse, 1),
 	}
 }
 

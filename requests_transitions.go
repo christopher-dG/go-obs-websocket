@@ -22,9 +22,9 @@ func NewGetTransitionListRequest() GetTransitionListRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetTransitionList",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetTransitionListResponse),
+		make(chan GetTransitionListResponse, 1),
 	}
 }
 
@@ -111,9 +111,9 @@ func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetCurrentTransition",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetCurrentTransitionResponse),
+		make(chan GetCurrentTransitionResponse, 1),
 	}
 }
 
@@ -201,8 +201,9 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetCurrentTransition",
+			err:   make(chan error, 1),
 		},
-		make(chan SetCurrentTransitionResponse),
+		make(chan SetCurrentTransitionResponse, 1),
 	}
 }
 
@@ -284,8 +285,9 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetTransitionDuration",
+			err:   make(chan error, 1),
 		},
-		make(chan SetTransitionDurationResponse),
+		make(chan SetTransitionDurationResponse, 1),
 	}
 }
 
@@ -363,9 +365,9 @@ func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetTransitionDuration",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetTransitionDurationResponse),
+		make(chan GetTransitionDurationResponse, 1),
 	}
 }
 

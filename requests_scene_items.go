@@ -34,8 +34,9 @@ func NewGetSceneItemPropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSceneItemProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan GetSceneItemPropertiesResponse),
+		make(chan GetSceneItemPropertiesResponse, 1),
 	}
 }
 
@@ -251,8 +252,9 @@ func NewSetSceneItemPropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSceneItemPropertiesResponse),
+		make(chan SetSceneItemPropertiesResponse, 1),
 	}
 }
 
@@ -342,8 +344,9 @@ func NewResetSceneItemRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "ResetSceneItem",
+			err:   make(chan error, 1),
 		},
-		make(chan ResetSceneItemResponse),
+		make(chan ResetSceneItemResponse, 1),
 	}
 }
 
@@ -438,8 +441,9 @@ func NewSetSceneItemRenderRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemRender",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSceneItemRenderResponse),
+		make(chan SetSceneItemRenderResponse, 1),
 	}
 }
 
@@ -539,8 +543,9 @@ func NewSetSceneItemPositionRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemPosition",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSceneItemPositionResponse),
+		make(chan SetSceneItemPositionResponse, 1),
 	}
 }
 
@@ -645,8 +650,9 @@ func NewSetSceneItemTransformRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemTransform",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSceneItemTransformResponse),
+		make(chan SetSceneItemTransformResponse, 1),
 	}
 }
 
@@ -756,8 +762,9 @@ func NewSetSceneItemCropRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSceneItemCrop",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSceneItemCropResponse),
+		make(chan SetSceneItemCropResponse, 1),
 	}
 }
 

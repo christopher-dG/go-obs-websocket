@@ -26,8 +26,9 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetCurrentProfile",
+			err:   make(chan error, 1),
 		},
-		make(chan SetCurrentProfileResponse),
+		make(chan SetCurrentProfileResponse, 1),
 	}
 }
 
@@ -105,9 +106,9 @@ func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetCurrentProfile",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetCurrentProfileResponse),
+		make(chan GetCurrentProfileResponse, 1),
 	}
 }
 
@@ -188,9 +189,9 @@ func NewListProfilesRequest() ListProfilesRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "ListProfiles",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan ListProfilesResponse),
+		make(chan ListProfilesResponse, 1),
 	}
 }
 

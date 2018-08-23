@@ -22,9 +22,9 @@ func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetStudioModeStatus",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetStudioModeStatusResponse),
+		make(chan GetStudioModeStatusResponse, 1),
 	}
 }
 
@@ -106,9 +106,9 @@ func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetPreviewScene",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetPreviewSceneResponse),
+		make(chan GetPreviewSceneResponse, 1),
 	}
 }
 
@@ -196,8 +196,9 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetPreviewScene",
+			err:   make(chan error, 1),
 		},
-		make(chan SetPreviewSceneResponse),
+		make(chan SetPreviewSceneResponse, 1),
 	}
 }
 
@@ -293,8 +294,9 @@ func NewTransitionToProgramRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "TransitionToProgram",
+			err:   make(chan error, 1),
 		},
-		make(chan TransitionToProgramResponse),
+		make(chan TransitionToProgramResponse, 1),
 	}
 }
 
@@ -372,9 +374,9 @@ func NewEnableStudioModeRequest() EnableStudioModeRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "EnableStudioMode",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan EnableStudioModeResponse),
+		make(chan EnableStudioModeResponse, 1),
 	}
 }
 
@@ -452,9 +454,9 @@ func NewDisableStudioModeRequest() DisableStudioModeRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "DisableStudioMode",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan DisableStudioModeResponse),
+		make(chan DisableStudioModeResponse, 1),
 	}
 }
 
@@ -532,9 +534,9 @@ func NewToggleStudioModeRequest() ToggleStudioModeRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "ToggleStudioMode",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan ToggleStudioModeResponse),
+		make(chan ToggleStudioModeResponse, 1),
 	}
 }
 

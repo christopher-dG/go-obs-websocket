@@ -22,9 +22,9 @@ func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartStopReplayBuffer",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StartStopReplayBufferResponse),
+		make(chan StartStopReplayBufferResponse, 1),
 	}
 }
 
@@ -106,9 +106,9 @@ func NewStartReplayBufferRequest() StartReplayBufferRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartReplayBuffer",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StartReplayBufferResponse),
+		make(chan StartReplayBufferResponse, 1),
 	}
 }
 
@@ -187,9 +187,9 @@ func NewStopReplayBufferRequest() StopReplayBufferRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StopReplayBuffer",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StopReplayBufferResponse),
+		make(chan StopReplayBufferResponse, 1),
 	}
 }
 
@@ -270,9 +270,9 @@ func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SaveReplayBuffer",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan SaveReplayBufferResponse),
+		make(chan SaveReplayBufferResponse, 1),
 	}
 }
 

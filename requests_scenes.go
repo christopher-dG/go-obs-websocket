@@ -26,8 +26,9 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetCurrentScene",
+			err:   make(chan error, 1),
 		},
-		make(chan SetCurrentSceneResponse),
+		make(chan SetCurrentSceneResponse, 1),
 	}
 }
 
@@ -105,9 +106,9 @@ func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetCurrentScene",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetCurrentSceneResponse),
+		make(chan GetCurrentSceneResponse, 1),
 	}
 }
 
@@ -191,9 +192,9 @@ func NewGetSceneListRequest() GetSceneListRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSceneList",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetSceneListResponse),
+		make(chan GetSceneListResponse, 1),
 	}
 }
 

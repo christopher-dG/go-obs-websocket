@@ -22,9 +22,9 @@ func NewGetVersionRequest() GetVersionRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetVersion",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetVersionResponse),
+		make(chan GetVersionResponse, 1),
 	}
 }
 
@@ -117,9 +117,9 @@ func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetAuthRequired",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetAuthRequiredResponse),
+		make(chan GetAuthRequiredResponse, 1),
 	}
 }
 
@@ -208,8 +208,9 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "Authenticate",
+			err:   make(chan error, 1),
 		},
-		make(chan AuthenticateResponse),
+		make(chan AuthenticateResponse, 1),
 	}
 }
 
@@ -291,8 +292,9 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetHeartbeat",
+			err:   make(chan error, 1),
 		},
-		make(chan SetHeartbeatResponse),
+		make(chan SetHeartbeatResponse, 1),
 	}
 }
 
@@ -374,8 +376,9 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetFilenameFormatting",
+			err:   make(chan error, 1),
 		},
-		make(chan SetFilenameFormattingResponse),
+		make(chan SetFilenameFormattingResponse, 1),
 	}
 }
 
@@ -453,9 +456,9 @@ func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetFilenameFormatting",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetFilenameFormattingResponse),
+		make(chan GetFilenameFormattingResponse, 1),
 	}
 }
 

@@ -213,16 +213,18 @@ def gen_request_new(request: Dict):
     func New{request["name"]}Request(\
     """
     variables = go_variables(request.get("params", []), export=False)
+    default_args = f"""
+        _request{{
+            ID_: getMessageID(),
+            Type_: "{request["name"]}",
+            err: make(chan error, 1),
+        }},
+        make(chan {request["name"]}Response, 1),
+    """
     if not variables:
         sig = f"{base}) {request['name']}Request"
-        constructor_args = f"""\
-        {{
-            _request{{
-                ID_: getMessageID(),
-                Type_: "{request["name"]}",
-                err: make(chan error),
-            }},
-            make(chan {request["name"]}Response),
+        constructor_args = f"""{{
+            {default_args}
         }}
         """
     else:
@@ -236,14 +238,8 @@ def gen_request_new(request: Dict):
                 "_type," if var["name"] == "type" else f"{var['name']},"
                 for var in variables
             )
-            + f"""
-            _request{{
-                ID_: getMessageID(),
-                Type_: "{request["name"]}",
-            }},
-            make(chan {request["name"]}Response),
-        }}
-        """
+            + default_args
+            + "}"
         )
         if len(variables) == 1:
             sig = f"{base}{args}) {request['name']}Request"

@@ -22,9 +22,9 @@ func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetStreamingStatus",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetStreamingStatusResponse),
+		make(chan GetStreamingStatusResponse, 1),
 	}
 }
 
@@ -118,9 +118,9 @@ func NewStartStopStreamingRequest() StartStopStreamingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartStopStreaming",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StartStopStreamingResponse),
+		make(chan StartStopStreamingResponse, 1),
 	}
 }
 
@@ -251,8 +251,9 @@ func NewStartStreamingRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StartStreaming",
+			err:   make(chan error, 1),
 		},
-		make(chan StartStreamingResponse),
+		make(chan StartStreamingResponse, 1),
 	}
 }
 
@@ -331,9 +332,9 @@ func NewStopStreamingRequest() StopStreamingRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "StopStreaming",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan StopStreamingResponse),
+		make(chan StopStreamingResponse, 1),
 	}
 }
 
@@ -456,8 +457,9 @@ func NewSetStreamSettingsRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetStreamSettings",
+			err:   make(chan error, 1),
 		},
-		make(chan SetStreamSettingsResponse),
+		make(chan SetStreamSettingsResponse, 1),
 	}
 }
 
@@ -535,9 +537,9 @@ func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetStreamSettings",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetStreamSettingsResponse),
+		make(chan GetStreamSettingsResponse, 1),
 	}
 }
 
@@ -639,9 +641,9 @@ func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SaveStreamSettings",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan SaveStreamSettingsResponse),
+		make(chan SaveStreamSettingsResponse, 1),
 	}
 }
 

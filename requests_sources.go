@@ -22,9 +22,9 @@ func NewGetSourcesListRequest() GetSourcesListRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSourcesList",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetSourcesListResponse),
+		make(chan GetSourcesListResponse, 1),
 	}
 }
 
@@ -115,9 +115,9 @@ func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSourcesTypesList",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetSourcesTypesListResponse),
+		make(chan GetSourcesTypesListResponse, 1),
 	}
 }
 
@@ -239,8 +239,9 @@ func NewGetVolumeRequest(source string) GetVolumeRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetVolume",
+			err:   make(chan error, 1),
 		},
-		make(chan GetVolumeResponse),
+		make(chan GetVolumeResponse, 1),
 	}
 }
 
@@ -340,8 +341,9 @@ func NewSetVolumeRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetVolume",
+			err:   make(chan error, 1),
 		},
-		make(chan SetVolumeResponse),
+		make(chan SetVolumeResponse, 1),
 	}
 }
 
@@ -423,8 +425,9 @@ func NewGetMuteRequest(source string) GetMuteRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetMute",
+			err:   make(chan error, 1),
 		},
-		make(chan GetMuteResponse),
+		make(chan GetMuteResponse, 1),
 	}
 }
 
@@ -519,8 +522,9 @@ func NewSetMuteRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetMute",
+			err:   make(chan error, 1),
 		},
-		make(chan SetMuteResponse),
+		make(chan SetMuteResponse, 1),
 	}
 }
 
@@ -602,8 +606,9 @@ func NewToggleMuteRequest(source string) ToggleMuteRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "ToggleMute",
+			err:   make(chan error, 1),
 		},
-		make(chan ToggleMuteResponse),
+		make(chan ToggleMuteResponse, 1),
 	}
 }
 
@@ -692,8 +697,9 @@ func NewSetSyncOffsetRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSyncOffset",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSyncOffsetResponse),
+		make(chan SetSyncOffsetResponse, 1),
 	}
 }
 
@@ -775,8 +781,9 @@ func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSyncOffset",
+			err:   make(chan error, 1),
 		},
-		make(chan GetSyncOffsetResponse),
+		make(chan GetSyncOffsetResponse, 1),
 	}
 }
 
@@ -872,8 +879,9 @@ func NewGetSourceSettingsRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSourceSettings",
+			err:   make(chan error, 1),
 		},
-		make(chan GetSourceSettingsResponse),
+		make(chan GetSourceSettingsResponse, 1),
 	}
 }
 
@@ -979,8 +987,9 @@ func NewSetSourceSettingsRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetSourceSettings",
+			err:   make(chan error, 1),
 		},
-		make(chan SetSourceSettingsResponse),
+		make(chan SetSourceSettingsResponse, 1),
 	}
 }
 
@@ -1080,8 +1089,9 @@ func NewGetTextGDIPlusPropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetTextGDIPlusProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan GetTextGDIPlusPropertiesResponse),
+		make(chan GetTextGDIPlusPropertiesResponse, 1),
 	}
 }
 
@@ -1399,8 +1409,9 @@ func NewSetTextGDIPlusPropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetTextGDIPlusProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan SetTextGDIPlusPropertiesResponse),
+		make(chan SetTextGDIPlusPropertiesResponse, 1),
 	}
 }
 
@@ -1490,8 +1501,9 @@ func NewGetBrowserSourcePropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetBrowserSourceProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan GetBrowserSourcePropertiesResponse),
+		make(chan GetBrowserSourcePropertiesResponse, 1),
 	}
 }
 
@@ -1653,8 +1665,9 @@ func NewSetBrowserSourcePropertiesRequest(
 		_request{
 			ID_:   getMessageID(),
 			Type_: "SetBrowserSourceProperties",
+			err:   make(chan error, 1),
 		},
-		make(chan SetBrowserSourcePropertiesResponse),
+		make(chan SetBrowserSourcePropertiesResponse, 1),
 	}
 }
 
@@ -1732,9 +1745,9 @@ func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
 		_request{
 			ID_:   getMessageID(),
 			Type_: "GetSpecialSources",
-			err:   make(chan error),
+			err:   make(chan error, 1),
 		},
-		make(chan GetSpecialSourcesResponse),
+		make(chan GetSpecialSourcesResponse, 1),
 	}
 }
 
