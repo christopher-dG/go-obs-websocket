@@ -9,8 +9,10 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // GetVersionRequest : Returns the latest version of the plugin and the API.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getversion
 type GetVersionRequest struct {
 	_request `json:",squash"`
 	response chan GetVersionResponse
@@ -82,8 +84,10 @@ func (r GetVersionRequest) SendReceive(c Client) (GetVersionResponse, error) {
 }
 
 // GetVersionResponse : Response for GetVersionRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getversion
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getversion
 type GetVersionResponse struct {
 	// OBSRemote compatible API version.
 	// Fixed to 1.1 for retrocompatibility.
@@ -104,8 +108,10 @@ type GetVersionResponse struct {
 // GetAuthRequiredRequest : Tells the client if authentication is required
 // If so, returns authentication parameters `challenge`
 // and `salt` (see "Authentication" for more information).
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getauthrequired
 type GetAuthRequiredRequest struct {
 	_request `json:",squash"`
 	response chan GetAuthRequiredResponse
@@ -177,8 +183,10 @@ func (r GetAuthRequiredRequest) SendReceive(c Client) (GetAuthRequiredResponse, 
 }
 
 // GetAuthRequiredResponse : Response for GetAuthRequiredRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getauthrequired
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getauthrequired
 type GetAuthRequiredResponse struct {
 	// Indicates whether authentication is required.
 	// Required: Yes.
@@ -191,8 +199,10 @@ type GetAuthRequiredResponse struct {
 }
 
 // AuthenticateRequest : Attempt to authenticate the client to the server.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#authenticate
 type AuthenticateRequest struct {
 	// Response to the auth challenge (see "Authentication" for more information).
 	// Required: Yes.
@@ -268,15 +278,19 @@ func (r AuthenticateRequest) SendReceive(c Client) (AuthenticateResponse, error)
 }
 
 // AuthenticateResponse : Response for AuthenticateRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#authenticate
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#authenticate
 type AuthenticateResponse struct {
 	_response `json:",squash"`
 }
 
 // SetHeartbeatRequest : Enable/disable sending of the Heartbeat event.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setheartbeat
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setheartbeat
 type SetHeartbeatRequest struct {
 	// Starts/Stops emitting heartbeat messages.
 	// Required: Yes.
@@ -352,15 +366,19 @@ func (r SetHeartbeatRequest) SendReceive(c Client) (SetHeartbeatResponse, error)
 }
 
 // SetHeartbeatResponse : Response for SetHeartbeatRequest.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setheartbeat
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setheartbeat
 type SetHeartbeatResponse struct {
 	_response `json:",squash"`
 }
 
 // SetFilenameFormattingRequest : Set the filename formatting string.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setfilenameformatting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setfilenameformatting
 type SetFilenameFormattingRequest struct {
 	// Filename formatting string to set.
 	// Required: Yes.
@@ -436,15 +454,19 @@ func (r SetFilenameFormattingRequest) SendReceive(c Client) (SetFilenameFormatti
 }
 
 // SetFilenameFormattingResponse : Response for SetFilenameFormattingRequest.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setfilenameformatting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setfilenameformatting
 type SetFilenameFormattingResponse struct {
 	_response `json:",squash"`
 }
 
 // GetFilenameFormattingRequest : Get the filename formatting string.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getfilenameformatting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getfilenameformatting
 type GetFilenameFormattingRequest struct {
 	_request `json:",squash"`
 	response chan GetFilenameFormattingResponse
@@ -516,8 +538,10 @@ func (r GetFilenameFormattingRequest) SendReceive(c Client) (GetFilenameFormatti
 }
 
 // GetFilenameFormattingResponse : Response for GetFilenameFormattingRequest.
+//
 // Since obs-websocket version: 4.3.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getfilenameformatting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getfilenameformatting
 type GetFilenameFormattingResponse struct {
 	// Current filename formatting string.
 	// Required: Yes.

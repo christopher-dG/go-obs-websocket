@@ -4,8 +4,10 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // SourceOrderChangedEvent : Scene items have been reordered.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#sourceorderchanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourceorderchanged
 type SourceOrderChangedEvent struct {
 	// Name of the scene where items have been reordered.
 	// Required: Yes.
@@ -14,8 +16,10 @@ type SourceOrderChangedEvent struct {
 }
 
 // SceneItemAddedEvent : An item has been added to the current scene.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#sceneitemadded
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemadded
 type SceneItemAddedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -27,8 +31,10 @@ type SceneItemAddedEvent struct {
 }
 
 // SceneItemRemovedEvent : An item has been removed from the current scene.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#sceneitemremoved
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemremoved
 type SceneItemRemovedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -40,8 +46,10 @@ type SceneItemRemovedEvent struct {
 }
 
 // SceneItemVisibilityChangedEvent : An item's visibility has been toggled.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#sceneitemvisibilitychanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemvisibilitychanged
 type SceneItemVisibilityChangedEvent struct {
 	// Name of the scene.
 	// Required: Yes.

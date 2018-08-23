@@ -9,8 +9,10 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // GetStreamingStatusRequest : Get current streaming and recording status.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamingstatus
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamingstatus
 type GetStreamingStatusRequest struct {
 	_request `json:",squash"`
 	response chan GetStreamingStatusResponse
@@ -82,8 +84,10 @@ func (r GetStreamingStatusRequest) SendReceive(c Client) (GetStreamingStatusResp
 }
 
 // GetStreamingStatusResponse : Response for GetStreamingStatusRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamingstatus
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamingstatus
 type GetStreamingStatusResponse struct {
 	// Current streaming status.
 	// Required: Yes.
@@ -105,8 +109,10 @@ type GetStreamingStatusResponse struct {
 }
 
 // StartStopStreamingRequest : Toggle streaming on or off.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopstreaming
 type StartStopStreamingRequest struct {
 	_request `json:",squash"`
 	response chan StartStopStreamingResponse
@@ -178,16 +184,20 @@ func (r StartStopStreamingRequest) SendReceive(c Client) (StartStopStreamingResp
 }
 
 // StartStopStreamingResponse : Response for StartStopStreamingRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopstreaming
 type StartStopStreamingResponse struct {
 	_response `json:",squash"`
 }
 
 // StartStreamingRequest : Start streaming.
 // Will return an `error` if streaming is already active.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstreaming
 type StartStreamingRequest struct {
 	// Special stream configuration.
 	// Please note: these won't be saved to OBS' configuration.
@@ -311,16 +321,20 @@ func (r StartStreamingRequest) SendReceive(c Client) (StartStreamingResponse, er
 }
 
 // StartStreamingResponse : Response for StartStreamingRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstreaming
 type StartStreamingResponse struct {
 	_response `json:",squash"`
 }
 
 // StopStreamingRequest : Stop streaming.
 // Will return an `error` if streaming is not active.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopstreaming
 type StopStreamingRequest struct {
 	_request `json:",squash"`
 	response chan StopStreamingResponse
@@ -392,8 +406,10 @@ func (r StopStreamingRequest) SendReceive(c Client) (StopStreamingResponse, erro
 }
 
 // StopStreamingResponse : Response for StopStreamingRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopstreaming
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopstreaming
 type StopStreamingResponse struct {
 	_response `json:",squash"`
 }
@@ -403,8 +419,10 @@ type StopStreamingResponse struct {
 // Returns the updated settings in response
 // If 'type' is different than the current streaming service type, all settings are required
 // Returns the full settings of the stream (the same as GetStreamSettings).
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setstreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setstreamsettings
 type SetStreamSettingsRequest struct {
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	// Required: Yes.
@@ -517,15 +535,19 @@ func (r SetStreamSettingsRequest) SendReceive(c Client) (SetStreamSettingsRespon
 }
 
 // SetStreamSettingsResponse : Response for SetStreamSettingsRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setstreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setstreamsettings
 type SetStreamSettingsResponse struct {
 	_response `json:",squash"`
 }
 
 // GetStreamSettingsRequest : Get the current streaming server settings.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamsettings
 type GetStreamSettingsRequest struct {
 	_request `json:",squash"`
 	response chan GetStreamSettingsResponse
@@ -597,8 +619,10 @@ func (r GetStreamSettingsRequest) SendReceive(c Client) (GetStreamSettingsRespon
 }
 
 // GetStreamSettingsResponse : Response for GetStreamSettingsRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getstreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamsettings
 type GetStreamSettingsResponse struct {
 	// The type of streaming service configuration.
 	// Possible values: 'rtmp_custom' or 'rtmp_common'.
@@ -628,8 +652,10 @@ type GetStreamSettingsResponse struct {
 }
 
 // SaveStreamSettingsRequest : Save the current streaming server settings to disk.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savestreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savestreamsettings
 type SaveStreamSettingsRequest struct {
 	_request `json:",squash"`
 	response chan SaveStreamSettingsResponse
@@ -701,8 +727,10 @@ func (r SaveStreamSettingsRequest) SendReceive(c Client) (SaveStreamSettingsResp
 }
 
 // SaveStreamSettingsResponse : Response for SaveStreamSettingsRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savestreamsettings
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savestreamsettings
 type SaveStreamSettingsResponse struct {
 	_response `json:",squash"`
 }

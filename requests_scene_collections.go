@@ -9,8 +9,10 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // SetCurrentSceneCollectionRequest : Change the active scene collection.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscenecollection
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentscenecollection
 type SetCurrentSceneCollectionRequest struct {
 	// Name of the desired scene collection.
 	// Required: Yes.
@@ -86,15 +88,19 @@ func (r SetCurrentSceneCollectionRequest) SendReceive(c Client) (SetCurrentScene
 }
 
 // SetCurrentSceneCollectionResponse : Response for SetCurrentSceneCollectionRequest.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setcurrentscenecollection
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentscenecollection
 type SetCurrentSceneCollectionResponse struct {
 	_response `json:",squash"`
 }
 
 // GetCurrentSceneCollectionRequest : Get the name of the current scene collection.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscenecollection
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentscenecollection
 type GetCurrentSceneCollectionRequest struct {
 	_request `json:",squash"`
 	response chan GetCurrentSceneCollectionResponse
@@ -166,8 +172,10 @@ func (r GetCurrentSceneCollectionRequest) SendReceive(c Client) (GetCurrentScene
 }
 
 // GetCurrentSceneCollectionResponse : Response for GetCurrentSceneCollectionRequest.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getcurrentscenecollection
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentscenecollection
 type GetCurrentSceneCollectionResponse struct {
 	// Name of the currently active scene collection.
 	// Required: Yes.
@@ -176,8 +184,10 @@ type GetCurrentSceneCollectionResponse struct {
 }
 
 // ListSceneCollectionsRequest : List available scene collections.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listscenecollections
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listscenecollections
 type ListSceneCollectionsRequest struct {
 	_request `json:",squash"`
 	response chan ListSceneCollectionsResponse
@@ -249,8 +259,10 @@ func (r ListSceneCollectionsRequest) SendReceive(c Client) (ListSceneCollections
 }
 
 // ListSceneCollectionsResponse : Response for ListSceneCollectionsRequest.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#listscenecollections
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listscenecollections
 type ListSceneCollectionsResponse struct {
 	// Scene collections list.
 	// Required: Yes.

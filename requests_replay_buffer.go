@@ -9,8 +9,10 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // StartStopReplayBufferRequest : Toggle the Replay Buffer on/off.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopreplaybuffer
 type StartStopReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StartStopReplayBufferResponse
@@ -82,8 +84,10 @@ func (r StartStopReplayBufferRequest) SendReceive(c Client) (StartStopReplayBuff
 }
 
 // StartStopReplayBufferResponse : Response for StartStopReplayBufferRequest.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstopreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopreplaybuffer
 type StartStopReplayBufferResponse struct {
 	_response `json:",squash"`
 }
@@ -93,8 +97,10 @@ type StartStopReplayBufferResponse struct {
 // "Save Replay Buffer" hotkey is not set in OBS' settings.
 // Setting this hotkey is mandatory, even when triggering saves only
 // through obs-websocket.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startreplaybuffer
 type StartReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StartReplayBufferResponse
@@ -166,16 +172,20 @@ func (r StartReplayBufferRequest) SendReceive(c Client) (StartReplayBufferRespon
 }
 
 // StartReplayBufferResponse : Response for StartReplayBufferRequest.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startreplaybuffer
 type StartReplayBufferResponse struct {
 	_response `json:",squash"`
 }
 
 // StopReplayBufferRequest : Stop recording into the Replay Buffer.
 // Will return an `error` if the Replay Buffer is not active.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopreplaybuffer
 type StopReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StopReplayBufferResponse
@@ -247,8 +257,10 @@ func (r StopReplayBufferRequest) SendReceive(c Client) (StopReplayBufferResponse
 }
 
 // StopReplayBufferResponse : Response for StopReplayBufferRequest.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stopreplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopreplaybuffer
 type StopReplayBufferResponse struct {
 	_response `json:",squash"`
 }
@@ -257,8 +269,10 @@ type StopReplayBufferResponse struct {
 // This is
 // basically the same as triggering the "Save Replay Buffer" hotkey.
 // Will return an `error` if the Replay Buffer is not active.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savereplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savereplaybuffer
 type SaveReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan SaveReplayBufferResponse
@@ -330,8 +344,10 @@ func (r SaveReplayBufferRequest) SendReceive(c Client) (SaveReplayBufferResponse
 }
 
 // SaveReplayBufferResponse : Response for SaveReplayBufferRequest.
+//
 // Since obs-websocket version: 4.2.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#savereplaybuffer
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savereplaybuffer
 type SaveReplayBufferResponse struct {
 	_response `json:",squash"`
 }

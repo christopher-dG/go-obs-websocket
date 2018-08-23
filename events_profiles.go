@@ -4,15 +4,19 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // ProfileChangedEvent : Triggered when switching to another profile or when renaming the current profile.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#profilechanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#profilechanged
 type ProfileChangedEvent struct {
 	_event `json:",squash"`
 }
 
 // ProfileListChangedEvent : Triggered when a profile is created, added, renamed, or removed.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#profilelistchanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#profilelistchanged
 type ProfileListChangedEvent struct {
 	_event `json:",squash"`
 }

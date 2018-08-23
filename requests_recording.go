@@ -9,8 +9,10 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // StartStopRecordingRequest : Toggle recording on or off.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstoprecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstoprecording
 type StartStopRecordingRequest struct {
 	_request `json:",squash"`
 	response chan StartStopRecordingResponse
@@ -82,16 +84,20 @@ func (r StartStopRecordingRequest) SendReceive(c Client) (StartStopRecordingResp
 }
 
 // StartStopRecordingResponse : Response for StartStopRecordingRequest.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startstoprecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstoprecording
 type StartStopRecordingResponse struct {
 	_response `json:",squash"`
 }
 
 // StartRecordingRequest : Start recording.
 // Will return an `error` if recording is already active.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startrecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startrecording
 type StartRecordingRequest struct {
 	_request `json:",squash"`
 	response chan StartRecordingResponse
@@ -163,16 +169,20 @@ func (r StartRecordingRequest) SendReceive(c Client) (StartRecordingResponse, er
 }
 
 // StartRecordingResponse : Response for StartRecordingRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#startrecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startrecording
 type StartRecordingResponse struct {
 	_response `json:",squash"`
 }
 
 // StopRecordingRequest : Stop recording.
 // Will return an `error` if recording is not active.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stoprecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stoprecording
 type StopRecordingRequest struct {
 	_request `json:",squash"`
 	response chan StopRecordingResponse
@@ -244,15 +254,19 @@ func (r StopRecordingRequest) SendReceive(c Client) (StopRecordingResponse, erro
 }
 
 // StopRecordingResponse : Response for StopRecordingRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#stoprecording
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stoprecording
 type StopRecordingResponse struct {
 	_response `json:",squash"`
 }
 
 // SetRecordingFolderRequest : Change the current recording folder.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setrecordingfolder
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setrecordingfolder
 type SetRecordingFolderRequest struct {
 	// Path of the recording folder.
 	// Required: Yes.
@@ -328,15 +342,19 @@ func (r SetRecordingFolderRequest) SendReceive(c Client) (SetRecordingFolderResp
 }
 
 // SetRecordingFolderResponse : Response for SetRecordingFolderRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#setrecordingfolder
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setrecordingfolder
 type SetRecordingFolderResponse struct {
 	_response `json:",squash"`
 }
 
 // GetRecordingFolderRequest : Get the path of  the current recording folder.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getrecordingfolder
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getrecordingfolder
 type GetRecordingFolderRequest struct {
 	_request `json:",squash"`
 	response chan GetRecordingFolderResponse
@@ -408,8 +426,10 @@ func (r GetRecordingFolderRequest) SendReceive(c Client) (GetRecordingFolderResp
 }
 
 // GetRecordingFolderResponse : Response for GetRecordingFolderRequest.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#getrecordingfolder
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getrecordingfolder
 type GetRecordingFolderResponse struct {
 	// Path of the recording folder.
 	// Required: Yes.

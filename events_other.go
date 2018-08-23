@@ -4,8 +4,10 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // ExitingEvent : OBS is exiting.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#exiting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#exiting
 type ExitingEvent struct {
 	_event `json:",squash"`
 }

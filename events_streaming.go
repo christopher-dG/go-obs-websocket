@@ -4,8 +4,10 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // StreamStartingEvent : A request to start streaming has been issued.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstarting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarting
 type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -14,15 +16,19 @@ type StreamStartingEvent struct {
 }
 
 // StreamStartedEvent : Streaming started successfully.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstarted
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarted
 type StreamStartedEvent struct {
 	_event `json:",squash"`
 }
 
 // StreamStoppingEvent : A request to stop streaming has been issued.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstopping
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopping
 type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -31,15 +37,19 @@ type StreamStoppingEvent struct {
 }
 
 // StreamStoppedEvent : Streaming stopped successfully.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstopped
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopped
 type StreamStoppedEvent struct {
 	_event `json:",squash"`
 }
 
 // StreamStatusEvent : Emit every 2 seconds.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#streamstatus
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstatus
 type StreamStatusEvent struct {
 	// Current streaming state.
 	// Required: Yes.

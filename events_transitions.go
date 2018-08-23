@@ -4,8 +4,10 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // SwitchTransitionEvent : The active transition has been changed.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#switchtransition
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#switchtransition
 type SwitchTransitionEvent struct {
 	// The name of the new active transition.
 	// Required: Yes.
@@ -15,15 +17,19 @@ type SwitchTransitionEvent struct {
 
 // TransitionListChangedEvent : The list of available transitions has been modified.
 // Transitions have been added, removed, or renamed.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitionlistchanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitionlistchanged
 type TransitionListChangedEvent struct {
 	_event `json:",squash"`
 }
 
 // TransitionDurationChangedEvent : The active transition duration has been changed.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitiondurationchanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitiondurationchanged
 type TransitionDurationChangedEvent struct {
 	// New transition duration.
 	// Required: Yes.
@@ -32,8 +38,10 @@ type TransitionDurationChangedEvent struct {
 }
 
 // TransitionBeginEvent : A transition (other than "cut") has begun.
+//
 // Since obs-websocket version: 4.0.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#transitionbegin
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitionbegin
 type TransitionBeginEvent struct {
 	// Transition name.
 	// Required: Yes.

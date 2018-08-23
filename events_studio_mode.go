@@ -4,8 +4,10 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // PreviewSceneChangedEvent : The selected preview scene has changed (only available in Studio Mode).
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#previewscenechanged
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#previewscenechanged
 type PreviewSceneChangedEvent struct {
 	// Name of the scene being previewed.
 	// Required: Yes.
@@ -18,8 +20,10 @@ type PreviewSceneChangedEvent struct {
 }
 
 // StudioModeSwitchedEvent : Studio Mode has been enabled or disabled.
+//
 // Since obs-websocket version: 4.1.0.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#studiomodeswitched
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#studiomodeswitched
 type StudioModeSwitchedEvent struct {
 	// The new enabled state of Studio Mode.
 	// Required: Yes.

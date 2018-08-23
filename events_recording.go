@@ -4,29 +4,37 @@ package obsws
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // RecordingStartingEvent : A request to start recording has been issued.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstarting
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstarting
 type RecordingStartingEvent struct {
 	_event `json:",squash"`
 }
 
 // RecordingStartedEvent : Recording started successfully.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstarted
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstarted
 type RecordingStartedEvent struct {
 	_event `json:",squash"`
 }
 
 // RecordingStoppingEvent : A request to stop recording has been issued.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstopping
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstopping
 type RecordingStoppingEvent struct {
 	_event `json:",squash"`
 }
 
 // RecordingStoppedEvent : Recording stopped successfully.
+//
 // Since obs-websocket version: 0.3.
-// https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#recordingstopped
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstopped
 type RecordingStoppedEvent struct {
 	_event `json:",squash"`
 }
