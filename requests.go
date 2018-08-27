@@ -36,7 +36,7 @@ type _request struct {
 
 func (r _request) Send(c Client) error { return nil }
 
-// ID returns the requet's message ID.
+// ID returns the request's message ID.
 func (r _request) ID() string { return r.ID_ }
 
 // Type returns the request's message type.
