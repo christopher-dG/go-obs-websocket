@@ -32,7 +32,6 @@ type Client struct {
 // poll listens for responses/events.
 // This function blocks until Disconnect is called.
 func (c *Client) poll() {
-	c.active = true
 	logger.Debug("started polling")
 
 	for c.active {

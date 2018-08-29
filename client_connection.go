@@ -34,6 +34,7 @@ func (c *Client) Connect() error {
 
 	if !respGAR.AuthRequired {
 		logger.Info("logged in (no authentication required)")
+		c.active = true
 		go c.poll()
 		return nil
 	}
@@ -55,6 +56,7 @@ func (c *Client) Connect() error {
 	}
 
 	logger.Info("logged in (authentication successful)")
+	c.active = true
 	go c.poll()
 	return nil
 }
