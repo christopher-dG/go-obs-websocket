@@ -1,9 +1,9 @@
-# go-obs-websocket
+# obsws
 
 [![Build Status](https://travis-ci.com/christopher-dG/go-obs-websocket.svg?branch=master)](https://travis-ci.com/christopher-dG/go-obs-websocket)
 [![GoDoc](https://godoc.org/github.com/christopher-dG/go-obs-websocket?status.svg)](https://godoc.org/github.com/christopher-dG/go-obs-websocket)
 
-`go-obs-websocket` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
+`obsws` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
 Currently, the target version is `4.3`.
 
 ## Installation
@@ -61,7 +61,7 @@ func main() {
 	// Respond to events by registering handlers.
 	c.AddEventHandler("SwitchScenes", func(e obsws.Event) {
 		// Make sure to assert the actual event type.
-		log.Println("new scene:", e.(obs.SwitchScenesEvent).SceneName)
+		log.Println("new scene:", e.(obsws.SwitchScenesEvent).SceneName)
 	})
 
 	time.Sleep(time.Second * 10)
