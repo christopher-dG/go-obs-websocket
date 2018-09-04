@@ -36,6 +36,9 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 
 // Send sends the request.
 func (r *SetCurrentProfileRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -120,6 +123,9 @@ func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
 
 // Send sends the request.
 func (r *GetCurrentProfileRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -207,6 +213,9 @@ func NewListProfilesRequest() ListProfilesRequest {
 
 // Send sends the request.
 func (r *ListProfilesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

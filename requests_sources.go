@@ -32,6 +32,9 @@ func NewGetSourcesListRequest() GetSourcesListRequest {
 
 // Send sends the request.
 func (r *GetSourcesListRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -129,6 +132,9 @@ func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
 
 // Send sends the request.
 func (r *GetSourcesTypesListRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -257,6 +263,9 @@ func NewGetVolumeRequest(source string) GetVolumeRequest {
 
 // Send sends the request.
 func (r *GetVolumeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -363,6 +372,9 @@ func NewSetVolumeRequest(
 
 // Send sends the request.
 func (r *SetVolumeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -451,6 +463,9 @@ func NewGetMuteRequest(source string) GetMuteRequest {
 
 // Send sends the request.
 func (r *GetMuteRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -552,6 +567,9 @@ func NewSetMuteRequest(
 
 // Send sends the request.
 func (r *SetMuteRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -640,6 +658,9 @@ func NewToggleMuteRequest(source string) ToggleMuteRequest {
 
 // Send sends the request.
 func (r *ToggleMuteRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -735,6 +756,9 @@ func NewSetSyncOffsetRequest(
 
 // Send sends the request.
 func (r *SetSyncOffsetRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -823,6 +847,9 @@ func NewGetSyncOffsetRequest(source string) GetSyncOffsetRequest {
 
 // Send sends the request.
 func (r *GetSyncOffsetRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -925,6 +952,9 @@ func NewGetSourceSettingsRequest(
 
 // Send sends the request.
 func (r *GetSourceSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1037,6 +1067,9 @@ func NewSetSourceSettingsRequest(
 
 // Send sends the request.
 func (r *SetSourceSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1143,6 +1176,9 @@ func NewGetTextGDIPlusPropertiesRequest(
 
 // Send sends the request.
 func (r *GetTextGDIPlusPropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1467,6 +1503,9 @@ func NewSetTextGDIPlusPropertiesRequest(
 
 // Send sends the request.
 func (r *SetTextGDIPlusPropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1563,6 +1602,9 @@ func NewGetBrowserSourcePropertiesRequest(
 
 // Send sends the request.
 func (r *GetBrowserSourcePropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1731,6 +1773,9 @@ func NewSetBrowserSourcePropertiesRequest(
 
 // Send sends the request.
 func (r *SetBrowserSourcePropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -1815,6 +1860,9 @@ func NewGetSpecialSourcesRequest() GetSpecialSourcesRequest {
 
 // Send sends the request.
 func (r *GetSpecialSourcesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

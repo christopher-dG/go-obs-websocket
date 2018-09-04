@@ -9,8 +9,12 @@ const (
 	StatusError = "error"
 )
 
-// ErrNotSent is returned when you call Receive on a request that has not been sent.
-var ErrNotSent = errors.New("request not yet sent")
+var (
+	// ErrNotSent is returned when you call Receive on a request that has not been sent.
+	ErrNotSent = errors.New("request not yet sent")
+	// ErrAlreadySent is returned when a request has already been sent.
+	ErrAlreadySent = errors.New("request already sent")
+)
 
 // Request is a request to obs-websocket.
 type Request interface {

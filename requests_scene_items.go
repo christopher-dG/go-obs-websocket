@@ -44,6 +44,9 @@ func NewGetSceneItemPropertiesRequest(
 
 // Send sends the request.
 func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -266,6 +269,9 @@ func NewSetSceneItemPropertiesRequest(
 
 // Send sends the request.
 func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -362,6 +368,9 @@ func NewResetSceneItemRequest(
 
 // Send sends the request.
 func (r *ResetSceneItemRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -463,6 +472,9 @@ func NewSetSceneItemRenderRequest(
 
 // Send sends the request.
 func (r *SetSceneItemRenderRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -569,6 +581,9 @@ func NewSetSceneItemPositionRequest(
 
 // Send sends the request.
 func (r *SetSceneItemPositionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -680,6 +695,9 @@ func NewSetSceneItemTransformRequest(
 
 // Send sends the request.
 func (r *SetSceneItemTransformRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -796,6 +814,9 @@ func NewSetSceneItemCropRequest(
 
 // Send sends the request.
 func (r *SetSceneItemCropRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

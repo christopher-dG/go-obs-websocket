@@ -32,6 +32,9 @@ func NewGetStreamingStatusRequest() GetStreamingStatusRequest {
 
 // Send sends the request.
 func (r *GetStreamingStatusRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -132,6 +135,9 @@ func NewStartStopStreamingRequest() StartStopStreamingRequest {
 
 // Send sends the request.
 func (r *StartStopStreamingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -269,6 +275,9 @@ func NewStartStreamingRequest(
 
 // Send sends the request.
 func (r *StartStreamingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -354,6 +363,9 @@ func NewStopStreamingRequest() StopStreamingRequest {
 
 // Send sends the request.
 func (r *StopStreamingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -483,6 +495,9 @@ func NewSetStreamSettingsRequest(
 
 // Send sends the request.
 func (r *SetStreamSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -567,6 +582,9 @@ func NewGetStreamSettingsRequest() GetStreamSettingsRequest {
 
 // Send sends the request.
 func (r *GetStreamSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -675,6 +693,9 @@ func NewSaveStreamSettingsRequest() SaveStreamSettingsRequest {
 
 // Send sends the request.
 func (r *SaveStreamSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

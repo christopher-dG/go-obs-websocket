@@ -32,6 +32,9 @@ func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
 
 // Send sends the request.
 func (r *GetStudioModeStatusRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -120,6 +123,9 @@ func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
 
 // Send sends the request.
 func (r *GetPreviewSceneRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -214,6 +220,9 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 
 // Send sends the request.
 func (r *SetPreviewSceneRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -316,6 +325,9 @@ func NewTransitionToProgramRequest(
 
 // Send sends the request.
 func (r *TransitionToProgramRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -400,6 +412,9 @@ func NewEnableStudioModeRequest() EnableStudioModeRequest {
 
 // Send sends the request.
 func (r *EnableStudioModeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -484,6 +499,9 @@ func NewDisableStudioModeRequest() DisableStudioModeRequest {
 
 // Send sends the request.
 func (r *DisableStudioModeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -568,6 +586,9 @@ func NewToggleStudioModeRequest() ToggleStudioModeRequest {
 
 // Send sends the request.
 func (r *ToggleStudioModeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

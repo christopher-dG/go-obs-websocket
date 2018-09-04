@@ -36,6 +36,9 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 
 // Send sends the request.
 func (r *SetCurrentSceneRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -120,6 +123,9 @@ func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
 
 // Send sends the request.
 func (r *GetCurrentSceneRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -210,6 +216,9 @@ func NewGetSceneListRequest() GetSceneListRequest {
 
 // Send sends the request.
 func (r *GetSceneListRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

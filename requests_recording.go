@@ -32,6 +32,9 @@ func NewStartStopRecordingRequest() StartStopRecordingRequest {
 
 // Send sends the request.
 func (r *StartStopRecordingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -117,6 +120,9 @@ func NewStartRecordingRequest() StartRecordingRequest {
 
 // Send sends the request.
 func (r *StartRecordingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -202,6 +208,9 @@ func NewStopRecordingRequest() StopRecordingRequest {
 
 // Send sends the request.
 func (r *StopRecordingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -290,6 +299,9 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 
 // Send sends the request.
 func (r *SetRecordingFolderRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -374,6 +386,9 @@ func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
 
 // Send sends the request.
 func (r *GetRecordingFolderRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

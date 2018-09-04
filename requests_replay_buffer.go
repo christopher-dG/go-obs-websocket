@@ -32,6 +32,9 @@ func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
 
 // Send sends the request.
 func (r *StartStopReplayBufferRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -120,6 +123,9 @@ func NewStartReplayBufferRequest() StartReplayBufferRequest {
 
 // Send sends the request.
 func (r *StartReplayBufferRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -205,6 +211,9 @@ func NewStopReplayBufferRequest() StopReplayBufferRequest {
 
 // Send sends the request.
 func (r *StopReplayBufferRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -292,6 +301,9 @@ func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
 
 // Send sends the request.
 func (r *SaveReplayBufferRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

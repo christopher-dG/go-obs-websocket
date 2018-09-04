@@ -32,6 +32,9 @@ func NewGetVersionRequest() GetVersionRequest {
 
 // Send sends the request.
 func (r *GetVersionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -131,6 +134,9 @@ func NewGetAuthRequiredRequest() GetAuthRequiredRequest {
 
 // Send sends the request.
 func (r *GetAuthRequiredRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -226,6 +232,9 @@ func NewAuthenticateRequest(auth string) AuthenticateRequest {
 
 // Send sends the request.
 func (r *AuthenticateRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -314,6 +323,9 @@ func NewSetHeartbeatRequest(enable bool) SetHeartbeatRequest {
 
 // Send sends the request.
 func (r *SetHeartbeatRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -402,6 +414,9 @@ func NewSetFilenameFormattingRequest(filenameFormatting string) SetFilenameForma
 
 // Send sends the request.
 func (r *SetFilenameFormattingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -486,6 +501,9 @@ func NewGetFilenameFormattingRequest() GetFilenameFormattingRequest {
 
 // Send sends the request.
 func (r *GetFilenameFormattingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err

@@ -36,6 +36,9 @@ func NewSetCurrentSceneCollectionRequest(scName string) SetCurrentSceneCollectio
 
 // Send sends the request.
 func (r *SetCurrentSceneCollectionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -120,6 +123,9 @@ func NewGetCurrentSceneCollectionRequest() GetCurrentSceneCollectionRequest {
 
 // Send sends the request.
 func (r *GetCurrentSceneCollectionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
@@ -207,6 +213,9 @@ func NewListSceneCollectionsRequest() ListSceneCollectionsRequest {
 
 // Send sends the request.
 func (r *ListSceneCollectionsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
 	future, err := c.sendRequest(r)
 	if err != nil {
 		return err
