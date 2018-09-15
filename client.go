@@ -20,13 +20,14 @@ var (
 // Client is the interface to obs-websocket.
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
-	Host     string                      // Host (probably "localhost").
-	Port     int                         // Port (OBS default is 4444).
-	Password string                      // Password (OBS default is "").
-	conn     *websocket.Conn             // Underlying connection to OBS.
-	active   bool                        // True until Disconnect is called.
-	handlers map[string]func(e Event)    // Event handlers.
-	respQ    chan map[string]interface{} // Queue of received responses.
+	Host           string                      // Host (probably "localhost").
+	Port           int                         // Port (OBS default is 4444).
+	Password       string                      // Password (OBS default is "").
+	conn           *websocket.Conn             // Underlying connection to OBS.
+	receiveTimeout time.Duration               // Maximum blocking time for receiving request responses
+	connected      bool                        // True until Disconnect is called.
+	handlers       map[string]func(e Event)    // Event handlers.
+	respQ          chan map[string]interface{} // Queue of received responses.
 }
 
 // poll listens for responses/events.
@@ -34,10 +35,10 @@ type Client struct {
 func (c *Client) poll() {
 	logger.Debug("started polling")
 
-	for c.active {
+	for c.connected {
 		m := make(map[string]interface{})
 		if err := c.conn.ReadJSON(&m); err != nil {
-			if !c.active {
+			if !c.connected {
 				return
 			}
 			logger.Warning("read from WS:", err)
@@ -50,6 +51,11 @@ func (c *Client) poll() {
 			c.handleEvent(m)
 		}
 	}
+}
+
+// Connected returns wheter or not the client is connected.
+func (c Client) Connected() bool {
+	return c.connected
 }
 
 // SetReceiveTimeout sets the maximum blocking time for receiving request responses.

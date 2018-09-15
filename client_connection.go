@@ -34,7 +34,7 @@ func (c *Client) Connect() error {
 
 	if !respGAR.AuthRequired {
 		logger.Info("logged in (no authentication required)")
-		c.active = true
+		c.connected = true
 		go c.poll()
 		return nil
 	}
@@ -56,14 +56,14 @@ func (c *Client) Connect() error {
 	}
 
 	logger.Info("logged in (authentication successful)")
-	c.active = true
+	c.connected = true
 	go c.poll()
 	return nil
 }
 
 // Disconnect closes the WebSocket connection.
 func (c *Client) Disconnect() error {
-	c.active = false
+	c.connected = false
 	if err := c.conn.Close(); err != nil {
 		return err
 	}

@@ -16,7 +16,7 @@ var (
 
 // sendRequest sends a request to the WebSocket server.
 func (c *Client) sendRequest(req Request) (chan map[string]interface{}, error) {
-	if !c.active {
+	if !c.connected {
 		return nil, ErrNotConnected
 	}
 	future := make(chan map[string]interface{})
