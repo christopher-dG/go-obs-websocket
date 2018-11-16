@@ -655,7 +655,7 @@ type GetStreamSettingsResponse struct {
 	// The publish key of the stream.
 	// Required: Yes.
 	SettingsKey string `json:"settings.key"`
-	// Indicates whether audentication should be used when connecting to the streaming server.
+	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: Yes.
 	SettingsUseAuth bool `json:"settings.use-auth"`
 	// The username to use when accessing the streaming server.

@@ -1836,6 +1836,230 @@ type SetBrowserSourcePropertiesResponse struct {
 	_response `json:",squash"`
 }
 
+// DeleteSceneItemRequest : Deletes a scene item.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+type DeleteSceneItemRequest struct {
+	// Name of the scene the source belongs to.
+	// Defaults to the current scene.
+	// Required: No.
+	Scene string `json:"scene"`
+	// item to delete (required).
+	// Required: Yes.
+	Item map[string]interface{} `json:"item"`
+	// name of the scene item (prefer `id`, including both is acceptable).
+	// Required: Yes.
+	ItemName string `json:"item.name"`
+	// id of the scene item.
+	// Required: Yes.
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
+	response chan DeleteSceneItemResponse
+}
+
+// NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
+func NewDeleteSceneItemRequest(
+	scene string,
+	item map[string]interface{},
+	itemName string,
+	itemID int,
+) DeleteSceneItemRequest {
+	return DeleteSceneItemRequest{
+		scene,
+		item,
+		itemName,
+		itemID,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "DeleteSceneItem",
+			err:   make(chan error, 1),
+		},
+		make(chan DeleteSceneItemResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *DeleteSceneItemRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp DeleteSceneItemResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r DeleteSceneItemRequest) Receive() (DeleteSceneItemResponse, error) {
+	if !r.sent {
+		return DeleteSceneItemResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DeleteSceneItemResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DeleteSceneItemResponse{}, err
+		case <-time.After(receiveTimeout):
+			return DeleteSceneItemResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r DeleteSceneItemRequest) SendReceive(c Client) (DeleteSceneItemResponse, error) {
+	if err := r.Send(c); err != nil {
+		return DeleteSceneItemResponse{}, err
+	}
+	return r.Receive()
+}
+
+// DeleteSceneItemResponse : Response for DeleteSceneItemRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+type DeleteSceneItemResponse struct {
+	_response `json:",squash"`
+}
+
+// DuplicateSceneItemRequest : Duplicates a scene item.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+type DuplicateSceneItemRequest struct {
+	// Name of the scene to copy the item from.
+	// Defaults to the current scene.
+	// Required: No.
+	FromScene string `json:"fromScene"`
+	// Name of the scene to create the item in.
+	// Defaults to the current scene.
+	// Required: No.
+	ToScene string `json:"toScene"`
+	// item to delete (required).
+	// Required: Yes.
+	Item map[string]interface{} `json:"item"`
+	// name of the scene item (prefer `id`, including both is acceptable).
+	// Required: Yes.
+	ItemName string `json:"item.name"`
+	// id of the scene item.
+	// Required: Yes.
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
+	response chan DuplicateSceneItemResponse
+}
+
+// NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.
+func NewDuplicateSceneItemRequest(
+	fromScene string,
+	toScene string,
+	item map[string]interface{},
+	itemName string,
+	itemID int,
+) DuplicateSceneItemRequest {
+	return DuplicateSceneItemRequest{
+		fromScene,
+		toScene,
+		item,
+		itemName,
+		itemID,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "DuplicateSceneItem",
+			err:   make(chan error, 1),
+		},
+		make(chan DuplicateSceneItemResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *DuplicateSceneItemRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp DuplicateSceneItemResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r DuplicateSceneItemRequest) Receive() (DuplicateSceneItemResponse, error) {
+	if !r.sent {
+		return DuplicateSceneItemResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DuplicateSceneItemResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DuplicateSceneItemResponse{}, err
+		case <-time.After(receiveTimeout):
+			return DuplicateSceneItemResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r DuplicateSceneItemRequest) SendReceive(c Client) (DuplicateSceneItemResponse, error) {
+	if err := r.Send(c); err != nil {
+		return DuplicateSceneItemResponse{}, err
+	}
+	return r.Receive()
+}
+
+// DuplicateSceneItemResponse : Response for DuplicateSceneItemRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+type DuplicateSceneItemResponse struct {
+	_response `json:",squash"`
+}
+
 // GetSpecialSourcesRequest : Get configured special sources like Desktop Audio and Mic/Aux sources.
 //
 // Since obs-websocket version: 4.1.0.
@@ -1935,5 +2159,626 @@ type GetSpecialSourcesResponse struct {
 	// NAme of the third Mic/Aux input source.
 	// Required: No.
 	Mic3      string `json:"mic-3"`
+	_response `json:",squash"`
+}
+
+// GetSourceFiltersRequest : List filters applied to a source.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcefilters
+type GetSourceFiltersRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	_request   `json:",squash"`
+	response   chan GetSourceFiltersResponse
+}
+
+// NewGetSourceFiltersRequest returns a new GetSourceFiltersRequest.
+func NewGetSourceFiltersRequest(sourceName string) GetSourceFiltersRequest {
+	return GetSourceFiltersRequest{
+		sourceName,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSourceFilters",
+			err:   make(chan error, 1),
+		},
+		make(chan GetSourceFiltersResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetSourceFiltersRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourceFiltersResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourceFiltersRequest) Receive() (GetSourceFiltersResponse, error) {
+	if !r.sent {
+		return GetSourceFiltersResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceFiltersResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceFiltersResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetSourceFiltersResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourceFiltersRequest) SendReceive(c Client) (GetSourceFiltersResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourceFiltersResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetSourceFiltersResponse : Response for GetSourceFiltersRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcefilters
+type GetSourceFiltersResponse struct {
+	// List of filters for the specified source.
+	// Required: Yes.
+	Filters []map[string]interface{} `json:"filters"`
+	// Filter type.
+	// Required: Yes.
+	FiltersType string `json:"filters.*.type"`
+	// Filter name.
+	// Required: Yes.
+	FiltersName string `json:"filters.*.name"`
+	// Filter settings.
+	// Required: Yes.
+	FiltersSettings map[string]interface{} `json:"filters.*.settings"`
+	_response       `json:",squash"`
+}
+
+// AddFilterToSourceRequest : Add a new filter to a source
+// Available source types along with their settings properties are available from `GetSourceTypesList`.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#addfiltertosource
+type AddFilterToSourceRequest struct {
+	// Name of the source on which the filter is added.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Name of the new filter.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	// Filter type.
+	// Required: Yes.
+	FilterType string `json:"filterType"`
+	// Filter settings.
+	// Required: Yes.
+	FilterSettings map[string]interface{} `json:"filterSettings"`
+	_request       `json:",squash"`
+	response       chan AddFilterToSourceResponse
+}
+
+// NewAddFilterToSourceRequest returns a new AddFilterToSourceRequest.
+func NewAddFilterToSourceRequest(
+	sourceName string,
+	filterName string,
+	filterType string,
+	filterSettings map[string]interface{},
+) AddFilterToSourceRequest {
+	return AddFilterToSourceRequest{
+		sourceName,
+		filterName,
+		filterType,
+		filterSettings,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "AddFilterToSource",
+			err:   make(chan error, 1),
+		},
+		make(chan AddFilterToSourceResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *AddFilterToSourceRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp AddFilterToSourceResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r AddFilterToSourceRequest) Receive() (AddFilterToSourceResponse, error) {
+	if !r.sent {
+		return AddFilterToSourceResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return AddFilterToSourceResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return AddFilterToSourceResponse{}, err
+		case <-time.After(receiveTimeout):
+			return AddFilterToSourceResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r AddFilterToSourceRequest) SendReceive(c Client) (AddFilterToSourceResponse, error) {
+	if err := r.Send(c); err != nil {
+		return AddFilterToSourceResponse{}, err
+	}
+	return r.Receive()
+}
+
+// AddFilterToSourceResponse : Response for AddFilterToSourceRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#addfiltertosource
+type AddFilterToSourceResponse struct {
+	_response `json:",squash"`
+}
+
+// RemoveFilterFromSourceRequest : Remove a filter from a source.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#removefilterfromsource
+type RemoveFilterFromSourceRequest struct {
+	// Name of the source from which the specified filter is removed.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Name of the filter to remove.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	_request   `json:",squash"`
+	response   chan RemoveFilterFromSourceResponse
+}
+
+// NewRemoveFilterFromSourceRequest returns a new RemoveFilterFromSourceRequest.
+func NewRemoveFilterFromSourceRequest(
+	sourceName string,
+	filterName string,
+) RemoveFilterFromSourceRequest {
+	return RemoveFilterFromSourceRequest{
+		sourceName,
+		filterName,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "RemoveFilterFromSource",
+			err:   make(chan error, 1),
+		},
+		make(chan RemoveFilterFromSourceResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *RemoveFilterFromSourceRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp RemoveFilterFromSourceResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r RemoveFilterFromSourceRequest) Receive() (RemoveFilterFromSourceResponse, error) {
+	if !r.sent {
+		return RemoveFilterFromSourceResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return RemoveFilterFromSourceResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return RemoveFilterFromSourceResponse{}, err
+		case <-time.After(receiveTimeout):
+			return RemoveFilterFromSourceResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r RemoveFilterFromSourceRequest) SendReceive(c Client) (RemoveFilterFromSourceResponse, error) {
+	if err := r.Send(c); err != nil {
+		return RemoveFilterFromSourceResponse{}, err
+	}
+	return r.Receive()
+}
+
+// RemoveFilterFromSourceResponse : Response for RemoveFilterFromSourceRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#removefilterfromsource
+type RemoveFilterFromSourceResponse struct {
+	_response `json:",squash"`
+}
+
+// ReorderSourceFilterRequest : Move a filter in the chain (absolute index positioning).
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersourcefilter
+type ReorderSourceFilterRequest struct {
+	// Name of the source to which the filter belongs.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Name of the filter to reorder.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	// Desired position of the filter in the chain.
+	// Required: Yes.
+	NewIndex int `json:"newIndex"`
+	_request `json:",squash"`
+	response chan ReorderSourceFilterResponse
+}
+
+// NewReorderSourceFilterRequest returns a new ReorderSourceFilterRequest.
+func NewReorderSourceFilterRequest(
+	sourceName string,
+	filterName string,
+	newIndex int,
+) ReorderSourceFilterRequest {
+	return ReorderSourceFilterRequest{
+		sourceName,
+		filterName,
+		newIndex,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ReorderSourceFilter",
+			err:   make(chan error, 1),
+		},
+		make(chan ReorderSourceFilterResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *ReorderSourceFilterRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ReorderSourceFilterResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ReorderSourceFilterRequest) Receive() (ReorderSourceFilterResponse, error) {
+	if !r.sent {
+		return ReorderSourceFilterResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReorderSourceFilterResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReorderSourceFilterResponse{}, err
+		case <-time.After(receiveTimeout):
+			return ReorderSourceFilterResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ReorderSourceFilterRequest) SendReceive(c Client) (ReorderSourceFilterResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ReorderSourceFilterResponse{}, err
+	}
+	return r.Receive()
+}
+
+// ReorderSourceFilterResponse : Response for ReorderSourceFilterRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersourcefilter
+type ReorderSourceFilterResponse struct {
+	_response `json:",squash"`
+}
+
+// MoveSourceFilterRequest : Move a filter in the chain (relative positioning).
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#movesourcefilter
+type MoveSourceFilterRequest struct {
+	// Name of the source to which the filter belongs.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Name of the filter to reorder.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	// How to move the filter around in the source's filter chain.
+	// Either "up", "down", "top" or "bottom".
+	// Required: Yes.
+	MovementType string `json:"movementType"`
+	_request     `json:",squash"`
+	response     chan MoveSourceFilterResponse
+}
+
+// NewMoveSourceFilterRequest returns a new MoveSourceFilterRequest.
+func NewMoveSourceFilterRequest(
+	sourceName string,
+	filterName string,
+	movementType string,
+) MoveSourceFilterRequest {
+	return MoveSourceFilterRequest{
+		sourceName,
+		filterName,
+		movementType,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "MoveSourceFilter",
+			err:   make(chan error, 1),
+		},
+		make(chan MoveSourceFilterResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *MoveSourceFilterRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp MoveSourceFilterResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r MoveSourceFilterRequest) Receive() (MoveSourceFilterResponse, error) {
+	if !r.sent {
+		return MoveSourceFilterResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return MoveSourceFilterResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return MoveSourceFilterResponse{}, err
+		case <-time.After(receiveTimeout):
+			return MoveSourceFilterResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r MoveSourceFilterRequest) SendReceive(c Client) (MoveSourceFilterResponse, error) {
+	if err := r.Send(c); err != nil {
+		return MoveSourceFilterResponse{}, err
+	}
+	return r.Receive()
+}
+
+// MoveSourceFilterResponse : Response for MoveSourceFilterRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#movesourcefilter
+type MoveSourceFilterResponse struct {
+	_response `json:",squash"`
+}
+
+// SetSourceFilterSettingsRequest : Update settings of a filter.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcefiltersettings
+type SetSourceFilterSettingsRequest struct {
+	// Name of the source to which the filter belongs.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Name of the filter to reconfigure.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	// New settings.
+	// These will be merged to the current filter settings.
+	// Required: Yes.
+	FilterSettings map[string]interface{} `json:"filterSettings"`
+	_request       `json:",squash"`
+	response       chan SetSourceFilterSettingsResponse
+}
+
+// NewSetSourceFilterSettingsRequest returns a new SetSourceFilterSettingsRequest.
+func NewSetSourceFilterSettingsRequest(
+	sourceName string,
+	filterName string,
+	filterSettings map[string]interface{},
+) SetSourceFilterSettingsRequest {
+	return SetSourceFilterSettingsRequest{
+		sourceName,
+		filterName,
+		filterSettings,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SetSourceFilterSettings",
+			err:   make(chan error, 1),
+		},
+		make(chan SetSourceFilterSettingsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetSourceFilterSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSourceFilterSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSourceFilterSettingsRequest) Receive() (SetSourceFilterSettingsResponse, error) {
+	if !r.sent {
+		return SetSourceFilterSettingsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceFilterSettingsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceFilterSettingsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetSourceFilterSettingsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSourceFilterSettingsRequest) SendReceive(c Client) (SetSourceFilterSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSourceFilterSettingsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetSourceFilterSettingsResponse : Response for SetSourceFilterSettingsRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcefiltersettings
+type SetSourceFilterSettingsResponse struct {
 	_response `json:",squash"`
 }

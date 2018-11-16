@@ -338,7 +338,7 @@ type SetSceneItemPropertiesResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#resetsceneitem
 type ResetSceneItemRequest struct {
-	// Name of the scene the source belogns to.
+	// Name of the scene the source belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`

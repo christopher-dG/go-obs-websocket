@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/christopher-dG/go-obs-websocket?status.svg)](https://godoc.org/github.com/christopher-dG/go-obs-websocket)
 
 `obsws` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
-Currently, the target version is `4.3`.
+Currently, the target version is `4.4`.
 
 ## Installation
 

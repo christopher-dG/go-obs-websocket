@@ -7,7 +7,7 @@ package obsws
 //
 // https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#heartbeat
 type HeartbeatEvent struct {
-	// Toggles between every JSON meassage as an "I am alive" indicator.
+	// Toggles between every JSON message as an "I am alive" indicator.
 	// Required: Yes.
 	Pulse bool `json:"pulse"`
 	// Current active profile.

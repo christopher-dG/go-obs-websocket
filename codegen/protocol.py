@@ -20,6 +20,7 @@ type_map = {
     "bool": "bool",
     "boolean": "bool",
     "int": "int",
+    "integer": "int",
     "float": "float64",
     "double": "float64",
     "string": "string",
