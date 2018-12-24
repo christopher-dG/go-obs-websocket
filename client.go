@@ -33,7 +33,7 @@ type Client struct {
 // poll listens for responses/events.
 // This function blocks until Disconnect is called.
 func (c *Client) poll() {
-	logger.Debug("started polling")
+	Logger.Println("started polling")
 
 	for c.connected {
 		m := make(map[string]interface{})
@@ -41,7 +41,7 @@ func (c *Client) poll() {
 			if !c.connected {
 				return
 			}
-			logger.Warning("read from WS:", err)
+			Logger.Println("read from WS:", err)
 			continue
 		}
 
@@ -80,12 +80,12 @@ func mapToStruct(data map[string]interface{}, dest interface{}) error {
 		Result:  dest,
 	})
 	if err != nil {
-		logger.Warning("initializing decoder:", err)
+		Logger.Println("initializing decoder:", err)
 		return err
 	}
 	if err = decoder.Decode(data); err != nil {
-		logger.Warningf("unmarshalling map -> %T: %v", dest, err)
-		logger.Debugf("input: %#v\n", data)
+		Logger.Printf("unmarshalling map -> %T: %v", dest, err)
+		Logger.Printf("input: %#v\n", data)
 		return err
 	}
 	return nil

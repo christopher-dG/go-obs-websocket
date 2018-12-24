@@ -1,5 +1,8 @@
 package obsws
 
-import "github.com/op/go-logging"
+import (
+	"log"
+	"os"
+)
 
-var logger = logging.MustGetLogger("obsws")
+var Logger = log.New(os.Stdout, "[obsws] ", log.LstdFlags)

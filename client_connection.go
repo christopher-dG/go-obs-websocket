@@ -33,14 +33,14 @@ func (c *Client) Connect() error {
 	}
 
 	if !respGAR.AuthRequired {
-		logger.Info("logged in (no authentication required)")
+		Logger.Println("logged in (no authentication required)")
 		c.connected = true
 		go c.poll()
 		return nil
 	}
 
 	auth := getAuth(c.Password, respGAR.Salt, respGAR.Challenge)
-	logger.Debug("auth:", auth)
+	Logger.Println("auth:", auth)
 
 	reqA := NewAuthenticateRequest(auth)
 	if err = c.conn.WriteJSON(reqA); err != nil {
@@ -55,7 +55,7 @@ func (c *Client) Connect() error {
 		return errors.New(respA.Error())
 	}
 
-	logger.Info("logged in (authentication successful)")
+	Logger.Println("logged in (authentication successful)")
 	c.connected = true
 	go c.poll()
 	return nil
@@ -73,7 +73,7 @@ func (c *Client) Disconnect() error {
 // connectWS opens the WebSocket connection.
 func connectWS(host string, port int) (*websocket.Conn, error) {
 	url := fmt.Sprintf("ws://%s:%d", host, port)
-	logger.Debug("connecting to", url)
+	Logger.Println("connecting to", url)
 	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
 		return nil, err
