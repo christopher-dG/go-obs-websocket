@@ -2424,7 +2424,7 @@ type GetSourceFilterInfoResponse struct {
 	Enabled bool `json:"enabled"`
 	// Filter type.
 	// Required: Yes.
-	Type string `json:"type"`
+	Type_ string `json:"type"`
 	// Filter name.
 	// Required: Yes.
 	Name string `json:"name"`

@@ -645,7 +645,7 @@ type GetStreamSettingsResponse struct {
 	// The type of streaming service configuration.
 	// Possible values: 'rtmp_custom' or 'rtmp_common'.
 	// Required: Yes.
-	Type string `json:"type"`
+	Type_ string `json:"type"`
 	// Stream settings object.
 	// Required: Yes.
 	Settings map[string]interface{} `json:"settings"`

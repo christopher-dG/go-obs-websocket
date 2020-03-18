@@ -319,7 +319,8 @@ def go_variables(variables: List[Dict], export: bool = True) -> str:
         varname = go_var(v["name"], export=export)
         vardicts.append(
             {
-                "name": varname,
+                "name": f"{'Type_' if varname == 'Type' else varname}",
+                # "name": varname,
                 "type": type_map[typename.lower()],
                 "tag": f'`json:"{v["name"]}"`',
                 "description": v["description"].replace("\n", " "),
