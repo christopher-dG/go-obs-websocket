@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#exiting
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#exiting
 type ExitingEvent struct {
 	_event `json:",squash"`
 }

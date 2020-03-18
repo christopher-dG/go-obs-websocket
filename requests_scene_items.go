@@ -13,7 +13,7 @@ import (
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsceneitemproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemproperties
 type GetSceneItemPropertiesRequest struct {
 	// the name of the scene that the source item belongs to.
 	// Defaults to the current scene.
@@ -103,7 +103,7 @@ func (r GetSceneItemPropertiesRequest) SendReceive(c Client) (GetSceneItemProper
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsceneitemproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemproperties
 type GetSceneItemPropertiesResponse struct {
 	// The name of the source.
 	// Required: Yes.
@@ -178,7 +178,7 @@ type GetSceneItemPropertiesResponse struct {
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemproperties
 type SetSceneItemPropertiesRequest struct {
 	// the name of the scene that the source item belongs to.
 	// Defaults to the current scene.
@@ -352,7 +352,7 @@ func (r SetSceneItemPropertiesRequest) SendReceive(c Client) (SetSceneItemProper
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemproperties
 type SetSceneItemPropertiesResponse struct {
 	_response `json:",squash"`
 }
@@ -361,7 +361,7 @@ type SetSceneItemPropertiesResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#resetsceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#resetsceneitem
 type ResetSceneItemRequest struct {
 	// Name of the scene the source belongs to.
 	// Defaults to the current scene.
@@ -451,7 +451,7 @@ func (r ResetSceneItemRequest) SendReceive(c Client) (ResetSceneItemResponse, er
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#resetsceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#resetsceneitem
 type ResetSceneItemResponse struct {
 	_response `json:",squash"`
 }
@@ -460,7 +460,7 @@ type ResetSceneItemResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemrender
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemrender
 type SetSceneItemRenderRequest struct {
 	// Scene item name in the specified scene.
 	// Required: Yes.
@@ -555,7 +555,7 @@ func (r SetSceneItemRenderRequest) SendReceive(c Client) (SetSceneItemRenderResp
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemrender
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemrender
 type SetSceneItemRenderResponse struct {
 	_response `json:",squash"`
 }
@@ -564,7 +564,7 @@ type SetSceneItemRenderResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemposition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemposition
 type SetSceneItemPositionRequest struct {
 	// The name of the scene that the source item belongs to.
 	// Defaults to the current scene.
@@ -664,7 +664,7 @@ func (r SetSceneItemPositionRequest) SendReceive(c Client) (SetSceneItemPosition
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemposition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemposition
 type SetSceneItemPositionResponse struct {
 	_response `json:",squash"`
 }
@@ -673,7 +673,7 @@ type SetSceneItemPositionResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemtransform
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemtransform
 type SetSceneItemTransformRequest struct {
 	// The name of the scene that the source item belongs to.
 	// Defaults to the current scene.
@@ -778,7 +778,7 @@ func (r SetSceneItemTransformRequest) SendReceive(c Client) (SetSceneItemTransfo
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemtransform
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemtransform
 type SetSceneItemTransformResponse struct {
 	_response `json:",squash"`
 }
@@ -787,7 +787,7 @@ type SetSceneItemTransformResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemcrop
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemcrop
 type SetSceneItemCropRequest struct {
 	// the name of the scene that the source item belongs to.
 	// Defaults to the current scene.
@@ -897,7 +897,7 @@ func (r SetSceneItemCropRequest) SendReceive(c Client) (SetSceneItemCropResponse
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemcrop
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemcrop
 type SetSceneItemCropResponse struct {
 	_response `json:",squash"`
 }
@@ -906,7 +906,7 @@ type SetSceneItemCropResponse struct {
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#deletesceneitem
 type DeleteSceneItemRequest struct {
 	// Name of the scene the source belongs to.
 	// Defaults to the current scene.
@@ -1006,7 +1006,7 @@ func (r DeleteSceneItemRequest) SendReceive(c Client) (DeleteSceneItemResponse, 
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#deletesceneitem
 type DeleteSceneItemResponse struct {
 	_response `json:",squash"`
 }
@@ -1015,7 +1015,7 @@ type DeleteSceneItemResponse struct {
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#duplicatesceneitem
 type DuplicateSceneItemRequest struct {
 	// Name of the scene to copy the item from.
 	// Defaults to the current scene.
@@ -1121,7 +1121,7 @@ func (r DuplicateSceneItemRequest) SendReceive(c Client) (DuplicateSceneItemResp
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#duplicatesceneitem
 type DuplicateSceneItemResponse struct {
 	// Name of the scene where the new item was created.
 	// Required: Yes.

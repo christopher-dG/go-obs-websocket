@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listoutputs
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#listoutputs
 type ListOutputsRequest struct {
 	_request `json:",squash"`
 	response chan ListOutputsResponse
@@ -90,7 +90,7 @@ func (r ListOutputsRequest) SendReceive(c Client) (ListOutputsResponse, error) {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listoutputs
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#listoutputs
 type ListOutputsResponse struct {
 	// Outputs list.
 	// Required: Yes.
@@ -102,7 +102,7 @@ type ListOutputsResponse struct {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getoutputinfo
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getoutputinfo
 type GetOutputInfoRequest struct {
 	// Output name.
 	// Required: Yes.
@@ -184,7 +184,7 @@ func (r GetOutputInfoRequest) SendReceive(c Client) (GetOutputInfoResponse, erro
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getoutputinfo
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getoutputinfo
 type GetOutputInfoResponse struct {
 	// Output info.
 	// Required: Yes.
@@ -196,7 +196,7 @@ type GetOutputInfoResponse struct {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startoutput
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startoutput
 type StartOutputRequest struct {
 	// Output name.
 	// Required: Yes.
@@ -278,7 +278,7 @@ func (r StartOutputRequest) SendReceive(c Client) (StartOutputResponse, error) {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startoutput
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startoutput
 type StartOutputResponse struct {
 	_response `json:",squash"`
 }
@@ -287,7 +287,7 @@ type StartOutputResponse struct {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopoutput
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopoutput
 type StopOutputRequest struct {
 	// Output name.
 	// Required: Yes.
@@ -376,7 +376,7 @@ func (r StopOutputRequest) SendReceive(c Client) (StopOutputResponse, error) {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopoutput
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopoutput
 type StopOutputResponse struct {
 	_response `json:",squash"`
 }

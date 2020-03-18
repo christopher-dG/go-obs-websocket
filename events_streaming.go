@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarting
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstarting
 type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -19,7 +19,7 @@ type StreamStartingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarted
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstarted
 type StreamStartedEvent struct {
 	_event `json:",squash"`
 }
@@ -28,7 +28,7 @@ type StreamStartedEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopping
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstopping
 type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -40,7 +40,7 @@ type StreamStoppingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopped
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstopped
 type StreamStoppedEvent struct {
 	_event `json:",squash"`
 }
@@ -49,7 +49,7 @@ type StreamStoppedEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstatus
 type StreamStatusEvent struct {
 	// Current streaming state.
 	// Required: Yes.

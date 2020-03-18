@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrentscene
 type SetCurrentSceneRequest struct {
 	// Name of the scene to switch to.
 	// Required: Yes.
@@ -94,7 +94,7 @@ func (r SetCurrentSceneRequest) SendReceive(c Client) (SetCurrentSceneResponse, 
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrentscene
 type SetCurrentSceneResponse struct {
 	_response `json:",squash"`
 }
@@ -103,7 +103,7 @@ type SetCurrentSceneResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrentscene
 type GetCurrentSceneRequest struct {
 	_request `json:",squash"`
 	response chan GetCurrentSceneResponse
@@ -181,7 +181,7 @@ func (r GetCurrentSceneRequest) SendReceive(c Client) (GetCurrentSceneResponse, 
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrentscene
 type GetCurrentSceneResponse struct {
 	// Name of the currently active scene.
 	// Required: Yes.
@@ -196,7 +196,7 @@ type GetCurrentSceneResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getscenelist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getscenelist
 type GetSceneListRequest struct {
 	_request `json:",squash"`
 	response chan GetSceneListResponse
@@ -274,7 +274,7 @@ func (r GetSceneListRequest) SendReceive(c Client) (GetSceneListResponse, error)
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getscenelist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getscenelist
 type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	// Required: Yes.
@@ -289,7 +289,7 @@ type GetSceneListResponse struct {
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersceneitems
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#reordersceneitems
 type ReorderSceneItemsRequest struct {
 	// Name of the scene to reorder (defaults to current).
 	// Required: No.
@@ -391,7 +391,7 @@ func (r ReorderSceneItemsRequest) SendReceive(c Client) (ReorderSceneItemsRespon
 //
 // Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersceneitems
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#reordersceneitems
 type ReorderSceneItemsResponse struct {
 	_response `json:",squash"`
 }

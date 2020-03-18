@@ -8,7 +8,7 @@ package obsws
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcecreated
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcecreated
 type SourceCreatedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -31,7 +31,7 @@ type SourceCreatedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcedestroyed
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcedestroyed
 type SourceDestroyedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -50,7 +50,7 @@ type SourceDestroyedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcevolumechanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcevolumechanged
 type SourceVolumeChangedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -65,7 +65,7 @@ type SourceVolumeChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcemutestatechanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcemutestatechanged
 type SourceMuteStateChangedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -80,7 +80,7 @@ type SourceMuteStateChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourceaudiosyncoffsetchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudiosyncoffsetchanged
 type SourceAudioSyncOffsetChangedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -95,7 +95,7 @@ type SourceAudioSyncOffsetChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourceaudiomixerschanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudiomixerschanged
 type SourceAudioMixersChangedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -119,7 +119,7 @@ type SourceAudioMixersChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcerenamed
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcerenamed
 type SourceRenamedEvent struct {
 	// Previous source name.
 	// Required: Yes.
@@ -134,7 +134,7 @@ type SourceRenamedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcefilteradded
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcefilteradded
 type SourceFilterAddedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -155,7 +155,7 @@ type SourceFilterAddedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcefilterremoved
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcefilterremoved
 type SourceFilterRemovedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -173,7 +173,7 @@ type SourceFilterRemovedEvent struct {
 //
 // Since obs-websocket version: 4.7.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcefiltervisibilitychanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcefiltervisibilitychanged
 type SourceFilterVisibilityChangedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -191,7 +191,7 @@ type SourceFilterVisibilityChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourcefiltersreordered
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourcefiltersreordered
 type SourceFiltersReorderedEvent struct {
 	// Source name.
 	// Required: Yes.
@@ -212,7 +212,7 @@ type SourceFiltersReorderedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sourceorderchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceorderchanged
 type SourceOrderChangedEvent struct {
 	// Name of the scene where items have been reordered.
 	// Required: Yes.
@@ -233,7 +233,7 @@ type SourceOrderChangedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemadded
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemadded
 type SceneItemAddedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -251,7 +251,7 @@ type SceneItemAddedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemremoved
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemremoved
 type SceneItemRemovedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -269,7 +269,7 @@ type SceneItemRemovedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemvisibilitychanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemvisibilitychanged
 type SceneItemVisibilityChangedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -290,7 +290,7 @@ type SceneItemVisibilityChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemtransformchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemtransformchanged
 type SceneItemTransformChangedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -311,7 +311,7 @@ type SceneItemTransformChangedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemselected
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemselected
 type SceneItemSelectedEvent struct {
 	// Name of the scene.
 	// Required: Yes.
@@ -329,7 +329,7 @@ type SceneItemSelectedEvent struct {
 //
 // Since obs-websocket version: 4.6.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#sceneitemdeselected
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneitemdeselected
 type SceneItemDeselectedEvent struct {
 	// Name of the scene.
 	// Required: Yes.

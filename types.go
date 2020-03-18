@@ -4,12 +4,12 @@ type OBSStats struct {
 	FPS                float64 `json:"fps"`
 	RenderTotalFrames  int     `json:"render-total-frames"`
 	RenderMissedFrames int     `json:"render-missed-frames"`
-	// "{int} `output-total-frames` Number of frames outputted",
-	// "{int} `output-skipped-frames` Number of frames skipped due to encoding lag",
-	// "{double} `average-frame-time` Average frame render time (in milliseconds)",
-	// "{double} `cpu-usage` Current CPU usage (percentage)",
-	// "{double} `memory-usage` Current RAM usage (in megabytes)",
-	// "{double} `free-disk-space` Free recording disk space (in megabytes)"
+	OutputTotalFrames  int     `json:"output-total-frames"`
+	OutputMissedFrames int     `json:"output-missed-frames"`
+	AverageFrameTime   float64 `json:"average-frame-time"`
+	CPUUsage           float64 `json:"cpu-usage"`
+	MemoryUsage        float64 `json:"memory-usage"`
+	FreeDiskSpace      float64 `json:"free-disk-space`
 }
 
 type Scene struct {
@@ -18,20 +18,20 @@ type Scene struct {
 }
 
 type SceneItem struct {
-	CY int `json:"cy"`
-	// "{Number} `cx`",
-	// "{String} `name` The name of this Scene Item.",
-	// "{int} `id` Scene item ID",
-	// "{Boolean} `render` Whether or not this Scene Item is set to \"visible\".",
-	// "{Boolean} `locked` Whether or not this Scene Item is locked and can't be moved around",
-	// "{Number} `source_cx`",
-	// "{Number} `source_cy`",
-	// "{String} `type` Source type. Value is one of the following: \"input\", \"filter\", \"transition\", \"scene\" or \"unknown\"",
-	// "{Number} `volume`",
-	// "{Number} `x`",
-	// "{Number} `y`",
-	// "{String (optional)} `parentGroupName` Name of the item's parent (if this item belongs to a group)",
-	// "{Array<SceneItem> (optional)} `groupChildren` List of children (if this item is a group)"
+	CY              int          `json:"cy"`
+	CX              int          `json:"cx"`
+	Name            string       `json:"name"`
+	ID              int          `json:"id"`
+	Render          bool         `json:"render"` // Visible or not
+	Locked          bool         `json:"locked"`
+	SourceCX        int          `json:"source_cx"`
+	SourceCY        int          `json:"source_cy"`
+	Type            string       `json:"type"` // One of: "input", "filter", "transition", "scene" or "unknown"
+	Volume          int          `json:"volume"`
+	X               int          `json:"x"`
+	Y               int          `json:"y"`
+	ParentGroupName string       `json:"parentGroupName,omitempty"` // Name of the item's parent (if this item belongs to a group)
+	GroupChildren   []*SceneItem `json:"groupChildren"`             // List of children (if this item is a group)
 }
 
 type SceneItemTransform struct {
