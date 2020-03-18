@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#switchtransition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#switchtransition
 type SwitchTransitionEvent struct {
 	// The name of the new active transition.
 	// Required: Yes.
@@ -20,7 +20,7 @@ type SwitchTransitionEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitionlistchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitionlistchanged
 type TransitionListChangedEvent struct {
 	_event `json:",squash"`
 }
@@ -29,7 +29,7 @@ type TransitionListChangedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitiondurationchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitiondurationchanged
 type TransitionDurationChangedEvent struct {
 	// New transition duration.
 	// Required: Yes.
@@ -41,7 +41,7 @@ type TransitionDurationChangedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitionbegin
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitionbegin
 type TransitionBeginEvent struct {
 	// Transition name.
 	// Required: Yes.

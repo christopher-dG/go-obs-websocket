@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstopreplaybuffer
 type StartStopReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StartStopReplayBufferResponse
@@ -90,7 +90,7 @@ func (r StartStopReplayBufferRequest) SendReceive(c Client) (StartStopReplayBuff
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstopreplaybuffer
 type StartStopReplayBufferResponse struct {
 	_response `json:",squash"`
 }
@@ -103,7 +103,7 @@ type StartStopReplayBufferResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startreplaybuffer
 type StartReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StartReplayBufferResponse
@@ -181,7 +181,7 @@ func (r StartReplayBufferRequest) SendReceive(c Client) (StartReplayBufferRespon
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startreplaybuffer
 type StartReplayBufferResponse struct {
 	_response `json:",squash"`
 }
@@ -191,7 +191,7 @@ type StartReplayBufferResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopreplaybuffer
 type StopReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan StopReplayBufferResponse
@@ -269,7 +269,7 @@ func (r StopReplayBufferRequest) SendReceive(c Client) (StopReplayBufferResponse
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopreplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopreplaybuffer
 type StopReplayBufferResponse struct {
 	_response `json:",squash"`
 }
@@ -281,7 +281,7 @@ type StopReplayBufferResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savereplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#savereplaybuffer
 type SaveReplayBufferRequest struct {
 	_request `json:",squash"`
 	response chan SaveReplayBufferResponse
@@ -359,7 +359,7 @@ func (r SaveReplayBufferRequest) SendReceive(c Client) (SaveReplayBufferResponse
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savereplaybuffer
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#savereplaybuffer
 type SaveReplayBufferResponse struct {
 	_response `json:",squash"`
 }

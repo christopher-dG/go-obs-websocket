@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettransitionlist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionlist
 type GetTransitionListRequest struct {
 	_request `json:",squash"`
 	response chan GetTransitionListResponse
@@ -90,17 +90,17 @@ func (r GetTransitionListRequest) SendReceive(c Client) (GetTransitionListRespon
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettransitionlist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionlist
 type GetTransitionListResponse struct {
 	// Name of the currently active transition.
 	// Required: Yes.
 	CurrentTransition string `json:"current-transition"`
 	// List of transitions.
 	// Required: Yes.
-	Transitions interface{} `json:"transitions"`
+	Transitions []map[string]interface{} `json:"transitions"`
 	// Name of the transition.
 	// Required: Yes.
-	TransitionsName string `json:"transitions[].name"`
+	TransitionsName string `json:"transitions.*.name"`
 	_response       `json:",squash"`
 }
 
@@ -108,7 +108,7 @@ type GetTransitionListResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrenttransition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrenttransition
 type GetCurrentTransitionRequest struct {
 	_request `json:",squash"`
 	response chan GetCurrentTransitionResponse
@@ -186,7 +186,7 @@ func (r GetCurrentTransitionRequest) SendReceive(c Client) (GetCurrentTransition
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrenttransition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrenttransition
 type GetCurrentTransitionResponse struct {
 	// Name of the selected transition.
 	// Required: Yes.
@@ -201,7 +201,7 @@ type GetCurrentTransitionResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrenttransition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrenttransition
 type SetCurrentTransitionRequest struct {
 	// The name of the transition.
 	// Required: Yes.
@@ -283,7 +283,7 @@ func (r SetCurrentTransitionRequest) SendReceive(c Client) (SetCurrentTransition
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrenttransition
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrenttransition
 type SetCurrentTransitionResponse struct {
 	_response `json:",squash"`
 }
@@ -292,7 +292,7 @@ type SetCurrentTransitionResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#settransitionduration
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionduration
 type SetTransitionDurationRequest struct {
 	// Desired duration of the transition (in milliseconds).
 	// Required: Yes.
@@ -374,7 +374,7 @@ func (r SetTransitionDurationRequest) SendReceive(c Client) (SetTransitionDurati
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#settransitionduration
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionduration
 type SetTransitionDurationResponse struct {
 	_response `json:",squash"`
 }
@@ -383,7 +383,7 @@ type SetTransitionDurationResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettransitionduration
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionduration
 type GetTransitionDurationRequest struct {
 	_request `json:",squash"`
 	response chan GetTransitionDurationResponse
@@ -461,7 +461,7 @@ func (r GetTransitionDurationRequest) SendReceive(c Client) (GetTransitionDurati
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettransitionduration
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionduration
 type GetTransitionDurationResponse struct {
 	// Duration of the current transition (in milliseconds).
 	// Required: Yes.

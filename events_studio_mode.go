@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#previewscenechanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#previewscenechanged
 type PreviewSceneChangedEvent struct {
 	// Name of the scene being previewed.
 	// Required: Yes.
@@ -15,7 +15,7 @@ type PreviewSceneChangedEvent struct {
 	// List of sources composing the scene.
 	// Same specification as [`GetCurrentScene`](#getcurrentscene).
 	// Required: Yes.
-	Sources []map[string]interface{} `json:"sources"`
+	Sources []*SceneItem `json:"sources"`
 	_event  `json:",squash"`
 }
 
@@ -23,7 +23,7 @@ type PreviewSceneChangedEvent struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#studiomodeswitched
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#studiomodeswitched
 type StudioModeSwitchedEvent struct {
 	// The new enabled state of Studio Mode.
 	// Required: Yes.

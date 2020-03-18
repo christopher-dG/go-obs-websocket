@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#profilechanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#profilechanged
 type ProfileChangedEvent struct {
 	_event `json:",squash"`
 }
@@ -16,7 +16,7 @@ type ProfileChangedEvent struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#profilelistchanged
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#profilelistchanged
 type ProfileListChangedEvent struct {
 	_event `json:",squash"`
 }

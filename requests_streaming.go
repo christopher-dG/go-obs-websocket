@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamingstatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstreamingstatus
 type GetStreamingStatusRequest struct {
 	_request `json:",squash"`
 	response chan GetStreamingStatusResponse
@@ -90,7 +90,7 @@ func (r GetStreamingStatusRequest) SendReceive(c Client) (GetStreamingStatusResp
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamingstatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstreamingstatus
 type GetStreamingStatusResponse struct {
 	// Current streaming status.
 	// Required: Yes.
@@ -115,7 +115,7 @@ type GetStreamingStatusResponse struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstopstreaming
 type StartStopStreamingRequest struct {
 	_request `json:",squash"`
 	response chan StartStopStreamingResponse
@@ -193,7 +193,7 @@ func (r StartStopStreamingRequest) SendReceive(c Client) (StartStopStreamingResp
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstopstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstopstreaming
 type StartStopStreamingResponse struct {
 	_response `json:",squash"`
 }
@@ -203,7 +203,7 @@ type StartStopStreamingResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstreaming
 type StartStreamingRequest struct {
 	// Special stream configuration.
 	// Please note: these won't be saved to OBS' configuration.
@@ -333,7 +333,7 @@ func (r StartStreamingRequest) SendReceive(c Client) (StartStreamingResponse, er
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#startstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstreaming
 type StartStreamingResponse struct {
 	_response `json:",squash"`
 }
@@ -343,7 +343,7 @@ type StartStreamingResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopstreaming
 type StopStreamingRequest struct {
 	_request `json:",squash"`
 	response chan StopStreamingResponse
@@ -421,7 +421,7 @@ func (r StopStreamingRequest) SendReceive(c Client) (StopStreamingResponse, erro
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#stopstreaming
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopstreaming
 type StopStreamingResponse struct {
 	_response `json:",squash"`
 }
@@ -434,11 +434,11 @@ type StopStreamingResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setstreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setstreamsettings
 type SetStreamSettingsRequest struct {
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	// Required: Yes.
-	StreamType string `json:"type"`
+	Type_ string `json:"type"`
 	// The actual settings of the stream.
 	// Required: Yes.
 	Settings map[string]interface{} `json:"settings"`
@@ -553,7 +553,7 @@ func (r SetStreamSettingsRequest) SendReceive(c Client) (SetStreamSettingsRespon
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setstreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setstreamsettings
 type SetStreamSettingsResponse struct {
 	_response `json:",squash"`
 }
@@ -562,7 +562,7 @@ type SetStreamSettingsResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstreamsettings
 type GetStreamSettingsRequest struct {
 	_request `json:",squash"`
 	response chan GetStreamSettingsResponse
@@ -640,12 +640,12 @@ func (r GetStreamSettingsRequest) SendReceive(c Client) (GetStreamSettingsRespon
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstreamsettings
 type GetStreamSettingsResponse struct {
 	// The type of streaming service configuration.
 	// Possible values: 'rtmp_custom' or 'rtmp_common'.
 	// Required: Yes.
-	Type string `json:"type"`
+	Type_ string `json:"type"`
 	// Stream settings object.
 	// Required: Yes.
 	Settings map[string]interface{} `json:"settings"`
@@ -673,7 +673,7 @@ type GetStreamSettingsResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savestreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#savestreamsettings
 type SaveStreamSettingsRequest struct {
 	_request `json:",squash"`
 	response chan SaveStreamSettingsResponse
@@ -751,7 +751,99 @@ func (r SaveStreamSettingsRequest) SendReceive(c Client) (SaveStreamSettingsResp
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#savestreamsettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#savestreamsettings
 type SaveStreamSettingsResponse struct {
+	_response `json:",squash"`
+}
+
+// SendCaptionsRequest : Send the provided text as embedded CEA-608 caption data.
+// As of OBS Studio 23.1, captions are not yet available on Linux.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sendcaptions
+type SendCaptionsRequest struct {
+	// Captions text.
+	// Required: Yes.
+	Text     string `json:"text"`
+	_request `json:",squash"`
+	response chan SendCaptionsResponse
+}
+
+// NewSendCaptionsRequest returns a new SendCaptionsRequest.
+func NewSendCaptionsRequest(text string) SendCaptionsRequest {
+	return SendCaptionsRequest{
+		text,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SendCaptions",
+			err:   make(chan error, 1),
+		},
+		make(chan SendCaptionsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SendCaptionsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SendCaptionsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SendCaptionsRequest) Receive() (SendCaptionsResponse, error) {
+	if !r.sent {
+		return SendCaptionsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SendCaptionsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SendCaptionsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SendCaptionsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SendCaptionsRequest) SendReceive(c Client) (SendCaptionsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SendCaptionsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SendCaptionsResponse : Response for SendCaptionsRequest.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sendcaptions
+type SendCaptionsResponse struct {
 	_response `json:",squash"`
 }

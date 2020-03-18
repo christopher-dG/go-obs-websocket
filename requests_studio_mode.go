@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstudiomodestatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstudiomodestatus
 type GetStudioModeStatusRequest struct {
 	_request `json:",squash"`
 	response chan GetStudioModeStatusResponse
@@ -90,7 +90,7 @@ func (r GetStudioModeStatusRequest) SendReceive(c Client) (GetStudioModeStatusRe
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstudiomodestatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getstudiomodestatus
 type GetStudioModeStatusResponse struct {
 	// Indicates if Studio Mode is enabled.
 	// Required: Yes.
@@ -103,7 +103,7 @@ type GetStudioModeStatusResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getpreviewscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getpreviewscene
 type GetPreviewSceneRequest struct {
 	_request `json:",squash"`
 	response chan GetPreviewSceneResponse
@@ -181,13 +181,13 @@ func (r GetPreviewSceneRequest) SendReceive(c Client) (GetPreviewSceneResponse, 
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getpreviewscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getpreviewscene
 type GetPreviewSceneResponse struct {
 	// The name of the active preview scene.
 	// Required: Yes.
 	Name string `json:"name"`
 	// Required: Yes.
-	Sources   []map[string]interface{} `json:"sources"`
+	Sources   []*SceneItem `json:"sources"`
 	_response `json:",squash"`
 }
 
@@ -196,7 +196,7 @@ type GetPreviewSceneResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setpreviewscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setpreviewscene
 type SetPreviewSceneRequest struct {
 	// The name of the scene to preview.
 	// Required: Yes.
@@ -278,7 +278,7 @@ func (r SetPreviewSceneRequest) SendReceive(c Client) (SetPreviewSceneResponse, 
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setpreviewscene
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setpreviewscene
 type SetPreviewSceneResponse struct {
 	_response `json:",squash"`
 }
@@ -288,7 +288,7 @@ type SetPreviewSceneResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitiontoprogram
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitiontoprogram
 type TransitionToProgramRequest struct {
 	// Change the active transition before switching scenes.
 	// Defaults to the active transition.
@@ -383,7 +383,7 @@ func (r TransitionToProgramRequest) SendReceive(c Client) (TransitionToProgramRe
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#transitiontoprogram
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitiontoprogram
 type TransitionToProgramResponse struct {
 	_response `json:",squash"`
 }
@@ -392,7 +392,7 @@ type TransitionToProgramResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#enablestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#enablestudiomode
 type EnableStudioModeRequest struct {
 	_request `json:",squash"`
 	response chan EnableStudioModeResponse
@@ -470,7 +470,7 @@ func (r EnableStudioModeRequest) SendReceive(c Client) (EnableStudioModeResponse
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#enablestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#enablestudiomode
 type EnableStudioModeResponse struct {
 	_response `json:",squash"`
 }
@@ -479,7 +479,7 @@ type EnableStudioModeResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#disablestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#disablestudiomode
 type DisableStudioModeRequest struct {
 	_request `json:",squash"`
 	response chan DisableStudioModeResponse
@@ -557,7 +557,7 @@ func (r DisableStudioModeRequest) SendReceive(c Client) (DisableStudioModeRespon
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#disablestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#disablestudiomode
 type DisableStudioModeResponse struct {
 	_response `json:",squash"`
 }
@@ -566,7 +566,7 @@ type DisableStudioModeResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#togglestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#togglestudiomode
 type ToggleStudioModeRequest struct {
 	_request `json:",squash"`
 	response chan ToggleStudioModeResponse
@@ -644,7 +644,7 @@ func (r ToggleStudioModeRequest) SendReceive(c Client) (ToggleStudioModeResponse
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#togglestudiomode
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#togglestudiomode
 type ToggleStudioModeResponse struct {
 	_response `json:",squash"`
 }

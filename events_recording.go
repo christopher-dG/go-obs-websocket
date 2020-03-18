@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstarting
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingstarting
 type RecordingStartingEvent struct {
 	_event `json:",squash"`
 }
@@ -16,7 +16,7 @@ type RecordingStartingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstarted
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingstarted
 type RecordingStartedEvent struct {
 	_event `json:",squash"`
 }
@@ -25,7 +25,7 @@ type RecordingStartedEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstopping
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingstopping
 type RecordingStoppingEvent struct {
 	_event `json:",squash"`
 }
@@ -34,7 +34,25 @@ type RecordingStoppingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#recordingstopped
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingstopped
 type RecordingStoppedEvent struct {
+	_event `json:",squash"`
+}
+
+// RecordingPausedEvent : Current recording paused.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingpaused
+type RecordingPausedEvent struct {
+	_event `json:",squash"`
+}
+
+// RecordingResumedEvent : Current recording resumed.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#recordingresumed
+type RecordingResumedEvent struct {
 	_event `json:",squash"`
 }

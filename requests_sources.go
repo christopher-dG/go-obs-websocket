@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourceslist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourceslist
 type GetSourcesListRequest struct {
 	_request `json:",squash"`
 	response chan GetSourcesListResponse
@@ -90,9 +90,9 @@ func (r GetSourcesListRequest) SendReceive(c Client) (GetSourcesListResponse, er
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourceslist
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourceslist
 type GetSourcesListResponse struct {
-	// Array of sources as objects.
+	// Array of sources.
 	// Required: Yes.
 	Sources []map[string]interface{} `json:"sources"`
 	// Unique source name.
@@ -108,30 +108,30 @@ type GetSourcesListResponse struct {
 	_response   `json:",squash"`
 }
 
-// GetSourcesTypesListRequest : Get a list of all available sources types.
+// GetSourceTypesListRequest : Get a list of all available sources types.
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcestypeslist
-type GetSourcesTypesListRequest struct {
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcetypeslist
+type GetSourceTypesListRequest struct {
 	_request `json:",squash"`
-	response chan GetSourcesTypesListResponse
+	response chan GetSourceTypesListResponse
 }
 
-// NewGetSourcesTypesListRequest returns a new GetSourcesTypesListRequest.
-func NewGetSourcesTypesListRequest() GetSourcesTypesListRequest {
-	return GetSourcesTypesListRequest{
+// NewGetSourceTypesListRequest returns a new GetSourceTypesListRequest.
+func NewGetSourceTypesListRequest() GetSourceTypesListRequest {
+	return GetSourceTypesListRequest{
 		_request{
 			ID_:   getMessageID(),
-			Type_: "GetSourcesTypesList",
+			Type_: "GetSourceTypesList",
 			err:   make(chan error, 1),
 		},
-		make(chan GetSourcesTypesListResponse, 1),
+		make(chan GetSourceTypesListResponse, 1),
 	}
 }
 
 // Send sends the request.
-func (r *GetSourcesTypesListRequest) Send(c Client) error {
+func (r *GetSourceTypesListRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
@@ -142,7 +142,7 @@ func (r *GetSourcesTypesListRequest) Send(c Client) error {
 	r.sent = true
 	go func() {
 		m := <-future
-		var resp GetSourcesTypesListResponse
+		var resp GetSourceTypesListResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
 		} else if resp.Status() != StatusOK {
@@ -155,93 +155,93 @@ func (r *GetSourcesTypesListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourcesTypesListRequest) Receive() (GetSourcesTypesListResponse, error) {
+func (r GetSourceTypesListRequest) Receive() (GetSourceTypesListResponse, error) {
 	if !r.sent {
-		return GetSourcesTypesListResponse{}, ErrNotSent
+		return GetSourceTypesListResponse{}, ErrNotSent
 	}
 	if receiveTimeout == 0 {
 		select {
 		case resp := <-r.response:
 			return resp, nil
 		case err := <-r.err:
-			return GetSourcesTypesListResponse{}, err
+			return GetSourceTypesListResponse{}, err
 		}
 	} else {
 		select {
 		case resp := <-r.response:
 			return resp, nil
 		case err := <-r.err:
-			return GetSourcesTypesListResponse{}, err
+			return GetSourceTypesListResponse{}, err
 		case <-time.After(receiveTimeout):
-			return GetSourcesTypesListResponse{}, ErrReceiveTimeout
+			return GetSourceTypesListResponse{}, ErrReceiveTimeout
 		}
 	}
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourcesTypesListRequest) SendReceive(c Client) (GetSourcesTypesListResponse, error) {
+func (r GetSourceTypesListRequest) SendReceive(c Client) (GetSourceTypesListResponse, error) {
 	if err := r.Send(c); err != nil {
-		return GetSourcesTypesListResponse{}, err
+		return GetSourceTypesListResponse{}, err
 	}
 	return r.Receive()
 }
 
-// GetSourcesTypesListResponse : Response for GetSourcesTypesListRequest.
+// GetSourceTypesListResponse : Response for GetSourceTypesListRequest.
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcestypeslist
-type GetSourcesTypesListResponse struct {
-	// Array of sources as objects.
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcetypeslist
+type GetSourceTypesListResponse struct {
+	// Array of source types.
 	// Required: Yes.
-	IDs []map[string]interface{} `json:"ids"`
+	Types []map[string]interface{} `json:"types"`
 	// Non-unique internal source type ID.
 	// Required: Yes.
-	IDsTypeID string `json:"ids.*.typeId"`
+	TypesTypeID string `json:"types.*.typeId"`
 	// Display name of the source type.
 	// Required: Yes.
-	IDsDisplayName string `json:"ids.*.displayName"`
+	TypesDisplayName string `json:"types.*.displayName"`
 	// Type.
 	// Value is one of the following: "input", "filter", "transition" or "other".
 	// Required: Yes.
-	IDsType string `json:"ids.*.type"`
+	TypesType string `json:"types.*.type"`
 	// Default settings of this source type.
 	// Required: Yes.
-	IDsDefaultSettings map[string]interface{} `json:"ids.*.defaultSettings"`
+	TypesDefaultSettings map[string]interface{} `json:"types.*.defaultSettings"`
 	// Source type capabilities.
 	// Required: Yes.
-	IDsCaps map[string]interface{} `json:"ids.*.caps"`
+	TypesCaps map[string]interface{} `json:"types.*.caps"`
 	// True if source of this type provide frames asynchronously.
 	// Required: Yes.
-	IDsCapsIsAsync bool `json:"ids.*.caps.isAsync"`
+	TypesCapsIsAsync bool `json:"types.*.caps.isAsync"`
 	// True if sources of this type provide video.
 	// Required: Yes.
-	IDsCapsHasVideo bool `json:"ids.*.caps.hasVideo"`
+	TypesCapsHasVideo bool `json:"types.*.caps.hasVideo"`
 	// True if sources of this type provide audio.
 	// Required: Yes.
-	IDsCapsHasAudio bool `json:"ids.*.caps.hasAudio"`
+	TypesCapsHasAudio bool `json:"types.*.caps.hasAudio"`
 	// True if interaction with this sources of this type is possible.
 	// Required: Yes.
-	IDsCapsCanInteract bool `json:"ids.*.caps.canInteract"`
+	TypesCapsCanInteract bool `json:"types.*.caps.canInteract"`
 	// True if sources of this type composite one or more sub-sources.
 	// Required: Yes.
-	IDsCapsIsComposite bool `json:"ids.*.caps.isComposite"`
+	TypesCapsIsComposite bool `json:"types.*.caps.isComposite"`
 	// True if sources of this type should not be fully duplicated.
 	// Required: Yes.
-	IDsCapsDoNotDuplicate bool `json:"ids.*.caps.doNotDuplicate"`
+	TypesCapsDoNotDuplicate bool `json:"types.*.caps.doNotDuplicate"`
 	// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be.
 	// Required: Yes.
-	IDsCapsDoNotSelfMonitor bool `json:"ids.*.caps.doNotSelfMonitor"`
-	_response               `json:",squash"`
+	TypesCapsDoNotSelfMonitor bool `json:"types.*.caps.doNotSelfMonitor"`
+	_response                 `json:",squash"`
 }
 
 // GetVolumeRequest : Get the volume of the specified source.
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getvolume
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getvolume
 type GetVolumeRequest struct {
-	// Name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -321,9 +321,9 @@ func (r GetVolumeRequest) SendReceive(c Client) (GetVolumeResponse, error) {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getvolume
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getvolume
 type GetVolumeResponse struct {
-	// Name of the source.
+	// Source name.
 	// Required: Yes.
 	Name string `json:"name"`
 	// Volume of the source.
@@ -332,7 +332,7 @@ type GetVolumeResponse struct {
 	Volume float64 `json:"volume"`
 	// Indicates whether the source is muted.
 	// Required: Yes.
-	Mute      bool `json:"mute"`
+	Muted     bool `json:"muted"`
 	_response `json:",squash"`
 }
 
@@ -340,9 +340,9 @@ type GetVolumeResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setvolume
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setvolume
 type SetVolumeRequest struct {
-	// Name of the source.
+	// Source name.
 	// Required: Yes.
 	Source string `json:"source"`
 	// Desired volume.
@@ -430,7 +430,7 @@ func (r SetVolumeRequest) SendReceive(c Client) (SetVolumeResponse, error) {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setvolume
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setvolume
 type SetVolumeResponse struct {
 	_response `json:",squash"`
 }
@@ -439,9 +439,9 @@ type SetVolumeResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getmute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmute
 type GetMuteRequest struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -521,9 +521,9 @@ func (r GetMuteRequest) SendReceive(c Client) (GetMuteResponse, error) {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getmute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmute
 type GetMuteResponse struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Name string `json:"name"`
 	// Mute status of the source.
@@ -536,9 +536,9 @@ type GetMuteResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setmute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setmute
 type SetMuteRequest struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Source string `json:"source"`
 	// Desired mute status.
@@ -625,7 +625,7 @@ func (r SetMuteRequest) SendReceive(c Client) (SetMuteResponse, error) {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setmute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setmute
 type SetMuteResponse struct {
 	_response `json:",squash"`
 }
@@ -634,9 +634,9 @@ type SetMuteResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#togglemute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#togglemute
 type ToggleMuteRequest struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -716,7 +716,7 @@ func (r ToggleMuteRequest) SendReceive(c Client) (ToggleMuteResponse, error) {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#togglemute
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#togglemute
 type ToggleMuteResponse struct {
 	_response `json:",squash"`
 }
@@ -725,9 +725,9 @@ type ToggleMuteResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsyncoffset
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsyncoffset
 type SetSyncOffsetRequest struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Source string `json:"source"`
 	// The desired audio sync offset (in nanoseconds).
@@ -814,7 +814,7 @@ func (r SetSyncOffsetRequest) SendReceive(c Client) (SetSyncOffsetResponse, erro
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsyncoffset
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsyncoffset
 type SetSyncOffsetResponse struct {
 	_response `json:",squash"`
 }
@@ -823,9 +823,9 @@ type SetSyncOffsetResponse struct {
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsyncoffset
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsyncoffset
 type GetSyncOffsetRequest struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -905,9 +905,9 @@ func (r GetSyncOffsetRequest) SendReceive(c Client) (GetSyncOffsetResponse, erro
 //
 // Since obs-websocket version: 4.2.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsyncoffset
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsyncoffset
 type GetSyncOffsetResponse struct {
-	// The name of the source.
+	// Source name.
 	// Required: Yes.
 	Name string `json:"name"`
 	// The audio sync offset (in nanoseconds).
@@ -920,9 +920,9 @@ type GetSyncOffsetResponse struct {
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcesettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcesettings
 type GetSourceSettingsRequest struct {
-	// Name of the source item.
+	// Source name.
 	// Required: Yes.
 	SourceName string `json:"sourceName"`
 	// Type of the specified source.
@@ -1010,7 +1010,7 @@ func (r GetSourceSettingsRequest) SendReceive(c Client) (GetSourceSettingsRespon
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcesettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcesettings
 type GetSourceSettingsResponse struct {
 	// Source name.
 	// Required: Yes.
@@ -1018,8 +1018,7 @@ type GetSourceSettingsResponse struct {
 	// Type of the specified source.
 	// Required: Yes.
 	SourceType string `json:"sourceType"`
-	// Source settings.
-	// Varying between source types.
+	// Source settings (varies between source types, may require some probing around).
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 	_response      `json:",squash"`
@@ -1029,17 +1028,16 @@ type GetSourceSettingsResponse struct {
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcesettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcesettings
 type SetSourceSettingsRequest struct {
-	// Name of the source item.
+	// Source name.
 	// Required: Yes.
 	SourceName string `json:"sourceName"`
 	// Type of the specified source.
 	// Useful for type-checking to avoid settings a set of settings incompatible with the actual source's type.
 	// Required: No.
 	SourceType string `json:"sourceType"`
-	// Source settings.
-	// Varying between source types.
+	// Source settings (varies between source types, may require some probing around).
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 	_request       `json:",squash"`
@@ -1125,7 +1123,7 @@ func (r SetSourceSettingsRequest) SendReceive(c Client) (SetSourceSettingsRespon
 //
 // Since obs-websocket version: 4.3.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcesettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcesettings
 type SetSourceSettingsResponse struct {
 	// Source name.
 	// Required: Yes.
@@ -1133,8 +1131,7 @@ type SetSourceSettingsResponse struct {
 	// Type of the specified source.
 	// Required: Yes.
 	SourceType string `json:"sourceType"`
-	// Source settings.
-	// Varying between source types.
+	// Updated source settings.
 	// Required: Yes.
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 	_response      `json:",squash"`
@@ -1144,13 +1141,9 @@ type SetSourceSettingsResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettextgdiplusproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettextgdiplusproperties
 type GetTextGDIPlusPropertiesRequest struct {
-	// Name of the scene to retrieve.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
-	// Name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -1158,12 +1151,8 @@ type GetTextGDIPlusPropertiesRequest struct {
 }
 
 // NewGetTextGDIPlusPropertiesRequest returns a new GetTextGDIPlusPropertiesRequest.
-func NewGetTextGDIPlusPropertiesRequest(
-	sceneName string,
-	source string,
-) GetTextGDIPlusPropertiesRequest {
+func NewGetTextGDIPlusPropertiesRequest(source string) GetTextGDIPlusPropertiesRequest {
 	return GetTextGDIPlusPropertiesRequest{
-		sceneName,
 		source,
 		_request{
 			ID_:   getMessageID(),
@@ -1234,8 +1223,11 @@ func (r GetTextGDIPlusPropertiesRequest) SendReceive(c Client) (GetTextGDIPlusPr
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#gettextgdiplusproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettextgdiplusproperties
 type GetTextGDIPlusPropertiesResponse struct {
+	// Source name.
+	// Required: Yes.
+	Source string `json:"source"`
 	// Text Alignment ("left", "center", "right").
 	// Required: Yes.
 	Align string `json:"align"`
@@ -1318,23 +1310,16 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Valign string `json:"valign"`
 	// Vertical text enabled.
 	// Required: Yes.
-	Vertical bool `json:"vertical"`
-	// Visibility of the scene item.
-	// Required: Yes.
-	Render    bool `json:"render"`
+	Vertical  bool `json:"vertical"`
 	_response `json:",squash"`
 }
 
-// SetTextGDIPlusPropertiesRequest : Get the current properties of a Text GDI Plus source.
+// SetTextGDIPlusPropertiesRequest : Set the current properties of a Text GDI Plus source.
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#settextgdiplusproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settextgdiplusproperties
 type SetTextGDIPlusPropertiesRequest struct {
-	// Name of the scene to retrieve.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
 	// Name of the source.
 	// Required: Yes.
 	Source string `json:"source"`
@@ -1430,7 +1415,6 @@ type SetTextGDIPlusPropertiesRequest struct {
 
 // NewSetTextGDIPlusPropertiesRequest returns a new SetTextGDIPlusPropertiesRequest.
 func NewSetTextGDIPlusPropertiesRequest(
-	sceneName string,
 	source string,
 	align string,
 	bkColor int,
@@ -1462,7 +1446,6 @@ func NewSetTextGDIPlusPropertiesRequest(
 	render bool,
 ) SetTextGDIPlusPropertiesRequest {
 	return SetTextGDIPlusPropertiesRequest{
-		sceneName,
 		source,
 		align,
 		bkColor,
@@ -1561,8 +1544,319 @@ func (r SetTextGDIPlusPropertiesRequest) SendReceive(c Client) (SetTextGDIPlusPr
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#settextgdiplusproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settextgdiplusproperties
 type SetTextGDIPlusPropertiesResponse struct {
+	_response `json:",squash"`
+}
+
+// GetTextFreetype2PropertiesRequest : Get the current properties of a Text Freetype 2 source.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettextfreetype2properties
+type GetTextFreetype2PropertiesRequest struct {
+	// Source name.
+	// Required: Yes.
+	Source   string `json:"source"`
+	_request `json:",squash"`
+	response chan GetTextFreetype2PropertiesResponse
+}
+
+// NewGetTextFreetype2PropertiesRequest returns a new GetTextFreetype2PropertiesRequest.
+func NewGetTextFreetype2PropertiesRequest(source string) GetTextFreetype2PropertiesRequest {
+	return GetTextFreetype2PropertiesRequest{
+		source,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetTextFreetype2Properties",
+			err:   make(chan error, 1),
+		},
+		make(chan GetTextFreetype2PropertiesResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetTextFreetype2PropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTextFreetype2PropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTextFreetype2PropertiesRequest) Receive() (GetTextFreetype2PropertiesResponse, error) {
+	if !r.sent {
+		return GetTextFreetype2PropertiesResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTextFreetype2PropertiesResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTextFreetype2PropertiesResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetTextFreetype2PropertiesResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTextFreetype2PropertiesRequest) SendReceive(c Client) (GetTextFreetype2PropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTextFreetype2PropertiesResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetTextFreetype2PropertiesResponse : Response for GetTextFreetype2PropertiesRequest.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettextfreetype2properties
+type GetTextFreetype2PropertiesResponse struct {
+	// Source name.
+	// Required: Yes.
+	Source string `json:"source"`
+	// Gradient top color.
+	// Required: Yes.
+	Color1 int `json:"color1"`
+	// Gradient bottom color.
+	// Required: Yes.
+	Color2 int `json:"color2"`
+	// Custom width (0 to disable).
+	// Required: Yes.
+	CustomWidth int `json:"custom_width"`
+	// Drop shadow.
+	// Required: Yes.
+	DropShadow bool `json:"drop_shadow"`
+	// Holds data for the font.
+	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
+	// Required: Yes.
+	Font map[string]interface{} `json:"font"`
+	// Font face.
+	// Required: Yes.
+	FontFace string `json:"font.face"`
+	// Font text styling flag.
+	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
+	// Required: Yes.
+	FontFlags int `json:"font.flags"`
+	// Font text size.
+	// Required: Yes.
+	FontSize int `json:"font.size"`
+	// Font Style (unknown function).
+	// Required: Yes.
+	FontStyle string `json:"font.style"`
+	// Read text from the specified file.
+	// Required: Yes.
+	FromFile bool `json:"from_file"`
+	// Chat log.
+	// Required: Yes.
+	LogMode bool `json:"log_mode"`
+	// Outline.
+	// Required: Yes.
+	Outline bool `json:"outline"`
+	// Text content to be displayed.
+	// Required: Yes.
+	Text string `json:"text"`
+	// File path.
+	// Required: Yes.
+	TextFile string `json:"text_file"`
+	// Word wrap.
+	// Required: Yes.
+	WordWrap  bool `json:"word_wrap"`
+	_response `json:",squash"`
+}
+
+// SetTextFreetype2PropertiesRequest : Set the current properties of a Text Freetype 2 source.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settextfreetype2properties
+type SetTextFreetype2PropertiesRequest struct {
+	// Source name.
+	// Required: Yes.
+	Source string `json:"source"`
+	// Gradient top color.
+	// Required: No.
+	Color1 int `json:"color1"`
+	// Gradient bottom color.
+	// Required: No.
+	Color2 int `json:"color2"`
+	// Custom width (0 to disable).
+	// Required: No.
+	CustomWidth int `json:"custom_width"`
+	// Drop shadow.
+	// Required: No.
+	DropShadow bool `json:"drop_shadow"`
+	// Holds data for the font.
+	// Ex: `"font": { "face": "Arial", "flags": 0, "size": 150, "style": "" }`.
+	// Required: No.
+	Font map[string]interface{} `json:"font"`
+	// Font face.
+	// Required: No.
+	FontFace string `json:"font.face"`
+	// Font text styling flag.
+	// `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`.
+	// Required: No.
+	FontFlags int `json:"font.flags"`
+	// Font text size.
+	// Required: No.
+	FontSize int `json:"font.size"`
+	// Font Style (unknown function).
+	// Required: No.
+	FontStyle string `json:"font.style"`
+	// Read text from the specified file.
+	// Required: No.
+	FromFile bool `json:"from_file"`
+	// Chat log.
+	// Required: No.
+	LogMode bool `json:"log_mode"`
+	// Outline.
+	// Required: No.
+	Outline bool `json:"outline"`
+	// Text content to be displayed.
+	// Required: No.
+	Text string `json:"text"`
+	// File path.
+	// Required: No.
+	TextFile string `json:"text_file"`
+	// Word wrap.
+	// Required: No.
+	WordWrap bool `json:"word_wrap"`
+	_request `json:",squash"`
+	response chan SetTextFreetype2PropertiesResponse
+}
+
+// NewSetTextFreetype2PropertiesRequest returns a new SetTextFreetype2PropertiesRequest.
+func NewSetTextFreetype2PropertiesRequest(
+	source string,
+	color1 int,
+	color2 int,
+	customWidth int,
+	dropShadow bool,
+	font map[string]interface{},
+	fontFace string,
+	fontFlags int,
+	fontSize int,
+	fontStyle string,
+	fromFile bool,
+	logMode bool,
+	outline bool,
+	text string,
+	textFile string,
+	wordWrap bool,
+) SetTextFreetype2PropertiesRequest {
+	return SetTextFreetype2PropertiesRequest{
+		source,
+		color1,
+		color2,
+		customWidth,
+		dropShadow,
+		font,
+		fontFace,
+		fontFlags,
+		fontSize,
+		fontStyle,
+		fromFile,
+		logMode,
+		outline,
+		text,
+		textFile,
+		wordWrap,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SetTextFreetype2Properties",
+			err:   make(chan error, 1),
+		},
+		make(chan SetTextFreetype2PropertiesResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetTextFreetype2PropertiesRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetTextFreetype2PropertiesResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetTextFreetype2PropertiesRequest) Receive() (SetTextFreetype2PropertiesResponse, error) {
+	if !r.sent {
+		return SetTextFreetype2PropertiesResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTextFreetype2PropertiesResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTextFreetype2PropertiesResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetTextFreetype2PropertiesResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetTextFreetype2PropertiesRequest) SendReceive(c Client) (SetTextFreetype2PropertiesResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetTextFreetype2PropertiesResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetTextFreetype2PropertiesResponse : Response for SetTextFreetype2PropertiesRequest.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settextfreetype2properties
+type SetTextFreetype2PropertiesResponse struct {
 	_response `json:",squash"`
 }
 
@@ -1570,13 +1864,9 @@ type SetTextGDIPlusPropertiesResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getbrowsersourceproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getbrowsersourceproperties
 type GetBrowserSourcePropertiesRequest struct {
-	// Name of the scene that the source belongs to.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
-	// Name of the source.
+	// Source name.
 	// Required: Yes.
 	Source   string `json:"source"`
 	_request `json:",squash"`
@@ -1584,12 +1874,8 @@ type GetBrowserSourcePropertiesRequest struct {
 }
 
 // NewGetBrowserSourcePropertiesRequest returns a new GetBrowserSourcePropertiesRequest.
-func NewGetBrowserSourcePropertiesRequest(
-	sceneName string,
-	source string,
-) GetBrowserSourcePropertiesRequest {
+func NewGetBrowserSourcePropertiesRequest(source string) GetBrowserSourcePropertiesRequest {
 	return GetBrowserSourcePropertiesRequest{
-		sceneName,
 		source,
 		_request{
 			ID_:   getMessageID(),
@@ -1660,8 +1946,11 @@ func (r GetBrowserSourcePropertiesRequest) SendReceive(c Client) (GetBrowserSour
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getbrowsersourceproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getbrowsersourceproperties
 type GetBrowserSourcePropertiesResponse struct {
+	// Source name.
+	// Required: Yes.
+	Source string `json:"source"`
 	// Indicates that a local file is in use.
 	// Required: Yes.
 	IsLocalFile bool `json:"is_local_file"`
@@ -1685,10 +1974,7 @@ type GetBrowserSourcePropertiesResponse struct {
 	FPS int `json:"fps"`
 	// Indicates whether the source should be shutdown when not visible.
 	// Required: Yes.
-	Shutdown bool `json:"shutdown"`
-	// Visibility of the scene item.
-	// Required: No.
-	Render    bool `json:"render"`
+	Shutdown  bool `json:"shutdown"`
 	_response `json:",squash"`
 }
 
@@ -1696,12 +1982,8 @@ type GetBrowserSourcePropertiesResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setbrowsersourceproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setbrowsersourceproperties
 type SetBrowserSourcePropertiesRequest struct {
-	// Name of the scene that the source belongs to.
-	// Defaults to the current scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
 	// Name of the source.
 	// Required: Yes.
 	Source string `json:"source"`
@@ -1738,7 +2020,6 @@ type SetBrowserSourcePropertiesRequest struct {
 
 // NewSetBrowserSourcePropertiesRequest returns a new SetBrowserSourcePropertiesRequest.
 func NewSetBrowserSourcePropertiesRequest(
-	sceneName string,
 	source string,
 	isLocalFile bool,
 	localFile string,
@@ -1751,7 +2032,6 @@ func NewSetBrowserSourcePropertiesRequest(
 	render bool,
 ) SetBrowserSourcePropertiesRequest {
 	return SetBrowserSourcePropertiesRequest{
-		sceneName,
 		source,
 		isLocalFile,
 		localFile,
@@ -1831,232 +2111,8 @@ func (r SetBrowserSourcePropertiesRequest) SendReceive(c Client) (SetBrowserSour
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setbrowsersourceproperties
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setbrowsersourceproperties
 type SetBrowserSourcePropertiesResponse struct {
-	_response `json:",squash"`
-}
-
-// DeleteSceneItemRequest : Deletes a scene item.
-//
-// Since obs-websocket version: Unreleased.
-//
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
-type DeleteSceneItemRequest struct {
-	// Name of the scene the source belongs to.
-	// Defaults to the current scene.
-	// Required: No.
-	Scene string `json:"scene"`
-	// item to delete (required).
-	// Required: Yes.
-	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
-	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// id of the scene item.
-	// Required: Yes.
-	ItemID   int `json:"item.id"`
-	_request `json:",squash"`
-	response chan DeleteSceneItemResponse
-}
-
-// NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
-func NewDeleteSceneItemRequest(
-	scene string,
-	item map[string]interface{},
-	itemName string,
-	itemID int,
-) DeleteSceneItemRequest {
-	return DeleteSceneItemRequest{
-		scene,
-		item,
-		itemName,
-		itemID,
-		_request{
-			ID_:   getMessageID(),
-			Type_: "DeleteSceneItem",
-			err:   make(chan error, 1),
-		},
-		make(chan DeleteSceneItemResponse, 1),
-	}
-}
-
-// Send sends the request.
-func (r *DeleteSceneItemRequest) Send(c Client) error {
-	if r.sent {
-		return ErrAlreadySent
-	}
-	future, err := c.sendRequest(r)
-	if err != nil {
-		return err
-	}
-	r.sent = true
-	go func() {
-		m := <-future
-		var resp DeleteSceneItemResponse
-		if err = mapToStruct(m, &resp); err != nil {
-			r.err <- err
-		} else if resp.Status() != StatusOK {
-			r.err <- errors.New(resp.Error())
-		} else {
-			r.response <- resp
-		}
-	}()
-	return nil
-}
-
-// Receive waits for the response.
-func (r DeleteSceneItemRequest) Receive() (DeleteSceneItemResponse, error) {
-	if !r.sent {
-		return DeleteSceneItemResponse{}, ErrNotSent
-	}
-	if receiveTimeout == 0 {
-		select {
-		case resp := <-r.response:
-			return resp, nil
-		case err := <-r.err:
-			return DeleteSceneItemResponse{}, err
-		}
-	} else {
-		select {
-		case resp := <-r.response:
-			return resp, nil
-		case err := <-r.err:
-			return DeleteSceneItemResponse{}, err
-		case <-time.After(receiveTimeout):
-			return DeleteSceneItemResponse{}, ErrReceiveTimeout
-		}
-	}
-}
-
-// SendReceive sends the request then immediately waits for the response.
-func (r DeleteSceneItemRequest) SendReceive(c Client) (DeleteSceneItemResponse, error) {
-	if err := r.Send(c); err != nil {
-		return DeleteSceneItemResponse{}, err
-	}
-	return r.Receive()
-}
-
-// DeleteSceneItemResponse : Response for DeleteSceneItemRequest.
-//
-// Since obs-websocket version: Unreleased.
-//
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
-type DeleteSceneItemResponse struct {
-	_response `json:",squash"`
-}
-
-// DuplicateSceneItemRequest : Duplicates a scene item.
-//
-// Since obs-websocket version: Unreleased.
-//
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
-type DuplicateSceneItemRequest struct {
-	// Name of the scene to copy the item from.
-	// Defaults to the current scene.
-	// Required: No.
-	FromScene string `json:"fromScene"`
-	// Name of the scene to create the item in.
-	// Defaults to the current scene.
-	// Required: No.
-	ToScene string `json:"toScene"`
-	// item to delete (required).
-	// Required: Yes.
-	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
-	// Required: Yes.
-	ItemName string `json:"item.name"`
-	// id of the scene item.
-	// Required: Yes.
-	ItemID   int `json:"item.id"`
-	_request `json:",squash"`
-	response chan DuplicateSceneItemResponse
-}
-
-// NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.
-func NewDuplicateSceneItemRequest(
-	fromScene string,
-	toScene string,
-	item map[string]interface{},
-	itemName string,
-	itemID int,
-) DuplicateSceneItemRequest {
-	return DuplicateSceneItemRequest{
-		fromScene,
-		toScene,
-		item,
-		itemName,
-		itemID,
-		_request{
-			ID_:   getMessageID(),
-			Type_: "DuplicateSceneItem",
-			err:   make(chan error, 1),
-		},
-		make(chan DuplicateSceneItemResponse, 1),
-	}
-}
-
-// Send sends the request.
-func (r *DuplicateSceneItemRequest) Send(c Client) error {
-	if r.sent {
-		return ErrAlreadySent
-	}
-	future, err := c.sendRequest(r)
-	if err != nil {
-		return err
-	}
-	r.sent = true
-	go func() {
-		m := <-future
-		var resp DuplicateSceneItemResponse
-		if err = mapToStruct(m, &resp); err != nil {
-			r.err <- err
-		} else if resp.Status() != StatusOK {
-			r.err <- errors.New(resp.Error())
-		} else {
-			r.response <- resp
-		}
-	}()
-	return nil
-}
-
-// Receive waits for the response.
-func (r DuplicateSceneItemRequest) Receive() (DuplicateSceneItemResponse, error) {
-	if !r.sent {
-		return DuplicateSceneItemResponse{}, ErrNotSent
-	}
-	if receiveTimeout == 0 {
-		select {
-		case resp := <-r.response:
-			return resp, nil
-		case err := <-r.err:
-			return DuplicateSceneItemResponse{}, err
-		}
-	} else {
-		select {
-		case resp := <-r.response:
-			return resp, nil
-		case err := <-r.err:
-			return DuplicateSceneItemResponse{}, err
-		case <-time.After(receiveTimeout):
-			return DuplicateSceneItemResponse{}, ErrReceiveTimeout
-		}
-	}
-}
-
-// SendReceive sends the request then immediately waits for the response.
-func (r DuplicateSceneItemRequest) SendReceive(c Client) (DuplicateSceneItemResponse, error) {
-	if err := r.Send(c); err != nil {
-		return DuplicateSceneItemResponse{}, err
-	}
-	return r.Receive()
-}
-
-// DuplicateSceneItemResponse : Response for DuplicateSceneItemRequest.
-//
-// Since obs-websocket version: Unreleased.
-//
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
-type DuplicateSceneItemResponse struct {
 	_response `json:",squash"`
 }
 
@@ -2064,7 +2120,7 @@ type DuplicateSceneItemResponse struct {
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getspecialsources
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getspecialsources
 type GetSpecialSourcesRequest struct {
 	_request `json:",squash"`
 	response chan GetSpecialSourcesResponse
@@ -2142,7 +2198,7 @@ func (r GetSpecialSourcesRequest) SendReceive(c Client) (GetSpecialSourcesRespon
 //
 // Since obs-websocket version: 4.1.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getspecialsources
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getspecialsources
 type GetSpecialSourcesResponse struct {
 	// Name of the first Desktop Audio capture source.
 	// Required: No.
@@ -2164,9 +2220,9 @@ type GetSpecialSourcesResponse struct {
 
 // GetSourceFiltersRequest : List filters applied to a source.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcefilters
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcefilters
 type GetSourceFiltersRequest struct {
 	// Source name.
 	// Required: Yes.
@@ -2246,13 +2302,16 @@ func (r GetSourceFiltersRequest) SendReceive(c Client) (GetSourceFiltersResponse
 
 // GetSourceFiltersResponse : Response for GetSourceFiltersRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getsourcefilters
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcefilters
 type GetSourceFiltersResponse struct {
 	// List of filters for the specified source.
 	// Required: Yes.
 	Filters []map[string]interface{} `json:"filters"`
+	// Filter status (enabled or not).
+	// Required: Yes.
+	FiltersEnabled bool `json:"filters.*.enabled"`
 	// Filter type.
 	// Required: Yes.
 	FiltersType string `json:"filters.*.type"`
@@ -2265,12 +2324,122 @@ type GetSourceFiltersResponse struct {
 	_response       `json:",squash"`
 }
 
+// GetSourceFilterInfoRequest : List filters applied to a source.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcefilterinfo
+type GetSourceFilterInfoRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Source filter name.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	_request   `json:",squash"`
+	response   chan GetSourceFilterInfoResponse
+}
+
+// NewGetSourceFilterInfoRequest returns a new GetSourceFilterInfoRequest.
+func NewGetSourceFilterInfoRequest(
+	sourceName string,
+	filterName string,
+) GetSourceFilterInfoRequest {
+	return GetSourceFilterInfoRequest{
+		sourceName,
+		filterName,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetSourceFilterInfo",
+			err:   make(chan error, 1),
+		},
+		make(chan GetSourceFilterInfoResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetSourceFilterInfoRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourceFilterInfoResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourceFilterInfoRequest) Receive() (GetSourceFilterInfoResponse, error) {
+	if !r.sent {
+		return GetSourceFilterInfoResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceFilterInfoResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceFilterInfoResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetSourceFilterInfoResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourceFilterInfoRequest) SendReceive(c Client) (GetSourceFilterInfoResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourceFilterInfoResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetSourceFilterInfoResponse : Response for GetSourceFilterInfoRequest.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcefilterinfo
+type GetSourceFilterInfoResponse struct {
+	// Filter status (enabled or not).
+	// Required: Yes.
+	Enabled bool `json:"enabled"`
+	// Filter type.
+	// Required: Yes.
+	Type_ string `json:"type"`
+	// Filter name.
+	// Required: Yes.
+	Name string `json:"name"`
+	// Filter settings.
+	// Required: Yes.
+	Settings  map[string]interface{} `json:"settings"`
+	_response `json:",squash"`
+}
+
 // AddFilterToSourceRequest : Add a new filter to a source
 // Available source types along with their settings properties are available from `GetSourceTypesList`.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#addfiltertosource
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#addfiltertosource
 type AddFilterToSourceRequest struct {
 	// Name of the source on which the filter is added.
 	// Required: Yes.
@@ -2367,18 +2536,18 @@ func (r AddFilterToSourceRequest) SendReceive(c Client) (AddFilterToSourceRespon
 
 // AddFilterToSourceResponse : Response for AddFilterToSourceRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#addfiltertosource
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#addfiltertosource
 type AddFilterToSourceResponse struct {
 	_response `json:",squash"`
 }
 
 // RemoveFilterFromSourceRequest : Remove a filter from a source.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#removefilterfromsource
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#removefilterfromsource
 type RemoveFilterFromSourceRequest struct {
 	// Name of the source from which the specified filter is removed.
 	// Required: Yes.
@@ -2465,18 +2634,18 @@ func (r RemoveFilterFromSourceRequest) SendReceive(c Client) (RemoveFilterFromSo
 
 // RemoveFilterFromSourceResponse : Response for RemoveFilterFromSourceRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#removefilterfromsource
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#removefilterfromsource
 type RemoveFilterFromSourceResponse struct {
 	_response `json:",squash"`
 }
 
 // ReorderSourceFilterRequest : Move a filter in the chain (absolute index positioning).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersourcefilter
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#reordersourcefilter
 type ReorderSourceFilterRequest struct {
 	// Name of the source to which the filter belongs.
 	// Required: Yes.
@@ -2568,18 +2737,18 @@ func (r ReorderSourceFilterRequest) SendReceive(c Client) (ReorderSourceFilterRe
 
 // ReorderSourceFilterResponse : Response for ReorderSourceFilterRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersourcefilter
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#reordersourcefilter
 type ReorderSourceFilterResponse struct {
 	_response `json:",squash"`
 }
 
 // MoveSourceFilterRequest : Move a filter in the chain (relative positioning).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#movesourcefilter
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#movesourcefilter
 type MoveSourceFilterRequest struct {
 	// Name of the source to which the filter belongs.
 	// Required: Yes.
@@ -2672,18 +2841,18 @@ func (r MoveSourceFilterRequest) SendReceive(c Client) (MoveSourceFilterResponse
 
 // MoveSourceFilterResponse : Response for MoveSourceFilterRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#movesourcefilter
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#movesourcefilter
 type MoveSourceFilterResponse struct {
 	_response `json:",squash"`
 }
 
 // SetSourceFilterSettingsRequest : Update settings of a filter.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcefiltersettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcefiltersettings
 type SetSourceFilterSettingsRequest struct {
 	// Name of the source to which the filter belongs.
 	// Required: Yes.
@@ -2776,9 +2945,246 @@ func (r SetSourceFilterSettingsRequest) SendReceive(c Client) (SetSourceFilterSe
 
 // SetSourceFilterSettingsResponse : Response for SetSourceFilterSettingsRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.5.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsourcefiltersettings
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcefiltersettings
 type SetSourceFilterSettingsResponse struct {
+	_response `json:",squash"`
+}
+
+// SetSourceFilterVisibilityRequest : Change the visibility/enabled state of a filter.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcefiltervisibility
+type SetSourceFilterVisibilityRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Source filter name.
+	// Required: Yes.
+	FilterName string `json:"filterName"`
+	// New filter state.
+	// Required: Yes.
+	FilterEnabled string `json:"filterEnabled"`
+	_request      `json:",squash"`
+	response      chan SetSourceFilterVisibilityResponse
+}
+
+// NewSetSourceFilterVisibilityRequest returns a new SetSourceFilterVisibilityRequest.
+func NewSetSourceFilterVisibilityRequest(
+	sourceName string,
+	filterName string,
+	filterEnabled string,
+) SetSourceFilterVisibilityRequest {
+	return SetSourceFilterVisibilityRequest{
+		sourceName,
+		filterName,
+		filterEnabled,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "SetSourceFilterVisibility",
+			err:   make(chan error, 1),
+		},
+		make(chan SetSourceFilterVisibilityResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetSourceFilterVisibilityRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSourceFilterVisibilityResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSourceFilterVisibilityRequest) Receive() (SetSourceFilterVisibilityResponse, error) {
+	if !r.sent {
+		return SetSourceFilterVisibilityResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceFilterVisibilityResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceFilterVisibilityResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetSourceFilterVisibilityResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSourceFilterVisibilityRequest) SendReceive(c Client) (SetSourceFilterVisibilityResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSourceFilterVisibilityResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetSourceFilterVisibilityResponse : Response for SetSourceFilterVisibilityRequest.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcefiltervisibility
+type SetSourceFilterVisibilityResponse struct {
+	_response `json:",squash"`
+}
+
+// TakeSourceScreenshotRequest :
+//
+// At least `embedPictureFormat` or `saveToFilePath` must be specified.
+//
+// Clients can specify `width` and `height` parameters to receive scaled pictures
+// Aspect ratio is
+// preserved if only one of these two parameters is specified.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#takesourcescreenshot
+type TakeSourceScreenshotRequest struct {
+	// Source name.
+	// Note that, since scenes are also sources, you can also provide a scene name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Format of the Data URI encoded picture.
+	// Can be "png", "jpg", "jpeg" or "bmp" (or any other value supported by Qt's Image module).
+	// Required: No.
+	EmbedPictureFormat string `json:"embedPictureFormat"`
+	// Full file path (file extension included) where the captured image is to be saved.
+	// Can be in a format different from `pictureFormat`.
+	// Can be a relative path.
+	// Required: No.
+	SaveToFilePath string `json:"saveToFilePath"`
+	// Screenshot width.
+	// Defaults to the source's base width.
+	// Required: No.
+	Width int `json:"width"`
+	// Screenshot height.
+	// Defaults to the source's base height.
+	// Required: No.
+	Height   int `json:"height"`
+	_request `json:",squash"`
+	response chan TakeSourceScreenshotResponse
+}
+
+// NewTakeSourceScreenshotRequest returns a new TakeSourceScreenshotRequest.
+func NewTakeSourceScreenshotRequest(
+	sourceName string,
+	embedPictureFormat string,
+	saveToFilePath string,
+	width int,
+	height int,
+) TakeSourceScreenshotRequest {
+	return TakeSourceScreenshotRequest{
+		sourceName,
+		embedPictureFormat,
+		saveToFilePath,
+		width,
+		height,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "TakeSourceScreenshot",
+			err:   make(chan error, 1),
+		},
+		make(chan TakeSourceScreenshotResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *TakeSourceScreenshotRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp TakeSourceScreenshotResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r TakeSourceScreenshotRequest) Receive() (TakeSourceScreenshotResponse, error) {
+	if !r.sent {
+		return TakeSourceScreenshotResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return TakeSourceScreenshotResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return TakeSourceScreenshotResponse{}, err
+		case <-time.After(receiveTimeout):
+			return TakeSourceScreenshotResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r TakeSourceScreenshotRequest) SendReceive(c Client) (TakeSourceScreenshotResponse, error) {
+	if err := r.Send(c); err != nil {
+		return TakeSourceScreenshotResponse{}, err
+	}
+	return r.Receive()
+}
+
+// TakeSourceScreenshotResponse : Response for TakeSourceScreenshotRequest.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#takesourcescreenshot
+type TakeSourceScreenshotResponse struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// Image Data URI (if `embedPictureFormat` was specified in the request).
+	// Required: Yes.
+	Img string `json:"img"`
+	// Absolute path to the saved image file (if `saveToFilePath` was specified in the request).
+	// Required: Yes.
+	ImageFile string `json:"imageFile"`
 	_response `json:",squash"`
 }

@@ -7,7 +7,7 @@ package obsws
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarting
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstarting
 type StreamStartingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -19,7 +19,7 @@ type StreamStartingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstarted
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstarted
 type StreamStartedEvent struct {
 	_event `json:",squash"`
 }
@@ -28,7 +28,7 @@ type StreamStartedEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopping
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstopping
 type StreamStoppingEvent struct {
 	// Always false (retrocompatibility).
 	// Required: Yes.
@@ -40,7 +40,7 @@ type StreamStoppingEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstopped
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstopped
 type StreamStoppedEvent struct {
 	_event `json:",squash"`
 }
@@ -49,7 +49,7 @@ type StreamStoppedEvent struct {
 //
 // Since obs-websocket version: 0.3.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#streamstatus
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#streamstatus
 type StreamStatusEvent struct {
 	// Current streaming state.
 	// Required: Yes.
@@ -57,9 +57,9 @@ type StreamStatusEvent struct {
 	// Current recording state.
 	// Required: Yes.
 	Recording bool `json:"recording"`
-	// Always false (retrocompatibility).
+	// Replay Buffer status.
 	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
+	ReplayBufferActive bool `json:"replay-buffer-active"`
 	// Amount of data per second (in bytes) transmitted by the stream encoder.
 	// Required: Yes.
 	BytesPerSec int `json:"bytes-per-sec"`
@@ -80,6 +80,33 @@ type StreamStatusEvent struct {
 	NumDroppedFrames int `json:"num-dropped-frames"`
 	// Current framerate.
 	// Required: Yes.
-	FPS    float64 `json:"fps"`
-	_event `json:",squash"`
+	FPS float64 `json:"fps"`
+	// Number of frames rendered.
+	// Required: Yes.
+	RenderTotalFrames int `json:"render-total-frames"`
+	// Number of frames missed due to rendering lag.
+	// Required: Yes.
+	RenderMissedFrames int `json:"render-missed-frames"`
+	// Number of frames outputted.
+	// Required: Yes.
+	OutputTotalFrames int `json:"output-total-frames"`
+	// Number of frames skipped due to encoding lag.
+	// Required: Yes.
+	OutputSkippedFrames int `json:"output-skipped-frames"`
+	// Average frame time (in milliseconds).
+	// Required: Yes.
+	AverageFrameTime float64 `json:"average-frame-time"`
+	// Current CPU usage (percentage).
+	// Required: Yes.
+	CpuUsage float64 `json:"cpu-usage"`
+	// Current RAM usage (in megabytes).
+	// Required: Yes.
+	MemoryUsage float64 `json:"memory-usage"`
+	// Free recording disk space (in megabytes).
+	// Required: Yes.
+	FreeDiskSpace float64 `json:"free-disk-space"`
+	// Always false (retrocompatibility).
+	// Required: Yes.
+	PreviewOnly bool `json:"preview-only"`
+	_event      `json:",squash"`
 }

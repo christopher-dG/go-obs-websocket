@@ -16,6 +16,14 @@ func (c *Client) AddEventHandler(eventType string, handler func(Event)) error {
 	return nil
 }
 
+// MustAddEventHandler adds a handler function for a given event type. Panics if eventType is of an unknown type.
+func (c *Client) MustAddEventHandler(eventType string, handler func(Event)) {
+	err := c.AddEventHandler(eventType, handler)
+	if err != nil {
+		panic(err)
+	}
+}
+
 // RemoveEventHandler removes the handler for a given event type.
 func (c *Client) RemoveEventHandler(eventType string) {
 	delete(c.handlers, eventType)

@@ -12,7 +12,7 @@ import (
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentprofile
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrentprofile
 type SetCurrentProfileRequest struct {
 	// Name of the desired profile.
 	// Required: Yes.
@@ -94,7 +94,7 @@ func (r SetCurrentProfileRequest) SendReceive(c Client) (SetCurrentProfileRespon
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setcurrentprofile
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setcurrentprofile
 type SetCurrentProfileResponse struct {
 	_response `json:",squash"`
 }
@@ -103,7 +103,7 @@ type SetCurrentProfileResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentprofile
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrentprofile
 type GetCurrentProfileRequest struct {
 	_request `json:",squash"`
 	response chan GetCurrentProfileResponse
@@ -181,7 +181,7 @@ func (r GetCurrentProfileRequest) SendReceive(c Client) (GetCurrentProfileRespon
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getcurrentprofile
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getcurrentprofile
 type GetCurrentProfileResponse struct {
 	// Name of the currently active profile.
 	// Required: Yes.
@@ -193,7 +193,7 @@ type GetCurrentProfileResponse struct {
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listprofiles
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#listprofiles
 type ListProfilesRequest struct {
 	_request `json:",squash"`
 	response chan ListProfilesResponse
@@ -271,10 +271,10 @@ func (r ListProfilesRequest) SendReceive(c Client) (ListProfilesResponse, error)
 //
 // Since obs-websocket version: 4.0.0.
 //
-// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#listprofiles
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#listprofiles
 type ListProfilesResponse struct {
 	// List of available profiles.
 	// Required: Yes.
-	Profiles  interface{} `json:"profiles"`
+	Profiles  []map[string]interface{} `json:"profiles"`
 	_response `json:",squash"`
 }
