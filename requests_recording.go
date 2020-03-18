@@ -271,7 +271,187 @@ type StopRecordingResponse struct {
 	_response `json:",squash"`
 }
 
-// SetRecordingFolderRequest : Change the current recording folder.
+// PauseRecordingRequest : Pause the current recording.
+// Returns an error if recording is not active or already paused.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#pauserecording
+type PauseRecordingRequest struct {
+	_request `json:",squash"`
+	response chan PauseRecordingResponse
+}
+
+// NewPauseRecordingRequest returns a new PauseRecordingRequest.
+func NewPauseRecordingRequest() PauseRecordingRequest {
+	return PauseRecordingRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "PauseRecording",
+			err:   make(chan error, 1),
+		},
+		make(chan PauseRecordingResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *PauseRecordingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp PauseRecordingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r PauseRecordingRequest) Receive() (PauseRecordingResponse, error) {
+	if !r.sent {
+		return PauseRecordingResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return PauseRecordingResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return PauseRecordingResponse{}, err
+		case <-time.After(receiveTimeout):
+			return PauseRecordingResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r PauseRecordingRequest) SendReceive(c Client) (PauseRecordingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return PauseRecordingResponse{}, err
+	}
+	return r.Receive()
+}
+
+// PauseRecordingResponse : Response for PauseRecordingRequest.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#pauserecording
+type PauseRecordingResponse struct {
+	_response `json:",squash"`
+}
+
+// ResumeRecordingRequest : Resume/unpause the current recording (if paused).
+// Returns an error if recording is not active or not paused.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#resumerecording
+type ResumeRecordingRequest struct {
+	_request `json:",squash"`
+	response chan ResumeRecordingResponse
+}
+
+// NewResumeRecordingRequest returns a new ResumeRecordingRequest.
+func NewResumeRecordingRequest() ResumeRecordingRequest {
+	return ResumeRecordingRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ResumeRecording",
+			err:   make(chan error, 1),
+		},
+		make(chan ResumeRecordingResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *ResumeRecordingRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ResumeRecordingResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ResumeRecordingRequest) Receive() (ResumeRecordingResponse, error) {
+	if !r.sent {
+		return ResumeRecordingResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ResumeRecordingResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ResumeRecordingResponse{}, err
+		case <-time.After(receiveTimeout):
+			return ResumeRecordingResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ResumeRecordingRequest) SendReceive(c Client) (ResumeRecordingResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ResumeRecordingResponse{}, err
+	}
+	return r.Receive()
+}
+
+// ResumeRecordingResponse : Response for ResumeRecordingRequest.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#resumerecording
+type ResumeRecordingResponse struct {
+	_response `json:",squash"`
+}
+
+// SetRecordingFolderRequest :
+//
+// Please note: if `SetRecordingFolder` is called while a recording is
+// in progress, the change won't be applied immediately and will be
+// effective on the next recording.
 //
 // Since obs-websocket version: 4.1.0.
 //

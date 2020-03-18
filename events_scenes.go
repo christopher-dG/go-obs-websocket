@@ -12,9 +12,10 @@ type SwitchScenesEvent struct {
 	// The new scene.
 	// Required: Yes.
 	SceneName string `json:"scene-name"`
-	// List of sources in the new scene.
+	// List of scene items in the new scene.
+	// Same specification as [`GetCurrentScene`](#getcurrentscene).
 	// Required: Yes.
-	Sources []interface{} `json:"sources"`
+	Sources []*SceneItem `json:"sources"`
 	_event  `json:",squash"`
 }
 

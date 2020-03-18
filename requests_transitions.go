@@ -97,10 +97,10 @@ type GetTransitionListResponse struct {
 	CurrentTransition string `json:"current-transition"`
 	// List of transitions.
 	// Required: Yes.
-	Transitions interface{} `json:"transitions"`
+	Transitions []map[string]interface{} `json:"transitions"`
 	// Name of the transition.
 	// Required: Yes.
-	TransitionsName string `json:"transitions[].name"`
+	TransitionsName string `json:"transitions.*.name"`
 	_response       `json:",squash"`
 }
 

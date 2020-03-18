@@ -9,6 +9,7 @@ import (
 // https://github.com/christopher-dG/go-obs-websocket/blob/master/codegen/protocol.py
 
 // GetSceneItemPropertiesRequest : Gets the scene specific properties of the specified source item.
+// Coordinates are relative to the item's parent (the scene or group it belongs to).
 //
 // Since obs-websocket version: 4.3.0.
 //
@@ -140,7 +141,11 @@ type GetSceneItemPropertiesResponse struct {
 	// If the source is visible.
 	// Required: Yes.
 	Visible bool `json:"visible"`
+	// If the source's transform is locked.
+	// Required: Yes.
+	Locked bool `json:"locked"`
 	// Type of bounding box.
+	// Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER", "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
 	// Required: Yes.
 	BoundsType string `json:"bounds.type"`
 	// Alignment of the bounding box.
@@ -151,12 +156,25 @@ type GetSceneItemPropertiesResponse struct {
 	BoundsX float64 `json:"bounds.x"`
 	// Height of the bounding box.
 	// Required: Yes.
-	BoundsY   float64 `json:"bounds.y"`
+	BoundsY float64 `json:"bounds.y"`
+	// Base width (without scaling) of the source.
+	// Required: Yes.
+	SourceWidth int `json:"sourceWidth"`
+	// Base source (without scaling) of the source.
+	// Required: Yes.
+	SourceHeight int `json:"sourceHeight"`
+	// Scene item width (base source width multiplied by the horizontal scaling factor).
+	// Required: Yes.
+	Width float64 `json:"width"`
+	// Scene item height (base source height multiplied by the vertical scaling factor).
+	// Required: Yes.
+	Height    float64 `json:"height"`
 	_response `json:",squash"`
 }
 
 // SetSceneItemPropertiesRequest : Sets the scene specific properties of a source
 // Unspecified properties will remain unchanged.
+// Coordinates are relative to the item's parent (the scene or group it belongs to).
 //
 // Since obs-websocket version: 4.3.0.
 //
@@ -170,51 +188,56 @@ type SetSceneItemPropertiesRequest struct {
 	// Required: Yes.
 	Item string `json:"item"`
 	// The new x position of the source.
-	// Required: Yes.
+	// Required: No.
 	PositionX int `json:"position.x"`
 	// The new y position of the source.
-	// Required: Yes.
+	// Required: No.
 	PositionY int `json:"position.y"`
 	// The new alignment of the source.
-	// Required: Yes.
+	// Required: No.
 	PositionAlignment int `json:"position.alignment"`
 	// The new clockwise rotation of the item in degrees.
-	// Required: Yes.
+	// Required: No.
 	Rotation float64 `json:"rotation"`
 	// The new x scale of the item.
-	// Required: Yes.
+	// Required: No.
 	ScaleX float64 `json:"scale.x"`
 	// The new y scale of the item.
-	// Required: Yes.
+	// Required: No.
 	ScaleY float64 `json:"scale.y"`
 	// The new amount of pixels cropped off the top of the source before scaling.
-	// Required: Yes.
+	// Required: No.
 	CropTop int `json:"crop.top"`
 	// The new amount of pixels cropped off the bottom of the source before scaling.
-	// Required: Yes.
+	// Required: No.
 	CropBottom int `json:"crop.bottom"`
 	// The new amount of pixels cropped off the left of the source before scaling.
-	// Required: Yes.
+	// Required: No.
 	CropLeft int `json:"crop.left"`
 	// The new amount of pixels cropped off the right of the source before scaling.
-	// Required: Yes.
+	// Required: No.
 	CropRight int `json:"crop.right"`
 	// The new visibility of the source.
 	// 'true' shows source, 'false' hides source.
-	// Required: Yes.
+	// Required: No.
 	Visible bool `json:"visible"`
+	// The new locked status of the source.
+	// 'true' keeps it in its current position, 'false' allows movement.
+	// Required: No.
+	Locked bool `json:"locked"`
 	// The new bounds type of the source.
-	// Required: Yes.
+	// Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER", "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
+	// Required: No.
 	BoundsType string `json:"bounds.type"`
 	// The new alignment of the bounding box.
 	// (0-2, 4-6, 8-10).
-	// Required: Yes.
+	// Required: No.
 	BoundsAlignment int `json:"bounds.alignment"`
 	// The new width of the bounding box.
-	// Required: Yes.
+	// Required: No.
 	BoundsX float64 `json:"bounds.x"`
 	// The new height of the bounding box.
-	// Required: Yes.
+	// Required: No.
 	BoundsY  float64 `json:"bounds.y"`
 	_request `json:",squash"`
 	response chan SetSceneItemPropertiesResponse
@@ -235,6 +258,7 @@ func NewSetSceneItemPropertiesRequest(
 	cropLeft int,
 	cropRight int,
 	visible bool,
+	locked bool,
 	boundsType string,
 	boundsAlignment int,
 	boundsX float64,
@@ -254,6 +278,7 @@ func NewSetSceneItemPropertiesRequest(
 		cropLeft,
 		cropRight,
 		visible,
+		locked,
 		boundsType,
 		boundsAlignment,
 		boundsX,
@@ -874,5 +899,241 @@ func (r SetSceneItemCropRequest) SendReceive(c Client) (SetSceneItemCropResponse
 //
 // https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#setsceneitemcrop
 type SetSceneItemCropResponse struct {
+	_response `json:",squash"`
+}
+
+// DeleteSceneItemRequest : Deletes a scene item.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+type DeleteSceneItemRequest struct {
+	// Name of the scene the source belongs to.
+	// Defaults to the current scene.
+	// Required: No.
+	Scene string `json:"scene"`
+	// item to delete (required).
+	// Required: Yes.
+	Item map[string]interface{} `json:"item"`
+	// name of the scene item (prefer `id`, including both is acceptable).
+	// Required: Yes.
+	ItemName string `json:"item.name"`
+	// id of the scene item.
+	// Required: Yes.
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
+	response chan DeleteSceneItemResponse
+}
+
+// NewDeleteSceneItemRequest returns a new DeleteSceneItemRequest.
+func NewDeleteSceneItemRequest(
+	scene string,
+	item map[string]interface{},
+	itemName string,
+	itemID int,
+) DeleteSceneItemRequest {
+	return DeleteSceneItemRequest{
+		scene,
+		item,
+		itemName,
+		itemID,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "DeleteSceneItem",
+			err:   make(chan error, 1),
+		},
+		make(chan DeleteSceneItemResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *DeleteSceneItemRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp DeleteSceneItemResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r DeleteSceneItemRequest) Receive() (DeleteSceneItemResponse, error) {
+	if !r.sent {
+		return DeleteSceneItemResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DeleteSceneItemResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DeleteSceneItemResponse{}, err
+		case <-time.After(receiveTimeout):
+			return DeleteSceneItemResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r DeleteSceneItemRequest) SendReceive(c Client) (DeleteSceneItemResponse, error) {
+	if err := r.Send(c); err != nil {
+		return DeleteSceneItemResponse{}, err
+	}
+	return r.Receive()
+}
+
+// DeleteSceneItemResponse : Response for DeleteSceneItemRequest.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#deletesceneitem
+type DeleteSceneItemResponse struct {
+	_response `json:",squash"`
+}
+
+// DuplicateSceneItemRequest : Duplicates a scene item.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+type DuplicateSceneItemRequest struct {
+	// Name of the scene to copy the item from.
+	// Defaults to the current scene.
+	// Required: No.
+	FromScene string `json:"fromScene"`
+	// Name of the scene to create the item in.
+	// Defaults to the current scene.
+	// Required: No.
+	ToScene string `json:"toScene"`
+	// item to duplicate (required).
+	// Required: Yes.
+	Item map[string]interface{} `json:"item"`
+	// name of the scene item (prefer `id`, including both is acceptable).
+	// Required: Yes.
+	ItemName string `json:"item.name"`
+	// id of the scene item.
+	// Required: Yes.
+	ItemID   int `json:"item.id"`
+	_request `json:",squash"`
+	response chan DuplicateSceneItemResponse
+}
+
+// NewDuplicateSceneItemRequest returns a new DuplicateSceneItemRequest.
+func NewDuplicateSceneItemRequest(
+	fromScene string,
+	toScene string,
+	item map[string]interface{},
+	itemName string,
+	itemID int,
+) DuplicateSceneItemRequest {
+	return DuplicateSceneItemRequest{
+		fromScene,
+		toScene,
+		item,
+		itemName,
+		itemID,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "DuplicateSceneItem",
+			err:   make(chan error, 1),
+		},
+		make(chan DuplicateSceneItemResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *DuplicateSceneItemRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp DuplicateSceneItemResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r DuplicateSceneItemRequest) Receive() (DuplicateSceneItemResponse, error) {
+	if !r.sent {
+		return DuplicateSceneItemResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DuplicateSceneItemResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return DuplicateSceneItemResponse{}, err
+		case <-time.After(receiveTimeout):
+			return DuplicateSceneItemResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r DuplicateSceneItemRequest) SendReceive(c Client) (DuplicateSceneItemResponse, error) {
+	if err := r.Send(c); err != nil {
+		return DuplicateSceneItemResponse{}, err
+	}
+	return r.Receive()
+}
+
+// DuplicateSceneItemResponse : Response for DuplicateSceneItemRequest.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#duplicatesceneitem
+type DuplicateSceneItemResponse struct {
+	// Name of the scene where the new item was created.
+	// Required: Yes.
+	Scene string `json:"scene"`
+	// New item info.
+	// Required: Yes.
+	Item map[string]interface{} `json:"item"`
+	// New item ID.
+	// Required: Yes.
+	ItemID int `json:"item.id"`
+	// New item name.
+	// Required: Yes.
+	ItemName  string `json:"item.name"`
 	_response `json:",squash"`
 }

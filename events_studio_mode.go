@@ -15,7 +15,7 @@ type PreviewSceneChangedEvent struct {
 	// List of sources composing the scene.
 	// Same specification as [`GetCurrentScene`](#getcurrentscene).
 	// Required: Yes.
-	Sources []map[string]interface{} `json:"sources"`
+	Sources []*SceneItem `json:"sources"`
 	_event  `json:",squash"`
 }
 

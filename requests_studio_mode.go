@@ -187,7 +187,7 @@ type GetPreviewSceneResponse struct {
 	// Required: Yes.
 	Name string `json:"name"`
 	// Required: Yes.
-	Sources   []map[string]interface{} `json:"sources"`
+	Sources   []*SceneItem `json:"sources"`
 	_response `json:",squash"`
 }
 

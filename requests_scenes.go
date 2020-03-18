@@ -188,7 +188,7 @@ type GetCurrentSceneResponse struct {
 	Name string `json:"name"`
 	// Ordered list of the current scene's source items.
 	// Required: Yes.
-	Sources   []map[string]interface{} `json:"sources"`
+	Sources   []*SceneItem `json:"sources"`
 	_response `json:",squash"`
 }
 
@@ -281,6 +281,117 @@ type GetSceneListResponse struct {
 	CurrentScene string `json:"current-scene"`
 	// Ordered list of the current profile's scenes (See `[GetCurrentScene](#getcurrentscene)` for more information).
 	// Required: Yes.
-	Scenes    []map[string]interface{} `json:"scenes"`
+	Scenes    []*Scene `json:"scenes"`
+	_response `json:",squash"`
+}
+
+// ReorderSceneItemsRequest : Changes the order of scene items in the requested scene.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersceneitems
+type ReorderSceneItemsRequest struct {
+	// Name of the scene to reorder (defaults to current).
+	// Required: No.
+	Scene string `json:"scene"`
+	// Ordered list of objects with name and/or id specified.
+	// Id preferred due to uniqueness per scene.
+	// Required: Yes.
+	Items []*Scene `json:"items"`
+	// Id of a specific scene item.
+	// Unique on a scene by scene basis.
+	// Required: No.
+	ItemsID int `json:"items[].id"`
+	// Name of a scene item.
+	// Sufficiently unique if no scene items share sources within the scene.
+	// Required: No.
+	ItemsName string `json:"items[].name"`
+	_request  `json:",squash"`
+	response  chan ReorderSceneItemsResponse
+}
+
+// NewReorderSceneItemsRequest returns a new ReorderSceneItemsRequest.
+func NewReorderSceneItemsRequest(
+	scene string,
+	items []*Scene,
+	itemsID int,
+	itemsName string,
+) ReorderSceneItemsRequest {
+	return ReorderSceneItemsRequest{
+		scene,
+		items,
+		itemsID,
+		itemsName,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "ReorderSceneItems",
+			err:   make(chan error, 1),
+		},
+		make(chan ReorderSceneItemsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *ReorderSceneItemsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ReorderSceneItemsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ReorderSceneItemsRequest) Receive() (ReorderSceneItemsResponse, error) {
+	if !r.sent {
+		return ReorderSceneItemsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReorderSceneItemsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReorderSceneItemsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return ReorderSceneItemsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ReorderSceneItemsRequest) SendReceive(c Client) (ReorderSceneItemsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ReorderSceneItemsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// ReorderSceneItemsResponse : Response for ReorderSceneItemsRequest.
+//
+// Since obs-websocket version: 4.5.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#reordersceneitems
+type ReorderSceneItemsResponse struct {
 	_response `json:",squash"`
 }

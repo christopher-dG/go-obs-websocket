@@ -25,11 +25,19 @@ type_map = {
     "double": "float64",
     "string": "string",
     "array": "[]interface{}",
+    "array<string>": "[]string",
+    "array<scene>": "[]*Scene",
     "object": "map[string]interface{}",
+    "output": "map[string]interface{}",
     "array of objects": "[]map[string]interface{}",
+    "array<object>": "[]map[string]interface{}",
+    "array<output>": "[]map[string]interface{}",
+    "array<sceneitem>": "[]*SceneItem",
     "object|array": "interface{}",
     "scene|array": "[]map[string]interface{}",
     "source|array": "[]map[string]interface{}",
+    "obsstats": "*OBSStats",
+    "sceneitemtransform": "*SceneItemTransform",
 }
 
 unknown_types = []

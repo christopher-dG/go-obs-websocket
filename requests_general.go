@@ -566,3 +566,305 @@ type GetFilenameFormattingResponse struct {
 	FilenameFormatting string `json:"filename-formatting"`
 	_response          `json:",squash"`
 }
+
+// GetStatsRequest : Get OBS stats (almost the same info as provided in OBS' stats window).
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstats
+type GetStatsRequest struct {
+	_request `json:",squash"`
+	response chan GetStatsResponse
+}
+
+// NewGetStatsRequest returns a new GetStatsRequest.
+func NewGetStatsRequest() GetStatsRequest {
+	return GetStatsRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetStats",
+			err:   make(chan error, 1),
+		},
+		make(chan GetStatsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetStatsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetStatsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetStatsRequest) Receive() (GetStatsResponse, error) {
+	if !r.sent {
+		return GetStatsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetStatsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetStatsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetStatsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetStatsRequest) SendReceive(c Client) (GetStatsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetStatsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetStatsResponse : Response for GetStatsRequest.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getstats
+type GetStatsResponse struct {
+	// OBS stats.
+	// Required: Yes.
+	Stats     *OBSStats `json:"stats"`
+	_response `json:",squash"`
+}
+
+// BroadcastCustomMessageRequest : Broadcast custom message to all connected WebSocket clients.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#broadcastcustommessage
+type BroadcastCustomMessageRequest struct {
+	// Identifier to be choosen by the client.
+	// Required: Yes.
+	Realm string `json:"realm"`
+	// User-defined data.
+	// Required: Yes.
+	Data     map[string]interface{} `json:"data"`
+	_request `json:",squash"`
+	response chan BroadcastCustomMessageResponse
+}
+
+// NewBroadcastCustomMessageRequest returns a new BroadcastCustomMessageRequest.
+func NewBroadcastCustomMessageRequest(
+	realm string,
+	data map[string]interface{},
+) BroadcastCustomMessageRequest {
+	return BroadcastCustomMessageRequest{
+		realm,
+		data,
+		_request{
+			ID_:   getMessageID(),
+			Type_: "BroadcastCustomMessage",
+			err:   make(chan error, 1),
+		},
+		make(chan BroadcastCustomMessageResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *BroadcastCustomMessageRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp BroadcastCustomMessageResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r BroadcastCustomMessageRequest) Receive() (BroadcastCustomMessageResponse, error) {
+	if !r.sent {
+		return BroadcastCustomMessageResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return BroadcastCustomMessageResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return BroadcastCustomMessageResponse{}, err
+		case <-time.After(receiveTimeout):
+			return BroadcastCustomMessageResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r BroadcastCustomMessageRequest) SendReceive(c Client) (BroadcastCustomMessageResponse, error) {
+	if err := r.Send(c); err != nil {
+		return BroadcastCustomMessageResponse{}, err
+	}
+	return r.Receive()
+}
+
+// BroadcastCustomMessageResponse : Response for BroadcastCustomMessageRequest.
+//
+// Since obs-websocket version: 4.7.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#broadcastcustommessage
+type BroadcastCustomMessageResponse struct {
+	_response `json:",squash"`
+}
+
+// GetVideoInfoRequest : Get basic OBS video information.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getvideoinfo
+type GetVideoInfoRequest struct {
+	_request `json:",squash"`
+	response chan GetVideoInfoResponse
+}
+
+// NewGetVideoInfoRequest returns a new GetVideoInfoRequest.
+func NewGetVideoInfoRequest() GetVideoInfoRequest {
+	return GetVideoInfoRequest{
+		_request{
+			ID_:   getMessageID(),
+			Type_: "GetVideoInfo",
+			err:   make(chan error, 1),
+		},
+		make(chan GetVideoInfoResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetVideoInfoRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.sendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetVideoInfoResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetVideoInfoRequest) Receive() (GetVideoInfoResponse, error) {
+	if !r.sent {
+		return GetVideoInfoResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetVideoInfoResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetVideoInfoResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetVideoInfoResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetVideoInfoRequest) SendReceive(c Client) (GetVideoInfoResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetVideoInfoResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetVideoInfoResponse : Response for GetVideoInfoRequest.
+//
+// Since obs-websocket version: 4.6.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.3-maintenance/docs/generated/protocol.md#getvideoinfo
+type GetVideoInfoResponse struct {
+	// Base (canvas) width.
+	// Required: Yes.
+	BaseWidth int `json:"baseWidth"`
+	// Base (canvas) height.
+	// Required: Yes.
+	BaseHeight int `json:"baseHeight"`
+	// Output width.
+	// Required: Yes.
+	OutputWidth int `json:"outputWidth"`
+	// Output height.
+	// Required: Yes.
+	OutputHeight int `json:"outputHeight"`
+	// Scaling method used if output size differs from base size.
+	// Required: Yes.
+	ScaleType string `json:"scaleType"`
+	// Frames rendered per second.
+	// Required: Yes.
+	FPS float64 `json:"fps"`
+	// Video color format.
+	// Required: Yes.
+	VideoFormat string `json:"videoFormat"`
+	// Color space for YUV.
+	// Required: Yes.
+	ColorSpace string `json:"colorSpace"`
+	// Color range (full or partial).
+	// Required: Yes.
+	ColorRange string `json:"colorRange"`
+	_response  `json:",squash"`
+}

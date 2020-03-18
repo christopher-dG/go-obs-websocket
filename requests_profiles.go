@@ -275,6 +275,6 @@ func (r ListProfilesRequest) SendReceive(c Client) (ListProfilesResponse, error)
 type ListProfilesResponse struct {
 	// List of available profiles.
 	// Required: Yes.
-	Profiles  interface{} `json:"profiles"`
+	Profiles  []map[string]interface{} `json:"profiles"`
 	_response `json:",squash"`
 }
