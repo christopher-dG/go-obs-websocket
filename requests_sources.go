@@ -1701,13 +1701,13 @@ type SetTextFreetype2PropertiesRequest struct {
 	Source string `json:"source"`
 	// Gradient top color.
 	// Required: No.
-	Color1 int `json:"color1,omitempty"`
+	Color1 int `json:"color1"`
 	// Gradient bottom color.
 	// Required: No.
-	Color2 int `json:"color2,omitempty"`
+	Color2 int `json:"color2"`
 	// Custom width (0 to disable).
 	// Required: No.
-	CustomWidth int `json:"custom_width,omitempty"`
+	CustomWidth int `json:"custom_width"`
 	// Drop shadow.
 	// Required: No.
 	DropShadow bool `json:"drop_shadow"`
