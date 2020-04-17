@@ -40,6 +40,8 @@ func (c *Client) poll() {
 		if err := c.conn.ReadJSON(&m); err != nil {
 			if !c.connected {
 				return
+			} else if websocket.IsUnexpectedCloseError(err) {
+				c.Disconnect()
 			}
 			Logger.Println("read from WS:", err)
 			continue
