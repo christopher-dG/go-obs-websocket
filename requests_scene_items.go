@@ -35,7 +35,7 @@ func NewGetSceneItemPropertiesRequest(
 		sceneName,
 		item,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetSceneItemProperties",
 			err:   make(chan error, 1),
 		},
@@ -48,7 +48,7 @@ func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -284,7 +284,7 @@ func NewSetSceneItemPropertiesRequest(
 		boundsX,
 		boundsY,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetSceneItemProperties",
 			err:   make(chan error, 1),
 		},
@@ -297,7 +297,7 @@ func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -383,7 +383,7 @@ func NewResetSceneItemRequest(
 		sceneName,
 		item,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ResetSceneItem",
 			err:   make(chan error, 1),
 		},
@@ -396,7 +396,7 @@ func (r *ResetSceneItemRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -487,7 +487,7 @@ func NewSetSceneItemRenderRequest(
 		render,
 		sceneName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetSceneItemRender",
 			err:   make(chan error, 1),
 		},
@@ -500,7 +500,7 @@ func (r *SetSceneItemRenderRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -596,7 +596,7 @@ func NewSetSceneItemPositionRequest(
 		x,
 		y,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetSceneItemPosition",
 			err:   make(chan error, 1),
 		},
@@ -609,7 +609,7 @@ func (r *SetSceneItemPositionRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -710,7 +710,7 @@ func NewSetSceneItemTransformRequest(
 		yScale,
 		rotation,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetSceneItemTransform",
 			err:   make(chan error, 1),
 		},
@@ -723,7 +723,7 @@ func (r *SetSceneItemTransformRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -829,7 +829,7 @@ func NewSetSceneItemCropRequest(
 		left,
 		right,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetSceneItemCrop",
 			err:   make(chan error, 1),
 		},
@@ -842,7 +842,7 @@ func (r *SetSceneItemCropRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -938,7 +938,7 @@ func NewDeleteSceneItemRequest(
 		itemName,
 		itemID,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "DeleteSceneItem",
 			err:   make(chan error, 1),
 		},
@@ -951,7 +951,7 @@ func (r *DeleteSceneItemRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -1053,7 +1053,7 @@ func NewDuplicateSceneItemRequest(
 		itemName,
 		itemID,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "DuplicateSceneItem",
 			err:   make(chan error, 1),
 		},
@@ -1066,7 +1066,7 @@ func (r *DuplicateSceneItemRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

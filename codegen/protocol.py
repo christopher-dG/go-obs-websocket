@@ -137,7 +137,7 @@ def gen_request(data: Dict) -> str:
         if r.sent {{
             return ErrAlreadySent
         }}
-        future, err := c.sendRequest(r)
+        future, err := c.SendRequest(r)
         if err != nil {{
             return err
         }}
@@ -226,7 +226,7 @@ def gen_request_new(request: Dict):
     variables = go_variables(request.get("params", []), export=False)
     default_args = f"""
         _request{{
-            ID_: getMessageID(),
+            ID_: GetMessageID(),
             Type_: "{request["name"]}",
             err: make(chan error, 1),
         }},

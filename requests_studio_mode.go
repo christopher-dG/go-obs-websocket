@@ -22,7 +22,7 @@ type GetStudioModeStatusRequest struct {
 func NewGetStudioModeStatusRequest() GetStudioModeStatusRequest {
 	return GetStudioModeStatusRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetStudioModeStatus",
 			err:   make(chan error, 1),
 		},
@@ -35,7 +35,7 @@ func (r *GetStudioModeStatusRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -113,7 +113,7 @@ type GetPreviewSceneRequest struct {
 func NewGetPreviewSceneRequest() GetPreviewSceneRequest {
 	return GetPreviewSceneRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetPreviewScene",
 			err:   make(chan error, 1),
 		},
@@ -126,7 +126,7 @@ func (r *GetPreviewSceneRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -210,7 +210,7 @@ func NewSetPreviewSceneRequest(sceneName string) SetPreviewSceneRequest {
 	return SetPreviewSceneRequest{
 		sceneName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetPreviewScene",
 			err:   make(chan error, 1),
 		},
@@ -223,7 +223,7 @@ func (r *SetPreviewSceneRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -315,7 +315,7 @@ func NewTransitionToProgramRequest(
 		withTransitionName,
 		withTransitionDuration,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "TransitionToProgram",
 			err:   make(chan error, 1),
 		},
@@ -328,7 +328,7 @@ func (r *TransitionToProgramRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -402,7 +402,7 @@ type EnableStudioModeRequest struct {
 func NewEnableStudioModeRequest() EnableStudioModeRequest {
 	return EnableStudioModeRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "EnableStudioMode",
 			err:   make(chan error, 1),
 		},
@@ -415,7 +415,7 @@ func (r *EnableStudioModeRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -489,7 +489,7 @@ type DisableStudioModeRequest struct {
 func NewDisableStudioModeRequest() DisableStudioModeRequest {
 	return DisableStudioModeRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "DisableStudioMode",
 			err:   make(chan error, 1),
 		},
@@ -502,7 +502,7 @@ func (r *DisableStudioModeRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -576,7 +576,7 @@ type ToggleStudioModeRequest struct {
 func NewToggleStudioModeRequest() ToggleStudioModeRequest {
 	return ToggleStudioModeRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ToggleStudioMode",
 			err:   make(chan error, 1),
 		},
@@ -589,7 +589,7 @@ func (r *ToggleStudioModeRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

@@ -22,7 +22,7 @@ type StartStopReplayBufferRequest struct {
 func NewStartStopReplayBufferRequest() StartStopReplayBufferRequest {
 	return StartStopReplayBufferRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StartStopReplayBuffer",
 			err:   make(chan error, 1),
 		},
@@ -35,7 +35,7 @@ func (r *StartStopReplayBufferRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -113,7 +113,7 @@ type StartReplayBufferRequest struct {
 func NewStartReplayBufferRequest() StartReplayBufferRequest {
 	return StartReplayBufferRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StartReplayBuffer",
 			err:   make(chan error, 1),
 		},
@@ -126,7 +126,7 @@ func (r *StartReplayBufferRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -201,7 +201,7 @@ type StopReplayBufferRequest struct {
 func NewStopReplayBufferRequest() StopReplayBufferRequest {
 	return StopReplayBufferRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StopReplayBuffer",
 			err:   make(chan error, 1),
 		},
@@ -214,7 +214,7 @@ func (r *StopReplayBufferRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -291,7 +291,7 @@ type SaveReplayBufferRequest struct {
 func NewSaveReplayBufferRequest() SaveReplayBufferRequest {
 	return SaveReplayBufferRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SaveReplayBuffer",
 			err:   make(chan error, 1),
 		},
@@ -304,7 +304,7 @@ func (r *SaveReplayBufferRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

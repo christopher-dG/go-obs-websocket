@@ -22,7 +22,7 @@ type ListOutputsRequest struct {
 func NewListOutputsRequest() ListOutputsRequest {
 	return ListOutputsRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ListOutputs",
 			err:   make(chan error, 1),
 		},
@@ -35,7 +35,7 @@ func (r *ListOutputsRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -116,7 +116,7 @@ func NewGetOutputInfoRequest(outputName string) GetOutputInfoRequest {
 	return GetOutputInfoRequest{
 		outputName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetOutputInfo",
 			err:   make(chan error, 1),
 		},
@@ -129,7 +129,7 @@ func (r *GetOutputInfoRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -210,7 +210,7 @@ func NewStartOutputRequest(outputName string) StartOutputRequest {
 	return StartOutputRequest{
 		outputName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StartOutput",
 			err:   make(chan error, 1),
 		},
@@ -223,7 +223,7 @@ func (r *StartOutputRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -308,7 +308,7 @@ func NewStopOutputRequest(
 		outputName,
 		force,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StopOutput",
 			err:   make(chan error, 1),
 		},
@@ -321,7 +321,7 @@ func (r *StopOutputRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

@@ -26,7 +26,7 @@ func NewSetCurrentProfileRequest(profileName string) SetCurrentProfileRequest {
 	return SetCurrentProfileRequest{
 		profileName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetCurrentProfile",
 			err:   make(chan error, 1),
 		},
@@ -39,7 +39,7 @@ func (r *SetCurrentProfileRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -113,7 +113,7 @@ type GetCurrentProfileRequest struct {
 func NewGetCurrentProfileRequest() GetCurrentProfileRequest {
 	return GetCurrentProfileRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetCurrentProfile",
 			err:   make(chan error, 1),
 		},
@@ -126,7 +126,7 @@ func (r *GetCurrentProfileRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -203,7 +203,7 @@ type ListProfilesRequest struct {
 func NewListProfilesRequest() ListProfilesRequest {
 	return ListProfilesRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ListProfiles",
 			err:   make(chan error, 1),
 		},
@@ -216,7 +216,7 @@ func (r *ListProfilesRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
