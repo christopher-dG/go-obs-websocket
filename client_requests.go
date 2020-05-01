@@ -14,8 +14,8 @@ var (
 	ErrReceiveTimeout = errors.New("receive timed out")
 )
 
-// sendRequest sends a request to the WebSocket server.
-func (c *Client) sendRequest(req Request) (chan map[string]interface{}, error) {
+// SendRequest sends a request to the WebSocket server.
+func (c *Client) SendRequest(req Request) (chan map[string]interface{}, error) {
 	if !c.connected {
 		return nil, ErrNotConnected
 	}

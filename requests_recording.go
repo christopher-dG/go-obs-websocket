@@ -22,7 +22,7 @@ type StartStopRecordingRequest struct {
 func NewStartStopRecordingRequest() StartStopRecordingRequest {
 	return StartStopRecordingRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StartStopRecording",
 			err:   make(chan error, 1),
 		},
@@ -35,7 +35,7 @@ func (r *StartStopRecordingRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -110,7 +110,7 @@ type StartRecordingRequest struct {
 func NewStartRecordingRequest() StartRecordingRequest {
 	return StartRecordingRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StartRecording",
 			err:   make(chan error, 1),
 		},
@@ -123,7 +123,7 @@ func (r *StartRecordingRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -198,7 +198,7 @@ type StopRecordingRequest struct {
 func NewStopRecordingRequest() StopRecordingRequest {
 	return StopRecordingRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "StopRecording",
 			err:   make(chan error, 1),
 		},
@@ -211,7 +211,7 @@ func (r *StopRecordingRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -286,7 +286,7 @@ type PauseRecordingRequest struct {
 func NewPauseRecordingRequest() PauseRecordingRequest {
 	return PauseRecordingRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "PauseRecording",
 			err:   make(chan error, 1),
 		},
@@ -299,7 +299,7 @@ func (r *PauseRecordingRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -374,7 +374,7 @@ type ResumeRecordingRequest struct {
 func NewResumeRecordingRequest() ResumeRecordingRequest {
 	return ResumeRecordingRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ResumeRecording",
 			err:   make(chan error, 1),
 		},
@@ -387,7 +387,7 @@ func (r *ResumeRecordingRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -469,7 +469,7 @@ func NewSetRecordingFolderRequest(recFolder string) SetRecordingFolderRequest {
 	return SetRecordingFolderRequest{
 		recFolder,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetRecordingFolder",
 			err:   make(chan error, 1),
 		},
@@ -482,7 +482,7 @@ func (r *SetRecordingFolderRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -556,7 +556,7 @@ type GetRecordingFolderRequest struct {
 func NewGetRecordingFolderRequest() GetRecordingFolderRequest {
 	return GetRecordingFolderRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetRecordingFolder",
 			err:   make(chan error, 1),
 		},
@@ -569,7 +569,7 @@ func (r *GetRecordingFolderRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

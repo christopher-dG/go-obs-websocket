@@ -22,7 +22,7 @@ type GetTransitionListRequest struct {
 func NewGetTransitionListRequest() GetTransitionListRequest {
 	return GetTransitionListRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetTransitionList",
 			err:   make(chan error, 1),
 		},
@@ -35,7 +35,7 @@ func (r *GetTransitionListRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -118,7 +118,7 @@ type GetCurrentTransitionRequest struct {
 func NewGetCurrentTransitionRequest() GetCurrentTransitionRequest {
 	return GetCurrentTransitionRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetCurrentTransition",
 			err:   make(chan error, 1),
 		},
@@ -131,7 +131,7 @@ func (r *GetCurrentTransitionRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -215,7 +215,7 @@ func NewSetCurrentTransitionRequest(transitionName string) SetCurrentTransitionR
 	return SetCurrentTransitionRequest{
 		transitionName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetCurrentTransition",
 			err:   make(chan error, 1),
 		},
@@ -228,7 +228,7 @@ func (r *SetCurrentTransitionRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -306,7 +306,7 @@ func NewSetTransitionDurationRequest(duration int) SetTransitionDurationRequest 
 	return SetTransitionDurationRequest{
 		duration,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetTransitionDuration",
 			err:   make(chan error, 1),
 		},
@@ -319,7 +319,7 @@ func (r *SetTransitionDurationRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -393,7 +393,7 @@ type GetTransitionDurationRequest struct {
 func NewGetTransitionDurationRequest() GetTransitionDurationRequest {
 	return GetTransitionDurationRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetTransitionDuration",
 			err:   make(chan error, 1),
 		},
@@ -406,7 +406,7 @@ func (r *GetTransitionDurationRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}

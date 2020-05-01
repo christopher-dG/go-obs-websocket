@@ -26,7 +26,7 @@ func NewSetCurrentSceneRequest(sceneName string) SetCurrentSceneRequest {
 	return SetCurrentSceneRequest{
 		sceneName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "SetCurrentScene",
 			err:   make(chan error, 1),
 		},
@@ -39,7 +39,7 @@ func (r *SetCurrentSceneRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -113,7 +113,7 @@ type GetCurrentSceneRequest struct {
 func NewGetCurrentSceneRequest() GetCurrentSceneRequest {
 	return GetCurrentSceneRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetCurrentScene",
 			err:   make(chan error, 1),
 		},
@@ -126,7 +126,7 @@ func (r *GetCurrentSceneRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -206,7 +206,7 @@ type GetSceneListRequest struct {
 func NewGetSceneListRequest() GetSceneListRequest {
 	return GetSceneListRequest{
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "GetSceneList",
 			err:   make(chan error, 1),
 		},
@@ -219,7 +219,7 @@ func (r *GetSceneListRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
@@ -323,7 +323,7 @@ func NewReorderSceneItemsRequest(
 		itemsID,
 		itemsName,
 		_request{
-			ID_:   getMessageID(),
+			ID_:   GetMessageID(),
 			Type_: "ReorderSceneItems",
 			err:   make(chan error, 1),
 		},
@@ -336,7 +336,7 @@ func (r *ReorderSceneItemsRequest) Send(c Client) error {
 	if r.sent {
 		return ErrAlreadySent
 	}
-	future, err := c.sendRequest(r)
+	future, err := c.SendRequest(r)
 	if err != nil {
 		return err
 	}
