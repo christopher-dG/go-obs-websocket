@@ -2966,7 +2966,7 @@ type SetSourceFilterVisibilityRequest struct {
 	FilterName string `json:"filterName"`
 	// New filter state.
 	// Required: Yes.
-	FilterEnabled string `json:"filterEnabled"`
+	FilterEnabled bool `json:"filterEnabled"`
 	_request      `json:",squash"`
 	response      chan SetSourceFilterVisibilityResponse
 }
@@ -2975,7 +2975,7 @@ type SetSourceFilterVisibilityRequest struct {
 func NewSetSourceFilterVisibilityRequest(
 	sourceName string,
 	filterName string,
-	filterEnabled string,
+	filterEnabled bool,
 ) SetSourceFilterVisibilityRequest {
 	return SetSourceFilterVisibilityRequest{
 		sourceName,
