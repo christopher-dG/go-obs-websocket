@@ -105,7 +105,10 @@ type GetVersionResponse struct {
 	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	// Required: Yes.
 	AvailableRequests string `json:"available-requests"`
-	_response         `json:",squash"`
+	// List of supported formats for features that use image export (like the TakeSourceScreenshot request type) formatted as a comma-separated list string.
+	// Required: Yes.
+	SupportedImageExportFormats string `json:"supported-image-export-formats"`
+	_response                   `json:",squash"`
 }
 
 // GetAuthRequiredRequest : Tells the client if authentication is required
@@ -867,4 +870,116 @@ type GetVideoInfoResponse struct {
 	// Required: Yes.
 	ColorRange string `json:"colorRange"`
 	_response  `json:",squash"`
+}
+
+// OpenProjectorRequest : Open a projector window or create a projector on a monitor
+// Requires OBS v24.0.4 or newer.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#openprojector
+type OpenProjectorRequest struct {
+	// Type of projector: Preview (default), Source, Scene, StudioProgram, or Multiview (case insensitive).
+	// Required: No.
+	Type_ string `json:"type"`
+	// Monitor to open the projector on.
+	// If -1 or omitted, opens a window.
+	// Required: No.
+	Monitor int `json:"monitor"`
+	// Size and position of the projector window (only if monitor is -1).
+	// Encoded in Base64 using Qt's geometry encoding (https://doc.qt.io/qt-5/qwidget.html#saveGeometry).
+	// Corresponds to OBS's saved projectors.
+	// Required: No.
+	Geometry string `json:"geometry"`
+	// Name of the source or scene to be displayed (ignored for other projector types).
+	// Required: No.
+	Name     string `json:"name"`
+	_request `json:",squash"`
+	response chan OpenProjectorResponse
+}
+
+// NewOpenProjectorRequest returns a new OpenProjectorRequest.
+func NewOpenProjectorRequest(
+	_type string,
+	monitor int,
+	geometry string,
+	name string,
+) OpenProjectorRequest {
+	return OpenProjectorRequest{
+		_type,
+		monitor,
+		geometry,
+		name,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "OpenProjector",
+			err:   make(chan error, 1),
+		},
+		make(chan OpenProjectorResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *OpenProjectorRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp OpenProjectorResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r OpenProjectorRequest) Receive() (OpenProjectorResponse, error) {
+	if !r.sent {
+		return OpenProjectorResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return OpenProjectorResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return OpenProjectorResponse{}, err
+		case <-time.After(receiveTimeout):
+			return OpenProjectorResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r OpenProjectorRequest) SendReceive(c Client) (OpenProjectorResponse, error) {
+	if err := r.Send(c); err != nil {
+		return OpenProjectorResponse{}, err
+	}
+	return r.Receive()
+}
+
+// OpenProjectorResponse : Response for OpenProjectorRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#openprojector
+type OpenProjectorResponse struct {
+	_response `json:",squash"`
 }

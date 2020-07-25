@@ -468,3 +468,95 @@ type GetTransitionDurationResponse struct {
 	TransitionDuration int `json:"transition-duration"`
 	_response          `json:",squash"`
 }
+
+// GetTransitionPositionRequest : Get the position of the current transition.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
+type GetTransitionPositionRequest struct {
+	_request `json:",squash"`
+	response chan GetTransitionPositionResponse
+}
+
+// NewGetTransitionPositionRequest returns a new GetTransitionPositionRequest.
+func NewGetTransitionPositionRequest() GetTransitionPositionRequest {
+	return GetTransitionPositionRequest{
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "GetTransitionPosition",
+			err:   make(chan error, 1),
+		},
+		make(chan GetTransitionPositionResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetTransitionPositionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTransitionPositionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTransitionPositionRequest) Receive() (GetTransitionPositionResponse, error) {
+	if !r.sent {
+		return GetTransitionPositionResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTransitionPositionResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTransitionPositionResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetTransitionPositionResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTransitionPositionRequest) SendReceive(c Client) (GetTransitionPositionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTransitionPositionResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetTransitionPositionResponse : Response for GetTransitionPositionRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
+type GetTransitionPositionResponse struct {
+	// current transition position.
+	// This value will be between 0.0 and 1.0.
+	// Note: Transition returns 1.0 when not active.
+	// Required: Yes.
+	Position  float64 `json:"position"`
+	_response `json:",squash"`
+}

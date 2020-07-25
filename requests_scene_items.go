@@ -15,13 +15,19 @@ import (
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemproperties
 type GetSceneItemPropertiesRequest struct {
-	// the name of the scene that the source item belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// The name of the source.
+	// Scene Item name (if this field is a string) or specification (if it is an object).
 	// Required: Yes.
-	Item     string `json:"item"`
+	Item interface{} `json:"item"`
+	// Scene Item name (if the `item` field is an object).
+	// Required: No.
+	ItemName string `json:"item.name"`
+	// Scene Item ID (if the `item` field is an object).
+	// Required: No.
+	ItemID   int `json:"item.id"`
 	_request `json:",squash"`
 	response chan GetSceneItemPropertiesResponse
 }
@@ -29,11 +35,15 @@ type GetSceneItemPropertiesRequest struct {
 // NewGetSceneItemPropertiesRequest returns a new GetSceneItemPropertiesRequest.
 func NewGetSceneItemPropertiesRequest(
 	sceneName string,
-	item string,
+	item interface{},
+	itemName string,
+	itemID int,
 ) GetSceneItemPropertiesRequest {
 	return GetSceneItemPropertiesRequest{
 		sceneName,
 		item,
+		itemName,
+		itemID,
 		_request{
 			ID_:   GetMessageID(),
 			Type_: "GetSceneItemProperties",
@@ -105,9 +115,12 @@ func (r GetSceneItemPropertiesRequest) SendReceive(c Client) (GetSceneItemProper
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemproperties
 type GetSceneItemPropertiesResponse struct {
-	// The name of the source.
+	// Scene Item name.
 	// Required: Yes.
 	Name string `json:"name"`
+	// Scene Item ID.
+	// Required: Yes.
+	ItemID int `json:"itemId"`
 	// The x position of the source from the left.
 	// Required: Yes.
 	PositionX int `json:"position.x"`
@@ -141,6 +154,9 @@ type GetSceneItemPropertiesResponse struct {
 	// If the source is visible.
 	// Required: Yes.
 	Visible bool `json:"visible"`
+	// If the source is muted.
+	// Required: Yes.
+	Muted bool `json:"muted"`
 	// If the source's transform is locked.
 	// Required: Yes.
 	Locked bool `json:"locked"`
@@ -168,8 +184,18 @@ type GetSceneItemPropertiesResponse struct {
 	Width float64 `json:"width"`
 	// Scene item height (base source height multiplied by the vertical scaling factor).
 	// Required: Yes.
-	Height    float64 `json:"height"`
-	_response `json:",squash"`
+	Height float64 `json:"height"`
+	// The point on the source that the item is manipulated from.
+	// The sum of 1=Left or 2=Right, and 4=Top or 8=Bottom, or omit to center on that axis.
+	// Required: Yes.
+	Alignment int `json:"alignment"`
+	// Name of the item's parent (if this item belongs to a group).
+	// Required: No.
+	ParentGroupName string `json:"parentGroupName"`
+	// List of children (if this item is a group).
+	// Required: No.
+	GroupChildren []*SceneItemTransform `json:"groupChildren"`
+	_response     `json:",squash"`
 }
 
 // SetSceneItemPropertiesRequest : Sets the scene specific properties of a source
@@ -180,13 +206,19 @@ type GetSceneItemPropertiesResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemproperties
 type SetSceneItemPropertiesRequest struct {
-	// the name of the scene that the source item belongs to.
+	// Name of the scene the source item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// The name of the source.
+	// Scene Item name (if this field is a string) or specification (if it is an object).
 	// Required: Yes.
-	Item string `json:"item"`
+	Item interface{} `json:"item"`
+	// Scene Item name (if the `item` field is an object).
+	// Required: No.
+	ItemName string `json:"item.name"`
+	// Scene Item ID (if the `item` field is an object).
+	// Required: No.
+	ItemID int `json:"item.id"`
 	// The new x position of the source.
 	// Required: No.
 	PositionX int `json:"position.x"`
@@ -246,7 +278,9 @@ type SetSceneItemPropertiesRequest struct {
 // NewSetSceneItemPropertiesRequest returns a new SetSceneItemPropertiesRequest.
 func NewSetSceneItemPropertiesRequest(
 	sceneName string,
-	item string,
+	item interface{},
+	itemName string,
+	itemID int,
 	positionX int,
 	positionY int,
 	positionAlignment int,
@@ -267,6 +301,8 @@ func NewSetSceneItemPropertiesRequest(
 	return SetSceneItemPropertiesRequest{
 		sceneName,
 		item,
+		itemName,
+		itemID,
 		positionX,
 		positionY,
 		positionAlignment,
@@ -363,13 +399,19 @@ type SetSceneItemPropertiesResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#resetsceneitem
 type ResetSceneItemRequest struct {
-	// Name of the scene the source belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// Name of the source item.
+	// Scene Item name (if this field is a string) or specification (if it is an object).
 	// Required: Yes.
-	Item     string `json:"item"`
+	Item interface{} `json:"item"`
+	// Scene Item name (if the `item` field is an object).
+	// Required: No.
+	ItemName string `json:"item.name"`
+	// Scene Item ID (if the `item` field is an object).
+	// Required: No.
+	ItemID   int `json:"item.id"`
 	_request `json:",squash"`
 	response chan ResetSceneItemResponse
 }
@@ -377,11 +419,15 @@ type ResetSceneItemRequest struct {
 // NewResetSceneItemRequest returns a new ResetSceneItemRequest.
 func NewResetSceneItemRequest(
 	sceneName string,
-	item string,
+	item interface{},
+	itemName string,
+	itemID int,
 ) ResetSceneItemRequest {
 	return ResetSceneItemRequest{
 		sceneName,
 		item,
+		itemName,
+		itemID,
 		_request{
 			ID_:   GetMessageID(),
 			Type_: "ResetSceneItem",
@@ -462,30 +508,30 @@ type ResetSceneItemResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemrender
 type SetSceneItemRenderRequest struct {
-	// Scene item name in the specified scene.
+	// Name of the scene the scene item belongs to.
+	// Defaults to the currently active scene.
+	// Required: No.
+	SceneName string `json:"scene-name"`
+	// Scene Item name.
 	// Required: Yes.
 	Source string `json:"source"`
 	// true = shown ; false = hidden.
 	// Required: Yes.
-	Render bool `json:"render"`
-	// Name of the scene where the source resides.
-	// Defaults to the currently active scene.
-	// Required: No.
-	SceneName string `json:"scene-name"`
-	_request  `json:",squash"`
-	response  chan SetSceneItemRenderResponse
+	Render   bool `json:"render"`
+	_request `json:",squash"`
+	response chan SetSceneItemRenderResponse
 }
 
 // NewSetSceneItemRenderRequest returns a new SetSceneItemRenderRequest.
 func NewSetSceneItemRenderRequest(
+	sceneName string,
 	source string,
 	render bool,
-	sceneName string,
 ) SetSceneItemRenderRequest {
 	return SetSceneItemRenderRequest{
+		sceneName,
 		source,
 		render,
-		sceneName,
 		_request{
 			ID_:   GetMessageID(),
 			Type_: "SetSceneItemRender",
@@ -566,11 +612,11 @@ type SetSceneItemRenderResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemposition
 type SetSceneItemPositionRequest struct {
-	// The name of the scene that the source item belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// The name of the source item.
+	// Scene Item name.
 	// Required: Yes.
 	Item string `json:"item"`
 	// X coordinate.
@@ -675,11 +721,11 @@ type SetSceneItemPositionResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemtransform
 type SetSceneItemTransformRequest struct {
-	// The name of the scene that the source item belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// The name of the source item.
+	// Scene Item name.
 	// Required: Yes.
 	Item string `json:"item"`
 	// Width scale factor.
@@ -789,11 +835,11 @@ type SetSceneItemTransformResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsceneitemcrop
 type SetSceneItemCropRequest struct {
-	// the name of the scene that the source item belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	SceneName string `json:"scene-name"`
-	// The name of the source.
+	// Scene Item name.
 	// Required: Yes.
 	Item string `json:"item"`
 	// Pixel position of the top of the source item.
@@ -908,17 +954,17 @@ type SetSceneItemCropResponse struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#deletesceneitem
 type DeleteSceneItemRequest struct {
-	// Name of the scene the source belongs to.
+	// Name of the scene the scene item belongs to.
 	// Defaults to the current scene.
 	// Required: No.
 	Scene string `json:"scene"`
-	// item to delete (required).
+	// Scene item to delete (required).
 	// Required: Yes.
 	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
+	// Scene Item name (prefer `id`, including both is acceptable).
 	// Required: Yes.
 	ItemName string `json:"item.name"`
-	// id of the scene item.
+	// Scene Item ID.
 	// Required: Yes.
 	ItemID   int `json:"item.id"`
 	_request `json:",squash"`
@@ -1025,13 +1071,13 @@ type DuplicateSceneItemRequest struct {
 	// Defaults to the current scene.
 	// Required: No.
 	ToScene string `json:"toScene"`
-	// item to duplicate (required).
+	// Scene Item to duplicate from the source scene (required).
 	// Required: Yes.
 	Item map[string]interface{} `json:"item"`
-	// name of the scene item (prefer `id`, including both is acceptable).
+	// Scene Item name (prefer `id`, including both is acceptable).
 	// Required: Yes.
 	ItemName string `json:"item.name"`
-	// id of the scene item.
+	// Scene Item ID.
 	// Required: Yes.
 	ItemID   int `json:"item.id"`
 	_request `json:",squash"`

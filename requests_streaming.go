@@ -229,13 +229,13 @@ type StartStreamingRequest struct {
 	StreamSettingsKey string `json:"stream.settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: No.
-	StreamSettingsUseAuth bool `json:"stream.settings.use-auth"`
+	StreamSettingsUseAuth bool `json:"stream.settings.use_auth"`
 	// If authentication is enabled, the username for the streaming server.
-	// Ignored if `use-auth` is not set to `true`.
+	// Ignored if `use_auth` is not set to `true`.
 	// Required: No.
 	StreamSettingsUsername string `json:"stream.settings.username"`
 	// If authentication is enabled, the password for the streaming server.
-	// Ignored if `use-auth` is not set to `true`.
+	// Ignored if `use_auth` is not set to `true`.
 	// Required: No.
 	StreamSettingsPassword string `json:"stream.settings.password"`
 	_request               `json:",squash"`
@@ -450,7 +450,7 @@ type SetStreamSettingsRequest struct {
 	SettingsKey string `json:"settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: No.
-	SettingsUseAuth bool `json:"settings.use-auth"`
+	SettingsUseAuth bool `json:"settings.use_auth"`
 	// The username for the streaming service.
 	// Required: No.
 	SettingsUsername string `json:"settings.username"`
@@ -657,13 +657,13 @@ type GetStreamSettingsResponse struct {
 	SettingsKey string `json:"settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: Yes.
-	SettingsUseAuth bool `json:"settings.use-auth"`
+	SettingsUseAuth bool `json:"settings.use_auth"`
 	// The username to use when accessing the streaming server.
-	// Only present if `use-auth` is `true`.
+	// Only present if `use_auth` is `true`.
 	// Required: Yes.
 	SettingsUsername string `json:"settings.username"`
 	// The password to use when accessing the streaming server.
-	// Only present if `use-auth` is `true`.
+	// Only present if `use_auth` is `true`.
 	// Required: Yes.
 	SettingsPassword string `json:"settings.password"`
 	_response        `json:",squash"`

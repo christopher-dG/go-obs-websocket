@@ -26,12 +26,14 @@ type_map = {
     "string": "string",
     "array": "[]interface{}",
     "array<string>": "[]string",
+    "string | object": "interface{}",
     "object": "map[string]interface{}",
     "output": "map[string]interface{}",
     "array<object>": "[]map[string]interface{}",
     "array<output>": "[]map[string]interface{}",
     "array<scene>": "[]*Scene",
     "array<sceneitem>": "[]*SceneItem",
+    "array<sceneitemtransform>": "[]*SceneItemTransform",
     "obsstats": "*OBSStats",
     "sceneitemtransform": "*SceneItemTransform",
 }
@@ -385,6 +387,7 @@ def newlinify(s: str, comment: bool = True) -> str:
 
 def optional_type(s: str) -> Tuple[str, bool]:
     """Determine if a type is optional and parse the actual type name."""
+    s = s.lower()
     if s.endswith("(optional)"):
         return s[: s.find("(optional)")].strip(), True
     return s, False
