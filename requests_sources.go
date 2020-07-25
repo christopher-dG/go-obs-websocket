@@ -235,7 +235,8 @@ type GetSourceTypesListResponse struct {
 	_response                 `json:",squash"`
 }
 
-// GetVolumeRequest : Get the volume of the specified source.
+// GetVolumeRequest : Get the volume of the specified source
+// Default response uses mul format, NOT SLIDER PERCENTAGE.
 //
 // Since obs-websocket version: 4.0.0.
 //
@@ -243,15 +244,22 @@ type GetSourceTypesListResponse struct {
 type GetVolumeRequest struct {
 	// Source name.
 	// Required: Yes.
-	Source   string `json:"source"`
-	_request `json:",squash"`
-	response chan GetVolumeResponse
+	Source string `json:"source"`
+	// Output volume in decibels of attenuation instead of amplitude/mul.
+	// Required: No.
+	UseDecibel bool `json:"useDecibel"`
+	_request   `json:",squash"`
+	response   chan GetVolumeResponse
 }
 
 // NewGetVolumeRequest returns a new GetVolumeRequest.
-func NewGetVolumeRequest(source string) GetVolumeRequest {
+func NewGetVolumeRequest(
+	source string,
+	useDecibel bool,
+) GetVolumeRequest {
 	return GetVolumeRequest{
 		source,
+		useDecibel,
 		_request{
 			ID_:   GetMessageID(),
 			Type_: "GetVolume",
@@ -327,7 +335,7 @@ type GetVolumeResponse struct {
 	// Required: Yes.
 	Name string `json:"name"`
 	// Volume of the source.
-	// Between `0.0` and `1.0`.
+	// Between `0.0` and `1.0` if using mul, under `0.0` if using dB (since it is attenuating).
 	// Required: Yes.
 	Volume float64 `json:"volume"`
 	// Indicates whether the source is muted.
@@ -336,7 +344,8 @@ type GetVolumeResponse struct {
 	_response `json:",squash"`
 }
 
-// SetVolumeRequest : Set the volume of the specified source.
+// SetVolumeRequest : Set the volume of the specified source
+// Default request format uses mul, NOT SLIDER PERCENTAGE.
 //
 // Since obs-websocket version: 4.0.0.
 //
@@ -346,21 +355,27 @@ type SetVolumeRequest struct {
 	// Required: Yes.
 	Source string `json:"source"`
 	// Desired volume.
-	// Must be between `0.0` and `1.0`.
+	// Must be between `0.0` and `1.0` for mul, and under 0.0 for dB.
+	// Note: OBS will interpret dB values under -100.0 as Inf.
 	// Required: Yes.
-	Volume   float64 `json:"volume"`
-	_request `json:",squash"`
-	response chan SetVolumeResponse
+	Volume float64 `json:"volume"`
+	// Interperet `volume` data as decibels instead of amplitude/mul.
+	// Required: No.
+	UseDecibel bool `json:"useDecibel"`
+	_request   `json:",squash"`
+	response   chan SetVolumeResponse
 }
 
 // NewSetVolumeRequest returns a new SetVolumeRequest.
 func NewSetVolumeRequest(
 	source string,
 	volume float64,
+	useDecibel bool,
 ) SetVolumeRequest {
 	return SetVolumeRequest{
 		source,
 		volume,
+		useDecibel,
 		_request{
 			ID_:   GetMessageID(),
 			Type_: "SetVolume",
@@ -718,6 +733,106 @@ func (r ToggleMuteRequest) SendReceive(c Client) (ToggleMuteResponse, error) {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#togglemute
 type ToggleMuteResponse struct {
+	_response `json:",squash"`
+}
+
+// SetSourceNameRequest :
+//
+// Note: If the new name already exists as a source, OBS will automatically modify the name to not interfere.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcename
+type SetSourceNameRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// New source name.
+	// Required: Yes.
+	NewName  string `json:"newName"`
+	_request `json:",squash"`
+	response chan SetSourceNameResponse
+}
+
+// NewSetSourceNameRequest returns a new SetSourceNameRequest.
+func NewSetSourceNameRequest(
+	sourceName string,
+	newName string,
+) SetSourceNameRequest {
+	return SetSourceNameRequest{
+		sourceName,
+		newName,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "SetSourceName",
+			err:   make(chan error, 1),
+		},
+		make(chan SetSourceNameResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetSourceNameRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetSourceNameResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetSourceNameRequest) Receive() (SetSourceNameResponse, error) {
+	if !r.sent {
+		return SetSourceNameResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceNameResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetSourceNameResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetSourceNameResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetSourceNameRequest) SendReceive(c Client) (SetSourceNameResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetSourceNameResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetSourceNameResponse : Response for SetSourceNameRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setsourcename
+type SetSourceNameResponse struct {
 	_response `json:",squash"`
 }
 
@@ -3055,6 +3170,200 @@ type SetSourceFilterVisibilityResponse struct {
 	_response `json:",squash"`
 }
 
+// GetAudioMonitorTypeRequest : Get the audio monitoring type of the specified source.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getaudiomonitortype
+type GetAudioMonitorTypeRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	_request   `json:",squash"`
+	response   chan GetAudioMonitorTypeResponse
+}
+
+// NewGetAudioMonitorTypeRequest returns a new GetAudioMonitorTypeRequest.
+func NewGetAudioMonitorTypeRequest(sourceName string) GetAudioMonitorTypeRequest {
+	return GetAudioMonitorTypeRequest{
+		sourceName,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "GetAudioMonitorType",
+			err:   make(chan error, 1),
+		},
+		make(chan GetAudioMonitorTypeResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetAudioMonitorTypeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetAudioMonitorTypeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetAudioMonitorTypeRequest) Receive() (GetAudioMonitorTypeResponse, error) {
+	if !r.sent {
+		return GetAudioMonitorTypeResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetAudioMonitorTypeResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetAudioMonitorTypeResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetAudioMonitorTypeResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetAudioMonitorTypeRequest) SendReceive(c Client) (GetAudioMonitorTypeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetAudioMonitorTypeResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetAudioMonitorTypeResponse : Response for GetAudioMonitorTypeRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getaudiomonitortype
+type GetAudioMonitorTypeResponse struct {
+	// The monitor type in use.
+	// Options: `none`, `monitorOnly`, `monitorAndOutput`.
+	// Required: Yes.
+	MonitorType string `json:"monitorType"`
+	_response   `json:",squash"`
+}
+
+// SetAudioMonitorTypeRequest : Set the audio monitoring type of the specified source.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setaudiomonitortype
+type SetAudioMonitorTypeRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	// The monitor type to use.
+	// Options: `none`, `monitorOnly`, `monitorAndOutput`.
+	// Required: Yes.
+	MonitorType string `json:"monitorType"`
+	_request    `json:",squash"`
+	response    chan SetAudioMonitorTypeResponse
+}
+
+// NewSetAudioMonitorTypeRequest returns a new SetAudioMonitorTypeRequest.
+func NewSetAudioMonitorTypeRequest(
+	sourceName string,
+	monitorType string,
+) SetAudioMonitorTypeRequest {
+	return SetAudioMonitorTypeRequest{
+		sourceName,
+		monitorType,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "SetAudioMonitorType",
+			err:   make(chan error, 1),
+		},
+		make(chan SetAudioMonitorTypeResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetAudioMonitorTypeRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetAudioMonitorTypeResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetAudioMonitorTypeRequest) Receive() (SetAudioMonitorTypeResponse, error) {
+	if !r.sent {
+		return SetAudioMonitorTypeResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetAudioMonitorTypeResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetAudioMonitorTypeResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetAudioMonitorTypeResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetAudioMonitorTypeRequest) SendReceive(c Client) (SetAudioMonitorTypeResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetAudioMonitorTypeResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetAudioMonitorTypeResponse : Response for SetAudioMonitorTypeRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setaudiomonitortype
+type SetAudioMonitorTypeResponse struct {
+	_response `json:",squash"`
+}
+
 // TakeSourceScreenshotRequest :
 //
 // At least `embedPictureFormat` or `saveToFilePath` must be specified.
@@ -3080,6 +3389,15 @@ type TakeSourceScreenshotRequest struct {
 	// Can be a relative path.
 	// Required: No.
 	SaveToFilePath string `json:"saveToFilePath"`
+	// Format to save the image file as (one of the values provided in the `supported-image-export-formats` response field of `GetVersion`).
+	// If not specified, tries to guess based on file extension.
+	// Required: No.
+	FileFormat string `json:"fileFormat"`
+	// Compression ratio between -1 and 100 to write the image with.
+	// -1 is automatic, 1 is smallest file/most compression, 100 is largest file/least compression.
+	// Varies with image type.
+	// Required: No.
+	CompressionQuality int `json:"compressionQuality"`
 	// Screenshot width.
 	// Defaults to the source's base width.
 	// Required: No.
@@ -3097,6 +3415,8 @@ func NewTakeSourceScreenshotRequest(
 	sourceName string,
 	embedPictureFormat string,
 	saveToFilePath string,
+	fileFormat string,
+	compressionQuality int,
 	width int,
 	height int,
 ) TakeSourceScreenshotRequest {
@@ -3104,6 +3424,8 @@ func NewTakeSourceScreenshotRequest(
 		sourceName,
 		embedPictureFormat,
 		saveToFilePath,
+		fileFormat,
+		compressionQuality,
 		width,
 		height,
 		_request{

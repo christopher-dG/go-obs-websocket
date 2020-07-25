@@ -46,6 +46,56 @@ type TransitionBeginEvent struct {
 	// Transition name.
 	// Required: Yes.
 	Name string `json:"name"`
+	// Transition type.
+	// Required: Yes.
+	Type_ string `json:"type"`
+	// Transition duration (in milliseconds).
+	// Will be -1 for any transition with a fixed duration, such as a Stinger, due to limitations of the OBS API.
+	// Required: Yes.
+	Duration int `json:"duration"`
+	// Source scene of the transition.
+	// Required: Yes.
+	FromScene string `json:"from-scene"`
+	// Destination scene of the transition.
+	// Required: Yes.
+	ToScene string `json:"to-scene"`
+	_event  `json:",squash"`
+}
+
+// TransitionEndEvent : A transition (other than "cut") has ended.
+// Please note that the `from-scene` field is not available in TransitionEnd.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitionend
+type TransitionEndEvent struct {
+	// Transition name.
+	// Required: Yes.
+	Name string `json:"name"`
+	// Transition type.
+	// Required: Yes.
+	Type_ string `json:"type"`
+	// Transition duration (in milliseconds).
+	// Required: Yes.
+	Duration int `json:"duration"`
+	// Destination scene of the transition.
+	// Required: Yes.
+	ToScene string `json:"to-scene"`
+	_event  `json:",squash"`
+}
+
+// TransitionVideoEndEvent : A stinger transition has finished playing its video.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitionvideoend
+type TransitionVideoEndEvent struct {
+	// Transition name.
+	// Required: Yes.
+	Name string `json:"name"`
+	// Transition type.
+	// Required: Yes.
+	Type_ string `json:"type"`
 	// Transition duration (in milliseconds).
 	// Required: Yes.
 	Duration int `json:"duration"`

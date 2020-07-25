@@ -12,6 +12,8 @@ var eventMap = map[string]func() Event{
 	"TransitionListChanged":         func() Event { return &TransitionListChangedEvent{} },
 	"TransitionDurationChanged":     func() Event { return &TransitionDurationChangedEvent{} },
 	"TransitionBegin":               func() Event { return &TransitionBeginEvent{} },
+	"TransitionEnd":                 func() Event { return &TransitionEndEvent{} },
+	"TransitionVideoEnd":            func() Event { return &TransitionVideoEndEvent{} },
 	"ProfileChanged":                func() Event { return &ProfileChangedEvent{} },
 	"ProfileListChanged":            func() Event { return &ProfileListChangedEvent{} },
 	"StreamStarting":                func() Event { return &StreamStartingEvent{} },
@@ -47,6 +49,7 @@ var eventMap = map[string]func() Event{
 	"SceneItemAdded":                func() Event { return &SceneItemAddedEvent{} },
 	"SceneItemRemoved":              func() Event { return &SceneItemRemovedEvent{} },
 	"SceneItemVisibilityChanged":    func() Event { return &SceneItemVisibilityChangedEvent{} },
+	"SceneItemLockChanged":          func() Event { return &SceneItemLockChangedEvent{} },
 	"SceneItemTransformChanged":     func() Event { return &SceneItemTransformChangedEvent{} },
 	"SceneItemSelected":             func() Event { return &SceneItemSelectedEvent{} },
 	"SceneItemDeselected":           func() Event { return &SceneItemDeselectedEvent{} },
@@ -73,6 +76,10 @@ func derefEvent(e Event) Event {
 	case *TransitionDurationChangedEvent:
 		return *e
 	case *TransitionBeginEvent:
+		return *e
+	case *TransitionEndEvent:
+		return *e
+	case *TransitionVideoEndEvent:
 		return *e
 	case *ProfileChangedEvent:
 		return *e
@@ -143,6 +150,8 @@ func derefEvent(e Event) Event {
 	case *SceneItemRemovedEvent:
 		return *e
 	case *SceneItemVisibilityChangedEvent:
+		return *e
+	case *SceneItemLockChangedEvent:
 		return *e
 	case *SceneItemTransformChangedEvent:
 		return *e
