@@ -14,7 +14,7 @@ func (c *Client) Connect() error {
 	c.handlers = make(map[string]func(Event))
 	c.respQ = make(chan map[string]interface{}, bufferSize)
 
-	conn, err := connectWS(c.Host, c.Port)
+	conn, err := connectWS(c.Host)
 	if err != nil {
 		return err
 	}
@@ -71,8 +71,8 @@ func (c *Client) Disconnect() error {
 }
 
 // connectWS opens the WebSocket connection.
-func connectWS(host string, port int) (*websocket.Conn, error) {
-	url := fmt.Sprintf("ws://%s:%d", host, port)
+func connectWS(addr string) (*websocket.Conn, error) {
+	url := fmt.Sprintf("ws://%s", addr)
 	Logger.Println("connecting to", url)
 	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {

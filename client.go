@@ -1,6 +1,7 @@
 package obsws
 
 import (
+	"log"
 	"strconv"
 	"sync"
 	"time"
@@ -21,13 +22,29 @@ var (
 // Client{Host: "localhost", Port: 4444} will probably work if you haven't configured OBS.
 type Client struct {
 	Host           string                      // Host (probably "localhost").
-	Port           int                         // Port (OBS default is 4444).
 	Password       string                      // Password (OBS default is "").
 	conn           *websocket.Conn             // Underlying connection to OBS.
 	receiveTimeout time.Duration               // Maximum blocking time for receiving request responses
 	connected      bool                        // True until Disconnect is called.
 	handlers       map[string]func(e Event)    // Event handlers.
 	respQ          chan map[string]interface{} // Queue of received responses.
+}
+
+func NewClient(config Config) *Client {
+	return &Client{
+		Host:           config.Addr,
+		Password:       config.Password,
+		receiveTimeout: parseTimeDuration(config.ReceiveTimeout),
+	}
+}
+
+func parseTimeDuration(v string) time.Duration {
+	duration, err := time.ParseDuration(v)
+	if err != nil {
+		log.Fatalf("err parseTimeDuration: %v", err)
+	}
+
+	return duration
 }
 
 // poll listens for responses/events.
