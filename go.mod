@@ -1,4 +1,4 @@
-module github.com/christopher-dG/go-obs-websocket/v2
+module github.com/davidbegin/go-obs-websocket
 
 require (
 	github.com/gorilla/websocket v1.4.0
