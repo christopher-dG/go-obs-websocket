@@ -471,7 +471,7 @@ type GetTransitionDurationResponse struct {
 
 // GetTransitionPositionRequest : Get the position of the current transition.
 //
-// Since obs-websocket version: 4.8.0.
+// Since obs-websocket version: Unreleased.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
 type GetTransitionPositionRequest struct {
@@ -549,7 +549,7 @@ func (r GetTransitionPositionRequest) SendReceive(c Client) (GetTransitionPositi
 
 // GetTransitionPositionResponse : Response for GetTransitionPositionRequest.
 //
-// Since obs-websocket version: 4.8.0.
+// Since obs-websocket version: Unreleased.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
 type GetTransitionPositionResponse struct {
@@ -558,5 +558,391 @@ type GetTransitionPositionResponse struct {
 	// Note: Transition returns 1.0 when not active.
 	// Required: Yes.
 	Position  float64 `json:"position"`
+	_response `json:",squash"`
+}
+
+// GetTransitionSettingsRequest : Get the current settings of a transition.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionsettings
+type GetTransitionSettingsRequest struct {
+	// Transition name.
+	// Required: Yes.
+	TransitionName string `json:"transitionName"`
+	_request       `json:",squash"`
+	response       chan GetTransitionSettingsResponse
+}
+
+// NewGetTransitionSettingsRequest returns a new GetTransitionSettingsRequest.
+func NewGetTransitionSettingsRequest(transitionName string) GetTransitionSettingsRequest {
+	return GetTransitionSettingsRequest{
+		transitionName,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "GetTransitionSettings",
+			err:   make(chan error, 1),
+		},
+		make(chan GetTransitionSettingsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetTransitionSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetTransitionSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetTransitionSettingsRequest) Receive() (GetTransitionSettingsResponse, error) {
+	if !r.sent {
+		return GetTransitionSettingsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTransitionSettingsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetTransitionSettingsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetTransitionSettingsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetTransitionSettingsRequest) SendReceive(c Client) (GetTransitionSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetTransitionSettingsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetTransitionSettingsResponse : Response for GetTransitionSettingsRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionsettings
+type GetTransitionSettingsResponse struct {
+	// Current transition settings.
+	// Required: Yes.
+	TransitionSettings map[string]interface{} `json:"transitionSettings"`
+	_response          `json:",squash"`
+}
+
+// SetTransitionSettingsRequest : Change the current settings of a transition.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionsettings
+type SetTransitionSettingsRequest struct {
+	// Transition name.
+	// Required: Yes.
+	TransitionName string `json:"transitionName"`
+	// Transition settings (they can be partial).
+	// Required: Yes.
+	TransitionSettings map[string]interface{} `json:"transitionSettings"`
+	_request           `json:",squash"`
+	response           chan SetTransitionSettingsResponse
+}
+
+// NewSetTransitionSettingsRequest returns a new SetTransitionSettingsRequest.
+func NewSetTransitionSettingsRequest(
+	transitionName string,
+	transitionSettings map[string]interface{},
+) SetTransitionSettingsRequest {
+	return SetTransitionSettingsRequest{
+		transitionName,
+		transitionSettings,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "SetTransitionSettings",
+			err:   make(chan error, 1),
+		},
+		make(chan SetTransitionSettingsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetTransitionSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetTransitionSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetTransitionSettingsRequest) Receive() (SetTransitionSettingsResponse, error) {
+	if !r.sent {
+		return SetTransitionSettingsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTransitionSettingsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTransitionSettingsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetTransitionSettingsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetTransitionSettingsRequest) SendReceive(c Client) (SetTransitionSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetTransitionSettingsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetTransitionSettingsResponse : Response for SetTransitionSettingsRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionsettings
+type SetTransitionSettingsResponse struct {
+	// Updated transition settings.
+	// Required: Yes.
+	TransitionSettings map[string]interface{} `json:"transitionSettings"`
+	_response          `json:",squash"`
+}
+
+// ReleaseTBarRequest : Release the T-Bar (like a user releasing their mouse button after moving it).
+// *YOU MUST CALL THIS if you called `SetTBarPosition` with the `release` parameter set to `false`.*.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#releasetbar
+type ReleaseTBarRequest struct {
+	_request `json:",squash"`
+	response chan ReleaseTBarResponse
+}
+
+// NewReleaseTBarRequest returns a new ReleaseTBarRequest.
+func NewReleaseTBarRequest() ReleaseTBarRequest {
+	return ReleaseTBarRequest{
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "ReleaseTBar",
+			err:   make(chan error, 1),
+		},
+		make(chan ReleaseTBarResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *ReleaseTBarRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ReleaseTBarResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ReleaseTBarRequest) Receive() (ReleaseTBarResponse, error) {
+	if !r.sent {
+		return ReleaseTBarResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReleaseTBarResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ReleaseTBarResponse{}, err
+		case <-time.After(receiveTimeout):
+			return ReleaseTBarResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ReleaseTBarRequest) SendReceive(c Client) (ReleaseTBarResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ReleaseTBarResponse{}, err
+	}
+	return r.Receive()
+}
+
+// ReleaseTBarResponse : Response for ReleaseTBarRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#releasetbar
+type ReleaseTBarResponse struct {
+	_response `json:",squash"`
+}
+
+// SetTBarPositionRequest :
+//
+// If your code needs to perform multiple successive T-Bar moves (e.g. : in an animation, or in response to a user moving a T-Bar control in your User Interface), set `release` to false and call `ReleaseTBar` later once the animation/interaction is over.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settbarposition
+type SetTBarPositionRequest struct {
+	// T-Bar position.
+	// This value must be between 0.0 and 1.0.
+	// Required: Yes.
+	Position float64 `json:"position"`
+	// Whether or not the T-Bar gets released automatically after setting its new position (like a user releasing their mouse button after moving the T-Bar).
+	// Call `ReleaseTBar` manually if you set `release` to false.
+	// Defaults to true.
+	// Required: No.
+	Release  bool `json:"release"`
+	_request `json:",squash"`
+	response chan SetTBarPositionResponse
+}
+
+// NewSetTBarPositionRequest returns a new SetTBarPositionRequest.
+func NewSetTBarPositionRequest(
+	position float64,
+	release bool,
+) SetTBarPositionRequest {
+	return SetTBarPositionRequest{
+		position,
+		release,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "SetTBarPosition",
+			err:   make(chan error, 1),
+		},
+		make(chan SetTBarPositionResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *SetTBarPositionRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp SetTBarPositionResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r SetTBarPositionRequest) Receive() (SetTBarPositionResponse, error) {
+	if !r.sent {
+		return SetTBarPositionResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTBarPositionResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return SetTBarPositionResponse{}, err
+		case <-time.After(receiveTimeout):
+			return SetTBarPositionResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r SetTBarPositionRequest) SendReceive(c Client) (SetTBarPositionResponse, error) {
+	if err := r.Send(c); err != nil {
+		return SetTBarPositionResponse{}, err
+	}
+	return r.Receive()
+}
+
+// SetTBarPositionResponse : Response for SetTBarPositionRequest.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settbarposition
+type SetTBarPositionResponse struct {
 	_response `json:",squash"`
 }

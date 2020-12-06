@@ -285,6 +285,97 @@ type GetSceneListResponse struct {
 	_response `json:",squash"`
 }
 
+// CreateSceneRequest : Create a new scene scene.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createscene
+type CreateSceneRequest struct {
+	// Name of the scene to create.
+	// Required: Yes.
+	SceneName string `json:"sceneName"`
+	_request  `json:",squash"`
+	response  chan CreateSceneResponse
+}
+
+// NewCreateSceneRequest returns a new CreateSceneRequest.
+func NewCreateSceneRequest(sceneName string) CreateSceneRequest {
+	return CreateSceneRequest{
+		sceneName,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "CreateScene",
+			err:   make(chan error, 1),
+		},
+		make(chan CreateSceneResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *CreateSceneRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp CreateSceneResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r CreateSceneRequest) Receive() (CreateSceneResponse, error) {
+	if !r.sent {
+		return CreateSceneResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return CreateSceneResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return CreateSceneResponse{}, err
+		case <-time.After(receiveTimeout):
+			return CreateSceneResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r CreateSceneRequest) SendReceive(c Client) (CreateSceneResponse, error) {
+	if err := r.Send(c); err != nil {
+		return CreateSceneResponse{}, err
+	}
+	return r.Receive()
+}
+
+// CreateSceneResponse : Response for CreateSceneRequest.
+//
+// Since obs-websocket version: 4.8.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createscene
+type CreateSceneResponse struct {
+	_response `json:",squash"`
+}
+
 // ReorderSceneItemsRequest : Changes the order of scene items in the requested scene.
 //
 // Since obs-websocket version: 4.5.0.
@@ -301,11 +392,11 @@ type ReorderSceneItemsRequest struct {
 	// Id of a specific scene item.
 	// Unique on a scene by scene basis.
 	// Required: No.
-	ItemsID int `json:"items[].id"`
+	ItemsID int `json:"items.*.id"`
 	// Name of a scene item.
 	// Sufficiently unique if no scene items share sources within the scene.
 	// Required: No.
-	ItemsName string `json:"items[].name"`
+	ItemsName string `json:"items.*.name"`
 	_request  `json:",squash"`
 	response  chan ReorderSceneItemsResponse
 }
@@ -398,7 +489,7 @@ type ReorderSceneItemsResponse struct {
 
 // SetSceneTransitionOverrideRequest : Set a scene to use a specific transition override.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setscenetransitionoverride
 type SetSceneTransitionOverrideRequest struct {
@@ -493,7 +584,7 @@ func (r SetSceneTransitionOverrideRequest) SendReceive(c Client) (SetSceneTransi
 
 // SetSceneTransitionOverrideResponse : Response for SetSceneTransitionOverrideRequest.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setscenetransitionoverride
 type SetSceneTransitionOverrideResponse struct {
@@ -502,7 +593,7 @@ type SetSceneTransitionOverrideResponse struct {
 
 // RemoveSceneTransitionOverrideRequest : Remove any transition override on a scene.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#removescenetransitionoverride
 type RemoveSceneTransitionOverrideRequest struct {
@@ -584,7 +675,7 @@ func (r RemoveSceneTransitionOverrideRequest) SendReceive(c Client) (RemoveScene
 
 // RemoveSceneTransitionOverrideResponse : Response for RemoveSceneTransitionOverrideRequest.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#removescenetransitionoverride
 type RemoveSceneTransitionOverrideResponse struct {
@@ -593,7 +684,7 @@ type RemoveSceneTransitionOverrideResponse struct {
 
 // GetSceneTransitionOverrideRequest : Get the current scene transition override.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getscenetransitionoverride
 type GetSceneTransitionOverrideRequest struct {
@@ -675,7 +766,7 @@ func (r GetSceneTransitionOverrideRequest) SendReceive(c Client) (GetSceneTransi
 
 // GetSceneTransitionOverrideResponse : Response for GetSceneTransitionOverrideRequest.
 //
-// Since obs-websocket version: 4.9.0.
+// Since obs-websocket version: 4.8.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getscenetransitionoverride
 type GetSceneTransitionOverrideResponse struct {

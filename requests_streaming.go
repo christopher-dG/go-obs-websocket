@@ -111,7 +111,7 @@ type GetStreamingStatusResponse struct {
 	_response   `json:",squash"`
 }
 
-// StartStopStreamingRequest : Toggle streaming on or off.
+// StartStopStreamingRequest : Toggle streaming on or off (depending on the current stream state).
 //
 // Since obs-websocket version: 0.3.
 //
@@ -757,7 +757,6 @@ type SaveStreamSettingsResponse struct {
 }
 
 // SendCaptionsRequest : Send the provided text as embedded CEA-608 caption data.
-// As of OBS Studio 23.1, captions are not yet available on Linux.
 //
 // Since obs-websocket version: 4.6.0.
 //

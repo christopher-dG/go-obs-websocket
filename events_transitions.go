@@ -22,7 +22,13 @@ type SwitchTransitionEvent struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#transitionlistchanged
 type TransitionListChangedEvent struct {
-	_event `json:",squash"`
+	// Transitions list.
+	// Required: Yes.
+	Transitions []map[string]interface{} `json:"transitions"`
+	// Transition name.
+	// Required: Yes.
+	TransitionsName string `json:"transitions.*.name"`
+	_event          `json:",squash"`
 }
 
 // TransitionDurationChangedEvent : The active transition duration has been changed.

@@ -45,7 +45,7 @@ type StreamStoppedEvent struct {
 	_event `json:",squash"`
 }
 
-// StreamStatusEvent : Emit every 2 seconds.
+// StreamStatusEvent : Emitted every 2 seconds when stream is active.
 //
 // Since obs-websocket version: 0.3.
 //

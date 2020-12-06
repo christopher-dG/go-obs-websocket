@@ -76,6 +76,30 @@ type SourceMuteStateChangedEvent struct {
 	_event `json:",squash"`
 }
 
+// SourceAudioDeactivatedEvent : A source has removed audio.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudiodeactivated
+type SourceAudioDeactivatedEvent struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	_event     `json:",squash"`
+}
+
+// SourceAudioActivatedEvent : A source has added audio.
+//
+// Since obs-websocket version: Unreleased.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudioactivated
+type SourceAudioActivatedEvent struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	_event     `json:",squash"`
+}
+
 // SourceAudioSyncOffsetChangedEvent : The audio sync offset of a source has changed.
 //
 // Since obs-websocket version: 4.6.0.
@@ -208,5 +232,8 @@ type SourceFiltersReorderedEvent struct {
 	// Filter type.
 	// Required: Yes.
 	FiltersType string `json:"filters.*.type"`
-	_event      `json:",squash"`
+	// Filter visibility status.
+	// Required: Yes.
+	FiltersEnabled bool `json:"filters.*.enabled"`
+	_event         `json:",squash"`
 }

@@ -562,7 +562,7 @@ type DisableStudioModeResponse struct {
 	_response `json:",squash"`
 }
 
-// ToggleStudioModeRequest : Toggles Studio Mode.
+// ToggleStudioModeRequest : Toggles Studio Mode (depending on the current state of studio mode).
 //
 // Since obs-websocket version: 4.1.0.
 //

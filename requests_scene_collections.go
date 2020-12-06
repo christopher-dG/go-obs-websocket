@@ -276,5 +276,8 @@ type ListSceneCollectionsResponse struct {
 	// Scene collections list.
 	// Required: Yes.
 	SceneCollections []string `json:"scene-collections"`
-	_response        `json:",squash"`
+	// Scene collection name.
+	// Required: Yes.
+	SceneCollectionsScName string `json:"scene-collections.*.sc-name"`
+	_response              `json:",squash"`
 }

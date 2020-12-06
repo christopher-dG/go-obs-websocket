@@ -9,7 +9,10 @@ package obsws
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#profilechanged
 type ProfileChangedEvent struct {
-	_event `json:",squash"`
+	// Name of the new current profile.
+	// Required: Yes.
+	Profile string `json:"profile"`
+	_event  `json:",squash"`
 }
 
 // ProfileListChangedEvent : Triggered when a profile is created, added, renamed, or removed.
@@ -18,5 +21,11 @@ type ProfileChangedEvent struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#profilelistchanged
 type ProfileListChangedEvent struct {
-	_event `json:",squash"`
+	// Profiles list.
+	// Required: Yes.
+	Profiles []map[string]interface{} `json:"profiles"`
+	// Profile name.
+	// Required: Yes.
+	ProfilesName string `json:"profiles.*.name"`
+	_event       `json:",squash"`
 }

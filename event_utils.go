@@ -38,6 +38,8 @@ var eventMap = map[string]func() Event{
 	"SourceDestroyed":               func() Event { return &SourceDestroyedEvent{} },
 	"SourceVolumeChanged":           func() Event { return &SourceVolumeChangedEvent{} },
 	"SourceMuteStateChanged":        func() Event { return &SourceMuteStateChangedEvent{} },
+	"SourceAudioDeactivated":        func() Event { return &SourceAudioDeactivatedEvent{} },
+	"SourceAudioActivated":          func() Event { return &SourceAudioActivatedEvent{} },
 	"SourceAudioSyncOffsetChanged":  func() Event { return &SourceAudioSyncOffsetChangedEvent{} },
 	"SourceAudioMixersChanged":      func() Event { return &SourceAudioMixersChangedEvent{} },
 	"SourceRenamed":                 func() Event { return &SourceRenamedEvent{} },
@@ -45,6 +47,14 @@ var eventMap = map[string]func() Event{
 	"SourceFilterRemoved":           func() Event { return &SourceFilterRemovedEvent{} },
 	"SourceFilterVisibilityChanged": func() Event { return &SourceFilterVisibilityChangedEvent{} },
 	"SourceFiltersReordered":        func() Event { return &SourceFiltersReorderedEvent{} },
+	"MediaPlaying":                  func() Event { return &MediaPlayingEvent{} },
+	"MediaPaused":                   func() Event { return &MediaPausedEvent{} },
+	"MediaRestarted":                func() Event { return &MediaRestartedEvent{} },
+	"MediaStopped":                  func() Event { return &MediaStoppedEvent{} },
+	"MediaNext":                     func() Event { return &MediaNextEvent{} },
+	"MediaPrevious":                 func() Event { return &MediaPreviousEvent{} },
+	"MediaStarted":                  func() Event { return &MediaStartedEvent{} },
+	"MediaEnded":                    func() Event { return &MediaEndedEvent{} },
 	"SourceOrderChanged":            func() Event { return &SourceOrderChangedEvent{} },
 	"SceneItemAdded":                func() Event { return &SceneItemAddedEvent{} },
 	"SceneItemRemoved":              func() Event { return &SceneItemRemovedEvent{} },
@@ -129,6 +139,10 @@ func derefEvent(e Event) Event {
 		return *e
 	case *SourceMuteStateChangedEvent:
 		return *e
+	case *SourceAudioDeactivatedEvent:
+		return *e
+	case *SourceAudioActivatedEvent:
+		return *e
 	case *SourceAudioSyncOffsetChangedEvent:
 		return *e
 	case *SourceAudioMixersChangedEvent:
@@ -142,6 +156,22 @@ func derefEvent(e Event) Event {
 	case *SourceFilterVisibilityChangedEvent:
 		return *e
 	case *SourceFiltersReorderedEvent:
+		return *e
+	case *MediaPlayingEvent:
+		return *e
+	case *MediaPausedEvent:
+		return *e
+	case *MediaRestartedEvent:
+		return *e
+	case *MediaStoppedEvent:
+		return *e
+	case *MediaNextEvent:
+		return *e
+	case *MediaPreviousEvent:
+		return *e
+	case *MediaStartedEvent:
+		return *e
+	case *MediaEndedEvent:
 		return *e
 	case *SourceOrderChangedEvent:
 		return *e

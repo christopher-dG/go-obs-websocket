@@ -192,7 +192,10 @@ type GetOutputInfoResponse struct {
 	_response  `json:",squash"`
 }
 
-// StartOutputRequest : Start an output.
+// StartOutputRequest :
+//
+// Note: Controlling outputs is an experimental feature of obs-websocket
+// Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 //
 // Since obs-websocket version: 4.7.0.
 //
@@ -283,7 +286,10 @@ type StartOutputResponse struct {
 	_response `json:",squash"`
 }
 
-// StopOutputRequest : Stop an output.
+// StopOutputRequest :
+//
+// Note: Controlling outputs is an experimental feature of obs-websocket
+// Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 //
 // Since obs-websocket version: 4.7.0.
 //
