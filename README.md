@@ -25,8 +25,12 @@ import (
 )
 
 func main() {
+	// Optionally create a logger
+
+	logger := log.New(os.Stdout, "obsws ", log.Lstdflags)
+
 	// Connect a client.
-	c := obsws.Client{Host: "localhost", Port: 4444}
+	c := obsws.Client{Host: "localhost", Port: 4444, logger: Logger}
 	if err := c.Connect(); err != nil {
 		log.Fatal(err)
 	}

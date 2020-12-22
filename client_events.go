@@ -35,7 +35,7 @@ func (c *Client) handleEvent(m map[string]interface{}) {
 
 	eventFn, ok := eventMap[t]
 	if !ok {
-		Logger.Println("unknown event type:", m["update-type"])
+		c.logger.Println("unknown event type:", m["update-type"])
 		return
 	}
 	event := eventFn()
@@ -46,7 +46,7 @@ func (c *Client) handleEvent(m map[string]interface{}) {
 	}
 
 	if err := mapToStruct(m, event); err != nil {
-		Logger.Println("event handler failed:", err)
+		c.logger.Println("event handler failed:", err)
 		return
 	}
 
