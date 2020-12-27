@@ -25,7 +25,7 @@ type Client struct {
 	Port           int                         // Port (OBS default is 4444).
 	Password       string                      // Password (OBS default is "").
 	conn           *websocket.Conn             // Underlying connection to OBS.
-	logger         *log.Logger                 // Logger to use for most messages
+	Logger         *log.Logger                 // Logger to use for most messages
 	receiveTimeout time.Duration               // Maximum blocking time for receiving request responses
 	connected      bool                        // True until Disconnect is called.
 	handlers       map[string]func(e Event)    // Event handlers.
@@ -35,7 +35,7 @@ type Client struct {
 // poll listens for responses/events.
 // This function blocks until Disconnect is called.
 func (c *Client) poll() {
-	c.logger.Println("started polling")
+	c.Logger.Println("started polling")
 
 	for c.connected {
 		m := make(map[string]interface{})
