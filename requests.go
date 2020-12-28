@@ -21,11 +21,11 @@ type Request interface {
 	ID() string
 	Type() string
 	Send(Client) error
+	Receive() (Response, error)
 }
 
-// Response is a response from obs-websocket.
 type Response interface {
-	ID() string
+	// ID() string
 	Status() string
 	Error() string
 }

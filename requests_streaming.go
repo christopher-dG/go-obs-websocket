@@ -55,7 +55,7 @@ func (r *GetStreamingStatusRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStreamingStatusRequest) Receive() (GetStreamingStatusResponse, error) {
+func (r GetStreamingStatusRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetStreamingStatusResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetStreamingStatusRequest) Receive() (GetStreamingStatusResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStreamingStatusRequest) SendReceive(c Client) (GetStreamingStatusResponse, error) {
+func (r GetStreamingStatusRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetStreamingStatusResponse{}, err
 	}
@@ -158,7 +158,7 @@ func (r *StartStopStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStopStreamingRequest) Receive() (StartStopStreamingResponse, error) {
+func (r StartStopStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartStopStreamingResponse{}, ErrNotSent
 	}
@@ -182,7 +182,7 @@ func (r StartStopStreamingRequest) Receive() (StartStopStreamingResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStopStreamingRequest) SendReceive(c Client) (StartStopStreamingResponse, error) {
+func (r StartStopStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartStopStreamingResponse{}, err
 	}
@@ -298,7 +298,7 @@ func (r *StartStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStreamingRequest) Receive() (StartStreamingResponse, error) {
+func (r StartStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartStreamingResponse{}, ErrNotSent
 	}
@@ -322,7 +322,7 @@ func (r StartStreamingRequest) Receive() (StartStreamingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStreamingRequest) SendReceive(c Client) (StartStreamingResponse, error) {
+func (r StartStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartStreamingResponse{}, err
 	}
@@ -386,7 +386,7 @@ func (r *StopStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopStreamingRequest) Receive() (StopStreamingResponse, error) {
+func (r StopStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StopStreamingResponse{}, ErrNotSent
 	}
@@ -410,7 +410,7 @@ func (r StopStreamingRequest) Receive() (StopStreamingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopStreamingRequest) SendReceive(c Client) (StopStreamingResponse, error) {
+func (r StopStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StopStreamingResponse{}, err
 	}
@@ -518,7 +518,7 @@ func (r *SetStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetStreamSettingsRequest) Receive() (SetStreamSettingsResponse, error) {
+func (r SetStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetStreamSettingsResponse{}, ErrNotSent
 	}
@@ -542,7 +542,7 @@ func (r SetStreamSettingsRequest) Receive() (SetStreamSettingsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetStreamSettingsRequest) SendReceive(c Client) (SetStreamSettingsResponse, error) {
+func (r SetStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetStreamSettingsResponse{}, err
 	}
@@ -605,7 +605,7 @@ func (r *GetStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStreamSettingsRequest) Receive() (GetStreamSettingsResponse, error) {
+func (r GetStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetStreamSettingsResponse{}, ErrNotSent
 	}
@@ -629,7 +629,7 @@ func (r GetStreamSettingsRequest) Receive() (GetStreamSettingsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStreamSettingsRequest) SendReceive(c Client) (GetStreamSettingsResponse, error) {
+func (r GetStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetStreamSettingsResponse{}, err
 	}
@@ -716,7 +716,7 @@ func (r *SaveStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SaveStreamSettingsRequest) Receive() (SaveStreamSettingsResponse, error) {
+func (r SaveStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SaveStreamSettingsResponse{}, ErrNotSent
 	}
@@ -740,7 +740,7 @@ func (r SaveStreamSettingsRequest) Receive() (SaveStreamSettingsResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SaveStreamSettingsRequest) SendReceive(c Client) (SaveStreamSettingsResponse, error) {
+func (r SaveStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SaveStreamSettingsResponse{}, err
 	}
@@ -807,7 +807,7 @@ func (r *SendCaptionsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SendCaptionsRequest) Receive() (SendCaptionsResponse, error) {
+func (r SendCaptionsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SendCaptionsResponse{}, ErrNotSent
 	}
@@ -831,7 +831,7 @@ func (r SendCaptionsRequest) Receive() (SendCaptionsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SendCaptionsRequest) SendReceive(c Client) (SendCaptionsResponse, error) {
+func (r SendCaptionsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SendCaptionsResponse{}, err
 	}

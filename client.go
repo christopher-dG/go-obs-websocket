@@ -79,6 +79,8 @@ func GetMessageID() string {
 
 // mapToStruct serializes a map into a struct.
 func mapToStruct(data map[string]interface{}, dest interface{}) error {
+	// func mapToStruct(resp Response, dest interface{}) error {
+	// data := resp.(map[string])
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		TagName: "json",
 		Result:  dest,

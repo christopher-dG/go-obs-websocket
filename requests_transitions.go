@@ -55,7 +55,7 @@ func (r *GetTransitionListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionListRequest) Receive() (GetTransitionListResponse, error) {
+func (r GetTransitionListRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetTransitionListResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetTransitionListRequest) Receive() (GetTransitionListResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionListRequest) SendReceive(c Client) (GetTransitionListResponse, error) {
+func (r GetTransitionListRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionListResponse{}, err
 	}
@@ -151,7 +151,7 @@ func (r *GetCurrentTransitionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetCurrentTransitionRequest) Receive() (GetCurrentTransitionResponse, error) {
+func (r GetCurrentTransitionRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetCurrentTransitionResponse{}, ErrNotSent
 	}
@@ -175,7 +175,7 @@ func (r GetCurrentTransitionRequest) Receive() (GetCurrentTransitionResponse, er
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetCurrentTransitionRequest) SendReceive(c Client) (GetCurrentTransitionResponse, error) {
+func (r GetCurrentTransitionRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetCurrentTransitionResponse{}, err
 	}
@@ -248,7 +248,7 @@ func (r *SetCurrentTransitionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetCurrentTransitionRequest) Receive() (SetCurrentTransitionResponse, error) {
+func (r SetCurrentTransitionRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetCurrentTransitionResponse{}, ErrNotSent
 	}
@@ -272,7 +272,7 @@ func (r SetCurrentTransitionRequest) Receive() (SetCurrentTransitionResponse, er
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetCurrentTransitionRequest) SendReceive(c Client) (SetCurrentTransitionResponse, error) {
+func (r SetCurrentTransitionRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetCurrentTransitionResponse{}, err
 	}
@@ -339,7 +339,7 @@ func (r *SetTransitionDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTransitionDurationRequest) Receive() (SetTransitionDurationResponse, error) {
+func (r SetTransitionDurationRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetTransitionDurationResponse{}, ErrNotSent
 	}
@@ -363,7 +363,7 @@ func (r SetTransitionDurationRequest) Receive() (SetTransitionDurationResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTransitionDurationRequest) SendReceive(c Client) (SetTransitionDurationResponse, error) {
+func (r SetTransitionDurationRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetTransitionDurationResponse{}, err
 	}
@@ -426,7 +426,7 @@ func (r *GetTransitionDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionDurationRequest) Receive() (GetTransitionDurationResponse, error) {
+func (r GetTransitionDurationRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetTransitionDurationResponse{}, ErrNotSent
 	}
@@ -450,7 +450,7 @@ func (r GetTransitionDurationRequest) Receive() (GetTransitionDurationResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionDurationRequest) SendReceive(c Client) (GetTransitionDurationResponse, error) {
+func (r GetTransitionDurationRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionDurationResponse{}, err
 	}
@@ -516,7 +516,7 @@ func (r *GetTransitionPositionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionPositionRequest) Receive() (GetTransitionPositionResponse, error) {
+func (r GetTransitionPositionRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetTransitionPositionResponse{}, ErrNotSent
 	}
@@ -540,7 +540,7 @@ func (r GetTransitionPositionRequest) Receive() (GetTransitionPositionResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionPositionRequest) SendReceive(c Client) (GetTransitionPositionResponse, error) {
+func (r GetTransitionPositionRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionPositionResponse{}, err
 	}
@@ -612,7 +612,7 @@ func (r *GetTransitionSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionSettingsRequest) Receive() (GetTransitionSettingsResponse, error) {
+func (r GetTransitionSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetTransitionSettingsResponse{}, ErrNotSent
 	}
@@ -636,7 +636,7 @@ func (r GetTransitionSettingsRequest) Receive() (GetTransitionSettingsResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionSettingsRequest) SendReceive(c Client) (GetTransitionSettingsResponse, error) {
+func (r GetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionSettingsResponse{}, err
 	}
@@ -713,7 +713,7 @@ func (r *SetTransitionSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTransitionSettingsRequest) Receive() (SetTransitionSettingsResponse, error) {
+func (r SetTransitionSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetTransitionSettingsResponse{}, ErrNotSent
 	}
@@ -737,7 +737,7 @@ func (r SetTransitionSettingsRequest) Receive() (SetTransitionSettingsResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTransitionSettingsRequest) SendReceive(c Client) (SetTransitionSettingsResponse, error) {
+func (r SetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetTransitionSettingsResponse{}, err
 	}
@@ -804,7 +804,7 @@ func (r *ReleaseTBarRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ReleaseTBarRequest) Receive() (ReleaseTBarResponse, error) {
+func (r ReleaseTBarRequest) Receive() (Response, error) {
 	if !r.sent {
 		return ReleaseTBarResponse{}, ErrNotSent
 	}
@@ -828,7 +828,7 @@ func (r ReleaseTBarRequest) Receive() (ReleaseTBarResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ReleaseTBarRequest) SendReceive(c Client) (ReleaseTBarResponse, error) {
+func (r ReleaseTBarRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return ReleaseTBarResponse{}, err
 	}
@@ -907,7 +907,7 @@ func (r *SetTBarPositionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTBarPositionRequest) Receive() (SetTBarPositionResponse, error) {
+func (r SetTBarPositionRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetTBarPositionResponse{}, ErrNotSent
 	}
@@ -931,7 +931,7 @@ func (r SetTBarPositionRequest) Receive() (SetTBarPositionResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTBarPositionRequest) SendReceive(c Client) (SetTBarPositionResponse, error) {
+func (r SetTBarPositionRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetTBarPositionResponse{}, err
 	}
