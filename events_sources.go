@@ -78,7 +78,7 @@ type SourceMuteStateChangedEvent struct {
 
 // SourceAudioDeactivatedEvent : A source has removed audio.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudiodeactivated
 type SourceAudioDeactivatedEvent struct {
@@ -90,7 +90,7 @@ type SourceAudioDeactivatedEvent struct {
 
 // SourceAudioActivatedEvent : A source has added audio.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sourceaudioactivated
 type SourceAudioActivatedEvent struct {

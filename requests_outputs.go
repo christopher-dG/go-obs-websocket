@@ -55,7 +55,7 @@ func (r *ListOutputsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ListOutputsRequest) Receive() (Response, error) {
+func (r ListOutputsRequest) Receive() (ListOutputsResponse, error) {
 	if !r.sent {
 		return ListOutputsResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r ListOutputsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ListOutputsRequest) SendReceive(c Client) (Response, error) {
+func (r ListOutputsRequest) SendReceive(c Client) (ListOutputsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ListOutputsResponse{}, err
 	}
@@ -149,7 +149,7 @@ func (r *GetOutputInfoRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetOutputInfoRequest) Receive() (Response, error) {
+func (r GetOutputInfoRequest) Receive() (GetOutputInfoResponse, error) {
 	if !r.sent {
 		return GetOutputInfoResponse{}, ErrNotSent
 	}
@@ -173,7 +173,7 @@ func (r GetOutputInfoRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetOutputInfoRequest) SendReceive(c Client) (Response, error) {
+func (r GetOutputInfoRequest) SendReceive(c Client) (GetOutputInfoResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetOutputInfoResponse{}, err
 	}
@@ -246,7 +246,7 @@ func (r *StartOutputRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartOutputRequest) Receive() (Response, error) {
+func (r StartOutputRequest) Receive() (StartOutputResponse, error) {
 	if !r.sent {
 		return StartOutputResponse{}, ErrNotSent
 	}
@@ -270,7 +270,7 @@ func (r StartOutputRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartOutputRequest) SendReceive(c Client) (Response, error) {
+func (r StartOutputRequest) SendReceive(c Client) (StartOutputResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StartOutputResponse{}, err
 	}
@@ -347,7 +347,7 @@ func (r *StopOutputRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopOutputRequest) Receive() (Response, error) {
+func (r StopOutputRequest) Receive() (StopOutputResponse, error) {
 	if !r.sent {
 		return StopOutputResponse{}, ErrNotSent
 	}
@@ -371,7 +371,7 @@ func (r StopOutputRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopOutputRequest) SendReceive(c Client) (Response, error) {
+func (r StopOutputRequest) SendReceive(c Client) (StopOutputResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StopOutputResponse{}, err
 	}

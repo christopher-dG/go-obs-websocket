@@ -59,7 +59,7 @@ func (r *SetCurrentSceneRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetCurrentSceneRequest) Receive() (Response, error) {
+func (r SetCurrentSceneRequest) Receive() (SetCurrentSceneResponse, error) {
 	if !r.sent {
 		return SetCurrentSceneResponse{}, ErrNotSent
 	}
@@ -83,7 +83,7 @@ func (r SetCurrentSceneRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetCurrentSceneRequest) SendReceive(c Client) (Response, error) {
+func (r SetCurrentSceneRequest) SendReceive(c Client) (SetCurrentSceneResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetCurrentSceneResponse{}, err
 	}
@@ -146,7 +146,7 @@ func (r *GetCurrentSceneRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetCurrentSceneRequest) Receive() (Response, error) {
+func (r GetCurrentSceneRequest) Receive() (GetCurrentSceneResponse, error) {
 	if !r.sent {
 		return GetCurrentSceneResponse{}, ErrNotSent
 	}
@@ -170,7 +170,7 @@ func (r GetCurrentSceneRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetCurrentSceneRequest) SendReceive(c Client) (Response, error) {
+func (r GetCurrentSceneRequest) SendReceive(c Client) (GetCurrentSceneResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetCurrentSceneResponse{}, err
 	}
@@ -239,7 +239,7 @@ func (r *GetSceneListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSceneListRequest) Receive() (Response, error) {
+func (r GetSceneListRequest) Receive() (GetSceneListResponse, error) {
 	if !r.sent {
 		return GetSceneListResponse{}, ErrNotSent
 	}
@@ -263,7 +263,7 @@ func (r GetSceneListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSceneListRequest) SendReceive(c Client) (Response, error) {
+func (r GetSceneListRequest) SendReceive(c Client) (GetSceneListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSceneListResponse{}, err
 	}
@@ -287,7 +287,7 @@ type GetSceneListResponse struct {
 
 // CreateSceneRequest : Create a new scene scene.
 //
-// Since obs-websocket version: 4.8.0.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createscene
 type CreateSceneRequest struct {
@@ -336,7 +336,7 @@ func (r *CreateSceneRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r CreateSceneRequest) Receive() (Response, error) {
+func (r CreateSceneRequest) Receive() (CreateSceneResponse, error) {
 	if !r.sent {
 		return CreateSceneResponse{}, ErrNotSent
 	}
@@ -360,7 +360,7 @@ func (r CreateSceneRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r CreateSceneRequest) SendReceive(c Client) (Response, error) {
+func (r CreateSceneRequest) SendReceive(c Client) (CreateSceneResponse, error) {
 	if err := r.Send(c); err != nil {
 		return CreateSceneResponse{}, err
 	}
@@ -369,7 +369,7 @@ func (r CreateSceneRequest) SendReceive(c Client) (Response, error) {
 
 // CreateSceneResponse : Response for CreateSceneRequest.
 //
-// Since obs-websocket version: 4.8.0.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createscene
 type CreateSceneResponse struct {
@@ -447,7 +447,7 @@ func (r *ReorderSceneItemsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ReorderSceneItemsRequest) Receive() (Response, error) {
+func (r ReorderSceneItemsRequest) Receive() (ReorderSceneItemsResponse, error) {
 	if !r.sent {
 		return ReorderSceneItemsResponse{}, ErrNotSent
 	}
@@ -471,7 +471,7 @@ func (r ReorderSceneItemsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ReorderSceneItemsRequest) SendReceive(c Client) (Response, error) {
+func (r ReorderSceneItemsRequest) SendReceive(c Client) (ReorderSceneItemsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ReorderSceneItemsResponse{}, err
 	}
@@ -551,7 +551,7 @@ func (r *SetSceneTransitionOverrideRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneTransitionOverrideRequest) Receive() (Response, error) {
+func (r SetSceneTransitionOverrideRequest) Receive() (SetSceneTransitionOverrideResponse, error) {
 	if !r.sent {
 		return SetSceneTransitionOverrideResponse{}, ErrNotSent
 	}
@@ -575,7 +575,7 @@ func (r SetSceneTransitionOverrideRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneTransitionOverrideRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneTransitionOverrideRequest) SendReceive(c Client) (SetSceneTransitionOverrideResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneTransitionOverrideResponse{}, err
 	}
@@ -642,7 +642,7 @@ func (r *RemoveSceneTransitionOverrideRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r RemoveSceneTransitionOverrideRequest) Receive() (Response, error) {
+func (r RemoveSceneTransitionOverrideRequest) Receive() (RemoveSceneTransitionOverrideResponse, error) {
 	if !r.sent {
 		return RemoveSceneTransitionOverrideResponse{}, ErrNotSent
 	}
@@ -666,7 +666,7 @@ func (r RemoveSceneTransitionOverrideRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r RemoveSceneTransitionOverrideRequest) SendReceive(c Client) (Response, error) {
+func (r RemoveSceneTransitionOverrideRequest) SendReceive(c Client) (RemoveSceneTransitionOverrideResponse, error) {
 	if err := r.Send(c); err != nil {
 		return RemoveSceneTransitionOverrideResponse{}, err
 	}
@@ -733,7 +733,7 @@ func (r *GetSceneTransitionOverrideRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSceneTransitionOverrideRequest) Receive() (Response, error) {
+func (r GetSceneTransitionOverrideRequest) Receive() (GetSceneTransitionOverrideResponse, error) {
 	if !r.sent {
 		return GetSceneTransitionOverrideResponse{}, ErrNotSent
 	}
@@ -757,7 +757,7 @@ func (r GetSceneTransitionOverrideRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSceneTransitionOverrideRequest) SendReceive(c Client) (Response, error) {
+func (r GetSceneTransitionOverrideRequest) SendReceive(c Client) (GetSceneTransitionOverrideResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSceneTransitionOverrideResponse{}, err
 	}

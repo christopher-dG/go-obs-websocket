@@ -59,7 +59,7 @@ func (r *SetCurrentSceneCollectionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetCurrentSceneCollectionRequest) Receive() (Response, error) {
+func (r SetCurrentSceneCollectionRequest) Receive() (SetCurrentSceneCollectionResponse, error) {
 	if !r.sent {
 		return SetCurrentSceneCollectionResponse{}, ErrNotSent
 	}
@@ -83,7 +83,7 @@ func (r SetCurrentSceneCollectionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetCurrentSceneCollectionRequest) SendReceive(c Client) (Response, error) {
+func (r SetCurrentSceneCollectionRequest) SendReceive(c Client) (SetCurrentSceneCollectionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetCurrentSceneCollectionResponse{}, err
 	}
@@ -146,7 +146,7 @@ func (r *GetCurrentSceneCollectionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetCurrentSceneCollectionRequest) Receive() (Response, error) {
+func (r GetCurrentSceneCollectionRequest) Receive() (GetCurrentSceneCollectionResponse, error) {
 	if !r.sent {
 		return GetCurrentSceneCollectionResponse{}, ErrNotSent
 	}
@@ -170,7 +170,7 @@ func (r GetCurrentSceneCollectionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetCurrentSceneCollectionRequest) SendReceive(c Client) (Response, error) {
+func (r GetCurrentSceneCollectionRequest) SendReceive(c Client) (GetCurrentSceneCollectionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetCurrentSceneCollectionResponse{}, err
 	}
@@ -236,7 +236,7 @@ func (r *ListSceneCollectionsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ListSceneCollectionsRequest) Receive() (Response, error) {
+func (r ListSceneCollectionsRequest) Receive() (ListSceneCollectionsResponse, error) {
 	if !r.sent {
 		return ListSceneCollectionsResponse{}, ErrNotSent
 	}
@@ -260,7 +260,7 @@ func (r ListSceneCollectionsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ListSceneCollectionsRequest) SendReceive(c Client) (Response, error) {
+func (r ListSceneCollectionsRequest) SendReceive(c Client) (ListSceneCollectionsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ListSceneCollectionsResponse{}, err
 	}
@@ -275,9 +275,6 @@ func (r ListSceneCollectionsRequest) SendReceive(c Client) (Response, error) {
 type ListSceneCollectionsResponse struct {
 	// Scene collections list.
 	// Required: Yes.
-	SceneCollections []string `json:"scene-collections"`
-	// Scene collection name.
-	// Required: Yes.
-	SceneCollectionsScName string `json:"scene-collections.*.sc-name"`
-	_response              `json:",squash"`
+	SceneCollections []*Scene `json:"scene-collections"`
+	_response        `json:",squash"`
 }

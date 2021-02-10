@@ -69,7 +69,7 @@ type TransitionBeginEvent struct {
 }
 
 // TransitionEndEvent : A transition (other than "cut") has ended.
-// Please note that the `from-scene` field is not available in TransitionEnd.
+// Note: The `from-scene` field is not available in TransitionEnd.
 //
 // Since obs-websocket version: 4.8.0.
 //

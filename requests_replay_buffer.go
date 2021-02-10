@@ -10,7 +10,7 @@ import (
 
 // GetReplayBufferStatusRequest : Get the status of the OBS replay buffer.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getreplaybufferstatus
 type GetReplayBufferStatusRequest struct {
@@ -55,7 +55,7 @@ func (r *GetReplayBufferStatusRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetReplayBufferStatusRequest) Receive() (Response, error) {
+func (r GetReplayBufferStatusRequest) Receive() (GetReplayBufferStatusResponse, error) {
 	if !r.sent {
 		return GetReplayBufferStatusResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetReplayBufferStatusRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetReplayBufferStatusRequest) SendReceive(c Client) (Response, error) {
+func (r GetReplayBufferStatusRequest) SendReceive(c Client) (GetReplayBufferStatusResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetReplayBufferStatusResponse{}, err
 	}
@@ -88,7 +88,7 @@ func (r GetReplayBufferStatusRequest) SendReceive(c Client) (Response, error) {
 
 // GetReplayBufferStatusResponse : Response for GetReplayBufferStatusRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getreplaybufferstatus
 type GetReplayBufferStatusResponse struct {
@@ -145,7 +145,7 @@ func (r *StartStopReplayBufferRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStopReplayBufferRequest) Receive() (Response, error) {
+func (r StartStopReplayBufferRequest) Receive() (StartStopReplayBufferResponse, error) {
 	if !r.sent {
 		return StartStopReplayBufferResponse{}, ErrNotSent
 	}
@@ -169,7 +169,7 @@ func (r StartStopReplayBufferRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStopReplayBufferRequest) SendReceive(c Client) (Response, error) {
+func (r StartStopReplayBufferRequest) SendReceive(c Client) (StartStopReplayBufferResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StartStopReplayBufferResponse{}, err
 	}
@@ -236,7 +236,7 @@ func (r *StartReplayBufferRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartReplayBufferRequest) Receive() (Response, error) {
+func (r StartReplayBufferRequest) Receive() (StartReplayBufferResponse, error) {
 	if !r.sent {
 		return StartReplayBufferResponse{}, ErrNotSent
 	}
@@ -260,7 +260,7 @@ func (r StartReplayBufferRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartReplayBufferRequest) SendReceive(c Client) (Response, error) {
+func (r StartReplayBufferRequest) SendReceive(c Client) (StartReplayBufferResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StartReplayBufferResponse{}, err
 	}
@@ -324,7 +324,7 @@ func (r *StopReplayBufferRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopReplayBufferRequest) Receive() (Response, error) {
+func (r StopReplayBufferRequest) Receive() (StopReplayBufferResponse, error) {
 	if !r.sent {
 		return StopReplayBufferResponse{}, ErrNotSent
 	}
@@ -348,7 +348,7 @@ func (r StopReplayBufferRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopReplayBufferRequest) SendReceive(c Client) (Response, error) {
+func (r StopReplayBufferRequest) SendReceive(c Client) (StopReplayBufferResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StopReplayBufferResponse{}, err
 	}
@@ -414,7 +414,7 @@ func (r *SaveReplayBufferRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SaveReplayBufferRequest) Receive() (Response, error) {
+func (r SaveReplayBufferRequest) Receive() (SaveReplayBufferResponse, error) {
 	if !r.sent {
 		return SaveReplayBufferResponse{}, ErrNotSent
 	}
@@ -438,7 +438,7 @@ func (r SaveReplayBufferRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SaveReplayBufferRequest) SendReceive(c Client) (Response, error) {
+func (r SaveReplayBufferRequest) SendReceive(c Client) (SaveReplayBufferResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SaveReplayBufferResponse{}, err
 	}

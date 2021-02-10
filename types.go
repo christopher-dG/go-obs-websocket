@@ -13,8 +13,11 @@ type OBSStats struct {
 }
 
 type Scene struct {
-	Name    string       `json:"name"`
-	Sources []*SceneItem `json:"sources"`
+	Name string `json:"name"`
+}
+
+type ScenesCollection struct {
+	Name string `json:"sc-name"`
 }
 
 type SceneItem struct {

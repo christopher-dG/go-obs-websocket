@@ -10,7 +10,7 @@ import (
 
 // GetMediaSourcesListRequest : List the media state of all media sources (vlc and media source).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediasourceslist
 type GetMediaSourcesListRequest struct {
@@ -55,7 +55,7 @@ func (r *GetMediaSourcesListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaSourcesListRequest) Receive() (Response, error) {
+func (r GetMediaSourcesListRequest) Receive() (GetMediaSourcesListResponse, error) {
 	if !r.sent {
 		return GetMediaSourcesListResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetMediaSourcesListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaSourcesListRequest) SendReceive(c Client) (Response, error) {
+func (r GetMediaSourcesListRequest) SendReceive(c Client) (GetMediaSourcesListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaSourcesListResponse{}, err
 	}
@@ -88,7 +88,7 @@ func (r GetMediaSourcesListRequest) SendReceive(c Client) (Response, error) {
 
 // GetMediaSourcesListResponse : Response for GetMediaSourcesListRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediasourceslist
 type GetMediaSourcesListResponse struct {
@@ -110,7 +110,7 @@ type GetMediaSourcesListResponse struct {
 
 // CreateSourceRequest : Create a source and add it as a sceneitem to a scene.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createsource
 type CreateSourceRequest struct {
@@ -183,7 +183,7 @@ func (r *CreateSourceRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r CreateSourceRequest) Receive() (Response, error) {
+func (r CreateSourceRequest) Receive() (CreateSourceResponse, error) {
 	if !r.sent {
 		return CreateSourceResponse{}, ErrNotSent
 	}
@@ -207,7 +207,7 @@ func (r CreateSourceRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r CreateSourceRequest) SendReceive(c Client) (Response, error) {
+func (r CreateSourceRequest) SendReceive(c Client) (CreateSourceResponse, error) {
 	if err := r.Send(c); err != nil {
 		return CreateSourceResponse{}, err
 	}
@@ -216,7 +216,7 @@ func (r CreateSourceRequest) SendReceive(c Client) (Response, error) {
 
 // CreateSourceResponse : Response for CreateSourceRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#createsource
 type CreateSourceResponse struct {
@@ -273,7 +273,7 @@ func (r *GetSourcesListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourcesListRequest) Receive() (Response, error) {
+func (r GetSourcesListRequest) Receive() (GetSourcesListResponse, error) {
 	if !r.sent {
 		return GetSourcesListResponse{}, ErrNotSent
 	}
@@ -297,7 +297,7 @@ func (r GetSourcesListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourcesListRequest) SendReceive(c Client) (Response, error) {
+func (r GetSourcesListRequest) SendReceive(c Client) (GetSourcesListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSourcesListResponse{}, err
 	}
@@ -373,7 +373,7 @@ func (r *GetSourceTypesListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourceTypesListRequest) Receive() (Response, error) {
+func (r GetSourceTypesListRequest) Receive() (GetSourceTypesListResponse, error) {
 	if !r.sent {
 		return GetSourceTypesListResponse{}, ErrNotSent
 	}
@@ -397,7 +397,7 @@ func (r GetSourceTypesListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourceTypesListRequest) SendReceive(c Client) (Response, error) {
+func (r GetSourceTypesListRequest) SendReceive(c Client) (GetSourceTypesListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSourceTypesListResponse{}, err
 	}
@@ -512,7 +512,7 @@ func (r *GetVolumeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetVolumeRequest) Receive() (Response, error) {
+func (r GetVolumeRequest) Receive() (GetVolumeResponse, error) {
 	if !r.sent {
 		return GetVolumeResponse{}, ErrNotSent
 	}
@@ -536,7 +536,7 @@ func (r GetVolumeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetVolumeRequest) SendReceive(c Client) (Response, error) {
+func (r GetVolumeRequest) SendReceive(c Client) (GetVolumeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetVolumeResponse{}, err
 	}
@@ -553,7 +553,7 @@ type GetVolumeResponse struct {
 	// Required: Yes.
 	Name string `json:"name"`
 	// Volume of the source.
-	// Between `0.0` and `1.0` if using mul, under `0.0` if using dB (since it is attenuating).
+	// Between `0.0` and `20.0` if using mul, under `26.0` if using dB.
 	// Required: Yes.
 	Volume float64 `json:"volume"`
 	// Indicates whether the source is muted.
@@ -573,8 +573,9 @@ type SetVolumeRequest struct {
 	// Required: Yes.
 	Source string `json:"source"`
 	// Desired volume.
-	// Must be between `0.0` and `1.0` for mul, and under 0.0 for dB.
-	// Note: OBS will interpret dB values under -100.0 as Inf.
+	// Must be between `0.0` and `20.0` for mul, and under 26.0 for dB.
+	// OBS will interpret dB values under -100.0 as Inf.
+	// Note: The OBS volume sliders only reach a maximum of 1.0mul/0.0dB, however OBS actually supports larger values.
 	// Required: Yes.
 	Volume float64 `json:"volume"`
 	// Interperet `volume` data as decibels instead of amplitude/mul.
@@ -628,7 +629,7 @@ func (r *SetVolumeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetVolumeRequest) Receive() (Response, error) {
+func (r SetVolumeRequest) Receive() (SetVolumeResponse, error) {
 	if !r.sent {
 		return SetVolumeResponse{}, ErrNotSent
 	}
@@ -652,7 +653,7 @@ func (r SetVolumeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetVolumeRequest) SendReceive(c Client) (Response, error) {
+func (r SetVolumeRequest) SendReceive(c Client) (SetVolumeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetVolumeResponse{}, err
 	}
@@ -719,7 +720,7 @@ func (r *GetMuteRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMuteRequest) Receive() (Response, error) {
+func (r GetMuteRequest) Receive() (GetMuteResponse, error) {
 	if !r.sent {
 		return GetMuteResponse{}, ErrNotSent
 	}
@@ -743,7 +744,7 @@ func (r GetMuteRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMuteRequest) SendReceive(c Client) (Response, error) {
+func (r GetMuteRequest) SendReceive(c Client) (GetMuteResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetMuteResponse{}, err
 	}
@@ -823,7 +824,7 @@ func (r *SetMuteRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetMuteRequest) Receive() (Response, error) {
+func (r SetMuteRequest) Receive() (SetMuteResponse, error) {
 	if !r.sent {
 		return SetMuteResponse{}, ErrNotSent
 	}
@@ -847,7 +848,7 @@ func (r SetMuteRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetMuteRequest) SendReceive(c Client) (Response, error) {
+func (r SetMuteRequest) SendReceive(c Client) (SetMuteResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetMuteResponse{}, err
 	}
@@ -914,7 +915,7 @@ func (r *ToggleMuteRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ToggleMuteRequest) Receive() (Response, error) {
+func (r ToggleMuteRequest) Receive() (ToggleMuteResponse, error) {
 	if !r.sent {
 		return ToggleMuteResponse{}, ErrNotSent
 	}
@@ -938,7 +939,7 @@ func (r ToggleMuteRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ToggleMuteRequest) SendReceive(c Client) (Response, error) {
+func (r ToggleMuteRequest) SendReceive(c Client) (ToggleMuteResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ToggleMuteResponse{}, err
 	}
@@ -956,7 +957,7 @@ type ToggleMuteResponse struct {
 
 // GetAudioActiveRequest : Get the audio's active status of a specified source.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getaudioactive
 type GetAudioActiveRequest struct {
@@ -1005,7 +1006,7 @@ func (r *GetAudioActiveRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetAudioActiveRequest) Receive() (Response, error) {
+func (r GetAudioActiveRequest) Receive() (GetAudioActiveResponse, error) {
 	if !r.sent {
 		return GetAudioActiveResponse{}, ErrNotSent
 	}
@@ -1029,7 +1030,7 @@ func (r GetAudioActiveRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetAudioActiveRequest) SendReceive(c Client) (Response, error) {
+func (r GetAudioActiveRequest) SendReceive(c Client) (GetAudioActiveResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetAudioActiveResponse{}, err
 	}
@@ -1038,7 +1039,7 @@ func (r GetAudioActiveRequest) SendReceive(c Client) (Response, error) {
 
 // GetAudioActiveResponse : Response for GetAudioActiveRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getaudioactive
 type GetAudioActiveResponse struct {
@@ -1108,7 +1109,7 @@ func (r *SetSourceNameRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSourceNameRequest) Receive() (Response, error) {
+func (r SetSourceNameRequest) Receive() (SetSourceNameResponse, error) {
 	if !r.sent {
 		return SetSourceNameResponse{}, ErrNotSent
 	}
@@ -1132,7 +1133,7 @@ func (r SetSourceNameRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSourceNameRequest) SendReceive(c Client) (Response, error) {
+func (r SetSourceNameRequest) SendReceive(c Client) (SetSourceNameResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSourceNameResponse{}, err
 	}
@@ -1206,7 +1207,7 @@ func (r *SetSyncOffsetRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSyncOffsetRequest) Receive() (Response, error) {
+func (r SetSyncOffsetRequest) Receive() (SetSyncOffsetResponse, error) {
 	if !r.sent {
 		return SetSyncOffsetResponse{}, ErrNotSent
 	}
@@ -1230,7 +1231,7 @@ func (r SetSyncOffsetRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSyncOffsetRequest) SendReceive(c Client) (Response, error) {
+func (r SetSyncOffsetRequest) SendReceive(c Client) (SetSyncOffsetResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSyncOffsetResponse{}, err
 	}
@@ -1297,7 +1298,7 @@ func (r *GetSyncOffsetRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSyncOffsetRequest) Receive() (Response, error) {
+func (r GetSyncOffsetRequest) Receive() (GetSyncOffsetResponse, error) {
 	if !r.sent {
 		return GetSyncOffsetResponse{}, ErrNotSent
 	}
@@ -1321,7 +1322,7 @@ func (r GetSyncOffsetRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSyncOffsetRequest) SendReceive(c Client) (Response, error) {
+func (r GetSyncOffsetRequest) SendReceive(c Client) (GetSyncOffsetResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSyncOffsetResponse{}, err
 	}
@@ -1402,7 +1403,7 @@ func (r *GetSourceSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourceSettingsRequest) Receive() (Response, error) {
+func (r GetSourceSettingsRequest) Receive() (GetSourceSettingsResponse, error) {
 	if !r.sent {
 		return GetSourceSettingsResponse{}, ErrNotSent
 	}
@@ -1426,7 +1427,7 @@ func (r GetSourceSettingsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourceSettingsRequest) SendReceive(c Client) (Response, error) {
+func (r GetSourceSettingsRequest) SendReceive(c Client) (GetSourceSettingsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSourceSettingsResponse{}, err
 	}
@@ -1515,7 +1516,7 @@ func (r *SetSourceSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSourceSettingsRequest) Receive() (Response, error) {
+func (r SetSourceSettingsRequest) Receive() (SetSourceSettingsResponse, error) {
 	if !r.sent {
 		return SetSourceSettingsResponse{}, ErrNotSent
 	}
@@ -1539,7 +1540,7 @@ func (r SetSourceSettingsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSourceSettingsRequest) SendReceive(c Client) (Response, error) {
+func (r SetSourceSettingsRequest) SendReceive(c Client) (SetSourceSettingsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSourceSettingsResponse{}, err
 	}
@@ -1615,7 +1616,7 @@ func (r *GetTextGDIPlusPropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTextGDIPlusPropertiesRequest) Receive() (Response, error) {
+func (r GetTextGDIPlusPropertiesRequest) Receive() (GetTextGDIPlusPropertiesResponse, error) {
 	if !r.sent {
 		return GetTextGDIPlusPropertiesResponse{}, ErrNotSent
 	}
@@ -1639,7 +1640,7 @@ func (r GetTextGDIPlusPropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTextGDIPlusPropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r GetTextGDIPlusPropertiesRequest) SendReceive(c Client) (GetTextGDIPlusPropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTextGDIPlusPropertiesResponse{}, err
 	}
@@ -1936,7 +1937,7 @@ func (r *SetTextGDIPlusPropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTextGDIPlusPropertiesRequest) Receive() (Response, error) {
+func (r SetTextGDIPlusPropertiesRequest) Receive() (SetTextGDIPlusPropertiesResponse, error) {
 	if !r.sent {
 		return SetTextGDIPlusPropertiesResponse{}, ErrNotSent
 	}
@@ -1960,7 +1961,7 @@ func (r SetTextGDIPlusPropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTextGDIPlusPropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r SetTextGDIPlusPropertiesRequest) SendReceive(c Client) (SetTextGDIPlusPropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetTextGDIPlusPropertiesResponse{}, err
 	}
@@ -2027,7 +2028,7 @@ func (r *GetTextFreetype2PropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTextFreetype2PropertiesRequest) Receive() (Response, error) {
+func (r GetTextFreetype2PropertiesRequest) Receive() (GetTextFreetype2PropertiesResponse, error) {
 	if !r.sent {
 		return GetTextFreetype2PropertiesResponse{}, ErrNotSent
 	}
@@ -2051,7 +2052,7 @@ func (r GetTextFreetype2PropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTextFreetype2PropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r GetTextFreetype2PropertiesRequest) SendReceive(c Client) (GetTextFreetype2PropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTextFreetype2PropertiesResponse{}, err
 	}
@@ -2247,7 +2248,7 @@ func (r *SetTextFreetype2PropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTextFreetype2PropertiesRequest) Receive() (Response, error) {
+func (r SetTextFreetype2PropertiesRequest) Receive() (SetTextFreetype2PropertiesResponse, error) {
 	if !r.sent {
 		return SetTextFreetype2PropertiesResponse{}, ErrNotSent
 	}
@@ -2271,7 +2272,7 @@ func (r SetTextFreetype2PropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTextFreetype2PropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r SetTextFreetype2PropertiesRequest) SendReceive(c Client) (SetTextFreetype2PropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetTextFreetype2PropertiesResponse{}, err
 	}
@@ -2338,7 +2339,7 @@ func (r *GetBrowserSourcePropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetBrowserSourcePropertiesRequest) Receive() (Response, error) {
+func (r GetBrowserSourcePropertiesRequest) Receive() (GetBrowserSourcePropertiesResponse, error) {
 	if !r.sent {
 		return GetBrowserSourcePropertiesResponse{}, ErrNotSent
 	}
@@ -2362,7 +2363,7 @@ func (r GetBrowserSourcePropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetBrowserSourcePropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r GetBrowserSourcePropertiesRequest) SendReceive(c Client) (GetBrowserSourcePropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetBrowserSourcePropertiesResponse{}, err
 	}
@@ -2503,7 +2504,7 @@ func (r *SetBrowserSourcePropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetBrowserSourcePropertiesRequest) Receive() (Response, error) {
+func (r SetBrowserSourcePropertiesRequest) Receive() (SetBrowserSourcePropertiesResponse, error) {
 	if !r.sent {
 		return SetBrowserSourcePropertiesResponse{}, ErrNotSent
 	}
@@ -2527,7 +2528,7 @@ func (r SetBrowserSourcePropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetBrowserSourcePropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r SetBrowserSourcePropertiesRequest) SendReceive(c Client) (SetBrowserSourcePropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetBrowserSourcePropertiesResponse{}, err
 	}
@@ -2590,7 +2591,7 @@ func (r *GetSpecialSourcesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSpecialSourcesRequest) Receive() (Response, error) {
+func (r GetSpecialSourcesRequest) Receive() (GetSpecialSourcesResponse, error) {
 	if !r.sent {
 		return GetSpecialSourcesResponse{}, ErrNotSent
 	}
@@ -2614,7 +2615,7 @@ func (r GetSpecialSourcesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSpecialSourcesRequest) SendReceive(c Client) (Response, error) {
+func (r GetSpecialSourcesRequest) SendReceive(c Client) (GetSpecialSourcesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSpecialSourcesResponse{}, err
 	}
@@ -2696,7 +2697,7 @@ func (r *GetSourceFiltersRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourceFiltersRequest) Receive() (Response, error) {
+func (r GetSourceFiltersRequest) Receive() (GetSourceFiltersResponse, error) {
 	if !r.sent {
 		return GetSourceFiltersResponse{}, ErrNotSent
 	}
@@ -2720,7 +2721,7 @@ func (r GetSourceFiltersRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourceFiltersRequest) SendReceive(c Client) (Response, error) {
+func (r GetSourceFiltersRequest) SendReceive(c Client) (GetSourceFiltersResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSourceFiltersResponse{}, err
 	}
@@ -2809,7 +2810,7 @@ func (r *GetSourceFilterInfoRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSourceFilterInfoRequest) Receive() (Response, error) {
+func (r GetSourceFilterInfoRequest) Receive() (GetSourceFilterInfoResponse, error) {
 	if !r.sent {
 		return GetSourceFilterInfoResponse{}, ErrNotSent
 	}
@@ -2833,7 +2834,7 @@ func (r GetSourceFilterInfoRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSourceFilterInfoRequest) SendReceive(c Client) (Response, error) {
+func (r GetSourceFilterInfoRequest) SendReceive(c Client) (GetSourceFilterInfoResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSourceFilterInfoResponse{}, err
 	}
@@ -2930,7 +2931,7 @@ func (r *AddFilterToSourceRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r AddFilterToSourceRequest) Receive() (Response, error) {
+func (r AddFilterToSourceRequest) Receive() (AddFilterToSourceResponse, error) {
 	if !r.sent {
 		return AddFilterToSourceResponse{}, ErrNotSent
 	}
@@ -2954,7 +2955,7 @@ func (r AddFilterToSourceRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r AddFilterToSourceRequest) SendReceive(c Client) (Response, error) {
+func (r AddFilterToSourceRequest) SendReceive(c Client) (AddFilterToSourceResponse, error) {
 	if err := r.Send(c); err != nil {
 		return AddFilterToSourceResponse{}, err
 	}
@@ -3028,7 +3029,7 @@ func (r *RemoveFilterFromSourceRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r RemoveFilterFromSourceRequest) Receive() (Response, error) {
+func (r RemoveFilterFromSourceRequest) Receive() (RemoveFilterFromSourceResponse, error) {
 	if !r.sent {
 		return RemoveFilterFromSourceResponse{}, ErrNotSent
 	}
@@ -3052,7 +3053,7 @@ func (r RemoveFilterFromSourceRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r RemoveFilterFromSourceRequest) SendReceive(c Client) (Response, error) {
+func (r RemoveFilterFromSourceRequest) SendReceive(c Client) (RemoveFilterFromSourceResponse, error) {
 	if err := r.Send(c); err != nil {
 		return RemoveFilterFromSourceResponse{}, err
 	}
@@ -3131,7 +3132,7 @@ func (r *ReorderSourceFilterRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ReorderSourceFilterRequest) Receive() (Response, error) {
+func (r ReorderSourceFilterRequest) Receive() (ReorderSourceFilterResponse, error) {
 	if !r.sent {
 		return ReorderSourceFilterResponse{}, ErrNotSent
 	}
@@ -3155,7 +3156,7 @@ func (r ReorderSourceFilterRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ReorderSourceFilterRequest) SendReceive(c Client) (Response, error) {
+func (r ReorderSourceFilterRequest) SendReceive(c Client) (ReorderSourceFilterResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ReorderSourceFilterResponse{}, err
 	}
@@ -3235,7 +3236,7 @@ func (r *MoveSourceFilterRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r MoveSourceFilterRequest) Receive() (Response, error) {
+func (r MoveSourceFilterRequest) Receive() (MoveSourceFilterResponse, error) {
 	if !r.sent {
 		return MoveSourceFilterResponse{}, ErrNotSent
 	}
@@ -3259,7 +3260,7 @@ func (r MoveSourceFilterRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r MoveSourceFilterRequest) SendReceive(c Client) (Response, error) {
+func (r MoveSourceFilterRequest) SendReceive(c Client) (MoveSourceFilterResponse, error) {
 	if err := r.Send(c); err != nil {
 		return MoveSourceFilterResponse{}, err
 	}
@@ -3339,7 +3340,7 @@ func (r *SetSourceFilterSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSourceFilterSettingsRequest) Receive() (Response, error) {
+func (r SetSourceFilterSettingsRequest) Receive() (SetSourceFilterSettingsResponse, error) {
 	if !r.sent {
 		return SetSourceFilterSettingsResponse{}, ErrNotSent
 	}
@@ -3363,7 +3364,7 @@ func (r SetSourceFilterSettingsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSourceFilterSettingsRequest) SendReceive(c Client) (Response, error) {
+func (r SetSourceFilterSettingsRequest) SendReceive(c Client) (SetSourceFilterSettingsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSourceFilterSettingsResponse{}, err
 	}
@@ -3429,20 +3430,20 @@ func (r *SetSourceFilterVisibilityRequest) Send(c Client) error {
 	r.sent = true
 	go func() {
 		m := <-future
-		var resp Response
+		var resp SetSourceFilterVisibilityResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
 		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
-			r.response <- resp.(SetSourceFilterVisibilityResponse)
+			r.response <- resp
 		}
 	}()
 	return nil
 }
 
 // Receive waits for the response.
-func (r SetSourceFilterVisibilityRequest) Receive() (Response, error) {
+func (r SetSourceFilterVisibilityRequest) Receive() (SetSourceFilterVisibilityResponse, error) {
 	if !r.sent {
 		return SetSourceFilterVisibilityResponse{}, ErrNotSent
 	}
@@ -3466,7 +3467,7 @@ func (r SetSourceFilterVisibilityRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSourceFilterVisibilityRequest) SendReceive(c Client) (Response, error) {
+func (r SetSourceFilterVisibilityRequest) SendReceive(c Client) (SetSourceFilterVisibilityResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSourceFilterVisibilityResponse{}, err
 	}
@@ -3520,20 +3521,20 @@ func (r *GetAudioMonitorTypeRequest) Send(c Client) error {
 	r.sent = true
 	go func() {
 		m := <-future
-		var resp Response
+		var resp GetAudioMonitorTypeResponse
 		if err = mapToStruct(m, &resp); err != nil {
 			r.err <- err
 		} else if resp.Status() != StatusOK {
 			r.err <- errors.New(resp.Error())
 		} else {
-			r.response <- resp.(GetAudioMonitorTypeResponse)
+			r.response <- resp
 		}
 	}()
 	return nil
 }
 
 // Receive waits for the response.
-func (r GetAudioMonitorTypeRequest) Receive() (Response, error) {
+func (r GetAudioMonitorTypeRequest) Receive() (GetAudioMonitorTypeResponse, error) {
 	if !r.sent {
 		return GetAudioMonitorTypeResponse{}, ErrNotSent
 	}
@@ -3557,7 +3558,7 @@ func (r GetAudioMonitorTypeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetAudioMonitorTypeRequest) SendReceive(c Client) (Response, error) {
+func (r GetAudioMonitorTypeRequest) SendReceive(c Client) (GetAudioMonitorTypeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetAudioMonitorTypeResponse{}, err
 	}
@@ -3636,7 +3637,7 @@ func (r *SetAudioMonitorTypeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetAudioMonitorTypeRequest) Receive() (Response, error) {
+func (r SetAudioMonitorTypeRequest) Receive() (SetAudioMonitorTypeResponse, error) {
 	if !r.sent {
 		return SetAudioMonitorTypeResponse{}, ErrNotSent
 	}
@@ -3660,7 +3661,7 @@ func (r SetAudioMonitorTypeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetAudioMonitorTypeRequest) SendReceive(c Client) (Response, error) {
+func (r SetAudioMonitorTypeRequest) SendReceive(c Client) (SetAudioMonitorTypeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetAudioMonitorTypeResponse{}, err
 	}
@@ -3676,6 +3677,105 @@ type SetAudioMonitorTypeResponse struct {
 	_response `json:",squash"`
 }
 
+// GetSourceDefaultSettingsRequest : Get the default settings for a given source type.
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcedefaultsettings
+type GetSourceDefaultSettingsRequest struct {
+	// Source kind.
+	// Also called "source id" in libobs terminology.
+	// Required: Yes.
+	SourceKind string `json:"sourceKind"`
+	_request   `json:",squash"`
+	response   chan GetSourceDefaultSettingsResponse
+}
+
+// NewGetSourceDefaultSettingsRequest returns a new GetSourceDefaultSettingsRequest.
+func NewGetSourceDefaultSettingsRequest(sourceKind string) GetSourceDefaultSettingsRequest {
+	return GetSourceDefaultSettingsRequest{
+		sourceKind,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "GetSourceDefaultSettings",
+			err:   make(chan error, 1),
+		},
+		make(chan GetSourceDefaultSettingsResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *GetSourceDefaultSettingsRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp GetSourceDefaultSettingsResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r GetSourceDefaultSettingsRequest) Receive() (GetSourceDefaultSettingsResponse, error) {
+	if !r.sent {
+		return GetSourceDefaultSettingsResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceDefaultSettingsResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return GetSourceDefaultSettingsResponse{}, err
+		case <-time.After(receiveTimeout):
+			return GetSourceDefaultSettingsResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r GetSourceDefaultSettingsRequest) SendReceive(c Client) (GetSourceDefaultSettingsResponse, error) {
+	if err := r.Send(c); err != nil {
+		return GetSourceDefaultSettingsResponse{}, err
+	}
+	return r.Receive()
+}
+
+// GetSourceDefaultSettingsResponse : Response for GetSourceDefaultSettingsRequest.
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsourcedefaultsettings
+type GetSourceDefaultSettingsResponse struct {
+	// Source kind.
+	// Same value as the `sourceKind` parameter.
+	// Required: Yes.
+	SourceKind string `json:"sourceKind"`
+	// Settings object for source.
+	// Required: Yes.
+	DefaultSettings map[string]interface{} `json:"defaultSettings"`
+	_response       `json:",squash"`
+}
+
 // TakeSourceScreenshotRequest :
 //
 // At least `embedPictureFormat` or `saveToFilePath` must be specified.
@@ -3689,7 +3789,7 @@ type SetAudioMonitorTypeResponse struct {
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#takesourcescreenshot
 type TakeSourceScreenshotRequest struct {
 	// Source name.
-	// Note that, since scenes are also sources, you can also provide a scene name.
+	// Note: Since scenes are also sources, you can also provide a scene name.
 	// If not provided, the currently active scene is used.
 	// Required: No.
 	SourceName string `json:"sourceName"`
@@ -3775,7 +3875,7 @@ func (r *TakeSourceScreenshotRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r TakeSourceScreenshotRequest) Receive() (Response, error) {
+func (r TakeSourceScreenshotRequest) Receive() (TakeSourceScreenshotResponse, error) {
 	if !r.sent {
 		return TakeSourceScreenshotResponse{}, ErrNotSent
 	}
@@ -3799,7 +3899,7 @@ func (r TakeSourceScreenshotRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r TakeSourceScreenshotRequest) SendReceive(c Client) (Response, error) {
+func (r TakeSourceScreenshotRequest) SendReceive(c Client) (TakeSourceScreenshotResponse, error) {
 	if err := r.Send(c); err != nil {
 		return TakeSourceScreenshotResponse{}, err
 	}
@@ -3821,5 +3921,96 @@ type TakeSourceScreenshotResponse struct {
 	// Absolute path to the saved image file (if `saveToFilePath` was specified in the request).
 	// Required: Yes.
 	ImageFile string `json:"imageFile"`
+	_response `json:",squash"`
+}
+
+// RefreshBrowserSourceRequest : Refreshes the specified browser source.
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#refreshbrowsersource
+type RefreshBrowserSourceRequest struct {
+	// Source name.
+	// Required: Yes.
+	SourceName string `json:"sourceName"`
+	_request   `json:",squash"`
+	response   chan RefreshBrowserSourceResponse
+}
+
+// NewRefreshBrowserSourceRequest returns a new RefreshBrowserSourceRequest.
+func NewRefreshBrowserSourceRequest(sourceName string) RefreshBrowserSourceRequest {
+	return RefreshBrowserSourceRequest{
+		sourceName,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "RefreshBrowserSource",
+			err:   make(chan error, 1),
+		},
+		make(chan RefreshBrowserSourceResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *RefreshBrowserSourceRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp RefreshBrowserSourceResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r RefreshBrowserSourceRequest) Receive() (RefreshBrowserSourceResponse, error) {
+	if !r.sent {
+		return RefreshBrowserSourceResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return RefreshBrowserSourceResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return RefreshBrowserSourceResponse{}, err
+		case <-time.After(receiveTimeout):
+			return RefreshBrowserSourceResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r RefreshBrowserSourceRequest) SendReceive(c Client) (RefreshBrowserSourceResponse, error) {
+	if err := r.Send(c); err != nil {
+		return RefreshBrowserSourceResponse{}, err
+	}
+	return r.Receive()
+}
+
+// RefreshBrowserSourceResponse : Response for RefreshBrowserSourceRequest.
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#refreshbrowsersource
+type RefreshBrowserSourceResponse struct {
 	_response `json:",squash"`
 }

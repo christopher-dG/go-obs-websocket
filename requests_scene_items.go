@@ -10,7 +10,7 @@ import (
 
 // GetSceneItemListRequest : Get a list of all scene items in a scene.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemlist
 type GetSceneItemListRequest struct {
@@ -60,7 +60,7 @@ func (r *GetSceneItemListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSceneItemListRequest) Receive() (Response, error) {
+func (r GetSceneItemListRequest) Receive() (GetSceneItemListResponse, error) {
 	if !r.sent {
 		return GetSceneItemListResponse{}, ErrNotSent
 	}
@@ -84,7 +84,7 @@ func (r GetSceneItemListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSceneItemListRequest) SendReceive(c Client) (Response, error) {
+func (r GetSceneItemListRequest) SendReceive(c Client) (GetSceneItemListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSceneItemListResponse{}, err
 	}
@@ -93,7 +93,7 @@ func (r GetSceneItemListRequest) SendReceive(c Client) (Response, error) {
 
 // GetSceneItemListResponse : Response for GetSceneItemListRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getsceneitemlist
 type GetSceneItemListResponse struct {
@@ -190,7 +190,7 @@ func (r *GetSceneItemPropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetSceneItemPropertiesRequest) Receive() (Response, error) {
+func (r GetSceneItemPropertiesRequest) Receive() (GetSceneItemPropertiesResponse, error) {
 	if !r.sent {
 		return GetSceneItemPropertiesResponse{}, ErrNotSent
 	}
@@ -214,7 +214,7 @@ func (r GetSceneItemPropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetSceneItemPropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r GetSceneItemPropertiesRequest) SendReceive(c Client) (GetSceneItemPropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetSceneItemPropertiesResponse{}, err
 	}
@@ -462,7 +462,7 @@ func (r *SetSceneItemPropertiesRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneItemPropertiesRequest) Receive() (Response, error) {
+func (r SetSceneItemPropertiesRequest) Receive() (SetSceneItemPropertiesResponse, error) {
 	if !r.sent {
 		return SetSceneItemPropertiesResponse{}, ErrNotSent
 	}
@@ -486,7 +486,7 @@ func (r SetSceneItemPropertiesRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneItemPropertiesRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneItemPropertiesRequest) SendReceive(c Client) (SetSceneItemPropertiesResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneItemPropertiesResponse{}, err
 	}
@@ -571,7 +571,7 @@ func (r *ResetSceneItemRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ResetSceneItemRequest) Receive() (Response, error) {
+func (r ResetSceneItemRequest) Receive() (ResetSceneItemResponse, error) {
 	if !r.sent {
 		return ResetSceneItemResponse{}, ErrNotSent
 	}
@@ -595,7 +595,7 @@ func (r ResetSceneItemRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ResetSceneItemRequest) SendReceive(c Client) (Response, error) {
+func (r ResetSceneItemRequest) SendReceive(c Client) (ResetSceneItemResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ResetSceneItemResponse{}, err
 	}
@@ -622,8 +622,11 @@ type SetSceneItemRenderRequest struct {
 	// Required: No.
 	SceneName string `json:"scene-name"`
 	// Scene Item name.
-	// Required: Yes.
+	// Required: No.
 	Source string `json:"source"`
+	// Scene Item id.
+	// Required: No.
+	Item int `json:"item"`
 	// true = shown ; false = hidden.
 	// Required: Yes.
 	Render   bool `json:"render"`
@@ -635,11 +638,13 @@ type SetSceneItemRenderRequest struct {
 func NewSetSceneItemRenderRequest(
 	sceneName string,
 	source string,
+	item int,
 	render bool,
 ) SetSceneItemRenderRequest {
 	return SetSceneItemRenderRequest{
 		sceneName,
 		source,
+		item,
 		render,
 		_request{
 			ID_:   GetMessageID(),
@@ -675,7 +680,7 @@ func (r *SetSceneItemRenderRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneItemRenderRequest) Receive() (Response, error) {
+func (r SetSceneItemRenderRequest) Receive() (SetSceneItemRenderResponse, error) {
 	if !r.sent {
 		return SetSceneItemRenderResponse{}, ErrNotSent
 	}
@@ -699,7 +704,7 @@ func (r SetSceneItemRenderRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneItemRenderRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneItemRenderRequest) SendReceive(c Client) (SetSceneItemRenderResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneItemRenderResponse{}, err
 	}
@@ -784,7 +789,7 @@ func (r *SetSceneItemPositionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneItemPositionRequest) Receive() (Response, error) {
+func (r SetSceneItemPositionRequest) Receive() (SetSceneItemPositionResponse, error) {
 	if !r.sent {
 		return SetSceneItemPositionResponse{}, ErrNotSent
 	}
@@ -808,7 +813,7 @@ func (r SetSceneItemPositionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneItemPositionRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneItemPositionRequest) SendReceive(c Client) (SetSceneItemPositionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneItemPositionResponse{}, err
 	}
@@ -898,7 +903,7 @@ func (r *SetSceneItemTransformRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneItemTransformRequest) Receive() (Response, error) {
+func (r SetSceneItemTransformRequest) Receive() (SetSceneItemTransformResponse, error) {
 	if !r.sent {
 		return SetSceneItemTransformResponse{}, ErrNotSent
 	}
@@ -922,7 +927,7 @@ func (r SetSceneItemTransformRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneItemTransformRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneItemTransformRequest) SendReceive(c Client) (SetSceneItemTransformResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneItemTransformResponse{}, err
 	}
@@ -1017,7 +1022,7 @@ func (r *SetSceneItemCropRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetSceneItemCropRequest) Receive() (Response, error) {
+func (r SetSceneItemCropRequest) Receive() (SetSceneItemCropResponse, error) {
 	if !r.sent {
 		return SetSceneItemCropResponse{}, ErrNotSent
 	}
@@ -1041,7 +1046,7 @@ func (r SetSceneItemCropRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetSceneItemCropRequest) SendReceive(c Client) (Response, error) {
+func (r SetSceneItemCropRequest) SendReceive(c Client) (SetSceneItemCropResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetSceneItemCropResponse{}, err
 	}
@@ -1126,7 +1131,7 @@ func (r *DeleteSceneItemRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r DeleteSceneItemRequest) Receive() (Response, error) {
+func (r DeleteSceneItemRequest) Receive() (DeleteSceneItemResponse, error) {
 	if !r.sent {
 		return DeleteSceneItemResponse{}, ErrNotSent
 	}
@@ -1150,7 +1155,7 @@ func (r DeleteSceneItemRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r DeleteSceneItemRequest) SendReceive(c Client) (Response, error) {
+func (r DeleteSceneItemRequest) SendReceive(c Client) (DeleteSceneItemResponse, error) {
 	if err := r.Send(c); err != nil {
 		return DeleteSceneItemResponse{}, err
 	}
@@ -1169,7 +1174,7 @@ type DeleteSceneItemResponse struct {
 // AddSceneItemRequest : Creates a scene item in a scene
 // In other words, this is how you add a source into a scene.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#addsceneitem
 type AddSceneItemRequest struct {
@@ -1231,7 +1236,7 @@ func (r *AddSceneItemRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r AddSceneItemRequest) Receive() (Response, error) {
+func (r AddSceneItemRequest) Receive() (AddSceneItemResponse, error) {
 	if !r.sent {
 		return AddSceneItemResponse{}, ErrNotSent
 	}
@@ -1255,7 +1260,7 @@ func (r AddSceneItemRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r AddSceneItemRequest) SendReceive(c Client) (Response, error) {
+func (r AddSceneItemRequest) SendReceive(c Client) (AddSceneItemResponse, error) {
 	if err := r.Send(c); err != nil {
 		return AddSceneItemResponse{}, err
 	}
@@ -1264,7 +1269,7 @@ func (r AddSceneItemRequest) SendReceive(c Client) (Response, error) {
 
 // AddSceneItemResponse : Response for AddSceneItemRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#addsceneitem
 type AddSceneItemResponse struct {
@@ -1349,7 +1354,7 @@ func (r *DuplicateSceneItemRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r DuplicateSceneItemRequest) Receive() (Response, error) {
+func (r DuplicateSceneItemRequest) Receive() (DuplicateSceneItemResponse, error) {
 	if !r.sent {
 		return DuplicateSceneItemResponse{}, ErrNotSent
 	}
@@ -1373,7 +1378,7 @@ func (r DuplicateSceneItemRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r DuplicateSceneItemRequest) SendReceive(c Client) (Response, error) {
+func (r DuplicateSceneItemRequest) SendReceive(c Client) (DuplicateSceneItemResponse, error) {
 	if err := r.Send(c); err != nil {
 		return DuplicateSceneItemResponse{}, err
 	}

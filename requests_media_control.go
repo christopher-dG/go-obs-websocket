@@ -11,7 +11,7 @@ import (
 // PlayPauseMediaRequest : Pause or play a media source
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#playpausemedia
 type PlayPauseMediaRequest struct {
@@ -68,7 +68,7 @@ func (r *PlayPauseMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r PlayPauseMediaRequest) Receive() (Response, error) {
+func (r PlayPauseMediaRequest) Receive() (PlayPauseMediaResponse, error) {
 	if !r.sent {
 		return PlayPauseMediaResponse{}, ErrNotSent
 	}
@@ -92,7 +92,7 @@ func (r PlayPauseMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r PlayPauseMediaRequest) SendReceive(c Client) (Response, error) {
+func (r PlayPauseMediaRequest) SendReceive(c Client) (PlayPauseMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return PlayPauseMediaResponse{}, err
 	}
@@ -101,7 +101,7 @@ func (r PlayPauseMediaRequest) SendReceive(c Client) (Response, error) {
 
 // PlayPauseMediaResponse : Response for PlayPauseMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#playpausemedia
 type PlayPauseMediaResponse struct {
@@ -111,7 +111,7 @@ type PlayPauseMediaResponse struct {
 // RestartMediaRequest : Restart a media source
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#restartmedia
 type RestartMediaRequest struct {
@@ -160,7 +160,7 @@ func (r *RestartMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r RestartMediaRequest) Receive() (Response, error) {
+func (r RestartMediaRequest) Receive() (RestartMediaResponse, error) {
 	if !r.sent {
 		return RestartMediaResponse{}, ErrNotSent
 	}
@@ -184,7 +184,7 @@ func (r RestartMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r RestartMediaRequest) SendReceive(c Client) (Response, error) {
+func (r RestartMediaRequest) SendReceive(c Client) (RestartMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return RestartMediaResponse{}, err
 	}
@@ -193,7 +193,7 @@ func (r RestartMediaRequest) SendReceive(c Client) (Response, error) {
 
 // RestartMediaResponse : Response for RestartMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#restartmedia
 type RestartMediaResponse struct {
@@ -203,7 +203,7 @@ type RestartMediaResponse struct {
 // StopMediaRequest : Stop a media source
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopmedia
 type StopMediaRequest struct {
@@ -252,7 +252,7 @@ func (r *StopMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopMediaRequest) Receive() (Response, error) {
+func (r StopMediaRequest) Receive() (StopMediaResponse, error) {
 	if !r.sent {
 		return StopMediaResponse{}, ErrNotSent
 	}
@@ -276,7 +276,7 @@ func (r StopMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopMediaRequest) SendReceive(c Client) (Response, error) {
+func (r StopMediaRequest) SendReceive(c Client) (StopMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return StopMediaResponse{}, err
 	}
@@ -285,7 +285,7 @@ func (r StopMediaRequest) SendReceive(c Client) (Response, error) {
 
 // StopMediaResponse : Response for StopMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#stopmedia
 type StopMediaResponse struct {
@@ -295,7 +295,7 @@ type StopMediaResponse struct {
 // NextMediaRequest : Skip to the next media item in the playlist
 // Supports only vlc media source (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#nextmedia
 type NextMediaRequest struct {
@@ -344,7 +344,7 @@ func (r *NextMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r NextMediaRequest) Receive() (Response, error) {
+func (r NextMediaRequest) Receive() (NextMediaResponse, error) {
 	if !r.sent {
 		return NextMediaResponse{}, ErrNotSent
 	}
@@ -368,7 +368,7 @@ func (r NextMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r NextMediaRequest) SendReceive(c Client) (Response, error) {
+func (r NextMediaRequest) SendReceive(c Client) (NextMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return NextMediaResponse{}, err
 	}
@@ -377,7 +377,7 @@ func (r NextMediaRequest) SendReceive(c Client) (Response, error) {
 
 // NextMediaResponse : Response for NextMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#nextmedia
 type NextMediaResponse struct {
@@ -387,7 +387,7 @@ type NextMediaResponse struct {
 // PreviousMediaRequest : Go to the previous media item in the playlist
 // Supports only vlc media source (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#previousmedia
 type PreviousMediaRequest struct {
@@ -436,7 +436,7 @@ func (r *PreviousMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r PreviousMediaRequest) Receive() (Response, error) {
+func (r PreviousMediaRequest) Receive() (PreviousMediaResponse, error) {
 	if !r.sent {
 		return PreviousMediaResponse{}, ErrNotSent
 	}
@@ -460,7 +460,7 @@ func (r PreviousMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r PreviousMediaRequest) SendReceive(c Client) (Response, error) {
+func (r PreviousMediaRequest) SendReceive(c Client) (PreviousMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return PreviousMediaResponse{}, err
 	}
@@ -469,7 +469,7 @@ func (r PreviousMediaRequest) SendReceive(c Client) (Response, error) {
 
 // PreviousMediaResponse : Response for PreviousMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#previousmedia
 type PreviousMediaResponse struct {
@@ -480,7 +480,7 @@ type PreviousMediaResponse struct {
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8)
 // Note: For some reason, for the first 5 or so seconds that the media is playing, the total duration can be off by upwards of 50ms.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediaduration
 type GetMediaDurationRequest struct {
@@ -529,7 +529,7 @@ func (r *GetMediaDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaDurationRequest) Receive() (Response, error) {
+func (r GetMediaDurationRequest) Receive() (GetMediaDurationResponse, error) {
 	if !r.sent {
 		return GetMediaDurationResponse{}, ErrNotSent
 	}
@@ -553,7 +553,7 @@ func (r GetMediaDurationRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaDurationRequest) SendReceive(c Client) (Response, error) {
+func (r GetMediaDurationRequest) SendReceive(c Client) (GetMediaDurationResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaDurationResponse{}, err
 	}
@@ -562,7 +562,7 @@ func (r GetMediaDurationRequest) SendReceive(c Client) (Response, error) {
 
 // GetMediaDurationResponse : Response for GetMediaDurationRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediaduration
 type GetMediaDurationResponse struct {
@@ -575,7 +575,7 @@ type GetMediaDurationResponse struct {
 // GetMediaTimeRequest : Get the current timestamp of media in milliseconds
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediatime
 type GetMediaTimeRequest struct {
@@ -624,7 +624,7 @@ func (r *GetMediaTimeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaTimeRequest) Receive() (Response, error) {
+func (r GetMediaTimeRequest) Receive() (GetMediaTimeResponse, error) {
 	if !r.sent {
 		return GetMediaTimeResponse{}, ErrNotSent
 	}
@@ -648,7 +648,7 @@ func (r GetMediaTimeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaTimeRequest) SendReceive(c Client) (Response, error) {
+func (r GetMediaTimeRequest) SendReceive(c Client) (GetMediaTimeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaTimeResponse{}, err
 	}
@@ -657,7 +657,7 @@ func (r GetMediaTimeRequest) SendReceive(c Client) (Response, error) {
 
 // GetMediaTimeResponse : Response for GetMediaTimeRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediatime
 type GetMediaTimeResponse struct {
@@ -670,7 +670,7 @@ type GetMediaTimeResponse struct {
 // SetMediaTimeRequest : Set the timestamp of a media source
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setmediatime
 type SetMediaTimeRequest struct {
@@ -726,7 +726,7 @@ func (r *SetMediaTimeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetMediaTimeRequest) Receive() (Response, error) {
+func (r SetMediaTimeRequest) Receive() (SetMediaTimeResponse, error) {
 	if !r.sent {
 		return SetMediaTimeResponse{}, ErrNotSent
 	}
@@ -750,7 +750,7 @@ func (r SetMediaTimeRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetMediaTimeRequest) SendReceive(c Client) (Response, error) {
+func (r SetMediaTimeRequest) SendReceive(c Client) (SetMediaTimeResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetMediaTimeResponse{}, err
 	}
@@ -759,7 +759,7 @@ func (r SetMediaTimeRequest) SendReceive(c Client) (Response, error) {
 
 // SetMediaTimeResponse : Response for SetMediaTimeRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#setmediatime
 type SetMediaTimeResponse struct {
@@ -771,7 +771,7 @@ type SetMediaTimeResponse struct {
 // Note: Due to processing/network delays, this request is not perfect
 // The processing rate of this request has also not been tested.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#scrubmedia
 type ScrubMediaRequest struct {
@@ -827,7 +827,7 @@ func (r *ScrubMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ScrubMediaRequest) Receive() (Response, error) {
+func (r ScrubMediaRequest) Receive() (ScrubMediaResponse, error) {
 	if !r.sent {
 		return ScrubMediaResponse{}, ErrNotSent
 	}
@@ -851,7 +851,7 @@ func (r ScrubMediaRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ScrubMediaRequest) SendReceive(c Client) (Response, error) {
+func (r ScrubMediaRequest) SendReceive(c Client) (ScrubMediaResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ScrubMediaResponse{}, err
 	}
@@ -860,7 +860,7 @@ func (r ScrubMediaRequest) SendReceive(c Client) (Response, error) {
 
 // ScrubMediaResponse : Response for ScrubMediaRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#scrubmedia
 type ScrubMediaResponse struct {
@@ -870,7 +870,7 @@ type ScrubMediaResponse struct {
 // GetMediaStateRequest : Get the current playing state of a media source
 // Supports ffmpeg and vlc media sources (as of OBS v25.0.8).
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediastate
 type GetMediaStateRequest struct {
@@ -919,7 +919,7 @@ func (r *GetMediaStateRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaStateRequest) Receive() (Response, error) {
+func (r GetMediaStateRequest) Receive() (GetMediaStateResponse, error) {
 	if !r.sent {
 		return GetMediaStateResponse{}, ErrNotSent
 	}
@@ -943,7 +943,7 @@ func (r GetMediaStateRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaStateRequest) SendReceive(c Client) (Response, error) {
+func (r GetMediaStateRequest) SendReceive(c Client) (GetMediaStateResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaStateResponse{}, err
 	}
@@ -952,7 +952,7 @@ func (r GetMediaStateRequest) SendReceive(c Client) (Response, error) {
 
 // GetMediaStateResponse : Response for GetMediaStateRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#getmediastate
 type GetMediaStateResponse struct {

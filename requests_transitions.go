@@ -55,7 +55,7 @@ func (r *GetTransitionListRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionListRequest) Receive() (Response, error) {
+func (r GetTransitionListRequest) Receive() (GetTransitionListResponse, error) {
 	if !r.sent {
 		return GetTransitionListResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetTransitionListRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionListRequest) SendReceive(c Client) (Response, error) {
+func (r GetTransitionListRequest) SendReceive(c Client) (GetTransitionListResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionListResponse{}, err
 	}
@@ -151,7 +151,7 @@ func (r *GetCurrentTransitionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetCurrentTransitionRequest) Receive() (Response, error) {
+func (r GetCurrentTransitionRequest) Receive() (GetCurrentTransitionResponse, error) {
 	if !r.sent {
 		return GetCurrentTransitionResponse{}, ErrNotSent
 	}
@@ -175,7 +175,7 @@ func (r GetCurrentTransitionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetCurrentTransitionRequest) SendReceive(c Client) (Response, error) {
+func (r GetCurrentTransitionRequest) SendReceive(c Client) (GetCurrentTransitionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetCurrentTransitionResponse{}, err
 	}
@@ -248,7 +248,7 @@ func (r *SetCurrentTransitionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetCurrentTransitionRequest) Receive() (Response, error) {
+func (r SetCurrentTransitionRequest) Receive() (SetCurrentTransitionResponse, error) {
 	if !r.sent {
 		return SetCurrentTransitionResponse{}, ErrNotSent
 	}
@@ -272,7 +272,7 @@ func (r SetCurrentTransitionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetCurrentTransitionRequest) SendReceive(c Client) (Response, error) {
+func (r SetCurrentTransitionRequest) SendReceive(c Client) (SetCurrentTransitionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetCurrentTransitionResponse{}, err
 	}
@@ -339,7 +339,7 @@ func (r *SetTransitionDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTransitionDurationRequest) Receive() (Response, error) {
+func (r SetTransitionDurationRequest) Receive() (SetTransitionDurationResponse, error) {
 	if !r.sent {
 		return SetTransitionDurationResponse{}, ErrNotSent
 	}
@@ -363,7 +363,7 @@ func (r SetTransitionDurationRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTransitionDurationRequest) SendReceive(c Client) (Response, error) {
+func (r SetTransitionDurationRequest) SendReceive(c Client) (SetTransitionDurationResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetTransitionDurationResponse{}, err
 	}
@@ -426,7 +426,7 @@ func (r *GetTransitionDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionDurationRequest) Receive() (Response, error) {
+func (r GetTransitionDurationRequest) Receive() (GetTransitionDurationResponse, error) {
 	if !r.sent {
 		return GetTransitionDurationResponse{}, ErrNotSent
 	}
@@ -450,7 +450,7 @@ func (r GetTransitionDurationRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionDurationRequest) SendReceive(c Client) (Response, error) {
+func (r GetTransitionDurationRequest) SendReceive(c Client) (GetTransitionDurationResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionDurationResponse{}, err
 	}
@@ -471,7 +471,7 @@ type GetTransitionDurationResponse struct {
 
 // GetTransitionPositionRequest : Get the position of the current transition.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
 type GetTransitionPositionRequest struct {
@@ -516,7 +516,7 @@ func (r *GetTransitionPositionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionPositionRequest) Receive() (Response, error) {
+func (r GetTransitionPositionRequest) Receive() (GetTransitionPositionResponse, error) {
 	if !r.sent {
 		return GetTransitionPositionResponse{}, ErrNotSent
 	}
@@ -540,7 +540,7 @@ func (r GetTransitionPositionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionPositionRequest) SendReceive(c Client) (Response, error) {
+func (r GetTransitionPositionRequest) SendReceive(c Client) (GetTransitionPositionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionPositionResponse{}, err
 	}
@@ -549,7 +549,7 @@ func (r GetTransitionPositionRequest) SendReceive(c Client) (Response, error) {
 
 // GetTransitionPositionResponse : Response for GetTransitionPositionRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionposition
 type GetTransitionPositionResponse struct {
@@ -563,7 +563,7 @@ type GetTransitionPositionResponse struct {
 
 // GetTransitionSettingsRequest : Get the current settings of a transition.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionsettings
 type GetTransitionSettingsRequest struct {
@@ -612,7 +612,7 @@ func (r *GetTransitionSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetTransitionSettingsRequest) Receive() (Response, error) {
+func (r GetTransitionSettingsRequest) Receive() (GetTransitionSettingsResponse, error) {
 	if !r.sent {
 		return GetTransitionSettingsResponse{}, ErrNotSent
 	}
@@ -636,7 +636,7 @@ func (r GetTransitionSettingsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
+func (r GetTransitionSettingsRequest) SendReceive(c Client) (GetTransitionSettingsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetTransitionSettingsResponse{}, err
 	}
@@ -645,7 +645,7 @@ func (r GetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
 
 // GetTransitionSettingsResponse : Response for GetTransitionSettingsRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#gettransitionsettings
 type GetTransitionSettingsResponse struct {
@@ -657,7 +657,7 @@ type GetTransitionSettingsResponse struct {
 
 // SetTransitionSettingsRequest : Change the current settings of a transition.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionsettings
 type SetTransitionSettingsRequest struct {
@@ -713,7 +713,7 @@ func (r *SetTransitionSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTransitionSettingsRequest) Receive() (Response, error) {
+func (r SetTransitionSettingsRequest) Receive() (SetTransitionSettingsResponse, error) {
 	if !r.sent {
 		return SetTransitionSettingsResponse{}, ErrNotSent
 	}
@@ -737,7 +737,7 @@ func (r SetTransitionSettingsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
+func (r SetTransitionSettingsRequest) SendReceive(c Client) (SetTransitionSettingsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetTransitionSettingsResponse{}, err
 	}
@@ -746,7 +746,7 @@ func (r SetTransitionSettingsRequest) SendReceive(c Client) (Response, error) {
 
 // SetTransitionSettingsResponse : Response for SetTransitionSettingsRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settransitionsettings
 type SetTransitionSettingsResponse struct {
@@ -759,7 +759,7 @@ type SetTransitionSettingsResponse struct {
 // ReleaseTBarRequest : Release the T-Bar (like a user releasing their mouse button after moving it).
 // *YOU MUST CALL THIS if you called `SetTBarPosition` with the `release` parameter set to `false`.*.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#releasetbar
 type ReleaseTBarRequest struct {
@@ -804,7 +804,7 @@ func (r *ReleaseTBarRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ReleaseTBarRequest) Receive() (Response, error) {
+func (r ReleaseTBarRequest) Receive() (ReleaseTBarResponse, error) {
 	if !r.sent {
 		return ReleaseTBarResponse{}, ErrNotSent
 	}
@@ -828,7 +828,7 @@ func (r ReleaseTBarRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ReleaseTBarRequest) SendReceive(c Client) (Response, error) {
+func (r ReleaseTBarRequest) SendReceive(c Client) (ReleaseTBarResponse, error) {
 	if err := r.Send(c); err != nil {
 		return ReleaseTBarResponse{}, err
 	}
@@ -837,7 +837,7 @@ func (r ReleaseTBarRequest) SendReceive(c Client) (Response, error) {
 
 // ReleaseTBarResponse : Response for ReleaseTBarRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#releasetbar
 type ReleaseTBarResponse struct {
@@ -848,7 +848,7 @@ type ReleaseTBarResponse struct {
 //
 // If your code needs to perform multiple successive T-Bar moves (e.g. : in an animation, or in response to a user moving a T-Bar control in your User Interface), set `release` to false and call `ReleaseTBar` later once the animation/interaction is over.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settbarposition
 type SetTBarPositionRequest struct {
@@ -907,7 +907,7 @@ func (r *SetTBarPositionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetTBarPositionRequest) Receive() (Response, error) {
+func (r SetTBarPositionRequest) Receive() (SetTBarPositionResponse, error) {
 	if !r.sent {
 		return SetTBarPositionResponse{}, ErrNotSent
 	}
@@ -931,7 +931,7 @@ func (r SetTBarPositionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetTBarPositionRequest) SendReceive(c Client) (Response, error) {
+func (r SetTBarPositionRequest) SendReceive(c Client) (SetTBarPositionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetTBarPositionResponse{}, err
 	}
@@ -940,7 +940,7 @@ func (r SetTBarPositionRequest) SendReceive(c Client) (Response, error) {
 
 // SetTBarPositionResponse : Response for SetTBarPositionRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#settbarposition
 type SetTBarPositionResponse struct {

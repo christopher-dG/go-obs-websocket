@@ -32,6 +32,7 @@ type_map = {
     "array<object>": "[]map[string]interface{}",
     "array<output>": "[]map[string]interface{}",
     "array<scene>": "[]*Scene",
+    "array<scenescollection>": "[]*Scene",
     "array<sceneitem>": "[]*SceneItem",
     "array<sceneitemtransform>": "[]*SceneItemTransform",
     "obsstats": "*OBSStats",

@@ -8,7 +8,7 @@ package obsws
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediaplaying
 type MediaPlayingEvent struct {
@@ -27,7 +27,7 @@ type MediaPlayingEvent struct {
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediapaused
 type MediaPausedEvent struct {
@@ -46,7 +46,7 @@ type MediaPausedEvent struct {
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediarestarted
 type MediaRestartedEvent struct {
@@ -65,7 +65,7 @@ type MediaRestartedEvent struct {
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediastopped
 type MediaStoppedEvent struct {
@@ -84,7 +84,7 @@ type MediaStoppedEvent struct {
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#medianext
 type MediaNextEvent struct {
@@ -103,7 +103,7 @@ type MediaNextEvent struct {
 // Note: This event is only emitted when something actively controls the media/VLC source
 // In other words, the source will never emit this on its own naturally.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediaprevious
 type MediaPreviousEvent struct {
@@ -123,7 +123,7 @@ type MediaPreviousEvent struct {
 // For example when the media file starts playing
 // The behavior depends on the type of media source being used.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediastarted
 type MediaStartedEvent struct {
@@ -143,7 +143,7 @@ type MediaStartedEvent struct {
 // For example when the media file ends
 // The behavior depends on the type of media source being used.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#mediaended
 type MediaEndedEvent struct {

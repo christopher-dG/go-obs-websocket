@@ -55,7 +55,7 @@ func (r *GetVersionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetVersionRequest) Receive() (Response, error) {
+func (r GetVersionRequest) Receive() (GetVersionResponse, error) {
 	if !r.sent {
 		return GetVersionResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetVersionRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetVersionRequest) SendReceive(c Client) (Response, error) {
+func (r GetVersionRequest) SendReceive(c Client) (GetVersionResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetVersionResponse{}, err
 	}
@@ -160,7 +160,7 @@ func (r *GetAuthRequiredRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetAuthRequiredRequest) Receive() (Response, error) {
+func (r GetAuthRequiredRequest) Receive() (GetAuthRequiredResponse, error) {
 	if !r.sent {
 		return GetAuthRequiredResponse{}, ErrNotSent
 	}
@@ -184,7 +184,7 @@ func (r GetAuthRequiredRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetAuthRequiredRequest) SendReceive(c Client) (Response, error) {
+func (r GetAuthRequiredRequest) SendReceive(c Client) (GetAuthRequiredResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetAuthRequiredResponse{}, err
 	}
@@ -258,7 +258,7 @@ func (r *AuthenticateRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r AuthenticateRequest) Receive() (Response, error) {
+func (r AuthenticateRequest) Receive() (AuthenticateResponse, error) {
 	if !r.sent {
 		return AuthenticateResponse{}, ErrNotSent
 	}
@@ -282,7 +282,7 @@ func (r AuthenticateRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r AuthenticateRequest) SendReceive(c Client) (Response, error) {
+func (r AuthenticateRequest) SendReceive(c Client) (AuthenticateResponse, error) {
 	if err := r.Send(c); err != nil {
 		return AuthenticateResponse{}, err
 	}
@@ -349,7 +349,7 @@ func (r *SetHeartbeatRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetHeartbeatRequest) Receive() (Response, error) {
+func (r SetHeartbeatRequest) Receive() (SetHeartbeatResponse, error) {
 	if !r.sent {
 		return SetHeartbeatResponse{}, ErrNotSent
 	}
@@ -373,7 +373,7 @@ func (r SetHeartbeatRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetHeartbeatRequest) SendReceive(c Client) (Response, error) {
+func (r SetHeartbeatRequest) SendReceive(c Client) (SetHeartbeatResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetHeartbeatResponse{}, err
 	}
@@ -440,7 +440,7 @@ func (r *SetFilenameFormattingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetFilenameFormattingRequest) Receive() (Response, error) {
+func (r SetFilenameFormattingRequest) Receive() (SetFilenameFormattingResponse, error) {
 	if !r.sent {
 		return SetFilenameFormattingResponse{}, ErrNotSent
 	}
@@ -464,7 +464,7 @@ func (r SetFilenameFormattingRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetFilenameFormattingRequest) SendReceive(c Client) (Response, error) {
+func (r SetFilenameFormattingRequest) SendReceive(c Client) (SetFilenameFormattingResponse, error) {
 	if err := r.Send(c); err != nil {
 		return SetFilenameFormattingResponse{}, err
 	}
@@ -527,7 +527,7 @@ func (r *GetFilenameFormattingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetFilenameFormattingRequest) Receive() (Response, error) {
+func (r GetFilenameFormattingRequest) Receive() (GetFilenameFormattingResponse, error) {
 	if !r.sent {
 		return GetFilenameFormattingResponse{}, ErrNotSent
 	}
@@ -551,7 +551,7 @@ func (r GetFilenameFormattingRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetFilenameFormattingRequest) SendReceive(c Client) (Response, error) {
+func (r GetFilenameFormattingRequest) SendReceive(c Client) (GetFilenameFormattingResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetFilenameFormattingResponse{}, err
 	}
@@ -617,7 +617,7 @@ func (r *GetStatsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStatsRequest) Receive() (Response, error) {
+func (r GetStatsRequest) Receive() (GetStatsResponse, error) {
 	if !r.sent {
 		return GetStatsResponse{}, ErrNotSent
 	}
@@ -641,7 +641,7 @@ func (r GetStatsRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStatsRequest) SendReceive(c Client) (Response, error) {
+func (r GetStatsRequest) SendReceive(c Client) (GetStatsResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetStatsResponse{}, err
 	}
@@ -718,7 +718,7 @@ func (r *BroadcastCustomMessageRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r BroadcastCustomMessageRequest) Receive() (Response, error) {
+func (r BroadcastCustomMessageRequest) Receive() (BroadcastCustomMessageResponse, error) {
 	if !r.sent {
 		return BroadcastCustomMessageResponse{}, ErrNotSent
 	}
@@ -742,7 +742,7 @@ func (r BroadcastCustomMessageRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r BroadcastCustomMessageRequest) SendReceive(c Client) (Response, error) {
+func (r BroadcastCustomMessageRequest) SendReceive(c Client) (BroadcastCustomMessageResponse, error) {
 	if err := r.Send(c); err != nil {
 		return BroadcastCustomMessageResponse{}, err
 	}
@@ -805,7 +805,7 @@ func (r *GetVideoInfoRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetVideoInfoRequest) Receive() (Response, error) {
+func (r GetVideoInfoRequest) Receive() (GetVideoInfoResponse, error) {
 	if !r.sent {
 		return GetVideoInfoResponse{}, ErrNotSent
 	}
@@ -829,7 +829,7 @@ func (r GetVideoInfoRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetVideoInfoRequest) SendReceive(c Client) (Response, error) {
+func (r GetVideoInfoRequest) SendReceive(c Client) (GetVideoInfoResponse, error) {
 	if err := r.Send(c); err != nil {
 		return GetVideoInfoResponse{}, err
 	}
@@ -944,7 +944,7 @@ func (r *OpenProjectorRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r OpenProjectorRequest) Receive() (Response, error) {
+func (r OpenProjectorRequest) Receive() (OpenProjectorResponse, error) {
 	if !r.sent {
 		return OpenProjectorResponse{}, ErrNotSent
 	}
@@ -968,7 +968,7 @@ func (r OpenProjectorRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r OpenProjectorRequest) SendReceive(c Client) (Response, error) {
+func (r OpenProjectorRequest) SendReceive(c Client) (OpenProjectorResponse, error) {
 	if err := r.Send(c); err != nil {
 		return OpenProjectorResponse{}, err
 	}
@@ -986,7 +986,7 @@ type OpenProjectorResponse struct {
 
 // TriggerHotkeyByNameRequest : Executes hotkey routine, identified by hotkey unique name.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#triggerhotkeybyname
 type TriggerHotkeyByNameRequest struct {
@@ -1035,7 +1035,7 @@ func (r *TriggerHotkeyByNameRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r TriggerHotkeyByNameRequest) Receive() (Response, error) {
+func (r TriggerHotkeyByNameRequest) Receive() (TriggerHotkeyByNameResponse, error) {
 	if !r.sent {
 		return TriggerHotkeyByNameResponse{}, ErrNotSent
 	}
@@ -1059,7 +1059,7 @@ func (r TriggerHotkeyByNameRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r TriggerHotkeyByNameRequest) SendReceive(c Client) (Response, error) {
+func (r TriggerHotkeyByNameRequest) SendReceive(c Client) (TriggerHotkeyByNameResponse, error) {
 	if err := r.Send(c); err != nil {
 		return TriggerHotkeyByNameResponse{}, err
 	}
@@ -1068,7 +1068,7 @@ func (r TriggerHotkeyByNameRequest) SendReceive(c Client) (Response, error) {
 
 // TriggerHotkeyByNameResponse : Response for TriggerHotkeyByNameRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#triggerhotkeybyname
 type TriggerHotkeyByNameResponse struct {
@@ -1078,7 +1078,7 @@ type TriggerHotkeyByNameResponse struct {
 // TriggerHotkeyBySequenceRequest : Executes hotkey routine, identified by bound combination of keys
 // A single key combination might trigger multiple hotkey routines depending on user settings.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#triggerhotkeybysequence
 type TriggerHotkeyBySequenceRequest struct {
@@ -1156,7 +1156,7 @@ func (r *TriggerHotkeyBySequenceRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r TriggerHotkeyBySequenceRequest) Receive() (Response, error) {
+func (r TriggerHotkeyBySequenceRequest) Receive() (TriggerHotkeyBySequenceResponse, error) {
 	if !r.sent {
 		return TriggerHotkeyBySequenceResponse{}, ErrNotSent
 	}
@@ -1180,7 +1180,7 @@ func (r TriggerHotkeyBySequenceRequest) Receive() (Response, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r TriggerHotkeyBySequenceRequest) SendReceive(c Client) (Response, error) {
+func (r TriggerHotkeyBySequenceRequest) SendReceive(c Client) (TriggerHotkeyBySequenceResponse, error) {
 	if err := r.Send(c); err != nil {
 		return TriggerHotkeyBySequenceResponse{}, err
 	}
@@ -1189,9 +1189,135 @@ func (r TriggerHotkeyBySequenceRequest) SendReceive(c Client) (Response, error) 
 
 // TriggerHotkeyBySequenceResponse : Response for TriggerHotkeyBySequenceRequest.
 //
-// Since obs-websocket version: Unreleased.
+// Since obs-websocket version: 4.9.0.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#triggerhotkeybysequence
 type TriggerHotkeyBySequenceResponse struct {
 	_response `json:",squash"`
+}
+
+// ExecuteBatchRequest : Executes a list of requests sequentially (one-by-one on the same thread).
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#executebatch
+type ExecuteBatchRequest struct {
+	// Array of requests to perform.
+	// Executed in order.
+	// Required: Yes.
+	Requests []map[string]interface{} `json:"requests"`
+	// Request type.
+	// Eg.
+	// `GetVersion`.
+	// Required: Yes.
+	RequestsRequestType string `json:"requests.*.request-type"`
+	// ID of the individual request.
+	// Can be any string and not required to be unique.
+	// Defaults to empty string if not specified.
+	// Required: No.
+	RequestsMessageID string `json:"requests.*.message-id"`
+	// Stop processing batch requests if one returns a failure.
+	// Required: No.
+	AbortOnFail bool `json:"abortOnFail"`
+	_request    `json:",squash"`
+	response    chan ExecuteBatchResponse
+}
+
+// NewExecuteBatchRequest returns a new ExecuteBatchRequest.
+func NewExecuteBatchRequest(
+	requests []map[string]interface{},
+	requestsRequestType string,
+	requestsMessageID string,
+	abortOnFail bool,
+) ExecuteBatchRequest {
+	return ExecuteBatchRequest{
+		requests,
+		requestsRequestType,
+		requestsMessageID,
+		abortOnFail,
+		_request{
+			ID_:   GetMessageID(),
+			Type_: "ExecuteBatch",
+			err:   make(chan error, 1),
+		},
+		make(chan ExecuteBatchResponse, 1),
+	}
+}
+
+// Send sends the request.
+func (r *ExecuteBatchRequest) Send(c Client) error {
+	if r.sent {
+		return ErrAlreadySent
+	}
+	future, err := c.SendRequest(r)
+	if err != nil {
+		return err
+	}
+	r.sent = true
+	go func() {
+		m := <-future
+		var resp ExecuteBatchResponse
+		if err = mapToStruct(m, &resp); err != nil {
+			r.err <- err
+		} else if resp.Status() != StatusOK {
+			r.err <- errors.New(resp.Error())
+		} else {
+			r.response <- resp
+		}
+	}()
+	return nil
+}
+
+// Receive waits for the response.
+func (r ExecuteBatchRequest) Receive() (ExecuteBatchResponse, error) {
+	if !r.sent {
+		return ExecuteBatchResponse{}, ErrNotSent
+	}
+	if receiveTimeout == 0 {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ExecuteBatchResponse{}, err
+		}
+	} else {
+		select {
+		case resp := <-r.response:
+			return resp, nil
+		case err := <-r.err:
+			return ExecuteBatchResponse{}, err
+		case <-time.After(receiveTimeout):
+			return ExecuteBatchResponse{}, ErrReceiveTimeout
+		}
+	}
+}
+
+// SendReceive sends the request then immediately waits for the response.
+func (r ExecuteBatchRequest) SendReceive(c Client) (ExecuteBatchResponse, error) {
+	if err := r.Send(c); err != nil {
+		return ExecuteBatchResponse{}, err
+	}
+	return r.Receive()
+}
+
+// ExecuteBatchResponse : Response for ExecuteBatchRequest.
+//
+// Since obs-websocket version: 4.9.0.
+//
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#executebatch
+type ExecuteBatchResponse struct {
+	// Batch requests results, ordered sequentially.
+	// Required: Yes.
+	Results []map[string]interface{} `json:"results"`
+	// ID of the individual request which was originally provided by the client.
+	// Required: Yes.
+	ResultsMessageID string `json:"results.*.message-id"`
+	// Status response as string.
+	// Either `ok` or `error`.
+	// Required: Yes.
+	ResultsStatus string `json:"results.*.status"`
+	// Error message accompanying an `error` status.
+	// Required: No.
+	ResultsError string `json:"results.*.error"`
+	_response    `json:",squash"`
 }
