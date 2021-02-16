@@ -55,7 +55,7 @@ func (r *ListOutputsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ListOutputsRequest) Receive() (ListOutputsResponse, error) {
+func (r ListOutputsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return ListOutputsResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r ListOutputsRequest) Receive() (ListOutputsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ListOutputsRequest) SendReceive(c Client) (ListOutputsResponse, error) {
+func (r ListOutputsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return ListOutputsResponse{}, err
 	}
@@ -149,7 +149,7 @@ func (r *GetOutputInfoRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetOutputInfoRequest) Receive() (GetOutputInfoResponse, error) {
+func (r GetOutputInfoRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetOutputInfoResponse{}, ErrNotSent
 	}
@@ -173,7 +173,7 @@ func (r GetOutputInfoRequest) Receive() (GetOutputInfoResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetOutputInfoRequest) SendReceive(c Client) (GetOutputInfoResponse, error) {
+func (r GetOutputInfoRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetOutputInfoResponse{}, err
 	}
@@ -192,7 +192,10 @@ type GetOutputInfoResponse struct {
 	_response  `json:",squash"`
 }
 
-// StartOutputRequest : Start an output.
+// StartOutputRequest :
+//
+// Note: Controlling outputs is an experimental feature of obs-websocket
+// Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 //
 // Since obs-websocket version: 4.7.0.
 //
@@ -243,7 +246,7 @@ func (r *StartOutputRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartOutputRequest) Receive() (StartOutputResponse, error) {
+func (r StartOutputRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartOutputResponse{}, ErrNotSent
 	}
@@ -267,7 +270,7 @@ func (r StartOutputRequest) Receive() (StartOutputResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartOutputRequest) SendReceive(c Client) (StartOutputResponse, error) {
+func (r StartOutputRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartOutputResponse{}, err
 	}
@@ -283,7 +286,10 @@ type StartOutputResponse struct {
 	_response `json:",squash"`
 }
 
-// StopOutputRequest : Stop an output.
+// StopOutputRequest :
+//
+// Note: Controlling outputs is an experimental feature of obs-websocket
+// Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 //
 // Since obs-websocket version: 4.7.0.
 //
@@ -341,7 +347,7 @@ func (r *StopOutputRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopOutputRequest) Receive() (StopOutputResponse, error) {
+func (r StopOutputRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StopOutputResponse{}, ErrNotSent
 	}
@@ -365,7 +371,7 @@ func (r StopOutputRequest) Receive() (StopOutputResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopOutputRequest) SendReceive(c Client) (StopOutputResponse, error) {
+func (r StopOutputRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StopOutputResponse{}, err
 	}

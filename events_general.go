@@ -5,6 +5,8 @@ package obsws
 
 // HeartbeatEvent : Emitted every 2 seconds after enabling it by calling SetHeartbeat.
 //
+// Since obs-websocket version: V0.3.
+//
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#heartbeat
 type HeartbeatEvent struct {
 	// Toggles between every JSON message as an "I am alive" indicator.
@@ -46,7 +48,7 @@ type HeartbeatEvent struct {
 	_event `json:",squash"`
 }
 
-// BroadcastCustomMessageEvent : A custom broadcast message was received.
+// BroadcastCustomMessageEvent : A custom broadcast message, sent by the server, requested by one of the websocket clients.
 //
 // Since obs-websocket version: 4.7.0.
 //

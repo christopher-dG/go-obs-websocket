@@ -55,7 +55,7 @@ func (r *GetStreamingStatusRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStreamingStatusRequest) Receive() (GetStreamingStatusResponse, error) {
+func (r GetStreamingStatusRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetStreamingStatusResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetStreamingStatusRequest) Receive() (GetStreamingStatusResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStreamingStatusRequest) SendReceive(c Client) (GetStreamingStatusResponse, error) {
+func (r GetStreamingStatusRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetStreamingStatusResponse{}, err
 	}
@@ -98,20 +98,23 @@ type GetStreamingStatusResponse struct {
 	// Current recording status.
 	// Required: Yes.
 	Recording bool `json:"recording"`
+	// If recording is paused.
+	// Required: Yes.
+	RecordingPaused bool `json:"recording-paused"`
+	// Always false.
+	// Retrocompatibility with OBSRemote.
+	// Required: Yes.
+	PreviewOnly bool `json:"preview-only"`
 	// Time elapsed since streaming started (only present if currently streaming).
 	// Required: No.
 	StreamTimecode string `json:"stream-timecode"`
 	// Time elapsed since recording started (only present if currently recording).
 	// Required: No.
 	RecTimecode string `json:"rec-timecode"`
-	// Always false.
-	// Retrocompatibility with OBSRemote.
-	// Required: Yes.
-	PreviewOnly bool `json:"preview-only"`
 	_response   `json:",squash"`
 }
 
-// StartStopStreamingRequest : Toggle streaming on or off.
+// StartStopStreamingRequest : Toggle streaming on or off (depending on the current stream state).
 //
 // Since obs-websocket version: 0.3.
 //
@@ -158,7 +161,7 @@ func (r *StartStopStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStopStreamingRequest) Receive() (StartStopStreamingResponse, error) {
+func (r StartStopStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartStopStreamingResponse{}, ErrNotSent
 	}
@@ -182,7 +185,7 @@ func (r StartStopStreamingRequest) Receive() (StartStopStreamingResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStopStreamingRequest) SendReceive(c Client) (StartStopStreamingResponse, error) {
+func (r StartStopStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartStopStreamingResponse{}, err
 	}
@@ -206,7 +209,7 @@ type StartStopStreamingResponse struct {
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#startstreaming
 type StartStreamingRequest struct {
 	// Special stream configuration.
-	// Please note: these won't be saved to OBS' configuration.
+	// Note: these won't be saved to OBS' configuration.
 	// Required: No.
 	Stream map[string]interface{} `json:"stream"`
 	// If specified ensures the type of stream matches the given type (usually 'rtmp_custom' or 'rtmp_common').
@@ -229,13 +232,13 @@ type StartStreamingRequest struct {
 	StreamSettingsKey string `json:"stream.settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: No.
-	StreamSettingsUseAuth bool `json:"stream.settings.use-auth"`
+	StreamSettingsUseAuth bool `json:"stream.settings.use_auth"`
 	// If authentication is enabled, the username for the streaming server.
-	// Ignored if `use-auth` is not set to `true`.
+	// Ignored if `use_auth` is not set to `true`.
 	// Required: No.
 	StreamSettingsUsername string `json:"stream.settings.username"`
 	// If authentication is enabled, the password for the streaming server.
-	// Ignored if `use-auth` is not set to `true`.
+	// Ignored if `use_auth` is not set to `true`.
 	// Required: No.
 	StreamSettingsPassword string `json:"stream.settings.password"`
 	_request               `json:",squash"`
@@ -298,7 +301,7 @@ func (r *StartStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStreamingRequest) Receive() (StartStreamingResponse, error) {
+func (r StartStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartStreamingResponse{}, ErrNotSent
 	}
@@ -322,7 +325,7 @@ func (r StartStreamingRequest) Receive() (StartStreamingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStreamingRequest) SendReceive(c Client) (StartStreamingResponse, error) {
+func (r StartStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartStreamingResponse{}, err
 	}
@@ -386,7 +389,7 @@ func (r *StopStreamingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopStreamingRequest) Receive() (StopStreamingResponse, error) {
+func (r StopStreamingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StopStreamingResponse{}, ErrNotSent
 	}
@@ -410,7 +413,7 @@ func (r StopStreamingRequest) Receive() (StopStreamingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopStreamingRequest) SendReceive(c Client) (StopStreamingResponse, error) {
+func (r StopStreamingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StopStreamingResponse{}, err
 	}
@@ -450,7 +453,7 @@ type SetStreamSettingsRequest struct {
 	SettingsKey string `json:"settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: No.
-	SettingsUseAuth bool `json:"settings.use-auth"`
+	SettingsUseAuth bool `json:"settings.use_auth"`
 	// The username for the streaming service.
 	// Required: No.
 	SettingsUsername string `json:"settings.username"`
@@ -518,7 +521,7 @@ func (r *SetStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetStreamSettingsRequest) Receive() (SetStreamSettingsResponse, error) {
+func (r SetStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetStreamSettingsResponse{}, ErrNotSent
 	}
@@ -542,7 +545,7 @@ func (r SetStreamSettingsRequest) Receive() (SetStreamSettingsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetStreamSettingsRequest) SendReceive(c Client) (SetStreamSettingsResponse, error) {
+func (r SetStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetStreamSettingsResponse{}, err
 	}
@@ -605,7 +608,7 @@ func (r *GetStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStreamSettingsRequest) Receive() (GetStreamSettingsResponse, error) {
+func (r GetStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetStreamSettingsResponse{}, ErrNotSent
 	}
@@ -629,7 +632,7 @@ func (r GetStreamSettingsRequest) Receive() (GetStreamSettingsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStreamSettingsRequest) SendReceive(c Client) (GetStreamSettingsResponse, error) {
+func (r GetStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetStreamSettingsResponse{}, err
 	}
@@ -657,13 +660,13 @@ type GetStreamSettingsResponse struct {
 	SettingsKey string `json:"settings.key"`
 	// Indicates whether authentication should be used when connecting to the streaming server.
 	// Required: Yes.
-	SettingsUseAuth bool `json:"settings.use-auth"`
+	SettingsUseAuth bool `json:"settings.use_auth"`
 	// The username to use when accessing the streaming server.
-	// Only present if `use-auth` is `true`.
+	// Only present if `use_auth` is `true`.
 	// Required: Yes.
 	SettingsUsername string `json:"settings.username"`
 	// The password to use when accessing the streaming server.
-	// Only present if `use-auth` is `true`.
+	// Only present if `use_auth` is `true`.
 	// Required: Yes.
 	SettingsPassword string `json:"settings.password"`
 	_response        `json:",squash"`
@@ -716,7 +719,7 @@ func (r *SaveStreamSettingsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SaveStreamSettingsRequest) Receive() (SaveStreamSettingsResponse, error) {
+func (r SaveStreamSettingsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SaveStreamSettingsResponse{}, ErrNotSent
 	}
@@ -740,7 +743,7 @@ func (r SaveStreamSettingsRequest) Receive() (SaveStreamSettingsResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SaveStreamSettingsRequest) SendReceive(c Client) (SaveStreamSettingsResponse, error) {
+func (r SaveStreamSettingsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SaveStreamSettingsResponse{}, err
 	}
@@ -757,7 +760,6 @@ type SaveStreamSettingsResponse struct {
 }
 
 // SendCaptionsRequest : Send the provided text as embedded CEA-608 caption data.
-// As of OBS Studio 23.1, captions are not yet available on Linux.
 //
 // Since obs-websocket version: 4.6.0.
 //
@@ -808,7 +810,7 @@ func (r *SendCaptionsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SendCaptionsRequest) Receive() (SendCaptionsResponse, error) {
+func (r SendCaptionsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SendCaptionsResponse{}, ErrNotSent
 	}
@@ -832,7 +834,7 @@ func (r SendCaptionsRequest) Receive() (SendCaptionsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SendCaptionsRequest) SendReceive(c Client) (SendCaptionsResponse, error) {
+func (r SendCaptionsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SendCaptionsResponse{}, err
 	}

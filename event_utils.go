@@ -12,6 +12,8 @@ var eventMap = map[string]func() Event{
 	"TransitionListChanged":         func() Event { return &TransitionListChangedEvent{} },
 	"TransitionDurationChanged":     func() Event { return &TransitionDurationChangedEvent{} },
 	"TransitionBegin":               func() Event { return &TransitionBeginEvent{} },
+	"TransitionEnd":                 func() Event { return &TransitionEndEvent{} },
+	"TransitionVideoEnd":            func() Event { return &TransitionVideoEndEvent{} },
 	"ProfileChanged":                func() Event { return &ProfileChangedEvent{} },
 	"ProfileListChanged":            func() Event { return &ProfileListChangedEvent{} },
 	"StreamStarting":                func() Event { return &StreamStartingEvent{} },
@@ -36,6 +38,8 @@ var eventMap = map[string]func() Event{
 	"SourceDestroyed":               func() Event { return &SourceDestroyedEvent{} },
 	"SourceVolumeChanged":           func() Event { return &SourceVolumeChangedEvent{} },
 	"SourceMuteStateChanged":        func() Event { return &SourceMuteStateChangedEvent{} },
+	"SourceAudioDeactivated":        func() Event { return &SourceAudioDeactivatedEvent{} },
+	"SourceAudioActivated":          func() Event { return &SourceAudioActivatedEvent{} },
 	"SourceAudioSyncOffsetChanged":  func() Event { return &SourceAudioSyncOffsetChangedEvent{} },
 	"SourceAudioMixersChanged":      func() Event { return &SourceAudioMixersChangedEvent{} },
 	"SourceRenamed":                 func() Event { return &SourceRenamedEvent{} },
@@ -43,10 +47,19 @@ var eventMap = map[string]func() Event{
 	"SourceFilterRemoved":           func() Event { return &SourceFilterRemovedEvent{} },
 	"SourceFilterVisibilityChanged": func() Event { return &SourceFilterVisibilityChangedEvent{} },
 	"SourceFiltersReordered":        func() Event { return &SourceFiltersReorderedEvent{} },
+	"MediaPlaying":                  func() Event { return &MediaPlayingEvent{} },
+	"MediaPaused":                   func() Event { return &MediaPausedEvent{} },
+	"MediaRestarted":                func() Event { return &MediaRestartedEvent{} },
+	"MediaStopped":                  func() Event { return &MediaStoppedEvent{} },
+	"MediaNext":                     func() Event { return &MediaNextEvent{} },
+	"MediaPrevious":                 func() Event { return &MediaPreviousEvent{} },
+	"MediaStarted":                  func() Event { return &MediaStartedEvent{} },
+	"MediaEnded":                    func() Event { return &MediaEndedEvent{} },
 	"SourceOrderChanged":            func() Event { return &SourceOrderChangedEvent{} },
 	"SceneItemAdded":                func() Event { return &SceneItemAddedEvent{} },
 	"SceneItemRemoved":              func() Event { return &SceneItemRemovedEvent{} },
 	"SceneItemVisibilityChanged":    func() Event { return &SceneItemVisibilityChangedEvent{} },
+	"SceneItemLockChanged":          func() Event { return &SceneItemLockChangedEvent{} },
 	"SceneItemTransformChanged":     func() Event { return &SceneItemTransformChangedEvent{} },
 	"SceneItemSelected":             func() Event { return &SceneItemSelectedEvent{} },
 	"SceneItemDeselected":           func() Event { return &SceneItemDeselectedEvent{} },
@@ -73,6 +86,10 @@ func derefEvent(e Event) Event {
 	case *TransitionDurationChangedEvent:
 		return *e
 	case *TransitionBeginEvent:
+		return *e
+	case *TransitionEndEvent:
+		return *e
+	case *TransitionVideoEndEvent:
 		return *e
 	case *ProfileChangedEvent:
 		return *e
@@ -122,6 +139,10 @@ func derefEvent(e Event) Event {
 		return *e
 	case *SourceMuteStateChangedEvent:
 		return *e
+	case *SourceAudioDeactivatedEvent:
+		return *e
+	case *SourceAudioActivatedEvent:
+		return *e
 	case *SourceAudioSyncOffsetChangedEvent:
 		return *e
 	case *SourceAudioMixersChangedEvent:
@@ -136,6 +157,22 @@ func derefEvent(e Event) Event {
 		return *e
 	case *SourceFiltersReorderedEvent:
 		return *e
+	case *MediaPlayingEvent:
+		return *e
+	case *MediaPausedEvent:
+		return *e
+	case *MediaRestartedEvent:
+		return *e
+	case *MediaStoppedEvent:
+		return *e
+	case *MediaNextEvent:
+		return *e
+	case *MediaPreviousEvent:
+		return *e
+	case *MediaStartedEvent:
+		return *e
+	case *MediaEndedEvent:
+		return *e
 	case *SourceOrderChangedEvent:
 		return *e
 	case *SceneItemAddedEvent:
@@ -143,6 +180,8 @@ func derefEvent(e Event) Event {
 	case *SceneItemRemovedEvent:
 		return *e
 	case *SceneItemVisibilityChangedEvent:
+		return *e
+	case *SceneItemLockChangedEvent:
 		return *e
 	case *SceneItemTransformChangedEvent:
 		return *e

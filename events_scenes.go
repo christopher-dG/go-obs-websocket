@@ -19,13 +19,17 @@ type SwitchScenesEvent struct {
 	_event  `json:",squash"`
 }
 
-// ScenesChangedEvent : The scene list has been modified.
-// Scenes have been added, removed, or renamed.
+// ScenesChangedEvent :
+//
+// Note: This event is not fired when the scenes are reordered.
 //
 // Since obs-websocket version: 0.3.
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#sceneschanged
 type ScenesChangedEvent struct {
+	// Scenes list.
+	// Required: Yes.
+	Scenes []*Scene `json:"scenes"`
 	_event `json:",squash"`
 }
 
@@ -35,7 +39,10 @@ type ScenesChangedEvent struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#scenecollectionchanged
 type SceneCollectionChangedEvent struct {
-	_event `json:",squash"`
+	// Name of the new current scene collection.
+	// Required: Yes.
+	SceneCollection string `json:"sceneCollection"`
+	_event          `json:",squash"`
 }
 
 // SceneCollectionListChangedEvent : Triggered when a scene collection is created, added, renamed, or removed.
@@ -44,5 +51,11 @@ type SceneCollectionChangedEvent struct {
 //
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#scenecollectionlistchanged
 type SceneCollectionListChangedEvent struct {
-	_event `json:",squash"`
+	// Scene collections list.
+	// Required: Yes.
+	SceneCollections []map[string]interface{} `json:"sceneCollections"`
+	// Scene collection name.
+	// Required: Yes.
+	SceneCollectionsName string `json:"sceneCollections.*.name"`
+	_event               `json:",squash"`
 }

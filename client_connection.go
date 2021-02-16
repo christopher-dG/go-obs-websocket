@@ -14,6 +14,11 @@ func (c *Client) Connect() error {
 	c.handlers = make(map[string]func(Event))
 	c.respQ = make(chan map[string]interface{}, bufferSize)
 
+	// Setup default logger
+	if c.Logger == nil {
+		c.Logger = Logger
+	}
+
 	conn, err := connectWS(c.Host, c.Port)
 	if err != nil {
 		return err
@@ -33,14 +38,14 @@ func (c *Client) Connect() error {
 	}
 
 	if !respGAR.AuthRequired {
-		Logger.Println("logged in (no authentication required)")
+		c.Logger.Println("logged in (no authentication required)")
 		c.connected = true
 		go c.poll()
 		return nil
 	}
 
 	auth := getAuth(c.Password, respGAR.Salt, respGAR.Challenge)
-	Logger.Println("auth:", auth)
+	c.Logger.Println("auth:", auth)
 
 	reqA := NewAuthenticateRequest(auth)
 	if err = c.conn.WriteJSON(reqA); err != nil {
@@ -55,7 +60,7 @@ func (c *Client) Connect() error {
 		return errors.New(respA.Error())
 	}
 
-	Logger.Println("logged in (authentication successful)")
+	c.Logger.Println("logged in (authentication successful)")
 	c.connected = true
 	go c.poll()
 	return nil

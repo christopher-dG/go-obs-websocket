@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/christopher-dG/go-obs-websocket?status.svg)](https://godoc.org/github.com/christopher-dG/go-obs-websocket)
 
 `obsws` provides client functionality for [`obs-websocket`](https://github.com/Palakis/obs-websocket).
-Currently, the target version is `4.4`.
+Currently, the target version is `4.8`.
 
 ## Installation
 
@@ -25,8 +25,12 @@ import (
 )
 
 func main() {
+	// Optionally create a logger
+
+	logger := log.New(os.Stdout, "obsws ", log.Lstdflags)
+
 	// Connect a client.
-	c := obsws.Client{Host: "localhost", Port: 4444}
+	c := obsws.Client{Host: "localhost", Port: 4444, logger: Logger}
 	if err := c.Connect(); err != nil {
 		log.Fatal(err)
 	}
