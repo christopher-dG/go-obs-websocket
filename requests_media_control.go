@@ -68,7 +68,7 @@ func (r *PlayPauseMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r PlayPauseMediaRequest) Receive() (PlayPauseMediaResponse, error) {
+func (r PlayPauseMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return PlayPauseMediaResponse{}, ErrNotSent
 	}
@@ -92,7 +92,7 @@ func (r PlayPauseMediaRequest) Receive() (PlayPauseMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r PlayPauseMediaRequest) SendReceive(c Client) (PlayPauseMediaResponse, error) {
+func (r PlayPauseMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return PlayPauseMediaResponse{}, err
 	}
@@ -160,7 +160,7 @@ func (r *RestartMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r RestartMediaRequest) Receive() (RestartMediaResponse, error) {
+func (r RestartMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return RestartMediaResponse{}, ErrNotSent
 	}
@@ -184,7 +184,7 @@ func (r RestartMediaRequest) Receive() (RestartMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r RestartMediaRequest) SendReceive(c Client) (RestartMediaResponse, error) {
+func (r RestartMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return RestartMediaResponse{}, err
 	}
@@ -252,7 +252,7 @@ func (r *StopMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopMediaRequest) Receive() (StopMediaResponse, error) {
+func (r StopMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StopMediaResponse{}, ErrNotSent
 	}
@@ -276,7 +276,7 @@ func (r StopMediaRequest) Receive() (StopMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopMediaRequest) SendReceive(c Client) (StopMediaResponse, error) {
+func (r StopMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StopMediaResponse{}, err
 	}
@@ -344,7 +344,7 @@ func (r *NextMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r NextMediaRequest) Receive() (NextMediaResponse, error) {
+func (r NextMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return NextMediaResponse{}, ErrNotSent
 	}
@@ -368,7 +368,7 @@ func (r NextMediaRequest) Receive() (NextMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r NextMediaRequest) SendReceive(c Client) (NextMediaResponse, error) {
+func (r NextMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return NextMediaResponse{}, err
 	}
@@ -436,7 +436,7 @@ func (r *PreviousMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r PreviousMediaRequest) Receive() (PreviousMediaResponse, error) {
+func (r PreviousMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return PreviousMediaResponse{}, ErrNotSent
 	}
@@ -460,7 +460,7 @@ func (r PreviousMediaRequest) Receive() (PreviousMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r PreviousMediaRequest) SendReceive(c Client) (PreviousMediaResponse, error) {
+func (r PreviousMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return PreviousMediaResponse{}, err
 	}
@@ -529,7 +529,7 @@ func (r *GetMediaDurationRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaDurationRequest) Receive() (GetMediaDurationResponse, error) {
+func (r GetMediaDurationRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetMediaDurationResponse{}, ErrNotSent
 	}
@@ -553,7 +553,7 @@ func (r GetMediaDurationRequest) Receive() (GetMediaDurationResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaDurationRequest) SendReceive(c Client) (GetMediaDurationResponse, error) {
+func (r GetMediaDurationRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaDurationResponse{}, err
 	}
@@ -624,7 +624,7 @@ func (r *GetMediaTimeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaTimeRequest) Receive() (GetMediaTimeResponse, error) {
+func (r GetMediaTimeRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetMediaTimeResponse{}, ErrNotSent
 	}
@@ -648,7 +648,7 @@ func (r GetMediaTimeRequest) Receive() (GetMediaTimeResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaTimeRequest) SendReceive(c Client) (GetMediaTimeResponse, error) {
+func (r GetMediaTimeRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaTimeResponse{}, err
 	}
@@ -726,7 +726,7 @@ func (r *SetMediaTimeRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetMediaTimeRequest) Receive() (SetMediaTimeResponse, error) {
+func (r SetMediaTimeRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetMediaTimeResponse{}, ErrNotSent
 	}
@@ -750,7 +750,7 @@ func (r SetMediaTimeRequest) Receive() (SetMediaTimeResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetMediaTimeRequest) SendReceive(c Client) (SetMediaTimeResponse, error) {
+func (r SetMediaTimeRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetMediaTimeResponse{}, err
 	}
@@ -827,7 +827,7 @@ func (r *ScrubMediaRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ScrubMediaRequest) Receive() (ScrubMediaResponse, error) {
+func (r ScrubMediaRequest) Receive() (Response, error) {
 	if !r.sent {
 		return ScrubMediaResponse{}, ErrNotSent
 	}
@@ -851,7 +851,7 @@ func (r ScrubMediaRequest) Receive() (ScrubMediaResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ScrubMediaRequest) SendReceive(c Client) (ScrubMediaResponse, error) {
+func (r ScrubMediaRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return ScrubMediaResponse{}, err
 	}
@@ -919,7 +919,7 @@ func (r *GetMediaStateRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetMediaStateRequest) Receive() (GetMediaStateResponse, error) {
+func (r GetMediaStateRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetMediaStateResponse{}, ErrNotSent
 	}
@@ -943,7 +943,7 @@ func (r GetMediaStateRequest) Receive() (GetMediaStateResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetMediaStateRequest) SendReceive(c Client) (GetMediaStateResponse, error) {
+func (r GetMediaStateRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetMediaStateResponse{}, err
 	}

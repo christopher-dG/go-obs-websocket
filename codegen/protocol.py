@@ -32,8 +32,8 @@ type_map = {
     "array<object>": "[]map[string]interface{}",
     "array<output>": "[]map[string]interface{}",
     "array<scene>": "[]*Scene",
-    "array<scenescollection>": "[]*Scene",
     "array<sceneitem>": "[]*SceneItem",
+    "array<scenescollection>": "[]*ScenesCollection",
     "array<sceneitemtransform>": "[]*SceneItemTransform",
     "obsstats": "*OBSStats",
     "sceneitemtransform": "*SceneItemTransform",
@@ -160,7 +160,7 @@ def gen_request(data: Dict) -> str:
     }}
 
     // Receive waits for the response.
-    func (r {data["name"]}Request) Receive() ({data["name"]}Response, error) {{
+    func (r {data["name"]}Request) Receive() (Response, error) {{
         if !r.sent {{
             return {data["name"]}Response{{}}, ErrNotSent
         }}
@@ -184,7 +184,7 @@ def gen_request(data: Dict) -> str:
     }}
 
     // SendReceive sends the request then immediately waits for the response.
-    func (r {data["name"]}Request) SendReceive(c Client) ({data["name"]}Response, error) {{
+    func (r {data["name"]}Request) SendReceive(c Client) (Response, error) {{
         if err := r.Send(c); err != nil {{
             return {data["name"]}Response{{}}, err
         }}

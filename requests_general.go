@@ -55,7 +55,7 @@ func (r *GetVersionRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetVersionRequest) Receive() (GetVersionResponse, error) {
+func (r GetVersionRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetVersionResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetVersionRequest) Receive() (GetVersionResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetVersionRequest) SendReceive(c Client) (GetVersionResponse, error) {
+func (r GetVersionRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetVersionResponse{}, err
 	}
@@ -160,7 +160,7 @@ func (r *GetAuthRequiredRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetAuthRequiredRequest) Receive() (GetAuthRequiredResponse, error) {
+func (r GetAuthRequiredRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetAuthRequiredResponse{}, ErrNotSent
 	}
@@ -184,7 +184,7 @@ func (r GetAuthRequiredRequest) Receive() (GetAuthRequiredResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetAuthRequiredRequest) SendReceive(c Client) (GetAuthRequiredResponse, error) {
+func (r GetAuthRequiredRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetAuthRequiredResponse{}, err
 	}
@@ -258,7 +258,7 @@ func (r *AuthenticateRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r AuthenticateRequest) Receive() (AuthenticateResponse, error) {
+func (r AuthenticateRequest) Receive() (Response, error) {
 	if !r.sent {
 		return AuthenticateResponse{}, ErrNotSent
 	}
@@ -282,7 +282,7 @@ func (r AuthenticateRequest) Receive() (AuthenticateResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r AuthenticateRequest) SendReceive(c Client) (AuthenticateResponse, error) {
+func (r AuthenticateRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return AuthenticateResponse{}, err
 	}
@@ -349,7 +349,7 @@ func (r *SetHeartbeatRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetHeartbeatRequest) Receive() (SetHeartbeatResponse, error) {
+func (r SetHeartbeatRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetHeartbeatResponse{}, ErrNotSent
 	}
@@ -373,7 +373,7 @@ func (r SetHeartbeatRequest) Receive() (SetHeartbeatResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetHeartbeatRequest) SendReceive(c Client) (SetHeartbeatResponse, error) {
+func (r SetHeartbeatRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetHeartbeatResponse{}, err
 	}
@@ -440,7 +440,7 @@ func (r *SetFilenameFormattingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetFilenameFormattingRequest) Receive() (SetFilenameFormattingResponse, error) {
+func (r SetFilenameFormattingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetFilenameFormattingResponse{}, ErrNotSent
 	}
@@ -464,7 +464,7 @@ func (r SetFilenameFormattingRequest) Receive() (SetFilenameFormattingResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetFilenameFormattingRequest) SendReceive(c Client) (SetFilenameFormattingResponse, error) {
+func (r SetFilenameFormattingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetFilenameFormattingResponse{}, err
 	}
@@ -527,7 +527,7 @@ func (r *GetFilenameFormattingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetFilenameFormattingRequest) Receive() (GetFilenameFormattingResponse, error) {
+func (r GetFilenameFormattingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetFilenameFormattingResponse{}, ErrNotSent
 	}
@@ -551,7 +551,7 @@ func (r GetFilenameFormattingRequest) Receive() (GetFilenameFormattingResponse, 
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetFilenameFormattingRequest) SendReceive(c Client) (GetFilenameFormattingResponse, error) {
+func (r GetFilenameFormattingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetFilenameFormattingResponse{}, err
 	}
@@ -617,7 +617,7 @@ func (r *GetStatsRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetStatsRequest) Receive() (GetStatsResponse, error) {
+func (r GetStatsRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetStatsResponse{}, ErrNotSent
 	}
@@ -641,7 +641,7 @@ func (r GetStatsRequest) Receive() (GetStatsResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetStatsRequest) SendReceive(c Client) (GetStatsResponse, error) {
+func (r GetStatsRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetStatsResponse{}, err
 	}
@@ -718,7 +718,7 @@ func (r *BroadcastCustomMessageRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r BroadcastCustomMessageRequest) Receive() (BroadcastCustomMessageResponse, error) {
+func (r BroadcastCustomMessageRequest) Receive() (Response, error) {
 	if !r.sent {
 		return BroadcastCustomMessageResponse{}, ErrNotSent
 	}
@@ -742,7 +742,7 @@ func (r BroadcastCustomMessageRequest) Receive() (BroadcastCustomMessageResponse
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r BroadcastCustomMessageRequest) SendReceive(c Client) (BroadcastCustomMessageResponse, error) {
+func (r BroadcastCustomMessageRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return BroadcastCustomMessageResponse{}, err
 	}
@@ -805,7 +805,7 @@ func (r *GetVideoInfoRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetVideoInfoRequest) Receive() (GetVideoInfoResponse, error) {
+func (r GetVideoInfoRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetVideoInfoResponse{}, ErrNotSent
 	}
@@ -829,7 +829,7 @@ func (r GetVideoInfoRequest) Receive() (GetVideoInfoResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetVideoInfoRequest) SendReceive(c Client) (GetVideoInfoResponse, error) {
+func (r GetVideoInfoRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetVideoInfoResponse{}, err
 	}
@@ -944,7 +944,7 @@ func (r *OpenProjectorRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r OpenProjectorRequest) Receive() (OpenProjectorResponse, error) {
+func (r OpenProjectorRequest) Receive() (Response, error) {
 	if !r.sent {
 		return OpenProjectorResponse{}, ErrNotSent
 	}
@@ -968,7 +968,7 @@ func (r OpenProjectorRequest) Receive() (OpenProjectorResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r OpenProjectorRequest) SendReceive(c Client) (OpenProjectorResponse, error) {
+func (r OpenProjectorRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return OpenProjectorResponse{}, err
 	}
@@ -1035,7 +1035,7 @@ func (r *TriggerHotkeyByNameRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r TriggerHotkeyByNameRequest) Receive() (TriggerHotkeyByNameResponse, error) {
+func (r TriggerHotkeyByNameRequest) Receive() (Response, error) {
 	if !r.sent {
 		return TriggerHotkeyByNameResponse{}, ErrNotSent
 	}
@@ -1059,7 +1059,7 @@ func (r TriggerHotkeyByNameRequest) Receive() (TriggerHotkeyByNameResponse, erro
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r TriggerHotkeyByNameRequest) SendReceive(c Client) (TriggerHotkeyByNameResponse, error) {
+func (r TriggerHotkeyByNameRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return TriggerHotkeyByNameResponse{}, err
 	}
@@ -1156,7 +1156,7 @@ func (r *TriggerHotkeyBySequenceRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r TriggerHotkeyBySequenceRequest) Receive() (TriggerHotkeyBySequenceResponse, error) {
+func (r TriggerHotkeyBySequenceRequest) Receive() (Response, error) {
 	if !r.sent {
 		return TriggerHotkeyBySequenceResponse{}, ErrNotSent
 	}
@@ -1180,7 +1180,7 @@ func (r TriggerHotkeyBySequenceRequest) Receive() (TriggerHotkeyBySequenceRespon
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r TriggerHotkeyBySequenceRequest) SendReceive(c Client) (TriggerHotkeyBySequenceResponse, error) {
+func (r TriggerHotkeyBySequenceRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return TriggerHotkeyBySequenceResponse{}, err
 	}
@@ -1269,7 +1269,7 @@ func (r *ExecuteBatchRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ExecuteBatchRequest) Receive() (ExecuteBatchResponse, error) {
+func (r ExecuteBatchRequest) Receive() (Response, error) {
 	if !r.sent {
 		return ExecuteBatchResponse{}, ErrNotSent
 	}
@@ -1293,7 +1293,7 @@ func (r ExecuteBatchRequest) Receive() (ExecuteBatchResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ExecuteBatchRequest) SendReceive(c Client) (ExecuteBatchResponse, error) {
+func (r ExecuteBatchRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return ExecuteBatchResponse{}, err
 	}

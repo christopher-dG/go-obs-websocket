@@ -55,7 +55,7 @@ func (r *GetRecordingStatusRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetRecordingStatusRequest) Receive() (GetRecordingStatusResponse, error) {
+func (r GetRecordingStatusRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetRecordingStatusResponse{}, ErrNotSent
 	}
@@ -79,7 +79,7 @@ func (r GetRecordingStatusRequest) Receive() (GetRecordingStatusResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetRecordingStatusRequest) SendReceive(c Client) (GetRecordingStatusResponse, error) {
+func (r GetRecordingStatusRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetRecordingStatusResponse{}, err
 	}
@@ -154,7 +154,7 @@ func (r *StartStopRecordingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartStopRecordingRequest) Receive() (StartStopRecordingResponse, error) {
+func (r StartStopRecordingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartStopRecordingResponse{}, ErrNotSent
 	}
@@ -178,7 +178,7 @@ func (r StartStopRecordingRequest) Receive() (StartStopRecordingResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartStopRecordingRequest) SendReceive(c Client) (StartStopRecordingResponse, error) {
+func (r StartStopRecordingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartStopRecordingResponse{}, err
 	}
@@ -242,7 +242,7 @@ func (r *StartRecordingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StartRecordingRequest) Receive() (StartRecordingResponse, error) {
+func (r StartRecordingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StartRecordingResponse{}, ErrNotSent
 	}
@@ -266,7 +266,7 @@ func (r StartRecordingRequest) Receive() (StartRecordingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StartRecordingRequest) SendReceive(c Client) (StartRecordingResponse, error) {
+func (r StartRecordingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StartRecordingResponse{}, err
 	}
@@ -330,7 +330,7 @@ func (r *StopRecordingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r StopRecordingRequest) Receive() (StopRecordingResponse, error) {
+func (r StopRecordingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return StopRecordingResponse{}, ErrNotSent
 	}
@@ -354,7 +354,7 @@ func (r StopRecordingRequest) Receive() (StopRecordingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r StopRecordingRequest) SendReceive(c Client) (StopRecordingResponse, error) {
+func (r StopRecordingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return StopRecordingResponse{}, err
 	}
@@ -418,7 +418,7 @@ func (r *PauseRecordingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r PauseRecordingRequest) Receive() (PauseRecordingResponse, error) {
+func (r PauseRecordingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return PauseRecordingResponse{}, ErrNotSent
 	}
@@ -442,7 +442,7 @@ func (r PauseRecordingRequest) Receive() (PauseRecordingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r PauseRecordingRequest) SendReceive(c Client) (PauseRecordingResponse, error) {
+func (r PauseRecordingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return PauseRecordingResponse{}, err
 	}
@@ -506,7 +506,7 @@ func (r *ResumeRecordingRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r ResumeRecordingRequest) Receive() (ResumeRecordingResponse, error) {
+func (r ResumeRecordingRequest) Receive() (Response, error) {
 	if !r.sent {
 		return ResumeRecordingResponse{}, ErrNotSent
 	}
@@ -530,7 +530,7 @@ func (r ResumeRecordingRequest) Receive() (ResumeRecordingResponse, error) {
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r ResumeRecordingRequest) SendReceive(c Client) (ResumeRecordingResponse, error) {
+func (r ResumeRecordingRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return ResumeRecordingResponse{}, err
 	}
@@ -601,7 +601,7 @@ func (r *SetRecordingFolderRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r SetRecordingFolderRequest) Receive() (SetRecordingFolderResponse, error) {
+func (r SetRecordingFolderRequest) Receive() (Response, error) {
 	if !r.sent {
 		return SetRecordingFolderResponse{}, ErrNotSent
 	}
@@ -625,7 +625,7 @@ func (r SetRecordingFolderRequest) Receive() (SetRecordingFolderResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r SetRecordingFolderRequest) SendReceive(c Client) (SetRecordingFolderResponse, error) {
+func (r SetRecordingFolderRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return SetRecordingFolderResponse{}, err
 	}
@@ -688,7 +688,7 @@ func (r *GetRecordingFolderRequest) Send(c Client) error {
 }
 
 // Receive waits for the response.
-func (r GetRecordingFolderRequest) Receive() (GetRecordingFolderResponse, error) {
+func (r GetRecordingFolderRequest) Receive() (Response, error) {
 	if !r.sent {
 		return GetRecordingFolderResponse{}, ErrNotSent
 	}
@@ -712,7 +712,7 @@ func (r GetRecordingFolderRequest) Receive() (GetRecordingFolderResponse, error)
 }
 
 // SendReceive sends the request then immediately waits for the response.
-func (r GetRecordingFolderRequest) SendReceive(c Client) (GetRecordingFolderResponse, error) {
+func (r GetRecordingFolderRequest) SendReceive(c Client) (Response, error) {
 	if err := r.Send(c); err != nil {
 		return GetRecordingFolderResponse{}, err
 	}
